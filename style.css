@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: left;
+  /* Alinhamento de texto esquerda */
+}
+
+h1 {
+  color: #007bff;
+  /* Cor do título */
+  text-align: center;
+  /* Centralizar o título */
+}
+
+label {
+  font-size: 18px;
+  color: #333;
+  display: block;
+  margin-top: 10px;
+  /* Espaçamento superior para os rótulos */
+}
+
+input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  /* Espaçamento superior para o botão */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  font-size: 18px;
+  color: #333;
+  margin: 10px 0;
+}
+
+span {
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #007bff;
+  /* Cor de fundo do cabeçalho da tabela */
+  color: #fff;
+  /* Cor do texto do cabeçalho da tabela */
+}
+
+/* Estilização para realçar a tabela */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
