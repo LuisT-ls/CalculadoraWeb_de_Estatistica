@@ -10,7 +10,6 @@
   <body>
     <div class="container">
       <h1>Calculadora de Estatísticas</h1>
-
       <form id="statisticsForm">
         <label for="numbers"
           >Insira os números separados por vírgula ou espaço:</label
@@ -23,6 +22,12 @@
         />
         <button type="button" onclick="calculateStatistics()">Calcular</button>
         <button type="button" onclick="clearInput()">Limpar</button>
+        <button type="button" onclick="exportResults()">
+          Exportar para CSV
+        </button>
+        <button type="button" onclick="calculateQuartiles()">
+          Calcular Quartis
+        </button>
       </form>
 
       <p>Resultado:</p>
@@ -37,6 +42,11 @@
       <p>Variância: <span id="variance"></span></p>
       <p>Assimetria: <span id="skewness"></span></p>
       <p>Curtose: <span id="kurtosis"></span></p>
+      <p>
+        Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%
+      </p>
+      <p>Primeiro Quartil (Q1): <span id="firstQuartile"></span></p>
+      <p>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></p>
 
       <table>
         <thead>

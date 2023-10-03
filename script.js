@@ -17,6 +17,42 @@ function clearInput() {
   // Limpar a tabela de frequência
   document.getElementById('frequencyTable').innerHTML = ''
 }
+function exportResults() {
+  const numbersInput = document.getElementById('numbers').value
+  const numbers = numbersInput.split(/\s*,\s*| /).map(Number)
+
+  const csvRows = []
+  csvRows.push(['Estatística', 'Valor'])
+  csvRows.push(['Rol', formatRol(numbers)])
+  csvRows.push([
+    'Amplitude Total',
+    document.getElementById('amplitudeTotal').textContent
+  ])
+  csvRows.push([
+    'Tamanho da Amostra',
+    document.getElementById('tamanhoAmostra').textContent
+  ])
+  csvRows.push(['Média', document.getElementById('mean').textContent])
+  csvRows.push(['Mediana', document.getElementById('median').textContent])
+  csvRows.push(['Moda', document.getElementById('mode').textContent])
+  csvRows.push([
+    'Tipo de Moda',
+    document.getElementById('modeType').textContent
+  ])
+  csvRows.push(['Desvio Padrão', document.getElementById('stdDev').textContent])
+  csvRows.push(['Variância', document.getElementById('variance').textContent])
+  csvRows.push(['Assimetria', document.getElementById('skewness').textContent])
+  csvRows.push(['Curtose', document.getElementById('kurtosis').textContent])
+
+  const csvContent = csvRows.map(row => row.join(',')).join('\n')
+  const encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent)
+
+  const link = document.createElement('a')
+  link.setAttribute('href', encodedUri)
+  link.setAttribute('download', 'estatisticas.csv')
+  document.body.appendChild(link)
+  link.click()
+}
 
 function calculateStatistics() {
   const input = document.getElementById('numbers').value
@@ -28,6 +64,12 @@ function calculateStatistics() {
   const variance = formatValue(calculateVariance(numbers))
   const skewness = formatValue(calculateSkewness(numbers))
   const kurtosis = formatValue(calculateKurtosis(numbers))
+  const coefficientOfVariation = formatValue(
+    calculateCoefficientOfVariation(numbers)
+  )
+
+  document.getElementById('coefficientOfVariation').textContent =
+    coefficientOfVariation
 
   // Limpar a tabela de frequência antes de exibir os novos resultados
   document.getElementById('frequencyTable').innerHTML = ''
@@ -62,6 +104,46 @@ function calculateStatistics() {
   // Calcula a tabela de frequência
   const frequencyTable = calculateFrequencyTable(numbers, numberOfClasses)
   displayFrequencyTable(frequencyTable)
+}
+
+function calculateQuartiles() {
+  const input = document.getElementById('numbers').value
+  const numbers = input.split(/\s*,\s*| /).map(Number)
+
+  // Ordenar os números em ordem crescente
+  const sortedNumbers = numbers.sort((a, b) => a - b)
+
+  const firstQuartile = calculatePercentile(sortedNumbers, 25)
+  const median = calculateMedian(sortedNumbers)
+  const thirdQuartile = calculatePercentile(sortedNumbers, 75)
+
+  // Exibir os quartis na interface
+  document.getElementById('firstQuartile').textContent =
+    formatValue(firstQuartile)
+  document.getElementById('thirdQuartile').textContent =
+    formatValue(thirdQuartile)
+}
+
+function calculatePercentile(sortedNumbers, percentile) {
+  const n = sortedNumbers.length
+  const rank = (percentile / 100) * (n - 1)
+  const lowerIndex = Math.floor(rank)
+  const upperIndex = Math.ceil(rank)
+
+  if (lowerIndex === upperIndex) {
+    return sortedNumbers[lowerIndex]
+  } else {
+    const lowerValue = sortedNumbers[lowerIndex]
+    const upperValue = sortedNumbers[upperIndex]
+    const interpolationFactor = rank - lowerIndex
+    return lowerValue + (upperValue - lowerValue) * interpolationFactor
+  }
+}
+
+function calculateCoefficientOfVariation(numbers) {
+  const mean = calculateMean(numbers)
+  const stdDev = calculateStandardDeviation(numbers)
+  return (stdDev / mean) * 100
 }
 
 function formatRol(sortedNumbers) {
