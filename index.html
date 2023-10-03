@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora de Estatísticas</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <h1>Calculadora de Estatísticas</h1>
-      <form id="statisticsForm">
-        <label for="numbers"
-          >Insira os números separados por vírgula ou espaço:</label
-        >
-        <input
-          type="text"
-          id="numbers"
-          name="numbers"
-          placeholder="Exemplo: 1, 2, 3, 4, 5, 5, 6"
-        />
-        <button type="button" onclick="calculateStatistics()">Calcular</button>
-        <button type="button" onclick="clearInput()">Limpar</button>
-        <button type="button" onclick="exportResults()">
-          Exportar para CSV
-        </button>
-        <button type="button" onclick="calculateQuartiles()">
-          Calcular Quartis
-        </button>
-      </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Estatísticas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      <p>Resultado:</p>
-      <p>Rol: <span id="rol"></span></p>
-      <p>Amplitude Total: <span id="amplitudeTotal"></span></p>
-      <p>Tamanho da Amostra: <span id="tamanhoAmostra"></span></p>
-      <p>Média: <span id="mean"></span></p>
-      <p>Mediana: <span id="median"></span></p>
-      <p>Moda: <span id="mode"></span></p>
-      <p>Tipo de Moda: <span id="modeType"></span></p>
-      <p>Desvio Padrão: <span id="stdDev"></span></p>
-      <p>Variância: <span id="variance"></span></p>
-      <p>Assimetria: <span id="skewness"></span></p>
-      <p>Curtose: <span id="kurtosis"></span></p>
-      <p>
-        Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%
-      </p>
-      <p>Primeiro Quartil (Q1): <span id="firstQuartile"></span></p>
-      <p>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></p>
+<body>
+  <div class="container">
+    <h1>Calculadora de Estatísticas</h1>
+    <form id="statisticsForm">
+      <label for="numbers">Insira os números separados por vírgula ou espaço:</label>
+      <input type="text" id="numbers" name="numbers" placeholder="Exemplo: 1, 2, 3, 4, 5, 5, 6" />
+      <button type="button" onclick="calculateStatistics()">Calcular</button>
+      <button type="button" onclick="clearInput()">Limpar</button>
+      <button type="button" onclick="exportResults()">
+        Exportar para CSV
+      </button>
+      <button type="button" onclick="calculateQuartiles()">
+        Calcular Quartis
+      </button>
+    </form>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Classe</th>
-            <th>Ponto Médio</th>
-            <th>h</th>
-            <th>fi</th>
-            <th>fri</th>
-            <th>fri (%)</th>
-            <th>Fi</th>
-            <th>Fri</th>
-          </tr>
-        </thead>
-        <tbody id="frequencyTable"></tbody>
-      </table>
-    </div>
-    <script src="script.js"></script>
-  </body>
+    <p>Resultado:</p>
+    <p>Rol: <span id="rol"></span></p>
+    <p>Amplitude Total: <span id="amplitudeTotal"></span></p>
+    <p>Tamanho da Amostra: <span id="tamanhoAmostra"></span></p>
+    <p>Média: <span id="mean"></span></p>
+    <p>Mediana: <span id="median"></span></p>
+    <p>Moda: <span id="mode"></span></p>
+    <p>Tipo de Moda: <span id="modeType"></span></p>
+    <p>Desvio Padrão: <span id="stdDev"></span></p>
+    <p>Variância: <span id="variance"></span></p>
+    <p>Assimetria: <span id="skewness"></span></p>
+    <p>Curtose: <span id="kurtosis"></span></p>
+    <p>
+      Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%
+    </p>
+    <p>Primeiro Quartil (Q1): <span id="firstQuartile"></span></p>
+    <p>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Classe</th>
+          <th>Ponto Médio</th>
+          <th>h</th>
+          <th>fi</th>
+          <th>fri</th>
+          <th>fri (%)</th>
+          <th>Fi</th>
+          <th>Fri</th>
+        </tr>
+      </thead>
+      <tbody id="frequencyTable"></tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>
