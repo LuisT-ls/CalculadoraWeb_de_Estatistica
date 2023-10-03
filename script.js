@@ -8,6 +8,15 @@ function formatValue(value) {
       : value.toFixed(1)
   }
 }
+function clearInput() {
+  document.getElementById('numbers').value = ''
+  // Limpar os resultados
+  const resultElements = document.querySelectorAll("span[id^='result']")
+  resultElements.forEach(element => (element.textContent = ''))
+
+  // Limpar a tabela de frequência
+  document.getElementById('frequencyTable').innerHTML = ''
+}
 
 function calculateStatistics() {
   const input = document.getElementById('numbers').value
