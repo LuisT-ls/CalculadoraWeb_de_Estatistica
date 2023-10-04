@@ -18,7 +18,7 @@ body {
 }
 
 h1 {
-  color: #007bff;
+  color: #333;
   text-align: center;
 }
 
@@ -39,10 +39,17 @@ h1 {
   background-color: #BF4E63;
 }
 
-/* Estilo para o modo claro (padrão) */
-.light-mode {
-  background-color: #ffffff;
-  color: #333;
+/* Estilo para botões no modo claro */
+.light-mode button {
+  background-color: #007bff;
+  /* Cor de fundo azul */
+  color: #fff;
+  /* Cor do texto branco */
+}
+
+.light-mode button:hover {
+  background-color: #007bff;
+  /* Cor mais escura no hover */
 }
 
 /* Estilo para o modo escuro */
@@ -164,8 +171,8 @@ td {
 }
 
 th {
-  background-color: #007bff;
-  color: #ccc;
+  background-color: #F2D5C4;
+  color: #333;
 }
 
 /* Estilos responsivos para telas menores */
