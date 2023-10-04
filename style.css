@@ -17,6 +17,10 @@ body {
   text-align: left;
 }
 
+form{
+  padding-bottom: 40px;
+}
+
 h1 {
   color: #333;
   text-align: center;
@@ -151,6 +155,16 @@ p {
   font-size: 18px;
   color: #333;
   margin: 10px 0;
+}
+
+/* Estilo para a palavra "Resultado" */
+.result {
+  font-size: 24px;
+  /* Ajuste o tamanho da fonte conforme necessário */
+  font-weight: bold;
+  /* Texto em negrito para destaque */
+  color: #F2D5C4;
+  /* Cor azul */
 }
 
 span {
