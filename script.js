@@ -55,55 +55,67 @@ function exportResults() {
 }
 
 function calculateStatistics() {
-  const input = document.getElementById('numbers').value
-  const numbers = input.split(/\s*,\s*| /).map(Number)
-  const mean = formatValue(calculateMean(numbers))
-  const median = formatValue(calculateMedian(numbers))
-  const { mode, modeType } = calculateMode(numbers)
-  const stdDev = formatValue(calculateStandardDeviation(numbers))
-  const variance = formatValue(calculateVariance(numbers))
-  const skewness = formatValue(calculateSkewness(numbers))
-  const kurtosis = formatValue(calculateKurtosis(numbers))
-  const coefficientOfVariation = formatValue(
-    calculateCoefficientOfVariation(numbers)
-  )
+  const input = document.getElementById('numbers').value;
+  const numbers = input.split(/\s*,\s*| /).map(Number);
 
-  document.getElementById('coefficientOfVariation').textContent =
-    coefficientOfVariation
+  if (isValidInput(numbers)) {
+    // Se a entrada for válida, continue com o cálculo
+    const mean = formatValue(calculateMean(numbers));
+    const median = formatValue(calculateMedian(numbers));
+    const { mode, modeType } = calculateMode(numbers);
+    const stdDev = formatValue(calculateStandardDeviation(numbers));
+    const variance = formatValue(calculateVariance(numbers));
+    const skewness = formatValue(calculateSkewness(numbers));
+    const kurtosis = formatValue(calculateKurtosis(numbers));
+    const coefficientOfVariation = formatValue(
+      calculateCoefficientOfVariation(numbers)
+    );
 
-  // Limpar a tabela de frequência antes de exibir os novos resultados
-  document.getElementById('frequencyTable').innerHTML = ''
+    document.getElementById('coefficientOfVariation').textContent =
+      coefficientOfVariation;
 
-  // Ordena os números em ordem crescente
-  const sortedNumbers = numbers.sort((a, b) => a - b)
-  const rol = formatRol(sortedNumbers)
+    // Limpar a tabela de frequência antes de exibir os novos resultados
+    document.getElementById('frequencyTable').innerHTML = '';
 
-  // Calcula a amplitude total e o tamanho da amostra
-  const amplitudeTotal = formatValue(
-    sortedNumbers[sortedNumbers.length - 1] - sortedNumbers[0]
-  )
-  const tamanhoAmostra = formatValue(numbers.length)
+    // Ordena os números em ordem crescente
+    const sortedNumbers = numbers.sort((a, b) => a - b);
+    const rol = formatRol(sortedNumbers);
 
-  document.getElementById('mean').textContent = mean
-  document.getElementById('median').textContent = median
-  document.getElementById('mode').textContent = mode
-  document.getElementById('modeType').textContent = modeType
-  document.getElementById('stdDev').textContent = stdDev
-  document.getElementById('variance').textContent = variance
-  document.getElementById('skewness').textContent = skewness
-  document.getElementById('kurtosis').textContent = kurtosis
+    // Calcula a amplitude total e o tamanho da amostra
+    const amplitudeTotal = formatValue(
+      sortedNumbers[sortedNumbers.length - 1] - sortedNumbers[0]
+    );
+    const tamanhoAmostra = formatValue(numbers.length);
 
-  // Exibe o rol, a amplitude total e o tamanho da amostra
-  document.getElementById('rol').textContent = rol
-  document.getElementById('amplitudeTotal').textContent = amplitudeTotal
-  document.getElementById('tamanhoAmostra').textContent = tamanhoAmostra
+    document.getElementById('mean').textContent = mean;
+    document.getElementById('median').textContent = median;
+    document.getElementById('mode').textContent = mode;
+    document.getElementById('modeType').textContent = modeType;
+    document.getElementById('stdDev').textContent = stdDev;
+    document.getElementById('variance').textContent = variance;
+    document.getElementById('skewness').textContent = skewness;
+    document.getElementById('kurtosis').textContent = kurtosis;
 
-  // Calcula o número de classes usando a Fórmula de Sturges
-  const numberOfClasses = Math.ceil(1 + 3.322 * Math.log10(numbers.length))
+    // Exibe o rol, a amplitude total e o tamanho da amostra
+    document.getElementById('rol').textContent = rol;
+    document.getElementById('amplitudeTotal').textContent = amplitudeTotal;
+    document.getElementById('tamanhoAmostra').textContent = tamanhoAmostra;
 
-  // Calcula a tabela de frequência
-  const frequencyTable = calculateFrequencyTable(numbers, numberOfClasses)
-  displayFrequencyTable(frequencyTable)
+    // Calcula o número de classes usando a Fórmula de Sturges
+    const numberOfClasses = Math.ceil(1 + 3.322 * Math.log10(numbers.length));
+
+    // Calcula a tabela de frequência
+    const frequencyTable = calculateFrequencyTable(numbers, numberOfClasses);
+    displayFrequencyTable(frequencyTable);
+  } else {
+    // Se a entrada for inválida, exiba uma mensagem de erro
+    alert('Por favor, insira números válidos separados por vírgula ou espaço.');
+  }
+}
+
+function isValidInput(numbers) {
+  // Verifica se a entrada é uma matriz de números válidos
+  return Array.isArray(numbers) && numbers.length > 0 && !numbers.includes(NaN);
 }
 
 function calculateQuartiles() {
