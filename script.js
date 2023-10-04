@@ -1,3 +1,25 @@
+function toggleDarkMode() {
+  const body = document.body;
+  const button = document.getElementById('toggleDarkMode');
+
+  // Verifica se o modo escuro está ativado
+  const isDarkMode = body.classList.contains('dark-mode');
+
+  // Alterna entre os modos escuro e claro
+  if (isDarkMode) {
+    // Desativa o modo escuro
+    body.classList.remove('dark-mode');
+    button.textContent = '🌙';
+  } else {
+    // Ativa o modo escuro
+    body.classList.add('dark-mode');
+    button.textContent = '☀️';
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  toggleDarkMode(); // Isso define o modo com base nas classes CSS existentes
+});
+
 // Função genérica para formatar um valor com uma casa decimal, removendo .0 se houver
 function formatValue(value) {
   if (Number.isInteger(value)) {
