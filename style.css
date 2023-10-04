@@ -17,7 +17,7 @@ body {
   text-align: left;
 }
 
-form{
+form {
   padding-bottom: 40px;
 }
 
@@ -74,7 +74,8 @@ h1 {
 .dark-mode h1,
 .dark-mode label,
 .dark-mode p,
-.dark-mode span {
+.dark-mode span,
+.dark-mode .result {
   color: #F2D5C4;
   /* Cor do texto para cabeçalhos, labels, parágrafos, e spans no modo escuro */
 }
@@ -114,6 +115,7 @@ label {
 
 /* Estilos para o input */
 input[type='text'] {
+  background-color: #F2D5C4;
   width: 80%;
   /* Reduz a largura do input para 80% do .container */
   padding: 10px;
@@ -163,7 +165,7 @@ p {
   /* Ajuste o tamanho da fonte conforme necessário */
   font-weight: bold;
   /* Texto em negrito para destaque */
-  color: #F2D5C4;
+  color: #333;
   /* Cor azul */
 }
 
