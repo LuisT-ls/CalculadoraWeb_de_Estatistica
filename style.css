@@ -194,19 +194,44 @@ th {
 /* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
   .container {
+    max-width: 95%;
+    margin: 0 auto;
     padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  label {
+    font-size: 16px;
+    margin: 5px auto;
   }
 
   input[type='text'] {
     font-size: 14px;
+    padding: 8px;
   }
 
-  button {
-    font-size: 14px;
+  .button-container {
+    margin-top: 5px;
+  }
+
+  .button-container button {
+    margin: 0 3px;
     padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .result {
+    font-size: 20px;
   }
 
   table {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
