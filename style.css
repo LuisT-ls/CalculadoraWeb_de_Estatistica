@@ -22,47 +22,122 @@ h1 {
   text-align: center;
 }
 
+/* Estilos para o botão de alternar o modo escuro */
+#toggleDarkMode {
+  background-color: #F2D5C4;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  /* Espaçamento inferior para separar dos elementos abaixo */
+}
+
+#toggleDarkMode:hover {
+  background-color: #BF4E63;
+}
+
 /* Estilo para o modo claro (padrão) */
 .light-mode {
-  background-color: #fff;
+  background-color: #ffffff;
   color: #333;
 }
 
 /* Estilo para o modo escuro */
 .dark-mode {
   background-color: #333;
-  color: #fff;
+  color: #F2D5C4;
 }
 
+/* Estilização do .container para o modo escuro */
+.dark-mode .container {
+  background-color: #303440;
+  /* Cor de fundo do .container no modo escuro */
+  color: #F2D5C4;
+  /* Cor do texto do .container no modo escuro */
+}
+
+/* Cores de texto personalizadas para o modo escuro */
+.dark-mode h1,
+.dark-mode label,
+.dark-mode p,
+.dark-mode span {
+  color: #F2D5C4;
+  /* Cor do texto para cabeçalhos, labels, parágrafos, e spans no modo escuro */
+}
+
+/* Cores de texto para botões no modo escuro */
+.dark-mode button {
+  background-color: #F2D5C4;
+  /* Cor de fundo dos botões no modo escuro */
+  color: #333;
+  /* Cor do texto dos botões no modo escuro */
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dark-mode button:hover {
+  background-color: #BF4E63;
+  /* Adiciona sublinhado ao passar o mouse sobre os links no modo escuro */
+}
+
+.dark-mode th {
+  background-color: #F2D5C4;
+  color: #333;
+}
+
+/* Estilos para o rótulo */
 label {
   font-size: 18px;
   color: #333;
   display: block;
-  margin-top: 10px;
+  text-align: center;
+  /* Centraliza o texto horizontalmente */
+  margin: 10px auto;
+  /* Centraliza o rótulo verticalmente e espaçamento automático nas laterais */
 }
 
+/* Estilos para o input */
 input[type='text'] {
-  width: 100%;
+  width: 80%;
+  /* Reduz a largura do input para 80% do .container */
   padding: 10px;
-  margin: 10px 0;
+  margin: 0 auto;
+  /* Centraliza o input horizontalmente */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  display: block;
+  /* Coloca o input em uma linha separada */
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
+/* Estilos para a div de botões */
+.button-container {
+  text-align: center;
+  /* Centraliza os botões horizontalmente */
+  margin-top: 10px;
+  /* Espaçamento superior para separar dos elementos acima */
+}
+
+/* Estilos para os botões dentro da div */
+.button-container button {
+  background-color: #F2D5C4;
+  color: #333;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 10px;
+  margin: 0 5px;
+  /* Espaçamento horizontal entre os botões */
 }
 
-button:hover {
-  background-color: #0056b3;
+.button-container button:hover {
+  background-color: #BF4E63;
 }
 
 p {
@@ -90,7 +165,7 @@ td {
 
 th {
   background-color: #007bff;
-  color: #fff;
+  color: #ccc;
 }
 
 /* Estilos responsivos para telas menores */
