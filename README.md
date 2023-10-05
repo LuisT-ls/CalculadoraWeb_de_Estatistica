@@ -37,3 +37,6 @@ Este projeto foi desenvolvido com base em tecnologias web padrão, como HTML, CS
 Este projeto é de código aberto e está sob a Licença MIT. Você pode usar, modificar e distribuir o código conforme desejar. Consulte o arquivo `LICENSE` para obter mais detalhes.
 
 Aproveite a calculadora de estatísticas e use-a para analisar seus conjuntos de dados! Se tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato.
+
+Luís Teixeira
+luishg213@outlook.com
