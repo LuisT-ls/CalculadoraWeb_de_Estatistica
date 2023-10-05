@@ -1,3 +1,5 @@
+# statistchub.vercel.app
+
 # Calculadora de Estatísticas
 
 Esta é uma aplicação web simples que permite calcular várias estatísticas a partir de um conjunto de números fornecidos pelo usuário. Você pode usar essa calculadora para obter informações estatísticas como média, mediana, moda, desvio padrão, variância e muito mais.
