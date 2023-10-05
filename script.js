@@ -154,14 +154,19 @@ function calculateQuartiles() {
   const median = calculateMedian(sortedNumbers);
   const thirdQuartile = calculatePercentile(sortedNumbers, 75);
 
+  // Calcula a média das juntas (Q1, Mediana, Q3)
+  const meanOfQuartiles = formatValue((firstQuartile + median + thirdQuartile) / 3);
+
   // Calcula o IQR como a diferença entre o Terceiro Quartil e o Primeiro Quartil
   const interquartileRange = formatValue(thirdQuartile - firstQuartile);
 
-  // Exibe os quartis e o IQR na interface
+  // Exibe os quartis, o IQR e a média das juntas na interface
   document.getElementById('firstQuartile').textContent = formatValue(firstQuartile);
   document.getElementById('thirdQuartile').textContent = formatValue(thirdQuartile);
   document.getElementById('interquartileRange').textContent = interquartileRange;
+  document.getElementById('meanOfQuartiles').textContent = meanOfQuartiles;
 }
+
 
 
 function calculatePercentile(sortedNumbers, percentile) {
