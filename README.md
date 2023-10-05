@@ -1,5 +1,5 @@
 # Site Hospedado:
-  https://statistchub.vercel.app
+  https://statistichub.vercel.app
 
 # Calculadora de Estatísticas
 
