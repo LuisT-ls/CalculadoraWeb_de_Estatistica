@@ -5,16 +5,18 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
   text-align: left;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 form {
@@ -28,8 +30,8 @@ h1 {
 
 /* Estilos para o botão de alternar o modo escuro */
 #toggleDarkMode {
-  background-color: #F2D5C4;
-  color: #333;
+  background-color: #333;
+  color: #ffffff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -37,10 +39,11 @@ h1 {
   font-size: 16px;
   margin-bottom: 10px;
   /* Espaçamento inferior para separar dos elementos abaixo */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #toggleDarkMode:hover {
-  background-color: #BF4E63;
+  background-color: #555;
 }
 
 /* Estilo para botões no modo claro */
@@ -52,21 +55,21 @@ h1 {
 }
 
 .light-mode button:hover {
-  background-color: #007bff;
+  background-color: #0056b3;
   /* Cor mais escura no hover */
 }
 
 /* Estilo para o modo escuro */
 .dark-mode {
-  background-color: #333;
-  color: #F2D5C4;
+  background-color: #111;
+  color: #ffffff;
 }
 
 /* Estilização do .container para o modo escuro */
 .dark-mode .container {
-  background-color: #303440;
+  background-color: #222;
   /* Cor de fundo do .container no modo escuro */
-  color: #F2D5C4;
+  color: #ffffff;
   /* Cor do texto do .container no modo escuro */
 }
 
@@ -76,15 +79,15 @@ h1 {
 .dark-mode p,
 .dark-mode span,
 .dark-mode .result {
-  color: #F2D5C4;
+  color: #ffffff;
   /* Cor do texto para cabeçalhos, labels, parágrafos, e spans no modo escuro */
 }
 
 /* Cores de texto para botões no modo escuro */
 .dark-mode button {
-  background-color: #F2D5C4;
+  background-color: #007bff;
   /* Cor de fundo dos botões no modo escuro */
-  color: #333;
+  color: #fff;
   /* Cor do texto dos botões no modo escuro */
   padding: 10px 20px;
   border-radius: 5px;
@@ -93,13 +96,13 @@ h1 {
 }
 
 .dark-mode button:hover {
-  background-color: #BF4E63;
-  /* Adiciona sublinhado ao passar o mouse sobre os links no modo escuro */
+  background-color: #0056b3;
+  /* Cor do botão no hover no modo escuro */
 }
 
 .dark-mode th {
-  background-color: #F2D5C4;
-  color: #333;
+  background-color: #333;
+  color: #fff;
 }
 
 /* Estilos para o rótulo */
@@ -115,7 +118,7 @@ label {
 
 /* Estilos para o input */
 input[type='text'] {
-  background-color: #F2D5C4;
+  background-color: #f2f2f2;
   width: 80%;
   /* Reduz a largura do input para 80% do .container */
   padding: 10px;
@@ -126,6 +129,8 @@ input[type='text'] {
   font-size: 16px;
   display: block;
   /* Coloca o input em uma linha separada */
+  color: #333;
+  /* Cor do texto dentro do input */
 }
 
 /* Estilos para a div de botões */
@@ -138,8 +143,8 @@ input[type='text'] {
 
 /* Estilos para os botões dentro da div */
 .button-container button {
-  background-color: #F2D5C4;
-  color: #333;
+  background-color: #333;
+  color: #ffffff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -150,7 +155,8 @@ input[type='text'] {
 }
 
 .button-container button:hover {
-  background-color: #BF4E63;
+  background-color: #555;
+  /* Cor do botão no hover no modo escuro */
 }
 
 p {
@@ -187,8 +193,8 @@ td {
 }
 
 th {
-  background-color: #F2D5C4;
-  color: #333;
+  background-color: #333;
+  color: #fff;
 }
 
 /* Estilos responsivos para telas menores */
