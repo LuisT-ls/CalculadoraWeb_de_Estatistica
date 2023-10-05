@@ -4,7 +4,7 @@ body {
   text-align: center;
   background-color: #f4f4f4;
   margin: 0;
-  padding: 20px;
+  padding: 40px;
   transition: background-color 0.3s, color 0.3s;
 }
 
