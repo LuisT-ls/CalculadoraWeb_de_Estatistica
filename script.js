@@ -144,22 +144,25 @@ function isValidInput(numbers) {
 }
 
 function calculateQuartiles() {
-  const input = document.getElementById('numbers').value
-  const numbers = input.split(/\s*,\s*| /).map(Number)
+  const input = document.getElementById('numbers').value;
+  const numbers = input.split(/\s*,\s*| /).map(Number);
 
   // Ordenar os números em ordem crescente
   const sortedNumbers = numbers.sort((a, b) => a - b)
 
-  const firstQuartile = calculatePercentile(sortedNumbers, 25)
-  const median = calculateMedian(sortedNumbers)
-  const thirdQuartile = calculatePercentile(sortedNumbers, 75)
+  const firstQuartile = calculatePercentile(sortedNumbers, 25);
+  const median = calculateMedian(sortedNumbers);
+  const thirdQuartile = calculatePercentile(sortedNumbers, 75);
 
-  // Exibir os quartis na interface
-  document.getElementById('firstQuartile').textContent =
-    formatValue(firstQuartile)
-  document.getElementById('thirdQuartile').textContent =
-    formatValue(thirdQuartile)
+  // Calcula o IQR como a diferença entre o Terceiro Quartil e o Primeiro Quartil
+  const interquartileRange = formatValue(thirdQuartile - firstQuartile);
+
+  // Exibe os quartis e o IQR na interface
+  document.getElementById('firstQuartile').textContent = formatValue(firstQuartile);
+  document.getElementById('thirdQuartile').textContent = formatValue(thirdQuartile);
+  document.getElementById('interquartileRange').textContent = interquartileRange;
 }
+
 
 function calculatePercentile(sortedNumbers, percentile) {
   const n = sortedNumbers.length
