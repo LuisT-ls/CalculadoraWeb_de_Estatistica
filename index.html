@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Estatísticas</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -20,6 +21,9 @@
         <button type="button" onclick="clearInput()"><strong>Limpar</strong></button>
         <button type="button" onclick="calculateQuartiles()"><strong>Calcular Quartis</strong></button>
         <button type="button" onclick="exportResults()"><strong>Exportar para CSV</strong></button>
+        <button type="button" onclick="generateFrequencyChart()">
+          <strong>Gerar Gráfico</strong>
+        </button>
       </div>
     </form>
 
@@ -58,6 +62,7 @@
       </thead>
       <tbody id="frequencyTable"></tbody>
     </table>
+    <canvas id="frequencyChart" width="400" height="200"></canvas>
   </div>
   <script src="script.js"></script>
 </body>

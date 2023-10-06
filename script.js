@@ -167,8 +167,6 @@ function calculateQuartiles() {
   document.getElementById('meanOfQuartiles').textContent = meanOfQuartiles;
 }
 
-
-
 function calculatePercentile(sortedNumbers, percentile) {
   const n = sortedNumbers.length
   const rank = (percentile / 100) * (n - 1)
@@ -409,4 +407,42 @@ function calculateKurtosis(numbers) {
   )
   const n = numbers.length
   return sumFourthPowerDifferences / (n * Math.pow(stdDev, 4)) - 3
+}
+
+function generateFrequencyChart() {
+  const table = document.getElementById('frequencyTable');
+  const labels = [];
+  const data = [];
+
+  // Coletar dados da tabela de frequência
+  for (let i = 1; i < table.rows.length - 1; i++) {
+    const row = table.rows[i];
+    labels.push(row.cells[0].textContent);
+    data.push(parseInt(row.cells[3].textContent));
+  }
+
+  // Configurar dados do gráfico
+  const ctx = document.getElementById('frequencyChart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Frequência',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
+          borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 }
