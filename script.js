@@ -35,7 +35,9 @@ function formatValue(value) {
 }
 
 function clearInput() {
+  // Restaurar o campo de entrada para vazio
   document.getElementById('numbers').value = '';
+
   // Limpar os resultados
   const resultElements = document.querySelectorAll("span[id^='result']");
   resultElements.forEach(element => (element.textContent = ''));
@@ -65,6 +67,43 @@ function clearInput() {
 
   additionalResultElements.forEach(elementId => {
     document.getElementById(elementId).textContent = '';
+  });
+
+  // Limpar o gráfico
+  clearChart();
+}
+
+function clearChart() {
+  // Obtenha o contexto do gráfico
+  const ctx = document.getElementById('frequencyChart').getContext('2d');
+
+  // Destrua o gráfico existente, se houver
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+
+  // Crie um gráfico vazio
+  window.myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Frequência',
+          data: [],
+          backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
+          borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
   });
 }
 
