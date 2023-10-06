@@ -33,15 +33,41 @@ function formatValue(value) {
       : value.toFixed(1)
   }
 }
+
 function clearInput() {
-  document.getElementById('numbers').value = ''
+  document.getElementById('numbers').value = '';
   // Limpar os resultados
-  const resultElements = document.querySelectorAll("span[id^='result']")
-  resultElements.forEach(element => (element.textContent = ''))
+  const resultElements = document.querySelectorAll("span[id^='result']");
+  resultElements.forEach(element => (element.textContent = ''));
 
   // Limpar a tabela de frequência
-  document.getElementById('frequencyTable').innerHTML = ''
+  document.getElementById('frequencyTable').innerHTML = '';
+
+  // Limpar os campos de resultados adicionais
+  const additionalResultElements = [
+    'rol',
+    'amplitudeTotal',
+    'tamanhoAmostra',
+    'mean',
+    'mode',
+    'median',
+    'modeType',
+    'stdDev',
+    'variance',
+    'skewness',
+    'kurtosis',
+    'coefficientOfVariation',
+    'firstQuartile',
+    'thirdQuartile',
+    'interquartileRange',
+    'meanOfQuartiles',
+  ];
+
+  additionalResultElements.forEach(elementId => {
+    document.getElementById(elementId).textContent = '';
+  });
 }
+
 function exportResults() {
   const numbersInput = document.getElementById('numbers').value
   const numbers = numbersInput.split(/\s*,\s*| /).map(Number)
