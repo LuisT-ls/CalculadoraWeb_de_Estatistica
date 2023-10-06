@@ -94,7 +94,6 @@ function clearChart() {
   }
 }
 
-
 function exportResults() {
   const numbersInput = document.getElementById('numbers').value
   const numbers = numbersInput.split(/\s*,\s*| /).map(Number)
