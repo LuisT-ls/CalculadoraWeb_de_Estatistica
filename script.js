@@ -74,38 +74,26 @@ function clearInput() {
 }
 
 function clearChart() {
-  // Obtenha o contexto do gráfico
-  const ctx = document.getElementById('frequencyChart').getContext('2d');
+  // Obtém a referência do elemento do gráfico
+  var chartElement = document.getElementById('frequencyChart');
 
-  // Destrua o gráfico existente, se houver
-  if (window.myChart) {
-    window.myChart.destroy();
+  // Verifica se o gráfico já foi criado
+  if (chartElement) {
+    // Remove o gráfico existente, se houver
+    chartElement.remove();
+
+    // Cria um novo elemento de canvas para o gráfico
+    var newCanvas = document.createElement('canvas');
+    newCanvas.id = 'frequencyChart';
+    newCanvas.width = 400;
+    newCanvas.height = 200;
+
+    // Adiciona o novo elemento de canvas ao container do gráfico
+    var container = document.querySelector('.container');
+    container.appendChild(newCanvas);
   }
-
-  // Crie um gráfico vazio
-  window.myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Frequência',
-          data: [],
-          backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
-          borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
 }
+
 
 function exportResults() {
   const numbersInput = document.getElementById('numbers').value
