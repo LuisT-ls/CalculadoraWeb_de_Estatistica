@@ -4,23 +4,29 @@ body {
   text-align: center;
   background-color: #f4f4f4;
   margin: 0;
-  padding: 40px;
+  padding: 2.5rem;
+  /* 40px / 16px = 2.5rem */
   transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 50rem;
+  /* 800px / 16px = 50rem */
   margin: 0 auto;
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  border-radius: 0.625rem;
+  /* 10px / 16px = 0.625rem */
+  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2);
+  /* 10px / 16px = 0.625rem */
+  padding: 1.25rem;
+  /* 20px / 16px = 1.25rem */
   text-align: left;
   transition: background-color 0.3s, color 0.3s;
 }
 
 form {
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
+  /* 20px / 16px = 1.25rem */
 }
 
 h1 {
@@ -33,11 +39,15 @@ h1 {
   background-color: #333;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.625rem 1.25rem;
+  /* 10px / 16px = 0.625rem, 20px / 16px = 1.25rem */
+  border-radius: 0.3125rem;
+  /* 5px / 16px = 0.3125rem */
   cursor: pointer;
-  font-size: 16px;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  /* 16px / 16px = 1rem */
+  margin-bottom: 0.625rem;
+  /* 10px / 16px = 0.625rem */
   /* Espaçamento inferior para separar dos elementos abaixo */
   transition: background-color 0.3s, color 0.3s;
 }
@@ -89,10 +99,13 @@ h1 {
   /* Cor de fundo dos botões no modo escuro */
   color: #fff;
   /* Cor do texto dos botões no modo escuro */
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.625rem 1.25rem;
+  /* 10px / 16px = 0.625rem, 20px / 16px = 1.25rem */
+  border-radius: 0.3125rem;
+  /* 5px / 16px = 0.3125rem */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  /* 16px / 16px = 1rem */
 }
 
 .dark-mode button:hover {
@@ -107,13 +120,14 @@ h1 {
 
 /* Estilos para o rótulo */
 label {
-  font-size: 18px;
+  font-size: 1.125rem;
+  /* 18px / 16px = 1.125rem */
   color: #333;
   display: block;
   text-align: center;
   /* Centraliza o texto horizontalmente */
-  margin: 10px auto;
-  /* Centraliza o rótulo verticalmente e espaçamento automático nas laterais */
+  margin: 0.625rem auto;
+  /* 10px / 16px = 0.625rem */
 }
 
 /* Estilos para o input */
@@ -121,12 +135,15 @@ input[type='text'] {
   background-color: #f2f2f2;
   width: 80%;
   /* Reduz a largura do input para 80% do .container */
-  padding: 10px;
+  padding: 0.625rem;
+  /* 10px / 16px = 0.625rem */
   margin: 0 auto;
   /* Centraliza o input horizontalmente */
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 0.3125rem;
+  /* 5px / 16px = 0.3125rem */
+  font-size: 1rem;
+  /* 16px / 16px = 1rem */
   display: block;
   /* Coloca o input em uma linha separada */
   color: #333;
@@ -137,7 +154,8 @@ input[type='text'] {
 .button-container {
   text-align: center;
   /* Centraliza os botões horizontalmente */
-  margin-top: 10px;
+  margin-top: 0.625rem;
+  /* 10px / 16px = 0.625rem */
   /* Espaçamento superior para separar dos elementos acima */
 }
 
@@ -146,11 +164,15 @@ input[type='text'] {
   background-color: #333;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 0.625rem 1.25rem;
+  /* 10px / 16px = 0.625rem, 20px / 16px = 1.25rem */
+  border-radius: 0.3125rem;
+  /* 5px / 16px = 0.3125rem */
   cursor: pointer;
-  font-size: 16px;
-  margin: 0 5px;
+  font-size: 1rem;
+  /* 16px / 16px = 1rem */
+  margin: 0 0.3125rem;
+  /* 5px / 16px = 0.3125rem */
   /* Espaçamento horizontal entre os botões */
 }
 
@@ -160,14 +182,17 @@ input[type='text'] {
 }
 
 p {
-  font-size: 18px;
+  font-size: 1.125rem;
+  /* 18px / 16px = 1.125rem */
   color: #333;
-  margin: 10px 0;
+  margin: 0.625rem 0;
+  /* 10px / 16px = 0.625rem */
 }
 
 /* Estilo para a palavra "Resultado" */
 .result {
-  font-size: 24px;
+  font-size: 1.5rem;
+  /* 24px / 16px = 1.5rem */
   /* Ajuste o tamanho da fonte conforme necessário */
   font-weight: bold;
   /* Texto em negrito para destaque */
@@ -183,14 +208,17 @@ span {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.25rem;
+  /* 20px / 16px = 1.25rem */
+  margin-bottom: 1.25rem;
+  /* 20px / 16px = 1.25rem */
 }
 
 th,
 td {
   border: 1px solid #ccc;
-  padding: 8px;
+  padding: 0.5rem;
+  /* 8px / 16px = 0.5rem */
   text-align: center;
 }
 
@@ -200,46 +228,79 @@ th {
 }
 
 /* Estilos responsivos para telas menores */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
+
+  /* 768px / 16px = 48rem */
   .container {
     max-width: 95%;
     margin: 0 auto;
-    padding: 10px;
+    padding: 0.625rem;
+    /* 10px / 16px = 0.625rem */
   }
 
   h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
+    /* 24px / 16px = 1.5rem */
   }
 
   label {
-    font-size: 16px;
-    margin: 5px auto;
+    font-size: 1rem;
+    /* 16px / 16px = 1rem */
+    margin: 0.3125rem auto;
+    /* 5px / 16px = 0.3125rem */
   }
 
   input[type='text'] {
-    font-size: 14px;
-    padding: 8px;
+    font-size: 0.875rem;
+    /* 14px / 16px = 0.875rem */
+    padding: 0.5rem;
+    /* 8px / 16px = 0.5rem */
   }
 
   .button-container {
-    margin-top: 5px;
+    margin-top: 0.3125rem;
+    /* 5px / 16px = 0.3125rem */
   }
 
   .button-container button {
-    margin: 0 3px;
-    padding: 8px 16px;
-    font-size: 14px;
+    margin: 0 0.1875rem;
+    /* 3px / 16px = 0.1875rem */
+    padding: 0.5rem 1rem;
+    /* 8px / 16px = 0.5rem, 16px / 16px = 1rem */
+    font-size: 0.875rem;
+    /* 14px / 16px = 0.875rem */
   }
 
   p {
-    font-size: 16px;
+    font-size: 1rem;
+    /* 16px / 16px = 1rem */
   }
 
   .result {
-    font-size: 20px;
+    font-size: 1.25rem;
+    /* 20px / 16px = 1.25rem */
   }
 
   table {
-    font-size: 16px;
+    font-size: 0.875rem;
+    /* 14px / 16px = 0.875rem */
+    margin-top: 0.625rem;
+    /* 10px / 16px = 0.625rem */
+    margin-bottom: 0.625rem;
+    /* 10px / 16px = 0.625rem */
+  }
+
+  th,
+  td {
+    padding: 0.3125rem;
+    /* 5px / 16px = 0.3125rem */
+    text-align: center;
+    display: block;
+    /* Para tornar as células empilhadas verticalmente */
+  }
+
+  th {
+    background-color: #333;
+    color: #fff;
   }
 }
