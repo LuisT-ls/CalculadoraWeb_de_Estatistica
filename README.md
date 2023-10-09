@@ -1,45 +1,73 @@
-# Site Hospedado:
-  https://statistichub.vercel.app
+Calculadora de Estatísticas
+Calculadora de Estatísticas
 
-# Calculadora de Estatísticas
+Esta é uma Calculadora de Estatísticas que permite calcular várias métricas estatísticas a partir de um conjunto de números inseridos pelo usuário. Ele inclui cálculos como média, mediana, moda, desvio padrão, variância, assimetria, curtose e muito mais. Além disso, você pode gerar uma tabela de frequência e um gráfico de barras para visualizar a distribuição dos dados.
 
-Esta é uma aplicação web simples que permite calcular várias estatísticas a partir de um conjunto de números fornecidos pelo usuário. Você pode usar essa calculadora para obter informações estatísticas como média, mediana, moda, desvio padrão, variância e muito mais.
+1. Conteúdo
+2. Instruções de Uso
+3. Tecnologias Utilizadas
+4. Instalação
+5. Execução
+6. Funcionalidades
+7. Exemplos
+8. Contribuições
+9. Licença
 
-## Como Usar
+Instruções de Uso
+Para usar a Calculadora de Estatísticas, siga estas instruções:
 
-1. Abra o arquivo `index.html` em um navegador da web.
-2. Insira os números separados por vírgula ou espaço no campo de entrada.
-3. Clique no botão "Calcular" para calcular as estatísticas.
-4. Os resultados serão exibidos abaixo do formulário, incluindo uma tabela de frequência.
-5. Você também pode calcular quartis clicando no botão "Calcular Quartis" e exportar os resultados para um arquivo CSV clicando no botão "Exportar para CSV".
+Clone ou baixe o repositório para sua máquina local.
 
-## Recursos
+Abra o arquivo index.html em um navegador da web para acessar a calculadora.
 
-Esta calculadora de estatísticas oferece os seguintes recursos:
+Insira um conjunto de números separados por vírgula ou espaço no campo de entrada e clique no botão "Calcular".
 
-- Cálculo da média, mediana, moda, desvio padrão, variância, assimetria e curtose.
-- Exibição de informações sobre o rol, amplitude total e tamanho da amostra.
-- Cálculo automático do número de classes usando a Fórmula de Sturges para a construção da tabela de frequência.
-- Exibição da tabela de frequência com classes, ponto médio, amplitude, frequência absoluta (fi), frequência relativa (fri), frequência relativa em porcentagem (fri %), frequência acumulada (Fi) e frequência relativa acumulada (Fri).
-- Exportação dos resultados para um arquivo CSV para análises adicionais.
+A calculadora calculará várias métricas estatísticas com base nos números inseridos e exibirá os resultados na interface.
 
-## Estilos e Responsividade
+Você pode alternar entre o modo claro e escuro clicando no botão com o ícone de sol ou lua.
 
-A aplicação possui estilos simples e é responsiva, adaptando-se a diferentes tamanhos de tela. Ela foi projetada para ser fácil de usar e fornecer informações estatísticas de forma clara.
+Use os outros botões na interface para executar ações como limpar a entrada, calcular quartis, exportar os resultados para CSV e gerar um gráfico de frequência.
 
-## Contribuições
+Tecnologias Utilizadas
+HTML5: A estrutura básica da calculadora.
+CSS3: Estilos para criar uma interface atraente.
+JavaScript (com a biblioteca Chart.js): Para realizar os cálculos e criar o gráfico de frequência interativo.
+Instalação
+Não é necessário instalação. Basta abrir o arquivo index.html em seu navegador da web.
 
-Se você deseja contribuir para este projeto, sinta-se à vontade para fazer um fork do repositório, fazer as alterações desejadas e enviar um pull request. Qualquer contribuição é bem-vinda!
+Execução
+Abra o arquivo index.html em um navegador da web.
+Insira um conjunto de números no campo de entrada.
+Clique nos botões para calcular estatísticas, gerar gráficos, etc.
+Funcionalidades
+A Calculadora de Estatísticas oferece as seguintes funcionalidades:
 
-## Créditos
+Cálculo de média, mediana, moda, desvio padrão, variância, assimetria, curtose e muito mais.
+Geração de tabelas de frequência com classes e dados relacionados.
+Criação de gráficos de barras interativos para visualizar a distribuição dos dados.
+Alternância entre os modos claro e escuro para personalizar a aparência.
+Exportação dos resultados para um arquivo CSV para análise adicional.
+Exemplos
+Aqui estão alguns exemplos de como usar a Calculadora de Estatísticas:
 
-Este projeto foi desenvolvido com base em tecnologias web padrão, como HTML, CSS e JavaScript. Ele também utiliza bibliotecas externas para cálculos estatísticos.
+Exemplo 1: Insira os números "1, 2, 3, 4, 5, 5, 6" e clique em "Calcular" para obter as estatísticas básicas.
 
-## Licença
+Exemplo 2: Use a função "Calcular Quartis" para encontrar o primeiro quartil (Q1), a mediana e o terceiro quartil (Q3) de um conjunto de dados.
 
-Este projeto é de código aberto e está sob a Licença MIT. Você pode usar, modificar e distribuir o código conforme desejar. Consulte o arquivo `LICENSE` para obter mais detalhes.
+Exemplo 3: Gere um gráfico de frequência para visualizar a distribuição dos dados.
 
-Aproveite a calculadora de estatísticas e use-a para analisar seus conjuntos de dados! Se tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato.
+Contribuições
+Contribuições são bem-vindas! Se você deseja melhorar este projeto, siga estas etapas:
 
-Luís Teixeira
-luishg213@outlook.com
+Faça um fork do repositório.
+
+Crie uma nova branch com suas alterações: git checkout -b minha-funcionalidade
+
+Faça commit de suas alterações: git commit -m 'Adicione uma nova funcionalidade'
+
+Envie suas alterações: git push origin minha-funcionalidade
+
+Abra um pull request no repositório original.
+
+Licença
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter mais detalhes.
