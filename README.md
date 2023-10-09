@@ -1,7 +1,5 @@
 # Calculadora de Estatísticas
 
-![Calculadora de Estatísticas]
-
 ## Descrição
 
 A Calculadora de Estatísticas é uma ferramenta que permite calcular várias métricas estatísticas a partir de um conjunto de números inseridos pelo usuário. Ele inclui cálculos como média, mediana, moda, desvio padrão, variância, assimetria, curtose e muito mais. Além disso, você pode gerar uma tabela de frequência e um gráfico de barras para visualizar a distribuição dos dados.
