@@ -481,7 +481,7 @@ function generateFrequencyChart() {
       labels: labels,
       datasets: [
         {
-          label: 'Frequência',
+          label: 'Frequência', // Mantenha a descrição como "Frequência"
           data: data,
           backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
           borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
@@ -497,4 +497,52 @@ function generateFrequencyChart() {
       },
     },
   });
+
+  // Personalizar a legenda com ícone FontAwesome e "hover"
+  const legendContainer = document.querySelector('.chart-legend');
+  if (legendContainer) {
+    // Limpar qualquer conteúdo existente
+    legendContainer.innerHTML = '';
+
+    // Criar a legenda personalizada
+    const legend = document.createElement('div');
+    legend.classList.add('custom-legend');
+
+    // Adicionar o ícone FontAwesome (usando a classe "fas" e a classe do ícone)
+    const icon = document.createElement('i');
+    icon.classList.add('fas', 'fa-chart-bar'); // Classe do ícone de gráfico de barras
+    icon.style.fontSize = '24px'; // Defina o tamanho do ícone
+    icon.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do ícone
+
+    // Adicionar o texto informativo
+    const label = document.createElement('span');
+    label.textContent = 'Frequência';
+    label.style.fontFamily = 'Arial, sans-serif'; // Defina a família da fonte
+    label.style.fontSize = '14px'; // Defina o tamanho da fonte
+    label.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do texto
+
+    // Adicionar descrição para o efeito de "hover"
+    const description = document.createElement('span');
+    description.textContent = 'Clique para ver a frequência'; // Texto da descrição
+    description.style.display = 'none'; // Inicialmente oculto
+    description.style.fontFamily = 'Arial, sans-serif'; // Defina a família da fonte
+    description.style.fontSize = '12px'; // Defina o tamanho da fonte
+    description.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do texto
+
+    // Adicionar eventos para exibir/ocultar a descrição ao passar o cursor
+    icon.addEventListener('mouseover', () => {
+      description.style.display = 'block'; // Exibir a descrição no hover
+    });
+    icon.addEventListener('mouseout', () => {
+      description.style.display = 'none'; // Ocultar a descrição ao sair do hover
+    });
+
+    // Adicionar o ícone, o texto e a descrição à legenda personalizada
+    legend.appendChild(icon);
+    legend.appendChild(label);
+    legend.appendChild(description);
+
+    // Adicionar a legenda personalizada ao contêiner da legenda
+    legendContainer.appendChild(legend);
+  }
 }
