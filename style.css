@@ -191,6 +191,7 @@ p {
 
 /* Estilo para a palavra "Resultado" */
 .result {
+  margin-top: 2rem;
   font-size: 1.5rem;
   /* 24px / 16px = 1.5rem */
   /* Ajuste o tamanho da fonte conforme necessário */
@@ -208,9 +209,9 @@ span {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1.25rem;
+  margin-top: 4rem;
   /* 20px / 16px = 1.25rem */
-  margin-bottom: 1.25rem;
+  margin-bottom: 4rem;
   /* 20px / 16px = 1.25rem */
 }
 
