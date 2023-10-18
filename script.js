@@ -467,7 +467,7 @@ function generateFrequencyChart() {
   const data = [];
 
   // Coletar dados da tabela de frequência
-  for (let i = 1; i < table.rows.length - 1; i++) {
+  for (let i = 0; i < table.rows.length - 1; i++) {
     const row = table.rows[i];
     labels.push(row.cells[0].textContent);
     data.push(parseInt(row.cells[3].textContent));
