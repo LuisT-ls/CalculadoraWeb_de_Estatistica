@@ -29,23 +29,39 @@
 
     <p class="result">Resultado:</p>
     <p>Rol: <span id="rol"></span></p>
-    <p>Amplitude Total: <span id="amplitudeTotal"></span></p>
-    <p>Tamanho da Amostra: <span id="tamanhoAmostra"></span></p>
-    <p>Média: <span id="mean"></span></p>
-    <p>Mediana: <span id="median"></span></p>
-    <p>Moda: <span id="mode"></span></p>
-    <p>Tipo de Moda: <span id="modeType"></span></p>
-    <p>Desvio Padrão: <span id="stdDev"></span></p>
-    <p>Variância: <span id="variance"></span></p>
-    <p>Assimetria: <span id="skewness"></span></p>
-    <p>Curtose: <span id="kurtosis"></span></p>
-    <p>
-      Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%
-    </p>
-    <p>Primeiro Quartil (Q1): <span id="firstQuartile"></span></p>
-    <p>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></p>
-    <p>Amplitude do Interquartil (IQR): <span id="interquartileRange"></span></p>
-    <p>Média das Juntas (Q1, Mediana, Q3): <span id="meanOfQuartiles"></span></p>
+    <div class="results">
+      <h2>Medidas de Posição</h2>
+      <ul>
+        <li>Amplitude Total: <span id="amplitudeTotal"></span></li>
+        <li>Tamanho da Amostra: <span id="tamanhoAmostra"></span></li>
+        <li>Média: <span id="mean"></span></li>
+        <li>Mediana: <span id="median"></span></li>
+        <li>Moda: <span id="mode"></span></li>
+        <li>Tipo de Moda: <span id="modeType"></span></li>
+      </ul>
+    </div>
+
+    <div class="results">
+      <h2>Medidas de Dispersão</h2>
+      <ul>
+        <li>Desvio Padrão: <span id="stdDev"></span></li>
+        <li>Variância: <span id="variance"></span></li>
+        <li>Assimetria: <span id="skewness"></span></li>
+        <li>Curtose: <span id="kurtosis"></span></li>
+        <li>Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%</li>
+      </ul>
+    </div>
+
+    <div class="results">
+      <h2>Quartis</h2>
+      <ul>
+        <li>Primeiro Quartil (Q1): <span id="firstQuartile"></span></li>
+        <li>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></li>
+        <li>Amplitude do Interquartil (IQR): <span id="interquartileRange"></span></li>
+        <li>Média das Juntas (Q1, Mediana, Q3): <span id="meanOfQuartiles"></span></li>
+      </ul>
+    </div>
+
 
     <table>
       <thead>
