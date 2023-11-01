@@ -228,61 +228,56 @@ th {
   color: #fff;
 }
 
-/* Estilos responsivos para telas menores */
-@media (max-width: 48rem) {
-  /* 768px / 16px = 48rem */
+/* Estilos para telas menores */
+@media (max-width: 768px) {
   .container {
-    max-width: 95%;
-    margin: 0 auto;
-    padding: 0.625rem;
-    /* 10px / 16px = 0.625rem */
+    padding: 1rem;
   }
 
   h1 {
-    font-size: 1.5rem;
-    /* 24px / 16px = 1.5rem */
-  }
-
-  label {
-    font-size: 1rem;
-    /* 16px / 16px = 1rem */
-    margin: 0.3125rem auto;
-    /* 5px / 16px = 0.3125rem */
-  }
-
-  input[type='text'] {
-    font-size: 0.875rem;
-    /* 14px / 16px = 0.875rem */
-    padding: 0.5rem;
-    /* 8px / 16px = 0.5rem */
+    font-size: 24px;
   }
 
   .button-container {
-    margin-top: 0.3125rem;
-    /* 5px / 16px = 0.3125rem */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.625rem;
   }
 
   .button-container button {
-    margin: 0 0.1875rem;
-    /* 3px / 16px = 0.1875rem */
-    padding: 0.5rem 1rem;
-    /* 8px / 16px = 0.5rem, 16px / 16px = 1rem */
-    font-size: 0.875rem;
-    /* 14px / 16px = 0.875rem */
-  }
-
-  p {
+    width: 100%;
+    margin: 0.3125rem 0;
+    padding: 0.625rem;
     font-size: 1rem;
-    /* 16px / 16px = 1rem */
   }
 
-  .result {
-    font-size: 1.25rem;
-    /* 20px / 16px = 1.25rem */
+  #toggleDarkMode {
+    display: none;
+  }
+
+  .results ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .results li {
+    margin: 0.3125rem 0;
   }
 
   table {
-    font-size: 1rem;
-    /* 16px / 16px = 1rem */
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid #333;
+  }
+
+  th,
+  td {
+    padding: 0.625rem;
   }
 }
