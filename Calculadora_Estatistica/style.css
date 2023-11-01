@@ -278,6 +278,10 @@ th {
     border: 1px solid #fff;
     background-color: #333;
     color: #fff;
+    max-width: 120px;
+    white-space: nowrap; /* Evita que o texto seja quebrado em várias linhas */
+    overflow: hidden; /* Oculta o conteúdo que não cabe na célula */
+    text-overflow: ellipsis; /* Exibe "..." quando o conteúdo é cortado */
   }
 
   canvas#frequencyChart {
