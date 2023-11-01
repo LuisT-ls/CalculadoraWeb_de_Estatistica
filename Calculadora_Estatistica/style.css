@@ -194,7 +194,6 @@ p {
   margin-top: 2rem;
   font-size: 1.5rem;
   /* 24px / 16px = 1.5rem */
-  /* Ajuste o tamanho da fonte conforme necessário */
   font-weight: bold;
   /* Texto em negrito para destaque */
   color: #333;
@@ -232,7 +231,7 @@ th {
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
-    overflow-x: auto; /* Adicione esta propriedade para permitir rolagem horizontal */
+    overflow-x: auto;
   }
 
   h1 {
@@ -281,11 +280,10 @@ th {
     color: #fff;
   }
 
-  /* Movido para fora do bloco tbody tr:nth-child(even) td */
   canvas#frequencyChart {
     width: 100%;
-    max-width: 400px; /* Defina um tamanho máximo adequado */
-    height: auto; /* Ajusta automaticamente a altura para manter a proporção */
+    max-width: 400px;
+    height: auto;
     margin: 1rem auto;
     display: block;
   }
