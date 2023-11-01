@@ -140,29 +140,27 @@ function calculateResult() {
       inputValues.principal
   }
 
-  resultDiv.textContent = `Resultado: ${result.toFixed(2)}`
+  // Formate o resultado em moeda real (R$)
+  const formattedResult = result.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2
+  })
+
+  resultDiv.textContent = `Resultado: ${formattedResult}`
 }
 
 function showExplanation(selectedOperation) {
   let explanation = ''
 
-  const showExplanationButton = document.getElementById('showExplanation')
-  const explanationText = document.getElementById('calcExplanation')
-
-  showExplanationButton.addEventListener('click', () => {
-    // Alternar o estilo display das explicações entre "none" e "block"
-    explanationText.style.display =
-      explanationText.style.display === 'none' ? 'block' : 'none'
-  })
-
   if (selectedOperation === 'capital') {
     explanation = `
       <p>O cálculo de capital é usado para determinar o montante de dinheiro que você deve investir ou emprestar para atingir um objetivo financeiro. Para calcular o capital, você precisa conhecer o montante desejado, a taxa de juros e o período de tempo.</p>
       <p>Exemplo:</p>
-      <p>Suponha que você queira economizar $10,000 em 2 anos com uma taxa de juros anual de 5%. O cálculo do capital é:</p>
+      <p>Suponha que você queira economizar R$ 10.000 em 2 anos com uma taxa de juros anual de 5%. O cálculo do capital é:</p>
       <p>Capital = Montante / (1 + (Taxa de Juros / 100) * (Tempo / 12))</p>
-      <p>Capital = $10,000 / (1 + (5 / 100) * (2 / 12))</p>
-      <p>Capital ≈ $9,568.49</p>
+      <p>Capital = R$ 10.000 / (1 + (5 / 100) * (2 / 12))</p>
+      <p>Capital ≈ R$ 9.568,49</p>
     `
   } else if (selectedOperation === 'montante') {
     explanation = `
