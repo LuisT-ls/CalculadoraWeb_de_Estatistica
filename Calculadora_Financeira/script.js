@@ -88,6 +88,7 @@ function addInputField(id, label) {
 function calculateResult() {
   const selectedOperation = operationSelect.value
   let result = 0
+  let formattedResult = ''
 
   const inputMappings = {
     capital: ['montante', 'taxa', 'tempo'],
@@ -110,44 +111,68 @@ function calculateResult() {
     result =
       inputValues.montante /
       (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   } else if (selectedOperation === 'montante') {
     result =
       inputValues.principal *
       (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   } else if (selectedOperation === 'juros') {
     result = inputValues.montante - inputValues.principal
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   } else if (selectedOperation === 'taxa') {
     result =
       ((inputValues.montante / inputValues.principal - 1) /
         (inputValues.tempo / 12)) *
       100
+    formattedResult = `Resultado: ${result.toFixed(2)}%`
   } else if (selectedOperation === 'percentagem') {
     result = (inputValues.porcentagem / 100) * inputValues.valor
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   } else if (selectedOperation === 'variacao') {
     result =
       ((inputValues.valorFinal - inputValues.valorInicial) /
         inputValues.valorInicial) *
       100
+    formattedResult = `Resultado: ${result.toFixed(2)}%`
   } else if (selectedOperation === 'jurosSimples') {
     result =
       inputValues.principal *
       (inputValues.taxa / 100) *
       (inputValues.tempo / 12)
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   } else if (selectedOperation === 'jurosCompostos') {
     result =
       inputValues.principal *
-        Math.pow(1 + inputValues.taxa / 100, inputValues.tempo / 12) -
-      inputValues.principal
+      (Math.pow(1 + inputValues.taxa / 100 / 12, inputValues.tempo) - 1)
+    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    })}`
   }
 
-  // Formate o resultado em moeda real (R$)
-  const formattedResult = result.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2
-  })
-
-  resultDiv.textContent = `Resultado: ${formattedResult}`
+  resultDiv.textContent = formattedResult
 }
 
 function showExplanation(selectedOperation) {
