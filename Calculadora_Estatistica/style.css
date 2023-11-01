@@ -232,6 +232,7 @@ th {
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+    overflow-x: auto; /* Adicione esta propriedade para permitir rolagem horizontal */
   }
 
   h1 {
@@ -275,15 +276,9 @@ th {
   td {
     padding: 0.625rem;
     text-align: center;
-    border: 1px solid #333;
+    border: 1px solid #fff;
     background-color: #333;
     color: #fff;
-  }
-
-  /* Adicionando uma grade à tabela */
-  th,
-  td {
-    border: 1px solid #333;
   }
 
   /* Movido para fora do bloco tbody tr:nth-child(even) td */
