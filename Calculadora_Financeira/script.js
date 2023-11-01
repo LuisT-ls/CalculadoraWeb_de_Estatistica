@@ -2,31 +2,29 @@ function toggleDarkMode() {
   const body = document.body
   const button = document.getElementById('toggleDarkMode')
 
-  // Verifica se o modo escuro está ativado
   const isDarkMode = body.classList.contains('dark-mode')
 
-  // Alterna entre os modos escuro e claro
   if (isDarkMode) {
-    // Desativa o modo escuro
     body.classList.remove('dark-mode')
     button.textContent = '🌙'
-    button.classList.add('light-mode') // Adiciona a classe light-mode
+    button.classList.add('light-mode')
   } else {
-    // Ativa o modo escuro
     body.classList.add('dark-mode')
     button.textContent = '☀️'
-    button.classList.remove('light-mode') // Remove a classe light-mode
+    button.classList.remove('light-mode')
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  toggleDarkMode() // Isso define o modo com base nas classes CSS existentes
+  toggleDarkMode()
 })
 
 const operationSelect = document.getElementById('operation')
 const inputFields = document.getElementById('input-fields')
 const calculateButton = document.getElementById('calculate')
 const resultDiv = document.getElementById('result')
+const showExplanationButton = document.getElementById('showExplanation')
+const explanationText = document.getElementById('calcExplanation')
 
 operationSelect.addEventListener('change', () => {
   updateInputFields()
@@ -34,6 +32,11 @@ operationSelect.addEventListener('change', () => {
 
 calculateButton.addEventListener('click', () => {
   calculateResult()
+})
+
+showExplanationButton.addEventListener('click', () => {
+  const selectedOperation = operationSelect.value
+  showExplanation(selectedOperation)
 })
 
 function updateInputFields() {
@@ -76,9 +79,9 @@ function updateInputFields() {
 function addInputField(id, label) {
   const fieldDiv = document.createElement('div')
   fieldDiv.innerHTML = `
-        <label for="${id}">${label}</label>
-        <input type="number" id="${id}">
-    `
+    <label for="${id}">${label}</label>
+    <input type="number" id="${id}">
+  `
   inputFields.appendChild(fieldDiv)
 }
 
@@ -86,7 +89,6 @@ function calculateResult() {
   const selectedOperation = operationSelect.value
   let result = 0
 
-  // Mapear os campos relevantes para a operação selecionada
   const inputMappings = {
     capital: ['montante', 'taxa', 'tempo'],
     montante: ['principal', 'taxa', 'tempo'],
@@ -100,12 +102,10 @@ function calculateResult() {
 
   const inputValues = {}
 
-  // Coletar os valores dos campos de entrada com base na operação selecionada
   inputMappings[selectedOperation].forEach(field => {
     inputValues[field] = parseFloat(document.getElementById(field).value)
   })
 
-  // Realizar os cálculos com base nos campos coletados
   if (selectedOperation === 'capital') {
     result =
       inputValues.montante /
@@ -143,5 +143,65 @@ function calculateResult() {
   resultDiv.textContent = `Resultado: ${result.toFixed(2)}`
 }
 
-// Inicialmente, carregue os campos de entrada para a operação padrão.
+function showExplanation(selectedOperation) {
+  let explanation = ''
+
+  const showExplanationButton = document.getElementById('showExplanation')
+  const explanationText = document.getElementById('calcExplanation')
+
+  showExplanationButton.addEventListener('click', () => {
+    // Alternar o estilo display das explicações entre "none" e "block"
+    explanationText.style.display =
+      explanationText.style.display === 'none' ? 'block' : 'none'
+  })
+
+  if (selectedOperation === 'capital') {
+    explanation = `
+      <p>O cálculo de capital é usado para determinar o montante de dinheiro que você deve investir ou emprestar para atingir um objetivo financeiro. Para calcular o capital, você precisa conhecer o montante desejado, a taxa de juros e o período de tempo.</p>
+      <p>Exemplo:</p>
+      <p>Suponha que você queira economizar $10,000 em 2 anos com uma taxa de juros anual de 5%. O cálculo do capital é:</p>
+      <p>Capital = Montante / (1 + (Taxa de Juros / 100) * (Tempo / 12))</p>
+      <p>Capital = $10,000 / (1 + (5 / 100) * (2 / 12))</p>
+      <p>Capital ≈ $9,568.49</p>
+    `
+  } else if (selectedOperation === 'montante') {
+    explanation = `
+      <p>O cálculo de montante é usado para determinar o valor total que você terá após um período de investimento, levando em consideração o capital inicial, a taxa de juros e o tempo. Para calcular o montante, você pode usar a fórmula:</p>
+      <p>Montante = Principal * (1 + (Taxa de Juros / 100) * (Tempo / 12))</p>
+    `
+  } else if (selectedOperation === 'juros') {
+    explanation = `
+      <p>O cálculo de juros é usado para determinar a quantia de dinheiro que você ganha ou paga ao investir ou emprestar dinheiro. Para calcular os juros, subtrai-se o valor principal do montante final. A fórmula é:</p>
+      <p>Juros = Montante - Principal</p>
+    `
+  } else if (selectedOperation === 'taxa') {
+    explanation = `
+      <p>O cálculo da taxa de juros é usado para determinar a taxa necessária para atingir um montante desejado em um período de tempo. A fórmula é:</p>
+      <p>Taxa de Juros = ((Montante / Principal - 1) / (Tempo / 12)) * 100</p>
+    `
+  } else if (selectedOperation === 'percentagem') {
+    explanation = `
+      <p>O cálculo de percentagem é usado para calcular uma porcentagem de um valor. A fórmula é simples:</p>
+      <p>Valor da Porcentagem = (Porcentagem / 100) * Valor</p>
+    `
+  } else if (selectedOperation === 'variacao') {
+    explanation = `
+      <p>O cálculo de variação percentual é usado para determinar a mudança percentual entre dois valores. A fórmula é:</p>
+      <p>Variação Percentual = ((Valor Final - Valor Inicial) / Valor Inicial) * 100</p>
+    `
+  } else if (selectedOperation === 'jurosSimples') {
+    explanation = `
+      <p>O cálculo de juros simples é usado para determinar a quantia de juros ganhos ou pagos em um investimento ou empréstimo com base no principal, taxa de juros e tempo. A fórmula é:</p>
+      <p>Juros Simples = Principal * (Taxa de Juros / 100) * (Tempo / 12)</p>
+    `
+  } else if (selectedOperation === 'jurosCompostos') {
+    explanation = `
+      <p>O cálculo de juros compostos é usado para determinar a quantia de juros ganhos ou pagos em um investimento ou empréstimo, levando em consideração a capitalização periódica. A fórmula é:</p>
+      <p>Juros Compostos = Principal * (1 + Taxa de Juros / 100)^(Tempo / 12) - Principal</p>
+    `
+  }
+
+  explanationText.innerHTML = explanation
+}
+
 updateInputFields()
