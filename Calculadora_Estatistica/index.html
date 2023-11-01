@@ -1,92 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Estatísticas</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha384-cI6M9csXj2f/B5W8e8cmNAXhIeGSO5MTdSluzcaKnyzouc5msT+XsFyFRXnE13rcT"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Estatísticas</title>
-  <link rel="stylesheet" href="style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha384-cI6M9csXj2f/B5W8e8cmNAXhIeGSO5MTdSluzcaKnyzouc5msT+XsFyFRXnE13rcT"
-    crossorigin="anonymous"
-  />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+  <body>
+    <div class="container">
+      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      <h1>Calculadora de Estatísticas</h1>
+      <form id="statisticsForm">
+        <label for="numbers"
+          >Insira os números separados por vírgula ou espaço:</label
+        >
+        <input
+          type="text"
+          id="numbers"
+          name="numbers"
+          placeholder="Exemplo: 1, 2, 3, 4, 5, 5, 6"
+          inputmode="numeric"
+        />
+        <div class="button-container">
+          <button type="button" onclick="calculateStatistics()">
+            <strong>Calcular</strong>
+          </button>
+          <button type="button" onclick="clearInput()">
+            <strong>Limpar</strong>
+          </button>
+          <button type="button" onclick="calculateQuartiles()">
+            <strong>Calcular Quartis</strong>
+          </button>
+          <button type="button" onclick="exportResults()">
+            <strong>Exportar para CSV</strong>
+          </button>
+          <button type="button" onclick="generateFrequencyChart()">
+            <strong>Gerar Gráfico</strong>
+          </button>
+        </div>
+      </form>
 
-<body>
-  <div class="container">
-    <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
-    <h1>Calculadora de Estatísticas</h1>
-    <form id="statisticsForm">
-      <label for="numbers">Insira os números separados por vírgula ou espaço:</label>
-      <input type="text" id="numbers" name="numbers" placeholder="Exemplo: 1, 2, 3, 4, 5, 5, 6" />
-      <div class="button-container">
-        <button type="button" onclick="calculateStatistics()"><strong>Calcular</strong></button>
-        <button type="button" onclick="clearInput()"><strong>Limpar</strong></button>
-        <button type="button" onclick="calculateQuartiles()"><strong>Calcular Quartis</strong></button>
-        <button type="button" onclick="exportResults()"><strong>Exportar para CSV</strong></button>
-        <button type="button" onclick="generateFrequencyChart()">
-          <strong>Gerar Gráfico</strong>
-        </button>
+      <p class="result">Resultado:</p>
+      <p>Rol: <span id="rol"></span></p>
+      <div class="results">
+        <h2>Medidas de Posição</h2>
+        <ul>
+          <li>Amplitude Total: <span id="amplitudeTotal"></span></li>
+          <li>Tamanho da Amostra: <span id="tamanhoAmostra"></span></li>
+          <li>Média: <span id="mean"></span></li>
+          <li>Mediana: <span id="median"></span></li>
+          <li>Moda: <span id="mode"></span></li>
+          <li>Tipo de Moda: <span id="modeType"></span></li>
+        </ul>
       </div>
-    </form>
 
-    <p class="result">Resultado:</p>
-    <p>Rol: <span id="rol"></span></p>
-    <div class="results">
-      <h2>Medidas de Posição</h2>
-      <ul>
-        <li>Amplitude Total: <span id="amplitudeTotal"></span></li>
-        <li>Tamanho da Amostra: <span id="tamanhoAmostra"></span></li>
-        <li>Média: <span id="mean"></span></li>
-        <li>Mediana: <span id="median"></span></li>
-        <li>Moda: <span id="mode"></span></li>
-        <li>Tipo de Moda: <span id="modeType"></span></li>
-      </ul>
+      <div class="results">
+        <h2>Medidas de Dispersão</h2>
+        <ul>
+          <li>Desvio Padrão: <span id="stdDev"></span></li>
+          <li>Variância: <span id="variance"></span></li>
+          <li>Assimetria: <span id="skewness"></span></li>
+          <li>Curtose: <span id="kurtosis"></span></li>
+          <li>
+            Coeficiente de Variação (CV):
+            <span id="coefficientOfVariation"></span>%
+          </li>
+        </ul>
+      </div>
+
+      <div class="results">
+        <h2>Quartis</h2>
+        <ul>
+          <li>Primeiro Quartil (Q1): <span id="firstQuartile"></span></li>
+          <li>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></li>
+          <li>
+            Amplitude do Interquartil (IQR):
+            <span id="interquartileRange"></span>
+          </li>
+          <li>
+            Média das Juntas (Q1, Mediana, Q3):
+            <span id="meanOfQuartiles"></span>
+          </li>
+        </ul>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Classe</th>
+            <th>Ponto Médio</th>
+            <th>h</th>
+            <th>fi</th>
+            <th>fri</th>
+            <th>fri (%)</th>
+            <th>Fi</th>
+            <th>Fri</th>
+          </tr>
+        </thead>
+        <tbody id="frequencyTable"></tbody>
+      </table>
+      <canvas id="frequencyChart" width="400" height="200"></canvas>
     </div>
-
-    <div class="results">
-      <h2>Medidas de Dispersão</h2>
-      <ul>
-        <li>Desvio Padrão: <span id="stdDev"></span></li>
-        <li>Variância: <span id="variance"></span></li>
-        <li>Assimetria: <span id="skewness"></span></li>
-        <li>Curtose: <span id="kurtosis"></span></li>
-        <li>Coeficiente de Variação (CV): <span id="coefficientOfVariation"></span>%</li>
-      </ul>
-    </div>
-
-    <div class="results">
-      <h2>Quartis</h2>
-      <ul>
-        <li>Primeiro Quartil (Q1): <span id="firstQuartile"></span></li>
-        <li>Terceiro Quartil (Q3): <span id="thirdQuartile"></span></li>
-        <li>Amplitude do Interquartil (IQR): <span id="interquartileRange"></span></li>
-        <li>Média das Juntas (Q1, Mediana, Q3): <span id="meanOfQuartiles"></span></li>
-      </ul>
-    </div>
-
-
-    <table>
-      <thead>
-        <tr>
-          <th>Classe</th>
-          <th>Ponto Médio</th>
-          <th>h</th>
-          <th>fi</th>
-          <th>fri</th>
-          <th>fri (%)</th>
-          <th>Fi</th>
-          <th>Fri</th>
-        </tr>
-      </thead>
-      <tbody id="frequencyTable"></tbody>
-    </table>
-    <canvas id="frequencyChart" width="400" height="200"></canvas>
-  </div>
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
