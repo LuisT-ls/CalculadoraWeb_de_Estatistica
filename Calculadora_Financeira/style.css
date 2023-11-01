@@ -50,14 +50,6 @@ select {
   background-position: right center;
   background-repeat: no-repeat;
   padding-right: 30px;
-
-  /* Melhorias para telas menores */
-  @media (max-width: 768px) {
-    width: 100%; /* Largura total para preencher a tela */
-    max-width: 250px; /* Largura máxima */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    font-size: 14px; /* Reduz o tamanho da fonte */
-  }
 }
 
 select:hover {
@@ -101,11 +93,19 @@ input[type='number'] {
   margin-top: 20px;
 }
 
-/* Estilos específicos para a opção de operação selecionada */
-.input-fields div {
-  display: block;
-}
+/* Estilos específicos para telas menores */
+@media (max-width: 768px) {
+  select {
+    width: 100%; /* Largura total para preencher a tela */
+    max-width: 250px; /* Largura máxima */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    font-size: 14px; /* Reduz o tamanho da fonte */
+  }
 
-#input-fields div.visible {
-  display: block;
+  input[type='number'] {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    font-size: 14px;
+  }
 }
