@@ -46,7 +46,7 @@ h1 {
   transition: background-color 0.3s, color 0.3s;
 }
 
-toggleDarkMode:hover {
+#toggleDarkMode:hover {
   background-color: #555;
 }
 

@@ -230,7 +230,6 @@ th {
 
 /* Estilos responsivos para telas menores */
 @media (max-width: 48rem) {
-
   /* 768px / 16px = 48rem */
   .container {
     max-width: 95%;
