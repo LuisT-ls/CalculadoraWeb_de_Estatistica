@@ -280,6 +280,12 @@ th {
     color: #fff;
   }
 
+  /* Adicionando uma grade à tabela */
+  th,
+  td {
+    border: 1px solid #333;
+  }
+
   /* Movido para fora do bloco tbody tr:nth-child(even) td */
   canvas#frequencyChart {
     width: 100%;
