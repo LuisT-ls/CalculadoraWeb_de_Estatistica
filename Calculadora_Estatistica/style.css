@@ -268,16 +268,34 @@ th {
   table {
     width: 100%;
     border-collapse: collapse;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid #333;
+    margin-top: 1rem;
   }
 
   th,
   td {
     padding: 0.625rem;
+    text-align: center;
+    border: 1px solid #333;
+  }
+
+  th {
+    background-color: #333;
+    color: #fff;
+  }
+
+  tbody td {
+    background-color: #f4f4f4;
+  }
+
+  tbody tr:nth-child(even) td {
+    background-color: #ffffff;
+
+    canvas#frequencyChart {
+      width: 100%;
+      max-width: 400px; /* Defina um tamanho máximo adequado */
+      height: auto; /* Ajusta automaticamente a altura para manter a proporção */
+      margin: 1rem auto;
+      display: block;
+    }
   }
 }
