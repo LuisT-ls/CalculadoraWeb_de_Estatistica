@@ -96,6 +96,7 @@ select {
   background-repeat: no-repeat;
   padding-right: 30px;
   font-size: 16px;
+  outline: 1px solid transparent;
 }
 
 select:hover {
