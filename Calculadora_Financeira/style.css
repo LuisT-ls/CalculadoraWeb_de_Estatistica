@@ -50,6 +50,14 @@ select {
   background-position: right center;
   background-repeat: no-repeat;
   padding-right: 30px;
+
+  /* Melhorias para telas menores */
+  @media (max-width: 768px) {
+    width: 100%; /* Largura total para preencher a tela */
+    max-width: 250px; /* Largura máxima */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    font-size: 14px; /* Reduz o tamanho da fonte */
+  }
 }
 
 select:hover {
@@ -100,12 +108,4 @@ input[type='number'] {
 
 #input-fields div.visible {
   display: block;
-}
-
-/* Estilos para telas menores (por exemplo, abaixo de 768px de largura) */
-@media (max-width: 768px) {
-  .calculator {
-    margin: 10px; /* Reduz a margem */
-    padding: 5px; /* Reduz o preenchimento */
-  }
 }
