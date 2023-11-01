@@ -20,19 +20,40 @@ h1 {
 }
 
 .operation-select {
-  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 label {
   font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 select {
   width: 15%;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #3498db;
   border-radius: 10px;
   background-color: #f9f9f9;
+  transition: background-color 0.3s;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding-right: 30px;
+}
+
+select:hover {
+  background-color: #e0e0e0;
 }
 
 .input-fields {
@@ -79,4 +100,12 @@ input[type='number'] {
 
 #input-fields div.visible {
   display: block;
+}
+
+/* Estilos para telas menores (por exemplo, abaixo de 768px de largura) */
+@media (max-width: 768px) {
+  .calculator {
+    margin: 10px; /* Reduz a margem */
+    padding: 5px; /* Reduz o preenchimento */
+  }
 }
