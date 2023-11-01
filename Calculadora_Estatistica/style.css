@@ -228,7 +228,7 @@ th {
   color: #fff;
 }
 
-/* Estilos para telas menores */
+/* Estilos gerais para telas pequenas */
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -276,19 +276,8 @@ th {
     padding: 0.625rem;
     text-align: center;
     border: 1px solid #333;
-  }
-
-  th {
     background-color: #333;
     color: #fff;
-  }
-
-  tbody td {
-    background-color: #f2f2f2; /* Cor de fundo original */
-  }
-
-  tbody tr:nth-child(even) td {
-    background-color: #ffffff; /* Cor de fundo original */
   }
 
   /* Movido para fora do bloco tbody tr:nth-child(even) td */
