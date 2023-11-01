@@ -284,18 +284,19 @@ th {
   }
 
   tbody td {
-    background-color: #f4f4f4;
+    background-color: #f2f2f2; /* Cor de fundo original */
   }
 
   tbody tr:nth-child(even) td {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Cor de fundo original */
+  }
 
-    canvas#frequencyChart {
-      width: 100%;
-      max-width: 400px; /* Defina um tamanho máximo adequado */
-      height: auto; /* Ajusta automaticamente a altura para manter a proporção */
-      margin: 1rem auto;
-      display: block;
-    }
+  /* Movido para fora do bloco tbody tr:nth-child(even) td */
+  canvas#frequencyChart {
+    width: 100%;
+    max-width: 400px; /* Defina um tamanho máximo adequado */
+    height: auto; /* Ajusta automaticamente a altura para manter a proporção */
+    margin: 1rem auto;
+    display: block;
   }
 }
