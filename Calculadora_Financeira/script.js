@@ -75,6 +75,9 @@ function updateInputFields() {
   } else if (selectedOperation === 'variacao') {
     addInputField('valorInicial', 'Valor Inicial:')
     addInputField('valorFinal', 'Valor Final:')
+  } else if (selectedOperation === 'desconto') {
+    addInputField('precoOriginal', 'Preço Original:')
+    addInputField('percentagemDesconto', 'Percentagem de Desconto (%):')
   } else if (
     selectedOperation === 'jurosSimples' ||
     selectedOperation === 'jurosCompostos'
@@ -107,7 +110,8 @@ function calculateResult() {
     percentagem: ['valor', 'porcentagem'],
     variacao: ['valorInicial', 'valorFinal'],
     jurosSimples: ['principal', 'taxa', 'tempo'],
-    jurosCompostos: ['principal', 'taxa', 'tempo']
+    jurosCompostos: ['principal', 'taxa', 'tempo'],
+    desconto: ['precoOriginal', 'percentagemDesconto'],
   }
 
   const inputValues = {}
@@ -141,6 +145,21 @@ function calculateResult() {
       currency: 'BRL',
       minimumFractionDigits: 2
     })}`
+  } else if (selectedOperation === 'desconto') {
+    result = (inputValues.precoOriginal * inputValues.percentagemDesconto) / 100
+    const precoComDesconto = inputValues.precoOriginal - result
+    formattedResult = `
+      Desconto: ${result.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2
+      })}
+      /// Preço Atualizado: ${precoComDesconto.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2
+      })}
+    `
   } else if (selectedOperation === 'taxa') {
     result =
       ((inputValues.montante / inputValues.principal - 1) /
@@ -230,6 +249,11 @@ function showExplanation(selectedOperation) {
     explanation = `
       <p>O cálculo de juros compostos é usado para determinar a quantia de juros ganhos ou pagos em um investimento ou empréstimo, levando em consideração a capitalização periódica. A fórmula é:</p>
       <p>Juros Compostos = Principal * (1 + Taxa de Juros / 100)^(Tempo / 12) - Principal</p>
+    `
+  } else if (selectedOperation === 'desconto') {
+    explanation = `
+      <p>O cálculo de desconto é usado para determinar a quantia de dinheiro economizada quando um desconto é aplicado a um preço original. A fórmula é:</p>
+      <p>Desconto = (Preço Original * Percentagem de Desconto) / 100</p>
     `
   }
 
