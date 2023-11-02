@@ -37,6 +37,15 @@ calculateButton.addEventListener('click', () => {
 showExplanationButton.addEventListener('click', () => {
   const selectedOperation = operationSelect.value
   showExplanation(selectedOperation)
+  const explanation = document.getElementById('calcExplanation')
+  if (
+    explanation.style.display === 'none' ||
+    explanation.style.display === ''
+  ) {
+    explanation.style.display = 'block'
+  } else {
+    explanation.style.display = 'none'
+  }
 })
 
 function updateInputFields() {
