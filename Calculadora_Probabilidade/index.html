@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculadora de Probabilidade</title>
+  </head>
+  <body>
+    <div class="container">
+      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      <h1>Calculadora de Probabilidade</h1>
+      <div class="operation-select">
+        <label for="operation">Selecione a Operação:</label>
+        <select id="operation">
+          <option value="prob_uni">Probabilidade única</option>
+          <option value="prob_mulEv">Probabilidade de Múltiplos Eventos</option>
+          <option value="prob_doisEv">Probabilidade de Dois Eventos</option>
+          <option value="Prob_nEv">
+            Probabilidade de Uma Série de Eventos
+          </option>
+          <option value="ProbCond">Probabilidade Condicional P (A|B)</option>
+        </select>
+        <div class="explanation">
+          <p>Você sabe para que serve esse cálculo?</p>
+          <button id="showExplanation">Responda-me</button>
+          <div id="calcExplanation" class="explanation-text"></div>
+        </div>
+      </div>
+      <div id="input-fields" class="input-fields">
+        <!-- Input fields will be added dynamically with JavaScript -->
+      </div>
+      <button id="calculate">Calcular</button>
+      <div class="result" id="result"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
