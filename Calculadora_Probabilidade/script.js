@@ -33,12 +33,34 @@ function updateStyles(isDarkMode) {
   }
 }
 
+const resultDiv = document.getElementById('result')
+
+// Função para limpar os resultados e os campos de entrada
+function clearInput() {
+  // Limpar os campos de entrada
+  const inputFields = document.querySelectorAll(
+    '#totalResults, #eventsOccurred, #totalResults, #eventsOccurredA, #eventsOccurredB, #eventA, #eventB, #events, #probA, #probB'
+  )
+  inputFields.forEach(input => (input.value = ''))
+
+  // Limpar os resultados
+  resultDiv.innerHTML = ''
+
+  // Limpar a explicação
+  calcExplanationDiv.textContent = ''
+}
+
+// Adicione o event listener para o botão de limpar
+const clearButton = document.getElementById('clear')
+clearButton.addEventListener('click', clearInput)
+
 document.addEventListener('DOMContentLoaded', function () {
   toggleDarkMode()
 
   const operationSelect = document.getElementById('operation')
   const inputFieldsContainer = document.getElementById('input-fields')
   const calculateButton = document.getElementById('calculate')
+  const clearButton = document.getElementById('clear')
   const resultDiv = document.getElementById('result')
   const showExplanationButton = document.getElementById('showExplanation')
   const calcExplanationDiv = document.getElementById('calcExplanation')
@@ -283,6 +305,9 @@ document.addEventListener('DOMContentLoaded', function () {
         pela probabilidade de B. Digite valores entre 0 e 1 para as probabilidades de A e B.
       `
     }
+
+    // Chamar handleOperationChange com "prob_uni" como padrão
+    handleOperationChange()
 
     // Exemplo de exibição da explicação
     calcExplanationDiv.textContent = explanation

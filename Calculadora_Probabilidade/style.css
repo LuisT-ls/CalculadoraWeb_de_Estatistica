@@ -26,6 +26,7 @@ h1 {
 /* Estilos para o botão de alternar o modo escuro */
 #toggleDarkMode,
 button#calculate,
+button#clear,
 button#showExplanation {
   background-color: #333;
   color: #ffffff;
@@ -40,6 +41,7 @@ button#showExplanation {
 
 #toggleDarkMode:hover,
 button#calculate:hover,
+button#clear:hover,
 button#showExplanation:hover {
   background-color: #555;
 }
@@ -130,7 +132,8 @@ option {
   background-color: #555;
 }
 
-#calculate {
+#calculate,
+#clear {
   color: #555;
   padding: 10px 20px;
   border: none;
