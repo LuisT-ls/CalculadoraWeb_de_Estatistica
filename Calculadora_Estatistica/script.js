@@ -475,12 +475,21 @@ function generateFrequencyChart() {
   const table = document.getElementById('frequencyTable')
   const labels = []
   const data = []
+  const backgroundColors = []
 
   // Coletar dados da tabela de frequência
   for (let i = 0; i < table.rows.length - 1; i++) {
     const row = table.rows[i]
     labels.push(row.cells[0].textContent)
     data.push(parseInt(row.cells[3].textContent))
+
+    // Gerar cores em uma escala de tons de azul, do mais claro para o mais escuro
+    const baseColor = [173, 216, 230] // Tom de azul claro
+    const scaleFactor = i / (table.rows.length - 2) // Ajuste para evitar o divisor por zero
+    const scaledColor = baseColor.map(channel =>
+      Math.floor(channel * scaleFactor)
+    )
+    backgroundColors.push(`rgba(${scaledColor.join(', ')}, 0.7)`)
   }
 
   // Configurar dados do gráfico
@@ -493,7 +502,7 @@ function generateFrequencyChart() {
         {
           label: 'Frequência',
           data: data,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          backgroundColor: backgroundColors,
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1
         }
@@ -516,7 +525,12 @@ function generateFrequencyChart() {
         legend: {
           display: true,
           position: 'top',
-          align: 'center'
+          align: 'center',
+          labels: {
+            // Personalizar os rótulos da legenda
+            usePointStyle: true, // Usar ícones
+            boxWidth: 10 // Tamanho do ícone
+          }
         }
       }
     }
