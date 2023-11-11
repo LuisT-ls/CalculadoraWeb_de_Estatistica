@@ -491,10 +491,10 @@ function generateFrequencyChart() {
       labels: labels,
       datasets: [
         {
-          label: 'Frequência', // Mantenha a descrição como "Frequência"
+          label: 'Frequência',
           data: data,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
-          borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1
         }
       ]
@@ -503,6 +503,20 @@ function generateFrequencyChart() {
       scales: {
         y: {
           beginAtZero: true
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Distribuição de Frequência', // Adicione seu título aqui
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'center'
         }
       }
     }
