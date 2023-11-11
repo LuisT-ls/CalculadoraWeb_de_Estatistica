@@ -135,6 +135,8 @@ function calculateStatistics() {
   const input = document.getElementById('numbers').value
   const numbers = input.split(/\s*,\s*| /).map(Number)
 
+  document.getElementById('errorMessage').textContent = ''
+
   if (isValidInput(numbers)) {
     // Se a entrada for válida, continue com o cálculo
     const mean = formatValue(calculateMean(numbers))
@@ -186,8 +188,19 @@ function calculateStatistics() {
     displayFrequencyTable(frequencyTable)
   } else {
     // Se a entrada for inválida, exiba uma mensagem de erro
-    alert('Por favor, insira números válidos separados por vírgula ou espaço.')
+    displayErrorMessage(
+      'Por favor, insira números válidos separados por vírgula ou espaço.'
+    )
   }
+}
+
+function displayErrorMessage(message) {
+  const errorMessageElement = document.getElementById('errorMessage')
+  errorMessageElement.textContent = message
+
+  // Adicione estilos de sua escolha para tornar a mensagem visível
+  errorMessageElement.style.color = 'red'
+  errorMessageElement.style.fontWeight = 'bold'
 }
 
 function isValidInput(numbers) {
