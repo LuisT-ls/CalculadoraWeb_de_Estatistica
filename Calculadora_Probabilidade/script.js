@@ -104,12 +104,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Função para calcular a probabilidade com base nos campos de entrada
   function calculateProbability() {
     const selectedOperation = operationSelect.value
 
     // Lógica de cálculo com base na operação selecionada
     let results = {}
+
+    // Limpar a tabela de resultados antes de exibir novos resultados
+    resultDiv.innerHTML = ''
 
     if (selectedOperation === 'prob_uni') {
       // Lógica para a operação de probabilidade única
