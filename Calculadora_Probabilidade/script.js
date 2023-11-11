@@ -219,12 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
     for (const key in results) {
       if (results.hasOwnProperty(key)) {
         const value = results[key]
-        const formattedValue = (value * 100).toFixed(2)
+        const formattedValue = formatDecimal(value)
+        const formattedPercentage = formatPercentage(value)
         // Adicionar linhas de tabela para cada resultado com cores alternadas
         const backgroundColor = isOddRow ? '#f9f9f9' : '#ffffff'
-        resultText += `<tr style="background-color: ${backgroundColor}; border: 1px solid #ddd;"><td style="padding: 8px; text-align: left;">${key}</td><td style="padding: 8px; text-align: center;">${value.toFixed(
-          4
-        )}</td><td style="padding: 8px; text-align: center;">${formattedValue}%</td></tr>`
+        resultText += `<tr style="background-color: ${backgroundColor}; border: 1px solid #ddd;"><td style="padding: 8px; text-align: left;">${key}</td><td style="padding: 8px; text-align: center;">${formattedValue}</td><td style="padding: 8px; text-align: center;">${formattedPercentage}</td></tr>`
         isOddRow = !isOddRow
       }
     }
@@ -233,6 +232,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Exibir os resultados
     resultDiv.innerHTML = resultText // Use innerHTML para renderizar conteúdo HTML
+  }
+
+  function formatDecimal(value) {
+    // Arredondar para 1 casa decimal se necessário
+    const formattedValue =
+      value % 1 === 0 && value < 10 ? value.toFixed(0) : value.toFixed(1)
+    return formattedValue.replace(/\.0$/, '') // Remover ".0" se existir
+  }
+
+  function formatPercentage(value) {
+    // Multiplicar por 100 e arredondar para 1 casa decimal se necessário
+    const formattedPercentage = (value * 100).toFixed(1)
+    return formattedPercentage.replace(/\.0%$/, '') + '%' // Remover ".0%" se existir
   }
 
   // Função para exibir uma explicação sobre a operação selecionada
