@@ -1,27 +1,27 @@
 function toggleDarkMode() {
-  const body = document.body;
-  const button = document.getElementById('toggleDarkMode');
+  const body = document.body
+  const button = document.getElementById('toggleDarkMode')
 
   // Verifica se o modo escuro está ativado
-  const isDarkMode = body.classList.contains('dark-mode');
+  const isDarkMode = body.classList.contains('dark-mode')
 
   // Alterna entre os modos escuro e claro
   if (isDarkMode) {
     // Desativa o modo escuro
-    body.classList.remove('dark-mode');
-    button.textContent = '🌙';
-    button.classList.add('light-mode'); // Adiciona a classe light-mode
+    body.classList.remove('dark-mode')
+    button.textContent = '🌙'
+    button.classList.add('light-mode') // Adiciona a classe light-mode
   } else {
     // Ativa o modo escuro
-    body.classList.add('dark-mode');
-    button.textContent = '☀️';
-    button.classList.remove('light-mode'); // Remove a classe light-mode
+    body.classList.add('dark-mode')
+    button.textContent = '☀️'
+    button.classList.remove('light-mode') // Remove a classe light-mode
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  toggleDarkMode(); // Isso define o modo com base nas classes CSS existentes
-});
+document.addEventListener('DOMContentLoaded', function () {
+  toggleDarkMode() // Isso define o modo com base nas classes CSS existentes
+})
 
 // Função genérica para formatar um valor com uma casa decimal, removendo .0 se houver
 function formatValue(value) {
@@ -36,14 +36,14 @@ function formatValue(value) {
 
 function clearInput() {
   // Restaurar o campo de entrada para vazio
-  document.getElementById('numbers').value = '';
+  document.getElementById('numbers').value = ''
 
   // Limpar os resultados
-  const resultElements = document.querySelectorAll("span[id^='result']");
-  resultElements.forEach(element => (element.textContent = ''));
+  const resultElements = document.querySelectorAll("span[id^='result']")
+  resultElements.forEach(element => (element.textContent = ''))
 
   // Limpar a tabela de frequência
-  document.getElementById('frequencyTable').innerHTML = '';
+  document.getElementById('frequencyTable').innerHTML = ''
 
   // Limpar os campos de resultados adicionais
   const additionalResultElements = [
@@ -62,35 +62,35 @@ function clearInput() {
     'firstQuartile',
     'thirdQuartile',
     'interquartileRange',
-    'meanOfQuartiles',
-  ];
+    'meanOfQuartiles'
+  ]
 
   additionalResultElements.forEach(elementId => {
-    document.getElementById(elementId).textContent = '';
-  });
+    document.getElementById(elementId).textContent = ''
+  })
 
   // Limpar o gráfico
-  clearChart();
+  clearChart()
 }
 
 function clearChart() {
   // Obtém a referência do elemento do gráfico
-  var chartElement = document.getElementById('frequencyChart');
+  var chartElement = document.getElementById('frequencyChart')
 
   // Verifica se o gráfico já foi criado
   if (chartElement) {
     // Remove o gráfico existente, se houver
-    chartElement.remove();
+    chartElement.remove()
 
     // Cria um novo elemento de canvas para o gráfico
-    var newCanvas = document.createElement('canvas');
-    newCanvas.id = 'frequencyChart';
-    newCanvas.width = 400;
-    newCanvas.height = 200;
+    var newCanvas = document.createElement('canvas')
+    newCanvas.id = 'frequencyChart'
+    newCanvas.width = 400
+    newCanvas.height = 200
 
     // Adiciona o novo elemento de canvas ao container do gráfico
-    var container = document.querySelector('.container');
-    container.appendChild(newCanvas);
+    var container = document.querySelector('.container')
+    container.appendChild(newCanvas)
   }
 }
 
@@ -132,91 +132,95 @@ function exportResults() {
 }
 
 function calculateStatistics() {
-  const input = document.getElementById('numbers').value;
-  const numbers = input.split(/\s*,\s*| /).map(Number);
+  const input = document.getElementById('numbers').value
+  const numbers = input.split(/\s*,\s*| /).map(Number)
 
   if (isValidInput(numbers)) {
     // Se a entrada for válida, continue com o cálculo
-    const mean = formatValue(calculateMean(numbers));
-    const median = formatValue(calculateMedian(numbers));
-    const { mode, modeType } = calculateMode(numbers);
-    const stdDev = formatValue(calculateStandardDeviation(numbers));
-    const variance = formatValue(calculateVariance(numbers));
-    const skewness = formatValue(calculateSkewness(numbers));
-    const kurtosis = formatValue(calculateKurtosis(numbers));
+    const mean = formatValue(calculateMean(numbers))
+    const median = formatValue(calculateMedian(numbers))
+    const { mode, modeType } = calculateMode(numbers)
+    const stdDev = formatValue(calculateStandardDeviation(numbers))
+    const variance = formatValue(calculateVariance(numbers))
+    const skewness = formatValue(calculateSkewness(numbers))
+    const kurtosis = formatValue(calculateKurtosis(numbers))
     const coefficientOfVariation = formatValue(
       calculateCoefficientOfVariation(numbers)
-    );
+    )
 
     document.getElementById('coefficientOfVariation').textContent =
-      coefficientOfVariation;
+      coefficientOfVariation
 
     // Limpar a tabela de frequência antes de exibir os novos resultados
-    document.getElementById('frequencyTable').innerHTML = '';
+    document.getElementById('frequencyTable').innerHTML = ''
 
     // Ordena os números em ordem crescente
-    const sortedNumbers = numbers.sort((a, b) => a - b);
-    const rol = formatRol(sortedNumbers);
+    const sortedNumbers = numbers.sort((a, b) => a - b)
+    const rol = formatRol(sortedNumbers)
 
     // Calcula a amplitude total e o tamanho da amostra
     const amplitudeTotal = formatValue(
       sortedNumbers[sortedNumbers.length - 1] - sortedNumbers[0]
-    );
-    const tamanhoAmostra = formatValue(numbers.length);
+    )
+    const tamanhoAmostra = formatValue(numbers.length)
 
-    document.getElementById('mean').textContent = mean;
-    document.getElementById('median').textContent = median;
-    document.getElementById('mode').textContent = mode;
-    document.getElementById('modeType').textContent = modeType;
-    document.getElementById('stdDev').textContent = stdDev;
-    document.getElementById('variance').textContent = variance;
-    document.getElementById('skewness').textContent = skewness;
-    document.getElementById('kurtosis').textContent = kurtosis;
+    document.getElementById('mean').textContent = mean
+    document.getElementById('median').textContent = median
+    document.getElementById('mode').textContent = mode
+    document.getElementById('modeType').textContent = modeType
+    document.getElementById('stdDev').textContent = stdDev
+    document.getElementById('variance').textContent = variance
+    document.getElementById('skewness').textContent = skewness
+    document.getElementById('kurtosis').textContent = kurtosis
 
     // Exibe o rol, a amplitude total e o tamanho da amostra
-    document.getElementById('rol').textContent = rol;
-    document.getElementById('amplitudeTotal').textContent = amplitudeTotal;
-    document.getElementById('tamanhoAmostra').textContent = tamanhoAmostra;
+    document.getElementById('rol').textContent = rol
+    document.getElementById('amplitudeTotal').textContent = amplitudeTotal
+    document.getElementById('tamanhoAmostra').textContent = tamanhoAmostra
 
     // Calcula o número de classes usando a Fórmula de Sturges
-    const numberOfClasses = Math.ceil(1 + 3.322 * Math.log10(numbers.length));
+    const numberOfClasses = Math.ceil(1 + 3.322 * Math.log10(numbers.length))
 
     // Calcula a tabela de frequência
-    const frequencyTable = calculateFrequencyTable(numbers, numberOfClasses);
-    displayFrequencyTable(frequencyTable);
+    const frequencyTable = calculateFrequencyTable(numbers, numberOfClasses)
+    displayFrequencyTable(frequencyTable)
   } else {
     // Se a entrada for inválida, exiba uma mensagem de erro
-    alert('Por favor, insira números válidos separados por vírgula ou espaço.');
+    alert('Por favor, insira números válidos separados por vírgula ou espaço.')
   }
 }
 
 function isValidInput(numbers) {
   // Verifica se a entrada é uma matriz de números válidos
-  return Array.isArray(numbers) && numbers.length > 0 && !numbers.includes(NaN);
+  return Array.isArray(numbers) && numbers.length > 0 && !numbers.includes(NaN)
 }
 
 function calculateQuartiles() {
-  const input = document.getElementById('numbers').value;
-  const numbers = input.split(/\s*,\s*| /).map(Number);
+  const input = document.getElementById('numbers').value
+  const numbers = input.split(/\s*,\s*| /).map(Number)
 
   // Ordenar os números em ordem crescente
   const sortedNumbers = numbers.sort((a, b) => a - b)
 
-  const firstQuartile = calculatePercentile(sortedNumbers, 25);
-  const median = calculateMedian(sortedNumbers);
-  const thirdQuartile = calculatePercentile(sortedNumbers, 75);
+  const firstQuartile = calculatePercentile(sortedNumbers, 25)
+  const median = calculateMedian(sortedNumbers)
+  const thirdQuartile = calculatePercentile(sortedNumbers, 75)
 
   // Calcula a média das juntas (Q1, Mediana, Q3)
-  const meanOfQuartiles = formatValue((firstQuartile + median + thirdQuartile) / 3);
+  const meanOfQuartiles = formatValue(
+    (firstQuartile + median + thirdQuartile) / 3
+  )
 
   // Calcula o IQR como a diferença entre o Terceiro Quartil e o Primeiro Quartil
-  const interquartileRange = formatValue(thirdQuartile - firstQuartile);
+  const interquartileRange = formatValue(thirdQuartile - firstQuartile)
 
   // Exibe os quartis, o IQR e a média das juntas na interface
-  document.getElementById('firstQuartile').textContent = formatValue(firstQuartile);
-  document.getElementById('thirdQuartile').textContent = formatValue(thirdQuartile);
-  document.getElementById('interquartileRange').textContent = interquartileRange;
-  document.getElementById('meanOfQuartiles').textContent = meanOfQuartiles;
+  document.getElementById('firstQuartile').textContent =
+    formatValue(firstQuartile)
+  document.getElementById('thirdQuartile').textContent =
+    formatValue(thirdQuartile)
+  document.getElementById('interquartileRange').textContent = interquartileRange
+  document.getElementById('meanOfQuartiles').textContent = meanOfQuartiles
 }
 
 function calculatePercentile(sortedNumbers, percentile) {
@@ -398,6 +402,7 @@ function calculateMode(numbers) {
 
   for (const num of numbers) {
     numCounts[num] = (numCounts[num] || 0) + 1
+
     if (numCounts[num] > maxCount) {
       maxCount = numCounts[num]
       modes = [num]
@@ -406,18 +411,23 @@ function calculateMode(numbers) {
     }
   }
 
-  let modeType = ''
-  if (modes.length === 1) {
-    modeType = 'unimodal'
-  } else if (modes.length === 2) {
-    modeType = 'bimodal'
-  } else if (modes.length === 3) {
-    modeType = 'trimodal'
-  } else if (modes.length >= 4) {
-    modeType = 'polimodal'
-  }
+  let modeType = getModeType(modes)
 
   return { mode: modes.join(', '), modeType }
+}
+
+// Adicionando a função getModeType conforme sugerido
+function getModeType(modes) {
+  switch (modes.length) {
+    case 1:
+      return 'unimodal'
+    case 2:
+      return 'bimodal'
+    case 3:
+      return 'trimodal'
+    default:
+      return 'polimodal'
+  }
 }
 
 function calculateStandardDeviation(numbers) {
@@ -462,19 +472,19 @@ function calculateKurtosis(numbers) {
 }
 
 function generateFrequencyChart() {
-  const table = document.getElementById('frequencyTable');
-  const labels = [];
-  const data = [];
+  const table = document.getElementById('frequencyTable')
+  const labels = []
+  const data = []
 
   // Coletar dados da tabela de frequência
   for (let i = 0; i < table.rows.length - 1; i++) {
-    const row = table.rows[i];
-    labels.push(row.cells[0].textContent);
-    data.push(parseInt(row.cells[3].textContent));
+    const row = table.rows[i]
+    labels.push(row.cells[0].textContent)
+    data.push(parseInt(row.cells[3].textContent))
   }
 
   // Configurar dados do gráfico
-  const ctx = document.getElementById('frequencyChart').getContext('2d');
+  const ctx = document.getElementById('frequencyChart').getContext('2d')
   const chart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -485,64 +495,64 @@ function generateFrequencyChart() {
           data: data,
           backgroundColor: 'rgba(75, 192, 192, 0.5)', // Cor de preenchimento
           borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda
-          borderWidth: 1,
-        },
-      ],
+          borderWidth: 1
+        }
+      ]
     },
     options: {
       scales: {
         y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
+          beginAtZero: true
+        }
+      }
+    }
+  })
 
   // Personalizar a legenda com ícone FontAwesome e "hover"
-  const legendContainer = document.querySelector('.chart-legend');
+  const legendContainer = document.querySelector('.chart-legend')
   if (legendContainer) {
     // Limpar qualquer conteúdo existente
-    legendContainer.innerHTML = '';
+    legendContainer.innerHTML = ''
 
     // Criar a legenda personalizada
-    const legend = document.createElement('div');
-    legend.classList.add('custom-legend');
+    const legend = document.createElement('div')
+    legend.classList.add('custom-legend')
 
     // Adicionar o ícone FontAwesome (usando a classe "fas" e a classe do ícone)
-    const icon = document.createElement('i');
-    icon.classList.add('fas', 'fa-chart-bar'); // Classe do ícone de gráfico de barras
-    icon.style.fontSize = '24px'; // Defina o tamanho do ícone
-    icon.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do ícone
+    const icon = document.createElement('i')
+    icon.classList.add('fas', 'fa-chart-bar') // Classe do ícone de gráfico de barras
+    icon.style.fontSize = '24px' // Defina o tamanho do ícone
+    icon.style.color = 'rgba(75, 192, 192, 1)' // Defina a cor do ícone
 
     // Adicionar o texto informativo
-    const label = document.createElement('span');
-    label.textContent = 'Frequência';
-    label.style.fontFamily = 'Arial, sans-serif'; // Defina a família da fonte
-    label.style.fontSize = '14px'; // Defina o tamanho da fonte
-    label.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do texto
+    const label = document.createElement('span')
+    label.textContent = 'Frequência'
+    label.style.fontFamily = 'Arial, sans-serif' // Defina a família da fonte
+    label.style.fontSize = '14px' // Defina o tamanho da fonte
+    label.style.color = 'rgba(75, 192, 192, 1)' // Defina a cor do texto
 
     // Adicionar descrição para o efeito de "hover"
-    const description = document.createElement('span');
-    description.textContent = 'Clique para ver a frequência'; // Texto da descrição
-    description.style.display = 'none'; // Inicialmente oculto
-    description.style.fontFamily = 'Arial, sans-serif'; // Defina a família da fonte
-    description.style.fontSize = '12px'; // Defina o tamanho da fonte
-    description.style.color = 'rgba(75, 192, 192, 1)'; // Defina a cor do texto
+    const description = document.createElement('span')
+    description.textContent = 'Clique para ver a frequência' // Texto da descrição
+    description.style.display = 'none' // Inicialmente oculto
+    description.style.fontFamily = 'Arial, sans-serif' // Defina a família da fonte
+    description.style.fontSize = '12px' // Defina o tamanho da fonte
+    description.style.color = 'rgba(75, 192, 192, 1)' // Defina a cor do texto
 
     // Adicionar eventos para exibir/ocultar a descrição ao passar o cursor
     icon.addEventListener('mouseover', () => {
-      description.style.display = 'block'; // Exibir a descrição no hover
-    });
+      description.style.display = 'block' // Exibir a descrição no hover
+    })
     icon.addEventListener('mouseout', () => {
-      description.style.display = 'none'; // Ocultar a descrição ao sair do hover
-    });
+      description.style.display = 'none' // Ocultar a descrição ao sair do hover
+    })
 
     // Adicionar o ícone, o texto e a descrição à legenda personalizada
-    legend.appendChild(icon);
-    legend.appendChild(label);
-    legend.appendChild(description);
+    legend.appendChild(icon)
+    legend.appendChild(label)
+    legend.appendChild(description)
 
     // Adicionar a legenda personalizada ao contêiner da legenda
-    legendContainer.appendChild(legend);
+    legendContainer.appendChild(legend)
   }
 }
