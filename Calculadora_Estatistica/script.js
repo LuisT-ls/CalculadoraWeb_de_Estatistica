@@ -79,17 +79,18 @@ function clearChart() {
 
   // Verifica se o gráfico já foi criado
   if (chartElement) {
-    // Obtém a instância do gráfico
-    var chartInstance = Chart.getChart(chartElement)
+    // Remove o gráfico existente, se houver
+    chartElement.remove()
 
-    // Verifica se o gráfico já possui algum conjunto de dados
-    if (chartInstance.data.datasets.length > 0) {
-      // Remove todos os conjuntos de dados do gráfico
-      chartInstance.data.datasets = []
+    // Cria um novo elemento de canvas para o gráfico
+    var newCanvas = document.createElement('canvas')
+    newCanvas.id = 'frequencyChart'
+    newCanvas.width = 400
+    newCanvas.height = 200
 
-      // Atualiza o gráfico para refletir as alterações
-      chartInstance.update()
-    }
+    // Adiciona o novo elemento de canvas ao container do gráfico
+    var container = document.querySelector('.container')
+    container.appendChild(newCanvas)
   }
 }
 
