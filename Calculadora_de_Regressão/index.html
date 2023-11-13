@@ -22,7 +22,6 @@
           placeholder="Exemplo: 1, 2, 3, 4, 5, 5"
           inputmode="numeric"
         />
-
         <label for="yValues">Valores de Y (separados por vírgula):</label>
         <input
           type="text"
@@ -31,21 +30,19 @@
           placeholder="Exemplo: 1, 2, 3, 4, 5, 5"
           inputmode="numeric"
         />
-
         <div class="button-container">
           <button onclick="calculateRegression(event)">Calcular</button>
         </div>
       </form>
-
       <div id="result">
         <h2>Resultados:</h2>
         <p>Coeficiente de Correlação (r): <span id="correlation"></span></p>
-        <p>Diagrama de Dispersão:</p>
-        <div id="scatter-plot"></div>
         <p>
           Coeficiente de Determinação (r²): <span id="determination"></span>
         </p>
         <p>Interpretação dos Resultados: <span id="interpretation"></span></p>
+        <p>Diagrama de Dispersão:</p>
+        <div id="scatter-plot"></div>
       </div>
     </div>
     <script src="script.js"></script>
