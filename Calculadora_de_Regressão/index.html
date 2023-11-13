@@ -37,33 +37,49 @@
       <div id="description">
         <h2>Como Calculamos:</h2>
         <p>
-          A calculadora utiliza a fórmula do coeficiente de correlação (r) para
-          medir a força e a direção da relação linear entre duas variáveis.
+          A calculadora utiliza a fórmula do coeficiente de correlação (<span
+            class="formula"
+            >r</span
+          >) para medir a força e a direção da relação linear entre duas
+          variáveis. O coeficiente de correlação varia de -1 a 1, onde:
         </p>
-        <p>A fórmula é:</p>
         <p>
-          \( r = \frac{n(\sum xy) - (\sum x)(\sum y)}{\sqrt{[n\sum x^2 - (\sum
-          x)^2][n\sum y^2 - (\sum y)^2]}} \)
+          \( -1 \) indica uma forte correlação negativa,<br />
+          \( 1 \) indica uma forte correlação positiva, e<br />
+          \( 0 \) indica ausência de correlação.
+        </p>
+        <p>A fórmula para <span class="formula">r</span> é:</p>
+        <p class="formula">
+          \( r = \frac{n\sum xy - (\sum x)(\sum y)}{\sqrt{[n\sum x² - (\sum
+          x)²][n\sum y² - (\sum y)²]}} \)
         </p>
         <p>Onde:</p>
         <ul>
-          <li>\( n \) é o número de observações</li>
-          <li>\( \sum \) representa a soma</li>
+          <li><span class="formula">n</span> é o número de observações,</li>
+          <li><span class="formula">∑</span> representa a soma,</li>
           <li>
-            \( x \) e \( y \) são os conjuntos de dados para as variáveis X e Y,
-            respectivamente
+            <span class="formula">x</span> e <span class="formula">y</span> são
+            os conjuntos de dados para as variáveis X e Y, respectivamente.
           </li>
         </ul>
         <p>
-          O coeficiente de determinação (r²) simplesmente quadrado de \( r \).
+          O coeficiente de determinação (\( r² \)) é o quadrado do coeficiente
+          de correlação e fornece uma medida da proporção de variação em uma
+          variável que pode ser explicada pela outra.
         </p>
         <p>Interpretação:</p>
         <ul>
-          <li>Se \( r \) é próximo de 1, há uma forte correlação positiva.</li>
-          <li>Se \( r \) é próximo de -1, há uma forte correlação negativa.</li>
           <li>
-            Se \( r \) está próximo de 0, as variáveis têm uma correlação fraca
-            ou não têm correlação.
+            Se <span class="formula">r</span> é próximo de 1, há uma forte
+            correlação positiva.
+          </li>
+          <li>
+            Se <span class="formula">r</span> é próximo de -1, há uma forte
+            correlação negativa.
+          </li>
+          <li>
+            Se <span class="formula">r</span> está próximo de 0, as variáveis
+            têm uma correlação fraca ou não têm correlação.
           </li>
         </ul>
       </div>

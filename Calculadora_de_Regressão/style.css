@@ -234,3 +234,28 @@ span {
   font-weight: bold;
   color: #007bff; /* Cor azul para destacar fórmulas ou termos importantes */
 }
+
+.formula {
+  font-family: 'Cambria Math', 'Arial', sans-serif;
+}
+
+.sqrt {
+  display: inline-block;
+  font-size: 0.8em;
+  vertical-align: 0.5em;
+}
+
+.frac {
+  display: inline-block;
+  vertical-align: 0.5em;
+  text-align: center;
+}
+
+.frac,
+.frac span {
+  display: inline-block;
+}
+
+.frac span {
+  border-bottom: 1px solid #333;
+}
