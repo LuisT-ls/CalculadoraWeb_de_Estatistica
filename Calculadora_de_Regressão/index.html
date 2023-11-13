@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Calculadora de Regressão</title>
+  </head>
+  <body>
+    <h1>Calculadora de Regressão</h1>
+    <div class="container">
+      <div class="button-container">
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      </div>
+      <form id="regressaoForm">
+        <label for="xValues">Valores de X (separados por vírgula):</label>
+        <input
+          type="text"
+          id="xValues"
+          name="numbers"
+          placeholder="Exemplo: 1, 2, 3, 4, 5, 5"
+          inputmode="numeric"
+        />
+
+        <label for="yValues">Valores de Y (separados por vírgula):</label>
+        <input
+          type="text"
+          id="yValues"
+          name="numbers"
+          placeholder="Exemplo: 1, 2, 3, 4, 5, 5"
+          inputmode="numeric"
+        />
+
+        <div class="button-container">
+          <button onclick="calculateRegression(event)">Calcular</button>
+        </div>
+      </form>
+
+      <div id="result">
+        <h2>Resultados:</h2>
+        <p>Coeficiente de Correlação (r): <span id="correlation"></span></p>
+        <p>Diagrama de Dispersão:</p>
+        <div id="scatter-plot"></div>
+        <p>
+          Coeficiente de Determinação (r²): <span id="determination"></span>
+        </p>
+        <p>Interpretação dos Resultados: <span id="interpretation"></span></p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
