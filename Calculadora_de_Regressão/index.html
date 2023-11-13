@@ -44,14 +44,95 @@
           variáveis. O coeficiente de correlação varia de -1 a 1, onde:
         </p>
         <p>
-          \( -1 \) indica uma forte correlação negativa,<br />
-          \( 1 \) indica uma forte correlação positiva, e<br />
-          \( 0 \) indica ausência de correlação.
+          (-1) - indica uma forte correlação negativa,<br />
+          (1) - indica uma forte correlação positiva, e<br />
+          (0) - indica ausência de correlação.
         </p>
-        <p>A fórmula para <span class="formula">r</span> é:</p>
+        <p>
+          A fórmula para o coeficiente de correlação (<span class="formula"
+            >r</span
+          >) é:
+        </p>
         <p class="formula">
-          \( r = \frac{n\sum xy - (\sum x)(\sum y)}{\sqrt{[n\sum x^2 - (\sum
-          x)^2][n\sum y^2 - (\sum y)^2]}} \)
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+              <mi>r</mi>
+              <mo>=</mo>
+              <mfrac linethickness="0">
+                <mrow>
+                  <mi>n</mi>
+                  <mo>&#8290;</mo>
+                  <munder>
+                    <mo>&#8721;</mo>
+                    <mi>x</mi><mi>y</mi>
+                  </munder>
+                  <mo>-</mo>
+                  <mo>(</mo>
+                  <munder>
+                    <mo>&#8721;</mo>
+                    <mi>x</mi>
+                  </munder>
+                  <mo>)</mo>
+                  <mo>&#8290;</mo>
+                  <munder>
+                    <mo>&#8721;</mo>
+                    <mi>y</mi>
+                  </munder>
+                </mrow>
+                <mrow>
+                  <msqrt>
+                    <mrow>
+                      <mo>[</mo>
+                      <mi>n</mi>
+                      <mo>&#8290;</mo>
+                      <munder>
+                        <mo>&#8721;</mo>
+                        <mi>x</mi>
+                        <msup>
+                          <mo>2</mo>
+                          <mo></mo>
+                        </msup>
+                      </munder>
+                      <mo>-</mo>
+                      <mo>(</mo>
+                      <munder>
+                        <mo>&#8721;</mo>
+                        <mi>x</mi>
+                      </munder>
+                      <mo>)</mo>
+                      <msup>
+                        <mo>2</mo>
+                        <mo></mo>
+                      </msup>
+                      <mo>(</mo>
+                      <mi>n</mi>
+                      <mo>&#8290;</mo>
+                      <munder>
+                        <mo>&#8721;</mo>
+                        <mi>y</mi>
+                        <msup>
+                          <mo>2</mo>
+                          <mo></mo>
+                        </msup>
+                      </munder>
+                      <mo>-</mo>
+                      <mo>(</mo>
+                      <munder>
+                        <mo>&#8721;</mo>
+                        <mi>y</mi>
+                      </munder>
+                      <mo>)</mo>
+                      <msup>
+                        <mo>2</mo>
+                        <mo></mo>
+                      </msup>
+                      <mo>]</mo>
+                    </mrow>
+                  </msqrt>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </math>
         </p>
         <p>Onde:</p>
         <ul>
@@ -63,7 +144,7 @@
           </li>
         </ul>
         <p>
-          O coeficiente de determinação (\( r² \)) é o quadrado do coeficiente
+          O coeficiente de determinação (r²) é o quadrado do coeficiente
           de correlação e fornece uma medida da proporção de variação em uma
           variável que pode ser explicada pela outra.
         </p>

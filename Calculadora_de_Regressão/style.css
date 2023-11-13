@@ -237,25 +237,43 @@ span {
 
 .formula {
   font-family: 'Cambria Math', 'Arial', sans-serif;
+  font-size: 1.2em;
+  color: #333;
+  line-height: 2;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.sqrt {
+.math-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.math-container math {
   display: inline-block;
-  font-size: 0.8em;
-  vertical-align: 0.5em;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f5f5f5;
 }
 
-.frac {
-  display: inline-block;
-  vertical-align: 0.5em;
-  text-align: center;
+.math-container span {
+  margin: 0 5px;
 }
 
-.frac,
-.frac span {
-  display: inline-block;
+.math-container mfrac {
+  margin-top: 10px; /* Ajuste para maior espaçamento superior */
+  margin-bottom: 10px; /* Ajuste para maior espaçamento inferior */
+  font-size: 1.5em; /* Aumento do tamanho da fonte da fração */
 }
 
-.frac span {
-  border-bottom: 1px solid #333;
+.math-container msqrt {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.math-container mo,
+.math-container mi {
+  font-size: 1.2em;
 }
