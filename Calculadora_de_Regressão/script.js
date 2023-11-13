@@ -40,6 +40,12 @@ function calculateRegression(event) {
   // Calcular o coeficiente de correlação
   const correlation = calculateCorrelation(xValues, yValues)
 
+  // Calcular os coeficientes da regressão linear
+  const regressionCoefficients = calculateRegressionCoefficients(
+    xValues,
+    yValues
+  )
+
   // Gerar o diagrama de dispersão
   generateScatterPlot(xValues, yValues)
 
@@ -60,6 +66,37 @@ function calculateRegression(event) {
   document.getElementById('correlation').innerText = correlation.toFixed(2)
   document.getElementById('determination').innerText = determination.toFixed(2)
   document.getElementById('interpretation').innerText = interpretation
+
+  // Exibir a equação de regressão ajustada
+  displayRegressionEquation(regressionCoefficients)
+}
+
+// Função para calcular os coeficientes da regressão linear
+function calculateRegressionCoefficients(xValues, yValues) {
+  const n = xValues.length
+  const sumX = xValues.reduce((sum, x) => sum + x, 0)
+  const sumY = yValues.reduce((sum, y) => sum + y, 0)
+  const sumXY = xValues
+    .map((x, i) => x * yValues[i])
+    .reduce((sum, xy) => sum + xy, 0)
+  const sumXSquare = xValues
+    .map(x => x ** 2)
+    .reduce((sum, xSquare) => sum + xSquare, 0)
+
+  // Coeficientes da regressão linear
+  const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX ** 2)
+  const intercept = (sumY - slope * sumX) / n
+
+  return { slope, intercept }
+}
+
+// Função para exibir a equação de regressão ajustada
+function displayRegressionEquation(coefficients) {
+  const equationContainer = document.getElementById('regressionEquation')
+  const equation = `Equação de Regressão: y = ${coefficients.slope.toFixed(
+    2
+  )}x + ${coefficients.intercept.toFixed(2)}`
+  equationContainer.innerText = equation
 }
 
 // Função para analisar os valores de entrada

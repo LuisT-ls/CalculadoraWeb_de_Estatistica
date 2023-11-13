@@ -14,7 +14,9 @@
         <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
       </div>
       <form id="regressaoForm">
-        <label for="xValues">Valores de X (separados por vírgula ou espaços):</label>
+        <label for="xValues"
+          >Valores de X (separados por vírgula ou espaços):</label
+        >
         <input
           type="text"
           id="xValues"
@@ -22,7 +24,9 @@
           placeholder="Exemplo: 1, 2, 3, 4, 5, 6"
           inputmode="numeric"
         />
-        <label for="yValues">Valores de Y (separados por vírgula ou espaços):</label>
+        <label for="yValues"
+          >Valores de Y (separados por vírgula ou espaços):</label
+        >
         <input
           type="text"
           id="yValues"
@@ -144,8 +148,8 @@
           </li>
         </ul>
         <p>
-          O coeficiente de determinação (r²) é o quadrado do coeficiente
-          de correlação e fornece uma medida da proporção de variação em uma
+          O coeficiente de determinação (r²) é o quadrado do coeficiente de
+          correlação e fornece uma medida da proporção de variação em uma
           variável que pode ser explicada pela outra.
         </p>
         <p>Interpretação:</p>
@@ -163,8 +167,35 @@
             têm uma correlação fraca ou não têm correlação.
           </li>
         </ul>
+        <p>
+          A equação de regressão ajustada para uma relação linear entre duas
+          variáveis é dada por:
+        </p>
+        <p class="formula">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+              <mi>y</mi>
+              <mo>=</mo>
+              <mi>b</mi>
+              <mo>&#8290;</mo>
+              <mi>x</mi>
+              <mo>+</mo>
+              <mi>a</mi>
+            </mrow>
+          </math>
+        </p>
+        <p>Onde:</p>
+        <ul>
+          <li><span class="formula">y</span> é a variável dependente (Y),</li>
+          <li><span class="formula">x</span> é a variável independente (X),</li>
+          <li>
+            <span class="formula">b</span> é o coeficiente angular (slope),
+          </li>
+          <li>
+            <span class="formula">a</span> é o coeficiente linear (intercept).
+          </li>
+        </ul>
       </div>
-
       <div id="result">
         <h2>Resultados:</h2>
         <p>Coeficiente de Correlação (r): <span id="correlation"></span></p>
@@ -172,6 +203,7 @@
           Coeficiente de Determinação (r²): <span id="determination"></span>
         </p>
         <p>Interpretação dos Resultados: <span id="interpretation"></span></p>
+        <p id="regressionEquation">Equação de Regressão Ajustada:</p>
         <p>Diagrama de Dispersão:</p>
         <div id="scatter-plot"></div>
       </div>
