@@ -34,6 +34,39 @@
           <button onclick="calculateRegression(event)">Calcular</button>
         </div>
       </form>
+      <div id="description">
+        <h2>Como Calculamos:</h2>
+        <p>
+          A calculadora utiliza a fórmula do coeficiente de correlação (r) para
+          medir a força e a direção da relação linear entre duas variáveis.
+        </p>
+        <p>A fórmula é:</p>
+        <p>
+          \( r = \frac{n(\sum xy) - (\sum x)(\sum y)}{\sqrt{[n\sum x^2 - (\sum
+          x)^2][n\sum y^2 - (\sum y)^2]}} \)
+        </p>
+        <p>Onde:</p>
+        <ul>
+          <li>\( n \) é o número de observações</li>
+          <li>\( \sum \) representa a soma</li>
+          <li>
+            \( x \) e \( y \) são os conjuntos de dados para as variáveis X e Y,
+            respectivamente
+          </li>
+        </ul>
+        <p>
+          O coeficiente de determinação (r²) simplesmente quadrado de \( r \).
+        </p>
+        <p>Interpretação:</p>
+        <ul>
+          <li>Se \( r \) é próximo de 1, há uma forte correlação positiva.</li>
+          <li>Se \( r \) é próximo de -1, há uma forte correlação negativa.</li>
+          <li>
+            Se \( r \) está próximo de 0, as variáveis têm uma correlação fraca
+            ou não têm correlação.
+          </li>
+        </ul>
+      </div>
       <div id="result">
         <h2>Resultados:</h2>
         <p>Coeficiente de Correlação (r): <span id="correlation"></span></p>
