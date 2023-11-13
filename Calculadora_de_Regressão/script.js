@@ -34,8 +34,8 @@ function calculateRegression(event) {
   }
 
   // Converter os valores de string para arrays numéricos
-  const xValues = xValuesInput.split(',').map(Number)
-  const yValues = yValuesInput.split(',').map(Number)
+  const xValues = parseInputValues(xValuesInput)
+  const yValues = parseInputValues(yValuesInput)
 
   // Calcular o coeficiente de correlação
   const correlation = calculateCorrelation(xValues, yValues)
@@ -60,6 +60,18 @@ function calculateRegression(event) {
   document.getElementById('correlation').innerText = correlation.toFixed(2)
   document.getElementById('determination').innerText = determination.toFixed(2)
   document.getElementById('interpretation').innerText = interpretation
+}
+
+// Função para analisar os valores de entrada
+function parseInputValues(input) {
+  // Verifica se a entrada contém vírgulas
+  if (input.includes(',')) {
+    // Separa os valores por vírgulas e converte para números
+    return input.split(',').map(Number)
+  } else {
+    // Se não houver vírgulas, assume que os valores estão separados por espaços
+    return input.split(' ').map(Number)
+  }
 }
 
 function calculateCorrelation(xValues, yValues) {
