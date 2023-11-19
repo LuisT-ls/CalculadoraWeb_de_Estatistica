@@ -17,7 +17,37 @@ function toggleDarkMode() {
 
 document.addEventListener('DOMContentLoaded', function () {
   toggleDarkMode()
+  setupEventListeners()
 })
+
+// Função para configurar os ouvintes de eventos
+function setupEventListeners() {
+  const toggleDescriptionBtn = document.getElementById('toggleDescriptionBtn')
+
+  if (toggleDescriptionBtn) {
+    toggleDescriptionBtn.addEventListener('click', toggleDescription)
+  }
+}
+
+function toggleDescription() {
+  const descriptionDiv = document.getElementById('description')
+
+  // Verifica o estilo 'display'
+  const isHidden =
+    descriptionDiv.style.display === 'none' ||
+    window.getComputedStyle(descriptionDiv).display === 'none'
+
+  // Toggle do estilo display para controlar a visibilidade
+  if (isHidden) {
+    descriptionDiv.style.display = 'block'
+    document.getElementById('toggleDescriptionBtn').textContent =
+      'Ocultar Como Calcular'
+  } else {
+    descriptionDiv.style.display = 'none'
+    document.getElementById('toggleDescriptionBtn').textContent =
+      'Mostrar Como Calcular'
+  }
+}
 
 function calculateRegression(event) {
   // Prevenir o envio padrão do formulário

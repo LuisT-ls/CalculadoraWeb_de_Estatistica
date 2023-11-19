@@ -200,9 +200,14 @@ span {
   border: 1px solid #ccc;
 }
 
+.hidden {
+  display: none;
+}
+
 #description {
   margin-top: 20px;
   padding: 20px;
+  display: none;
   background-color: #f8f8f8; /* Tom mais claro para o fundo */
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -293,7 +298,7 @@ span {
     max-width: 90%;
     padding: 1rem;
   }
-  
+
   h1 {
     font-size: 24px;
   }
