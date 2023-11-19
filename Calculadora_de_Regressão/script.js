@@ -116,7 +116,7 @@ function generateTable(xValues, yValues) {
   table.classList.add('regression-table') // Adiciona uma classe para estilização
   const thead = document.createElement('thead')
   const tbody = document.createElement('tbody')
-  const headers = ['X', 'Y', 'X²', 'Y²', 'XY']
+  const headers = ['X', 'Y', 'X²', 'Y²', 'X * Y']
 
   // Adicionar cabeçalhos à linha do cabeçalho
   const headerRow = document.createElement('tr')
@@ -127,6 +127,13 @@ function generateTable(xValues, yValues) {
   })
   thead.appendChild(headerRow)
 
+  // Inicializar os somatórios
+  let sumX = 0
+  let sumY = 0
+  let sumXSquared = 0
+  let sumYSquared = 0
+  let sumXY = 0
+
   // Preencher os dados na tabela
   for (let i = 0; i < xValues.length; i++) {
     const x = xValues[i]
@@ -134,6 +141,13 @@ function generateTable(xValues, yValues) {
     const xSquare = x ** 2
     const ySquare = y ** 2
     const xy = x * y
+
+    // Atualizar os somatórios
+    sumX += x
+    sumY += y
+    sumXSquared += xSquare
+    sumYSquared += ySquare
+    sumXY += xy
 
     // Criar uma nova linha na tabela
     const row = document.createElement('tr')
@@ -148,6 +162,20 @@ function generateTable(xValues, yValues) {
     // Adicionar a linha à tbody
     tbody.appendChild(row)
   }
+
+  // Adicionar a linha de somatórios ao tbody com uma classe de destaque
+  const sumRow = document.createElement('tr')
+  sumRow.classList.add('highlighted-row')
+  const sumLabels = ['Σ', 'Σ', 'Σ', 'Σ', 'Σ']
+  ;[sumX, sumY, sumXSquared, sumYSquared, sumXY].forEach((sum, index) => {
+    const cell = document.createElement('td')
+    const label = document.createElement('span')
+    label.textContent = `${sumLabels[index]}:`
+    cell.appendChild(label)
+    cell.textContent += sum
+    sumRow.appendChild(cell)
+  })
+  tbody.appendChild(sumRow)
 
   // Adicionar thead e tbody à tabela
   table.appendChild(thead)
