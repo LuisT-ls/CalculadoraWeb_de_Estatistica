@@ -288,6 +288,39 @@ span {
   font-size: 1.3em;
 }
 
+/* Estilos para a tabela de regressão */
+.regression-container {
+  margin-top: 20px;
+}
+
+.regression-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.regression-table th,
+.regression-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.regression-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.regression-table tbody tr:nth-child(even) {
+  background-color: #333;
+}
+
+.regression-table h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
 /* Estilos para telas menores */
 @media (max-width: 768px) {
   body {
@@ -313,6 +346,10 @@ span {
     width: 100%;
     margin: 0.625rem 0;
     padding: 1rem;
+  }
+
+  .regression-container {
+    overflow-x: auto;
   }
 
   #toggleDarkMode {

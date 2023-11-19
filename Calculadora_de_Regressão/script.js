@@ -76,6 +76,9 @@ function calculateRegression(event) {
     yValues
   )
 
+  // Gerar a tabela
+  generateTable(xValues, yValues)
+
   // Gerar o diagrama de dispersão
   generateScatterPlot(xValues, yValues)
 
@@ -99,6 +102,59 @@ function calculateRegression(event) {
 
   // Exibir a equação de regressão ajustada
   displayRegressionEquation(regressionCoefficients)
+}
+
+// Função para gerar a tabela
+function generateTable(xValues, yValues) {
+  const tableContainer = document.getElementById('table-container')
+
+  // Limpar a tabela existente, se houver
+  tableContainer.innerHTML = ''
+
+  // Criar a tabela e os cabeçalhos
+  const table = document.createElement('table')
+  table.classList.add('regression-table') // Adiciona uma classe para estilização
+  const thead = document.createElement('thead')
+  const tbody = document.createElement('tbody')
+  const headers = ['X', 'Y', 'X²', 'Y²', 'XY']
+
+  // Adicionar cabeçalhos à linha do cabeçalho
+  const headerRow = document.createElement('tr')
+  headers.forEach(headerText => {
+    const th = document.createElement('th')
+    th.textContent = headerText
+    headerRow.appendChild(th)
+  })
+  thead.appendChild(headerRow)
+
+  // Preencher os dados na tabela
+  for (let i = 0; i < xValues.length; i++) {
+    const x = xValues[i]
+    const y = yValues[i]
+    const xSquare = x ** 2
+    const ySquare = y ** 2
+    const xy = x * y
+
+    // Criar uma nova linha na tabela
+    const row = document.createElement('tr')
+
+    // Adicionar células com os valores calculados
+    ;[x, y, xSquare, ySquare, xy].forEach(value => {
+      const cell = document.createElement('td')
+      cell.textContent = value
+      row.appendChild(cell)
+    })
+
+    // Adicionar a linha à tbody
+    tbody.appendChild(row)
+  }
+
+  // Adicionar thead e tbody à tabela
+  table.appendChild(thead)
+  table.appendChild(tbody)
+
+  // Adicionar a tabela ao contêiner
+  tableContainer.appendChild(table)
 }
 
 // Função para calcular os coeficientes da regressão linear
