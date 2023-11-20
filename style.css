@@ -111,6 +111,39 @@ h1 {
   /* Espaçamento horizontal entre os botões */
 }
 
+footer {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.625rem;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+}
+
+footer a:hover {
+  color: #666;
+  border-bottom: 2px solid #666;
+}
+
+footer .signature {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #555;
+}
+
 /* Estilos para telas menores */
 @media (max-width: 768px) {
   body {
@@ -135,5 +168,8 @@ h1 {
   }
   #toggleDarkMode {
     display: none;
+  }
+  footer p {
+    font-size: 1rem;
   }
 }
