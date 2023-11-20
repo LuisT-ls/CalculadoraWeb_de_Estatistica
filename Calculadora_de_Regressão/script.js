@@ -257,13 +257,13 @@ function generateScatterPlot(xValues, yValues) {
     mode: 'markers',
     type: 'scatter',
     marker: {
-      color: 'rgba(17, 122, 196, 0.7)',
-      size: 14,
+      color: 'rgba(50, 171, 96, 0.9)', // Cor mais agradável
+      size: 16, // Aumentei o tamanho
       line: {
         color: 'rgba(255, 255, 255, 0.8)',
         width: 2
       },
-      opacity: 0.9,
+      opacity: 1, // Aumentei a opacidade
       symbol: 'circle',
       sizemode: 'diameter'
     }
@@ -289,7 +289,7 @@ function generateScatterPlot(xValues, yValues) {
     showlegend: false,
     paper_bgcolor: 'rgba(240, 240, 240, 0.95)',
     plot_bgcolor: 'rgba(240, 240, 240, 0.95)',
-    hovermode: 'closest', // Adiciona interação com o hover
+    hovermode: 'closest',
     hoverlabel: {
       bgcolor: 'rgba(255, 255, 255, 0.9)',
       bordercolor: 'rgba(100, 100, 100, 0.8)',
@@ -298,15 +298,20 @@ function generateScatterPlot(xValues, yValues) {
       }
     },
     margin: {
-      l: 50,
+      l: 80,
       r: 50,
       b: 80,
       t: 50,
       pad: 4
     },
+    // Centraliza o gráfico na tela
+    autosize: false,
+    width: 600, // Defina a largura desejada
+    height: 400, // Defina a altura desejada
+    // Adiciona uma animação de transição
     transition: {
-      duration: 500, // Adiciona uma animação de transição
-      easing: 'ease-in-out'
+      duration: 1000,
+      easing: 'ease-out'
     }
   }
 
