@@ -116,7 +116,7 @@ function generateTable(xValues, yValues) {
   table.classList.add('regression-table') // Adiciona uma classe para estilização
   const thead = document.createElement('thead')
   const tbody = document.createElement('tbody')
-  const headers = ['X', 'Y', 'X²', 'Y²', 'X * Y']
+  const headers = ['X', 'Y', 'X²', 'Y²', 'X • Y']
 
   // Adicionar cabeçalhos à linha do cabeçalho
   const headerRow = document.createElement('tr')
