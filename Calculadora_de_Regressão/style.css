@@ -95,7 +95,7 @@ input[type='text'] {
   width: 80%;
   padding: 0.625rem;
   margin: 0 auto;
-  border: 1px solid #ccc;
+  border: 0.0625rem solid #ccc;
   border-radius: 0.3125rem;
   font-size: 1rem;
   display: block;
@@ -157,14 +157,13 @@ span {
   text-align: center;
 }
 
-
 #scatter-plot {
-  height: 400px;
-  width: 80%;
-  max-width: 600px;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+  height: 20rem; /* Ajuste a altura conforme necessário usando rem */
+  width: 80%; /* Ajuste a largura conforme necessário */
+  max-width: 50rem; /* Defina um limite máximo para a largura */
+  margin: 0 auto; /* Centralize horizontalmente */
+  border: 0.0625rem solid #ccc;
+  box-sizing: border-box; /* Inclua a largura da borda no cálculo total da largura */
 }
 
 .hidden {
@@ -176,33 +175,33 @@ span {
   padding: 20px;
   display: none;
   background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.625rem;
   text-align: left;
   color: #444;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 1.25rem rgba(0, 0, 0, 0.1);
 }
 
 #description h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
   color: #f5f5f5;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 
 #description p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 
 #description ul {
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
   list-style-type: none;
   padding-left: 0;
 }
 
 #description li {
-  margin-bottom: 8px;
+  margin-bottom: 0.625rem;
 }
 
 #description strong {
@@ -212,7 +211,7 @@ span {
 
 .formula {
   font-family: 'Cambria Math', 'Arial', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.3rem;
   color: #f5f5f5;
   line-height: 1.8;
   margin-top: 20px;
@@ -223,36 +222,36 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 1.5625rem;
 }
 
 .math-container math {
   display: inline-block;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 1.25rem;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.625rem;
   background-color: #f5f5f5;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 .math-container span {
-  margin: 0 8px;
+  margin: 0 0.5rem;
 }
 
 .math-container mfrac {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  font-size: 1.7em;
+  margin-top: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  font-size: 1.7rem;
 }
 
 .math-container msqrt {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
 }
 
 .math-container mo,
 .math-container mi {
-  font-size: 1.3em;
+  font-size: 1.3rem;
 }
 
 /* Estilos para a tabela de regressão */
@@ -269,8 +268,8 @@ span {
 
 .regression-table th,
 .regression-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 0.0625rem solid #ddd;
+  padding: 0.5rem;
 }
 
 .regression-table th {
@@ -285,13 +284,13 @@ span {
 .regression-table h2 {
   color: #333;
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 /* Estilos para telas menores */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   body {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .container {
@@ -300,7 +299,7 @@ span {
   }
 
   h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .button-container {
