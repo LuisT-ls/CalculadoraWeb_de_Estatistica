@@ -82,6 +82,9 @@ function calculateRegression(event) {
   // Gerar o diagrama de dispersão
   generateScatterPlot(xValues, yValues)
 
+  // Exibir a div do diagrama de dispersão removendo a classe 'hidden'
+  document.getElementById('scatter-plot').classList.remove('hidden')
+
   // Calcular o coeficiente de determinação
   const determination = correlation ** 2
 
@@ -282,14 +285,6 @@ function generateScatterPlot(xValues, yValues) {
       showline: true,
       linecolor: 'rgba(100, 100, 100, 0.8)',
       linewidth: 2
-    },
-    title: {
-      text: 'Diagrama de Dispersão',
-      font: {
-        family: 'Arial, sans-serif',
-        size: 24,
-        color: 'rgba(50, 50, 50, 0.9)'
-      }
     },
     showlegend: false,
     paper_bgcolor: 'rgba(240, 240, 240, 0.95)',
