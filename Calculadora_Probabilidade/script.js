@@ -65,6 +65,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const showExplanationButton = document.getElementById('showExplanation')
   const calcExplanationDiv = document.getElementById('calcExplanation')
 
+  // Adicione um event listener para o botão "Responda-me"
+  showExplanationButton.addEventListener('click', toggleExplanation)
+
+  // Função para alternar a visibilidade da explicação
+  function toggleExplanation() {
+    // Troque a visibilidade da explicação usando a propriedade 'display'
+    if (calcExplanationDiv.style.display === 'block') {
+      calcExplanationDiv.style.display = 'none'
+    } else {
+      calcExplanationDiv.style.display = 'block'
+    }
+  }
+
   // Adicione os event listeners necessários
   operationSelect.addEventListener('change', handleOperationChange)
   calculateButton.addEventListener('click', calculateProbability)
@@ -76,6 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Limpar campos de entrada
     inputFieldsContainer.innerHTML = ''
+
+    // Atualizar a explicação com base na operação selecionada
+    updateExplanation(selectedOperation)
 
     // Adicionar campos de entrada com base na operação selecionada
     if (selectedOperation === 'prob_uni') {
@@ -124,6 +140,41 @@ document.addEventListener('DOMContentLoaded', function () {
           <input type="number" id="probB" placeholder="Digite a probabilidade de B" min="0" max="1" step="0.01" required />
         `
     }
+  }
+
+  // Função para atualizar a explicação com base na operação selecionada
+  function updateExplanation(selectedOperation) {
+    let explanation = ''
+
+    if (selectedOperation === 'prob_uni') {
+      explanation = `
+          A probabilidade única representa a chance de ocorrência de um evento único.
+          Digite um valor entre 0 e 1 para indicar a probabilidade desse evento acontecer.
+        `
+    } else if (selectedOperation === 'prob_mulEv') {
+      explanation = `
+          A probabilidade de múltiplos eventos é calculada multiplicando as probabilidades
+          individuais de cada evento. Digite valores entre 0 e 1 para os eventos 1 e 2.
+        `
+    } else if (selectedOperation === 'prob_doisEv') {
+      explanation = `
+          A probabilidade de dois eventos é calculada somando as probabilidades de cada evento
+          e subtraindo a probabilidade de ambos os eventos ocorrerem ao mesmo tempo.
+          Digite valores entre 0 e 1 para os eventos A e B.
+        `
+    } else if (selectedOperation === 'Prob_nEv') {
+      explanation = `
+          A probabilidade de uma série de eventos é o inverso do número total de eventos.
+          Digite o número total de eventos para calcular a probabilidade.
+        `
+    } else if (selectedOperation === 'ProbCond') {
+      explanation = `
+          A probabilidade condicional P(A|B) é calculada dividindo a probabilidade conjunta de A e B
+          pela probabilidade de B. Digite valores entre 0 e 1 para as probabilidades de A e B.
+        `
+    }
+
+    calcExplanationDiv.textContent = explanation
   }
 
   function calculateProbability() {
