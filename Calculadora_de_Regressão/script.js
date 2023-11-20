@@ -257,17 +257,23 @@ function generateScatterPlot(xValues, yValues) {
     mode: 'markers',
     type: 'scatter',
     marker: {
-      color: 'rgba(50, 171, 96, 0.9)', // Cor mais agradável
-      size: 16, // Aumentei o tamanho
+      color: 'rgba(50, 171, 96, 0.9)',
+      size: 16,
       line: {
         color: 'rgba(255, 255, 255, 0.8)',
         width: 2
       },
-      opacity: 1, // Aumentei a opacidade
+      opacity: 1,
       symbol: 'circle',
       sizemode: 'diameter'
     }
   }
+
+  const regressionCoefficients = calculateRegressionCoefficients(
+    xValues,
+    yValues
+  )
+  const regressionLine = plotRegressionLine(regressionCoefficients, xValues)
 
   const layout = {
     xaxis: {
@@ -276,7 +282,12 @@ function generateScatterPlot(xValues, yValues) {
       gridcolor: 'rgba(200, 200, 200, 0.2)',
       showline: true,
       linecolor: 'rgba(100, 100, 100, 0.8)',
-      linewidth: 2
+      linewidth: 2,
+      titlefont: {
+        family: 'Arial, sans-serif',
+        size: 14,
+        color: 'rgba(50, 50, 50, 0.9)'
+      }
     },
     yaxis: {
       title: 'Valores de Y',
@@ -284,16 +295,23 @@ function generateScatterPlot(xValues, yValues) {
       gridcolor: 'rgba(200, 200, 200, 0.2)',
       showline: true,
       linecolor: 'rgba(100, 100, 100, 0.8)',
-      linewidth: 2
+      linewidth: 2,
+      titlefont: {
+        family: 'Arial, sans-serif',
+        size: 14,
+        color: 'rgba(50, 50, 50, 0.9)'
+      }
     },
     showlegend: false,
     paper_bgcolor: 'rgba(240, 240, 240, 0.95)',
     plot_bgcolor: 'rgba(240, 240, 240, 0.95)',
-    hovermode: 'closest', // Adiciona interação com o hover
+    hovermode: 'closest',
     hoverlabel: {
       bgcolor: 'rgba(255, 255, 255, 0.9)',
       bordercolor: 'rgba(100, 100, 100, 0.8)',
       font: {
+        family: 'Arial, sans-serif',
+        size: 12,
         color: 'rgba(50, 50, 50, 0.9)'
       }
     },
@@ -305,10 +323,36 @@ function generateScatterPlot(xValues, yValues) {
       pad: 4
     },
     transition: {
-      duration: 1000, // Adiciona uma animação de transição
+      duration: 1000,
+      easing: 'ease-out'
+    },
+    shapes: [regressionLine],
+    transition: {
+      duration: 1000,
       easing: 'ease-out'
     }
   }
 
   Plotly.newPlot('scatter-plot', [trace], layout)
+}
+
+function plotRegressionLine(coefficients, xValues) {
+  const slope = coefficients.slope
+  const intercept = coefficients.intercept
+  const yValues = xValues.map(x => slope * x + intercept)
+
+  const regressionLine = {
+    type: 'line',
+    x0: Math.min(...xValues),
+    y0: Math.min(...yValues),
+    x1: Math.max(...xValues),
+    y1: Math.max(...yValues),
+    line: {
+      color: 'rgba(255, 0, 0, 0.8)',
+      width: 3,
+      dash: 'solid'
+    }
+  }
+
+  return regressionLine
 }
