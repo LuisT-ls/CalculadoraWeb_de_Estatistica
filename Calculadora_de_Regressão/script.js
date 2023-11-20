@@ -289,7 +289,7 @@ function generateScatterPlot(xValues, yValues) {
     showlegend: false,
     paper_bgcolor: 'rgba(240, 240, 240, 0.95)',
     plot_bgcolor: 'rgba(240, 240, 240, 0.95)',
-    hovermode: 'closest',
+    hovermode: 'closest', // Adiciona interação com o hover
     hoverlabel: {
       bgcolor: 'rgba(255, 255, 255, 0.9)',
       bordercolor: 'rgba(100, 100, 100, 0.8)',
@@ -304,13 +304,8 @@ function generateScatterPlot(xValues, yValues) {
       t: 50,
       pad: 4
     },
-    // Centraliza o gráfico na tela
-    autosize: false,
-    width: 600, // Defina a largura desejada
-    height: 400, // Defina a altura desejada
-    // Adiciona uma animação de transição
     transition: {
-      duration: 1000,
+      duration: 1000, // Adiciona uma animação de transição
       easing: 'ease-out'
     }
   }
