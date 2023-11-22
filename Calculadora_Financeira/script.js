@@ -49,9 +49,9 @@ showExplanationButton.addEventListener('click', () => {
 })
 
 operationSelect.addEventListener('change', () => {
-  updateInputFields();
-  showExplanation(operationSelect.value);
-});
+  updateInputFields()
+  showExplanation(operationSelect.value)
+})
 
 function updateInputFields() {
   inputFields.innerHTML = ''
