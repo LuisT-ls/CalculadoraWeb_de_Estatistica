@@ -37,7 +37,7 @@ calculateButton.addEventListener('click', () => {
 showExplanationButton.addEventListener('click', () => {
   const selectedOperation = operationSelect.value
   showExplanation(selectedOperation)
-  const explanation = document.getElementById('calcExplanation')
+  const explanation = explanationText // Use a referência já existente
   if (
     explanation.style.display === 'none' ||
     explanation.style.display === ''
@@ -47,6 +47,11 @@ showExplanationButton.addEventListener('click', () => {
     explanation.style.display = 'none'
   }
 })
+
+operationSelect.addEventListener('change', () => {
+  updateInputFields();
+  showExplanation(operationSelect.value);
+});
 
 function updateInputFields() {
   inputFields.innerHTML = ''
@@ -111,7 +116,7 @@ function calculateResult() {
     variacao: ['valorInicial', 'valorFinal'],
     jurosSimples: ['principal', 'taxa', 'tempo'],
     jurosCompostos: ['principal', 'taxa', 'tempo'],
-    desconto: ['precoOriginal', 'percentagemDesconto'],
+    desconto: ['precoOriginal', 'percentagemDesconto']
   }
 
   const inputValues = {}
