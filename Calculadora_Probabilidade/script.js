@@ -21,15 +21,12 @@ function updateStyles(isDarkMode) {
   const root = document.documentElement
 
   if (isDarkMode) {
-    // Adicione estilos para o modo escuro
     root.style.setProperty('--background-color', '#333')
     root.style.setProperty('--text-color', '#fff')
-    // Adicione mais estilos conforme necessário
   } else {
     // Restaure os estilos padrão
     root.style.removeProperty('--background-color')
     root.style.removeProperty('--text-color')
-    // Restaure mais estilos conforme necessário
   }
 }
 
@@ -81,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Adicione os event listeners necessários
   operationSelect.addEventListener('change', handleOperationChange)
   calculateButton.addEventListener('click', calculateProbability)
 
@@ -101,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Adicionar campos de entrada com base na operação selecionada
     if (selectedOperation === 'prob_uni') {
       // Lógica para a operação de probabilidade única
-      // Adicione campos de entrada relevantes
       inputFieldsContainer.innerHTML = `
           <label for="totalResults">Número de Resultados Possíveis:</label>
           <input type="number" id="totalResults" placeholder="Digite o número de resultados possíveis" min="1" required />
@@ -110,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `
     } else if (selectedOperation === 'prob_mulEv') {
       // Lógica para a operação de probabilidade de múltiplos eventos
-      // Adicione campos de entrada relevantes
       inputFieldsContainer.innerHTML = `
           <label for="totalResults">Número de Resultados Possíveis (n):</label>
           <input type="number" id="totalResults" placeholder="Digite o número de resultados possíveis" min="1" required />
@@ -121,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `
     } else if (selectedOperation === 'prob_doisEv') {
       // Lógica para a operação de probabilidade de dois eventos
-      // Adicione campos de entrada relevantes
       inputFieldsContainer.innerHTML = `
           <label for="eventA">Probabilidade do Evento A (entre 0 e 1):</label>
           <input type="number" id="eventA" placeholder="Digite a probabilidade do evento A" min="0" max="1" step="0.01" required />
@@ -130,14 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
         `
     } else if (selectedOperation === 'Prob_nEv') {
       // Lógica para a operação de probabilidade de uma série de eventos
-      // Adicione campos de entrada relevantes
       inputFieldsContainer.innerHTML = `
           <label for="events">Número total de Eventos:</label>
           <input type="number" id="events" placeholder="Digite o número total de eventos" min="1" required />
         `
     } else if (selectedOperation === 'ProbCond') {
       // Lógica para a operação de probabilidade condicional P(A|B)
-      // Adicione campos de entrada relevantes
       inputFieldsContainer.innerHTML = `
           <label for="probA">Probabilidade de A (entre 0 e 1):</label>
           <input type="number" id="probA" placeholder="Digite a probabilidade de A" min="0" max="1" step="0.01" required />
