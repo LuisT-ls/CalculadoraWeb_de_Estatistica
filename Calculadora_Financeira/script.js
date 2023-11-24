@@ -54,9 +54,13 @@ operationSelect.addEventListener('change', () => {
 })
 
 function updateInputFields() {
-  inputFields.innerHTML = ''
-
   const selectedOperation = operationSelect.value
+
+  const explanationsVisible = explanationText.style.display === 'block'
+  inputFields.innerHTML = ''
+  if (!explanationsVisible) {
+    explanationText.style.display = 'none'
+  }
 
   if (selectedOperation === 'capital') {
     addInputField('montante', 'Montante:')
