@@ -65,23 +65,25 @@ document.addEventListener('DOMContentLoaded', function () {
   const showExplanationButton = document.getElementById('showExplanation')
   const calcExplanationDiv = document.getElementById('calcExplanation')
 
+  let showingExplanation = false
+
   // Adicione um event listener para o botão "Responda-me"
   showExplanationButton.addEventListener('click', toggleExplanation)
 
   // Função para alternar a visibilidade da explicação
   function toggleExplanation() {
-    // Troque a visibilidade da explicação usando a propriedade 'display'
     if (calcExplanationDiv.style.display === 'block') {
       calcExplanationDiv.style.display = 'none'
+      showingExplanation = false
     } else {
       calcExplanationDiv.style.display = 'block'
+      showingExplanation = true
     }
   }
 
   // Adicione os event listeners necessários
   operationSelect.addEventListener('change', handleOperationChange)
   calculateButton.addEventListener('click', calculateProbability)
-  showExplanationButton.addEventListener('click', showExplanation)
 
   // Função para lidar com a mudança na operação selecionada
   function handleOperationChange() {
@@ -89,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Limpar campos de entrada
     inputFieldsContainer.innerHTML = ''
+    if (!showingExplanation) {
+      calcExplanationDiv.style.display = 'none'
+    }
 
     // Atualizar a explicação com base na operação selecionada
     updateExplanation(selectedOperation)
