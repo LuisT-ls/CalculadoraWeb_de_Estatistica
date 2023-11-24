@@ -133,27 +133,15 @@ function calculateResult() {
     result =
       inputValues.montante /
       (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
+    formattedResult = `Resultado: ${formatCurrency(result)}`
   } else if (selectedOperation === 'montante') {
     result =
       inputValues.principal *
       (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
+    formattedResult = `Resultado: ${formatCurrency(result)}`
   } else if (selectedOperation === 'juros') {
     result = inputValues.montante - inputValues.principal
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
+    formattedResult = `Resultado: ${formatCurrency(result)}`
   } else if (selectedOperation === 'desconto') {
     result = (inputValues.precoOriginal * inputValues.percentagemDesconto) / 100
     const precoComDesconto = inputValues.precoOriginal - result
@@ -210,6 +198,14 @@ function calculateResult() {
   }
 
   resultDiv.textContent = formattedResult
+}
+
+function formatCurrency(amount) {
+  return amount.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2
+  })
 }
 
 function showExplanation(selectedOperation) {
