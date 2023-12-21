@@ -325,8 +325,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Lógica para a operação de probabilidade condicional P(A|B)
       const probA = parseFloat(document.getElementById('probA').value)
       const probB = parseFloat(document.getElementById('probB').value)
+      const probIntersectionAB = probA * probB
 
-      const probCondAB = (probA * probB) / probB
+      // Calcula P(A|B)
+      const probCondAB = probIntersectionAB / probB
 
       results = {
         'Probabilidade condicional P(A|B)': probCondAB
