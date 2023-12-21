@@ -36,7 +36,7 @@ const resultDiv = document.getElementById('result')
 function clearInput() {
   // Limpar os campos de entrada
   const inputFields = document.querySelectorAll(
-    '#totalResults, #eventsOccurred, #totalResults, #eventsOccurredA, #eventsOccurredB, #eventA, #eventB, #events, #probA, #probB'
+    '#totalResults, #eventsOccurred, #eventsOccurredA, #eventsOccurredB, #eventA, #eventB, #events, #probA, #repetitionsA, #probB, #repetitionsB'
   )
   inputFields.forEach(input => (input.value = ''))
 
@@ -122,16 +122,26 @@ document.addEventListener('DOMContentLoaded', function () {
           <input type="number" id="eventB" placeholder="Digite a probabilidade do evento B" min="0" max="1" step="0.01" required />
         `
     } else if (selectedOperation === 'Prob_nEv') {
-      // Lógica para a operação de probabilidade de uma série de eventos
       inputFieldsContainer.innerHTML = `
+        <div class="input-column">
           <label for="probA">Probabilidade de A (entre 0 e 1):</label>
           <input type="number" id="probA" placeholder="Digite a probabilidade de A" min="0" max="1" step="0.01" required />
+        </div>
+        <div class="input-column">
           <label for="repetitionsA">Número de repetições de A:</label>
           <input type="number" id="repetitionsA" placeholder="Digite o número de repetições de A" min="1" required />
+        </div>
+        
+        <br> <!-- Adicionando uma quebra de linha aqui -->
+        
+        <div class="input-column">
           <label for="probB">Probabilidade de B (entre 0 e 1):</label>
           <input type="number" id="probB" placeholder="Digite a probabilidade de B" min="0" max="1" step="0.01" required />
+        </div>
+        <div class="input-column">
           <label for="repetitionsB">Número de repetições de B:</label>
           <input type="number" id="repetitionsB" placeholder="Digite o número de repetições de B" min="1" required />
+        </div>
       `
     } else if (selectedOperation === 'ProbCond') {
       // Lógica para a operação de probabilidade condicional P(A|B)

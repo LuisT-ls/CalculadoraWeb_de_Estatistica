@@ -249,6 +249,11 @@ body,
   }
 }
 
+.input-column {
+  display: inline-block;
+  margin-right: 20px;
+}
+
 /* Estilos específicos para telas menores */
 @media (max-width: 768px) {
   #toggleDarkMode {
@@ -268,4 +273,9 @@ body,
   footer p {
     font-size: 1rem;
   }
+
+  .input-column {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 10px;
 }
