@@ -124,9 +124,15 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (selectedOperation === 'Prob_nEv') {
       // Lógica para a operação de probabilidade de uma série de eventos
       inputFieldsContainer.innerHTML = `
-          <label for="events">Número total de Eventos:</label>
-          <input type="number" id="events" placeholder="Digite o número total de eventos" min="1" required />
-        `
+          <label for="probA">Probabilidade de A (entre 0 e 1):</label>
+          <input type="number" id="probA" placeholder="Digite a probabilidade de A" min="0" max="1" step="0.01" required />
+          <label for="repetitionsA">Número de repetições de A:</label>
+          <input type="number" id="repetitionsA" placeholder="Digite o número de repetições de A" min="1" required />
+          <label for="probB">Probabilidade de B (entre 0 e 1):</label>
+          <input type="number" id="probB" placeholder="Digite a probabilidade de B" min="0" max="1" step="0.01" required />
+          <label for="repetitionsB">Número de repetições de B:</label>
+          <input type="number" id="repetitionsB" placeholder="Digite o número de repetições de B" min="1" required />
+      `
     } else if (selectedOperation === 'ProbCond') {
       // Lógica para a operação de probabilidade condicional P(A|B)
       inputFieldsContainer.innerHTML = `
@@ -255,13 +261,31 @@ document.addEventListener('DOMContentLoaded', function () {
           probUnionAB
       }
     } else if (selectedOperation === 'Prob_nEv') {
-      // Lógica para a operação de probabilidade de uma série de eventos
-      const events = parseFloat(document.getElementById('events').value)
-      const probAnyEvent = 1 / events
+      const probA = parseFloat(document.getElementById('probA').value)
+      const repetitionsA = parseFloat(
+        document.getElementById('repetitionsA').value
+      )
+      const probB = parseFloat(document.getElementById('probB').value)
+      const repetitionsB = parseFloat(
+        document.getElementById('repetitionsB').value
+      )
+
+      const probNotA = 1 - probA
+      const probNotB = 1 - probB
+
+      const probAnyEventA = 1 - Math.pow(probNotA, repetitionsA)
+      const probAnyEventB = 1 - Math.pow(probNotB, repetitionsB)
+
+      const probAandNotB = probA * (1 - probB)
+      const probBandNotA = probB * (1 - probA)
 
       results = {
-        'Probabilidade de qualquer um dos eventos ocorrer P (A ∪ B)':
-          probAnyEvent
+        'Probabilidade de A ocorrendo': probAnyEventA,
+        'Probabilidade de B ocorrendo': probAnyEventB,
+        'Probabilidade de A não ocorrendo': probNotA,
+        'Probabilidade de B não ocorrendo': probNotB,
+        'Probabilidade de A ocorrendo mas não B': probAandNotB,
+        'Probabilidade de B ocorrendo mas não A': probBandNotA
       }
     } else if (selectedOperation === 'ProbCond') {
       // Lógica para a operação de probabilidade condicional P(A|B)
