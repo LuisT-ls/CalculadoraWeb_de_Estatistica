@@ -176,9 +176,14 @@ document.addEventListener('DOMContentLoaded', function () {
         `
     } else if (selectedOperation === 'Prob_nEv') {
       explanation = `
-          A probabilidade de uma série de eventos é o inverso do número total de eventos.
-          Digite o número total de eventos para calcular a probabilidade.
-        `
+        <p>A probabilidade de uma série de eventos é calculada considerando a probabilidade de cada evento individualmente.</p>
+        
+        <p>Forneça a probabilidade de A (entre 0 e 1) e o número de vezes que o evento A ocorrerá.</p>
+  
+        <p>Além disso, forneça a probabilidade de B (também entre 0 e 1) e o número de vezes que o evento B ocorrerá.</p>
+  
+        <p>O cálculo mostrará diversas probabilidades, incluindo a probabilidade de A ocorrendo x vezes e B ocorrendo y vezes, assim como outras combinações.</p>
+      `
     } else if (selectedOperation === 'ProbCond') {
       explanation = `
           A probabilidade condicional P(A|B) é calculada dividindo a probabilidade conjunta de A e B
@@ -187,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     calcExplanationDiv.textContent = explanation
+    calcExplanationDiv.innerHTML = explanation
   }
 
   function calculateProbability() {
