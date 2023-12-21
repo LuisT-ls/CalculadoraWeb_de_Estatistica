@@ -223,6 +223,32 @@ footer .signature {
   color: #555;
 }
 
+/* Transição suave entre temas claro e escuro */
+body,
+.container {
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Adicione transição suave para o modo escuro */
+.dark-mode,
+.dark-mode .container {
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Adicione animação de fade-in para a tabela no modo escuro */
+.dark-mode table {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Estilos específicos para telas menores */
 @media (max-width: 768px) {
   #toggleDarkMode {
