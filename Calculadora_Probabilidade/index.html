@@ -8,31 +8,43 @@
   </head>
   <body>
     <div class="container">
-      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
-      <h1>Calculadora de Probabilidade</h1>
-      <div class="operation-select">
-        <label for="operation">Selecione a Operação:</label>
-        <select id="operation">
-          <option value="prob_uni">Probabilidade única</option>
-          <option value="prob_mulEv">Probabilidade de Múltiplos Eventos</option>
-          <option value="prob_doisEv">Probabilidade de Dois Eventos</option>
-          <option value="Prob_nEv">
-            Probabilidade de Uma Série de Eventos
-          </option>
-          <option value="ProbCond">Probabilidade Condicional P (A|B)</option>
-        </select>
-        <div class="explanation">
-          <p>Você sabe para que serve esse cálculo?</p>
-          <button id="showExplanation">Responda-me</button>
-          <div id="calcExplanation" class="explanation-text"></div>
-        </div>
-      </div>
-      <div id="input-fields" class="input-fields">
-        <!-- Input fields will be added dynamically with JavaScript -->
-      </div>
-      <button id="calculate">Calcular</button>
-      <button id="clear">Limpar</button>
-      <div class="result" id="result"></div>
+      <header>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+        <h1>Calculadora de Probabilidade</h1>
+      </header>
+      <main>
+        <section class="operation-select">
+          <label for="operation">Selecione a Operação:</label>
+          <select id="operation" aria-label="Selecionar Operação">
+            <option value="prob_uni">Probabilidade única</option>
+            <option value="prob_mulEv">
+              Probabilidade de Múltiplos Eventos
+            </option>
+            <option value="prob_doisEv">Probabilidade de Dois Eventos</option>
+            <option value="Prob_nEv">
+              Probabilidade de Uma Série de Eventos
+            </option>
+            <option value="ProbCond">Probabilidade Condicional P (A|B)</option>
+          </select>
+          <div class="explanation">
+            <p>Você sabe para que serve esse cálculo?</p>
+            <button id="showExplanation" aria-label="Mostrar Explicação">
+              Responda-me
+            </button>
+            <div
+              id="calcExplanation"
+              class="explanation-text"
+              aria-live="polite"
+            ></div>
+          </div>
+        </section>
+        <section id="input-fields" class="input-fields" aria-live="polite">
+          <!-- Input fields will be added dynamically with JavaScript -->
+        </section>
+        <button id="calculate">Calcular</button>
+        <button id="clear">Limpar</button>
+        <section class="result" id="result" aria-live="polite"></section>
+      </main>
       <footer>
         <p>&copy; 2023 Luís Teixeira. Todos os direitos reservados.</p>
         <p>

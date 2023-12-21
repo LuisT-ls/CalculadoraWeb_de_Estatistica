@@ -55,7 +55,6 @@ button#showExplanation:hover {
 /* Estilização do .container para o modo escuro */
 .dark-mode .container {
   background-color: #222;
-  color: #ffffff;
 }
 
 /* Cores de texto personalizadas para o modo escuro */
@@ -66,6 +65,10 @@ button#showExplanation:hover {
 }
 
 /* Mudanças no select no modo escuro */
+.dark-mode select {
+  background-color: #555;
+}
+
 .dark-mode select option:hover {
   background-color: #333;
   color: #fff;
@@ -73,7 +76,6 @@ button#showExplanation:hover {
 
 .operation-select {
   text-align: center;
-  display: block;
   margin-bottom: 20px;
 }
 
@@ -85,8 +87,8 @@ label {
 }
 
 select {
-  width: 100%; /* Largura total para preencher a tela */
-  max-width: 250px; /* Largura máxima */
+  width: 100%;
+  max-width: 250px;
   text-align: center;
   padding: 10px;
   border: 1px solid #555;
@@ -117,8 +119,8 @@ select:hover {
 }
 
 input[type='number'] {
-  width: 100%; /* Largura total para preencher a tela */
-  max-width: 250px; /* Largura máxima */
+  width: 100%;
+  max-width: 250px;
   padding: 10px;
   border: 1px solid #555;
   border-radius: 10px;
@@ -228,13 +230,13 @@ footer .signature {
   }
 
   .container {
-    padding: 1rem; /* Reduz o preenchimento */
-    margin: 10px; /* Reduz a margem */
+    padding: 1rem;
+    margin: 10px;
   }
 
   select,
   input[type='number'] {
-    font-size: 14px; /* Reduz o tamanho da fonte */
+    font-size: 14px;
   }
 
   footer p {
