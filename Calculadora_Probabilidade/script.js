@@ -279,13 +279,27 @@ document.addEventListener('DOMContentLoaded', function () {
       const probAandNotB = probA * (1 - probB)
       const probBandNotA = probB * (1 - probA)
 
+      // Adicionar probabilidades de ocorrência exata ao resultado
+      const exactProbA = Math.pow(probA, repetitionsA)
+      const exactProbB = Math.pow(probB, repetitionsB)
+
+      // Adicionar novas entradas para representar diferentes combinações de ocorrências de A e B
       results = {
         'Probabilidade de A ocorrendo': probAnyEventA,
         'Probabilidade de B ocorrendo': probAnyEventB,
         'Probabilidade de A não ocorrendo': probNotA,
         'Probabilidade de B não ocorrendo': probNotB,
         'Probabilidade de A ocorrendo mas não B': probAandNotB,
-        'Probabilidade de B ocorrendo mas não A': probBandNotA
+        'Probabilidade de B ocorrendo mas não A': probBandNotA,
+        ['Probabilidade de A ocorrendo ' +
+        repetitionsA +
+        ' vezes e B ocorrendo ' +
+        repetitionsB +
+        ' vezes']: exactProbA * exactProbB,
+        ['Probabilidade de A ocorrendo ' + repetitionsA + ' vezes mas não B']:
+          exactProbA * (1 - exactProbB),
+        ['Probabilidade de B ocorrendo ' + repetitionsB + ' vezes mas não A']:
+          exactProbB * (1 - exactProbA)
       }
     } else if (selectedOperation === 'ProbCond') {
       // Lógica para a operação de probabilidade condicional P(A|B)
