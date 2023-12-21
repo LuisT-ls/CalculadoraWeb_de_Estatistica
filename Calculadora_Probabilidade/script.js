@@ -78,10 +78,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Adicione um event listener para a mudança de operação
   operationSelect.addEventListener('change', handleOperationChange)
-  calculateButton.addEventListener('click', calculateProbability)
+  // Chame handleOperationChange quando a página for carregada
+  handleOperationChange()
 
-  // Função para lidar com a mudança na operação selecionada
+  calculateButton.addEventListener('click', calculateProbability)
+  clearButton.addEventListener('click', clearInput)
+
   function handleOperationChange() {
     const selectedOperation = operationSelect.value
 
