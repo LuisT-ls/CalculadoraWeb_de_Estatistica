@@ -325,10 +325,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Lógica para a operação de probabilidade condicional P(A|B)
       const probA = parseFloat(document.getElementById('probA').value)
       const probB = parseFloat(document.getElementById('probB').value)
-      const probIntersectionAB = probA * probB
 
       // Calcula P(A|B)
-      const probCondAB = probIntersectionAB / probB
+      const probCondAB =
+        probB !== 0 ? probA / probB : 'Indefinido (divisão por zero)'
 
       results = {
         'Probabilidade condicional P(A|B)': probCondAB
@@ -366,10 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function formatDecimal(value) {
-    // Arredondar para 1 casa decimal se necessário
-    const formattedValue =
-      value % 1 === 0 && value < 10 ? value.toFixed(0) : value.toFixed(1)
-    return formattedValue.replace(/\.0$/, '') // Remover ".0" se existir
+    return value.toFixed(3)
   }
 
   function formatPercentage(value) {
