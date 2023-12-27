@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
+    <title>Calculadora Unidade de Medidas</title>
+  </head>
+  <body>
+    <div class="container">
+      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      <h1>Calculadora de Unidade de Medidas</h1>
+      <div class="operation-select">
+        <label for="operation">Selecione a Operação:</label>
+        <select id="operation">
+          <option value="comprimento">Comprimento</option>
+          <option value="massa">Massa</option>
+          <option value="volume">Volume</option>
+          <option value="area">Área</option>
+          <option value="tempo">Tempo</option>
+          <option value="velocidade">Velocidade</option>
+          <option value="angulo">Ângulo</option>
+          <option value="pressao">Pressão</option>
+        </select>
+        <div class="explanation">
+          <p>Você sabe para que serve esse cálculo?</p>
+          <button id="showExplanation">Responda-me</button>
+          <div id="calcExplanation" class="explanation-text"></div>
+        </div>
+      </div>
+      <div id="unit-selection" class="input-fields">
+        <!-- Unit selection dropdown will be added dynamically with JavaScript -->
+      </div>
+      <div id="input-fields" class="input-fields">
+        <!-- Input fields will be added dynamically with JavaScript -->
+      </div>
+      <button id="calculate">Calcular</button>
+      <div class="result" id="result"></div>
+      <footer>
+        <p>&copy; 2023 Luís Teixeira. Todos os direitos reservados.</p>
+        <p>
+          <a href="https://github.com/LuisT-ls" target="_blank">Meu Github</a>
+        </p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
