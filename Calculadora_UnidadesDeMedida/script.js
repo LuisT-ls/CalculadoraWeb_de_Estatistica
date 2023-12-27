@@ -308,7 +308,39 @@ document.addEventListener('DOMContentLoaded', function () {
         resultTable = generateComprimentoTable(inputValue, selectedLengthUnit)
         break
 
-      // Adicione casos para outras operações conforme necessário
+      case 'massa':
+        const selectedMassUnit = document.getElementById('unit-select').value
+        resultTable = generateMassaTable(inputValue, selectedMassUnit)
+        break
+      case 'volume':
+        const selectedVolumeUnit = document.getElementById('unit-select').value
+        resultTable = generateVolumeTable(inputValue, selectedVolumeUnit)
+        break
+      case 'area':
+        const selectedAreaUnit = document.getElementById('unit-select').value
+        resultTable = generateAreaTable(inputValue, selectedAreaUnit)
+        break
+      case 'tempo':
+        const selectedTempoUnit = document.getElementById('unit-select').value
+        resultTable = generateTempoTable(inputValue, selectedTempoUnit)
+        break
+      case 'velocidade':
+        const selectedVelocidadeUnit =
+          document.getElementById('unit-select').value
+        resultTable = generateVelocidadeTable(
+          inputValue,
+          selectedVelocidadeUnit
+        )
+        break
+      case 'angulo':
+        const selectedAnguloUnit = document.getElementById('unit-select').value
+        resultTable = generateAnguloTable(inputValue, selectedAnguloUnit)
+        break
+
+      case 'pressao':
+        const selectedPressaoUnit = document.getElementById('unit-select').value
+        resultTable = generatePressaoTable(inputValue, selectedPressaoUnit)
+        break
 
       default:
         resultTable = '<p>Operação não suportada</p>'
@@ -361,6 +393,315 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const valueInMeters = value * conversionFactors[fromUnit]
     return valueInMeters / conversionFactors[toUnit]
+  }
+
+  function generateMassaTable(value, selectedUnit) {
+    const units = [
+      'Quilograma (kg)',
+      'Hectograma (hg)',
+      'Decagrama (dag)',
+      'Grama (g)',
+      'Decigrama (dg)',
+      'Centigrama (cg)',
+      'Miligrama (mg)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertMassa(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertMassa(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Quilograma (kg)': 0.001,
+      'Hectograma (hg)': 0.01,
+      'Decagrama (dag)': 0.1,
+      'Grama (g)': 1,
+      'Decigrama (dg)': 10,
+      'Centigrama (cg)': 100,
+      'Miligrama (mg)': 1000
+    }
+
+    const valueInGrams = value * conversionFactors[fromUnit]
+    return valueInGrams / conversionFactors[toUnit]
+  }
+
+  function generateVolumeTable(value, selectedUnit) {
+    const units = [
+      'Quilômetro Cúbico (km³)',
+      'Hectômetro Cúbico (hm³)',
+      'Decâmetro Cúbico (dam³)',
+      'Metro Cúbico (m³)',
+      'Decímetro Cúbico (dm³)',
+      'Centímetro Cúbico (cm³)',
+      'Milímetro Cúbico (mm³)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertVolume(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertVolume(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Quilômetro Cúbico (km³)': 1e-18,
+      'Hectômetro Cúbico (hm³)': 1e-15,
+      'Decâmetro Cúbico (dam³)': 1e-12,
+      'Metro Cúbico (m³)': 1,
+      'Decímetro Cúbico (dm³)': 1e3,
+      'Centímetro Cúbico (cm³)': 1e6,
+      'Milímetro Cúbico (mm³)': 1e9
+    }
+
+    const valueInCubicMeters = value * conversionFactors[fromUnit]
+    return valueInCubicMeters / conversionFactors[toUnit]
+  }
+
+  function generateAreaTable(value, selectedUnit) {
+    const units = [
+      'Quilômetro Quadrado (km²)',
+      'Hectômetro Quadrado (hm²)',
+      'Decâmetro Quadrado (dam²)',
+      'Metro Quadrado (m²)',
+      'Decímetro Quadrado (dm²)',
+      'Centímetro Quadrado (cm²)',
+      'Milímetro Quadrado (mm²)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertArea(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertArea(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Quilômetro Quadrado (km²)': 1e-6,
+      'Hectômetro Quadrado (hm²)': 1e-4,
+      'Decâmetro Quadrado (dam²)': 1e-2,
+      'Metro Quadrado (m²)': 1,
+      'Decímetro Quadrado (dm²)': 1e2,
+      'Centímetro Quadrado (cm²)': 1e4,
+      'Milímetro Quadrado (mm²)': 1e6
+    }
+
+    const valueInSquareMeters = value * conversionFactors[fromUnit]
+    return valueInSquareMeters / conversionFactors[toUnit]
+  }
+
+  function generateTempoTable(value, selectedUnit) {
+    const units = [
+      'Segundo (s)',
+      'Minuto (min)',
+      'Hora (h)',
+      'Dia (dia)',
+      'Semana (semana)',
+      'Mês (mês)',
+      'Ano (ano)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertTempo(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertTempo(value, fromUnit, toUnit) {
+    const secondsInMinute = 60
+    const secondsInHour = 3600
+    const secondsInDay = 86400 // 24 horas em um dia
+    const daysInWeek = 7
+    const daysInMonth = 30 // Aproximado
+    const daysInYear = 365 // Aproximado
+
+    const conversionFactors = {
+      'Segundo (s)': 1,
+      'Minuto (min)': secondsInMinute,
+      'Hora (h)': secondsInHour,
+      'Dia (dia)': secondsInDay,
+      'Semana (semana)': secondsInDay * daysInWeek,
+      'Mês (mês)': secondsInDay * daysInMonth,
+      'Ano (ano)': secondsInDay * daysInYear
+    }
+
+    const valueInSeconds = value * conversionFactors[fromUnit]
+    return valueInSeconds / conversionFactors[toUnit]
+  }
+
+  function generateVelocidadeTable(value, selectedUnit) {
+    const units = [
+      'Quilômetro por Hora (km/h)',
+      'Metro por Segundo (m/s)',
+      'Milha por Hora (mph)',
+      'Pé por Segundo (fps)',
+      'Nó (kn)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertVelocidade(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertVelocidade(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Quilômetro por Hora (km/h)': 1,
+      'Metro por Segundo (m/s)': 1 / 3.6,
+      'Milha por Hora (mph)': 0.621371,
+      'Pé por Segundo (fps)': 0.911344,
+      'Nó (kn)': 0.539957
+    }
+
+    const valueInKmPerHour = value * conversionFactors[fromUnit]
+    return valueInKmPerHour / conversionFactors[toUnit]
+  }
+
+  function generateAnguloTable(value, selectedUnit) {
+    const units = ['Grau (°)', 'Radiano (rad)', 'Grau-minuto-segundo (GMS)']
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertAngulo(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertAngulo(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Grau (°)': 1,
+      'Radiano (rad)': 0.0174533,
+      'Grau-minuto-segundo (GMS)': 0.000277778
+    }
+
+    const valueInDegrees = value * conversionFactors[fromUnit]
+    return valueInDegrees / conversionFactors[toUnit]
+  }
+
+  function generatePressaoTable(value, selectedUnit) {
+    const units = [
+      'Pascal (Pa)',
+      'Quilopascal (kPa)',
+      'Megapascal (MPa)',
+      'Bar (bar)',
+      'Psi (psi)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertPressao(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertPressao(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Pascal (Pa)': 1,
+      'Quilopascal (kPa)': 0.001,
+      'Megapascal (MPa)': 1e-6,
+      'Bar (bar)': 1e-5,
+      'Psi (psi)': 0.0001450377377338
+    }
+
+    const valueInPascals = value * conversionFactors[fromUnit]
+    return valueInPascals / conversionFactors[toUnit]
   }
 
   function displayResult(result) {
