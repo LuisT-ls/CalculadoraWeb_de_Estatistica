@@ -289,6 +289,84 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  function calculateResult() {
+    const selectedOperation = operationSelect.value
+    const inputValue = parseFloat(document.getElementById('user-input').value)
+
+    let resultTable
+
+    const table = document.createElement('table')
+    const headerRow = table.createTHead().insertRow(0)
+    const headerCell1 = headerRow.insertCell(0)
+    const headerCell2 = headerRow.insertCell(1)
+    headerCell1.textContent = 'Unidade'
+    headerCell2.textContent = 'Valor Convertido'
+
+    switch (selectedOperation) {
+      case 'comprimento':
+        const selectedLengthUnit = document.getElementById('unit-select').value
+        resultTable = generateComprimentoTable(inputValue, selectedLengthUnit)
+        break
+
+      // Adicione casos para outras operações conforme necessário
+
+      default:
+        resultTable = '<p>Operação não suportada</p>'
+    }
+
+    displayResult(resultTable)
+  }
+
+  function generateComprimentoTable(value, selectedUnit) {
+    const units = [
+      'Quilômetro (km)',
+      'Hectômetro (hm)',
+      'Decâmetro (dam)',
+      'Metro (m)',
+      'Decímetro (dm)',
+      'Centímetro (cm)',
+      'Milímetro (mm)'
+    ]
+
+    const tableRows = units.map(unit => {
+      const convertedValue = convertComprimento(value, selectedUnit, unit)
+      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+    })
+
+    return `
+      <table>
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Valor Convertido</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows.join('')}
+        </tbody>
+      </table>
+    `
+  }
+
+  function convertComprimento(value, fromUnit, toUnit) {
+    const conversionFactors = {
+      'Quilômetro (km)': 0.001,
+      'Hectômetro (hm)': 0.01,
+      'Decâmetro (dam)': 0.1,
+      'Metro (m)': 1,
+      'Decímetro (dm)': 10,
+      'Centímetro (cm)': 100,
+      'Milímetro (mm)': 1000
+    }
+
+    const valueInMeters = value * conversionFactors[fromUnit]
+    return valueInMeters / conversionFactors[toUnit]
+  }
+
+  function displayResult(result) {
+    resultDisplay.innerHTML = result
+  }
+
   // Event listener for the "Responda-me" button
   showExplanationButton.addEventListener('click', function () {
     // Toggle the active class to track button state
@@ -339,6 +417,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calculateButton.addEventListener('click', function () {
     calculateResult()
+  })
+
+  const clearButton = document.getElementById('clear')
+  clearButton.addEventListener('click', function () {
+    // Zerar o valor digitado no input
+    document.getElementById('user-input').value = ''
+    // Limpar apenas o conteúdo da tabela de resultados
+    resultDisplay.innerHTML = ''
   })
 
   // Trigger initial creation of unit selection and input field for the default operation ("comprimento")

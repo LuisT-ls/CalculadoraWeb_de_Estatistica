@@ -6,6 +6,24 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
     <title>Calculadora Unidade de Medidas</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #555;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -36,6 +54,7 @@
         <!-- Input fields will be added dynamically with JavaScript -->
       </div>
       <button id="calculate">Calcular</button>
+      <button id="clear">Limpar</button>
       <div class="result" id="result"></div>
       <footer>
         <p>&copy; 2023 Luís Teixeira. Todos os direitos reservados.</p>
