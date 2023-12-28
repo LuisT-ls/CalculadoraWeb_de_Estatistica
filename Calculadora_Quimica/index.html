@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
+    <title>Calculadora Química</title>
+  </head>
+  <body>
+    <div class="container">
+      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      <h1>Calculadora Química</h1>
+      <div class="operation-select">
+        <label for="operation">Selecione a Operação:</label>
+        <select id="operation">
+          <option value="conversaoUnidades">Conversão de Unidades</option>
+          <option value="calculosestequiometricos">
+            Cálculos Estequiométricos
+          </option>
+          <option value="massaMolar">Massa Molar</option>
+          <option value="concentracaoSolucoes">Concentração de Soluções</option>
+          <option value="diluicaoSolucoes">Diluição de Soluções</option>
+          <option value="reacoesQuimicas">Reações Químicas</option>
+          <option value="balanceamentoEquacoesQuimicas">
+            Balanceamento de Equações Químicas
+          </option>
+          <option value="leiBoyleCharlesGayLussac">
+            Lei de Boyle, Charles e Gay-Lussac
+          </option>
+          <option value="solucoesTampao">Soluções Tampão</option>
+          <option value="constantesQuimicas">Constantes Químicas</option>
+          <option value="temperaturaPressaoPadrao">
+            Temperatura e Pressão Padrão
+          </option>
+          <option value="equilibrioQuimico">Equilíbrio Químico</option>
+          <option value="leiLambertBeer">
+            Lei de Lambert-Beer (Absorvância e Concentração)
+          </option>
+          <option value="cineticaQuimica">Cinética Química</option>
+          <option value="equacaoNernst">
+            Equação de Nernst (Potencial de Eletrodo)
+          </option>
+          <option value="constanteEquilibrioPressaoParcial">
+            Constante de Equilíbrio em Termos de Pressão Parcial
+          </option>
+          <option value="misturaGases">Mistura de Gases</option>
+          <option value="numeroOxidacao">Número de Oxidação</option>
+          <option value="teoriaColisoes">Teoria de Colisões</option>
+          <option value="conversoesTemperatura">
+            Conversões de Temperatura
+          </option>
+          <option value="solucoesNaoIdeais">Soluções Não Ideais</option>
+          <option value="rendimentoReacao">Rendimento da Reação</option>
+          <option value="equacoesTermoquimicas">Equações Termoquímicas</option>
+        </select>
+        <div class="explanation">
+          <p>Você sabe para que serve esse cálculo?</p>
+          <button id="showExplanation">Responda-me</button>
+          <div id="calcExplanation" class="explanation-text"></div>
+        </div>
+      </div>
+      <div id="input-fields" class="input-fields">
+        <!-- Input fields will be added dynamically with JavaScript -->
+      </div>
+      <button id="calculate">Calcular</button>
+      <div class="result" id="result"></div>
+      <footer>
+        <p>&copy; 2023 Luís Teixeira. Todos os direitos reservados.</p>
+        <p>
+          <a href="https://github.com/LuisT-ls" target="_blank">Meu Github</a>
+        </p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
