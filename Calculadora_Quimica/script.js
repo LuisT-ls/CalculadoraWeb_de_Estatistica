@@ -216,7 +216,12 @@ function calculateResult() {
 
   switch (selectedOperation) {
     case 'conversaoUnidades':
-      result = inputs.valorOriginal * inputs.fatorConversao
+      const originalUnit = inputs.unidadeOriginal
+      const targetUnit = inputs.unidadeAlvo
+      const originalValue = inputs.valorOriginal
+
+      // Realiza a conversão de unidades
+      result = convertUnits(originalValue, originalUnit, targetUnit)
       break
     case 'calculosestequiometricos':
       result = inputs.quantidadeReagente * inputs.coeficienteReagente
@@ -328,12 +333,12 @@ function showExplanation(selectedOperation) {
 
   if (selectedOperation === 'conversaoUnidades') {
     explanation = `
-      <p>A Conversão de Unidades é utilizada para converter uma quantidade de uma unidade para outra. A fórmula geral é:</p>
-      <p>Novo Valor = Valor Original * Fator de Conversão</p>
-      <p>Exemplo:</p>
-      <p>Converter 1 metro para centímetros:</p>
-      <p>Novo Valor = 1 metro * 100 centímetros/metro</p>
-      <p>Novo Valor = 100 centímetros</p>
+      <p>A Conversão de Unidades Químicas permite a conversão entre diferentes unidades de medida usadas na química, como gramas para mol, litros para moles, etc.</p>
+      <p>Exemplos:</p>
+      <p>1. Gramas para Moles:</p>
+      <p>   Mol = Gramas / Peso Molecular</p>
+      <p>2. Litros para Moles (em condições padrão):</p>
+      <p>   Moles = Litros / Volume Molar Padrão</p>
     `
   } else if (selectedOperation === 'calculosestequiometricos') {
     explanation = `
@@ -414,54 +419,61 @@ function showExplanation(selectedOperation) {
     `
   } else if (selectedOperation === 'cineticaQuimica') {
     explanation = `
-      <p>A Cinética Química estuda a velocidade das reações químicas e os fatores que a afetam. A equação geral para uma reação é:</p>
-      <p>Velocidade = k[A]^m[B]^n</p>
-      <p>onde k é a constante de velocidade e m, n são os expoentes da ordem da reação em relação aos reagentes A e B, respectivamente.</p>
+      <p>A Cinética Química estuda a velocidade das reações químicas. A velocidade média é a variação da concentração de um reagente ou produto em relação ao tempo.</p>
+      <p>Exemplo:</p>
+      <p>Velocidade = Δ[A] / Δt</p>
     `
   } else if (selectedOperation === 'equacaoNernst') {
     explanation = `
-      <p>A Equação de Nernst é utilizada para calcular o potencial de eletrodo em células eletroquímicas não padrão. A equação é:</p>
-      <p>E = E° - (RT/nF) * ln(Q)</p>
-      <p>onde E é o potencial de eletrodo, E° é o potencial padrão de eletrodo, R é a constante dos gases, T é a temperatura em kelvins, n é o número de elétrons transferidos na reação e F é a constante de Faraday.</p>
+      <p>A Equação de Nernst descreve a relação entre o potencial de eletrodo, a constante de equilíbrio e a atividade dos íons em uma célula eletroquímica não padrão.</p>
+      <p>Fórmula: E = E° - (0.0592 / n) * log(Q)</p>
+      <p>onde E° é o potencial padrão de eletrodo, n é o número de elétrons envolvidos e Q é a constante de equilíbrio.</p>
     `
   } else if (selectedOperation === 'constanteEquilibrioPressaoParcial') {
     explanation = `
-      <p>A Constante de Equilíbrio em Termos de Pressão Parcial é utilizada em equilíbrios químicos gasosos. A expressão é:</p>
-      <p>Kp = (P_C^c * P_D^d) / (P_A^a * P_B^b)</p>
-      <p>onde P_A, P_B, P_C, P_D são as pressões parciais dos reagentes e produtos na reação.</p>
+      <p>A Constante de Equilíbrio em Termos de Pressão Parcial é usada em reações gasosas. A expressão é semelhante à constante de equilíbrio, mas utiliza pressões parciais em vez de concentrações.</p>
+      <p>Exemplo:</p>
+      <p>Expressão para Kp: (PA^a * PB^b) / (PC^c * PD^d)</p>
     `
   } else if (selectedOperation === 'misturaGases') {
     explanation = `
-      <p>A Mistura de Gases envolve o cálculo de frações molares e pressões parciais de gases em uma mistura. A fórmula é:</p>
-      <p>Pressão Parcial = Fração Molar * Pressão Total</p>
+      <p>A Mistura de Gases envolve o cálculo das frações molares e pressões parciais de diferentes gases em uma mistura. A lei de Dalton é usada para isso.</p>
+      <p>Exemplo:</p>
+      <p>Pressão parcial de A = Fração molar de A * Pressão total</p>
     `
   } else if (selectedOperation === 'numeroOxidacao') {
     explanation = `
-      <p>O Número de Oxidação é uma carga fictícia atribuída a um átomo em uma molécula. Sua determinação envolve regras específicas dependendo do tipo de ligação e do contexto molecular.</p>
+      <p>O Número de Oxidação é uma carga atribuída a um átomo em uma molécula ou íon. Deve-se levar em consideração as regras para atribuição de números de oxidação.</p>
+      <p>Exemplo:</p>
+      <p>Número de oxidação do oxigênio em H2O: -2</p>
     `
   } else if (selectedOperation === 'teoriaColisoes') {
     explanation = `
-      <p>A Teoria de Colisões explica como as colisões entre partículas levam à formação de produtos em uma reação química. A equação geral é:</p>
-      <p>Velocidade = k * [A]^m * [B]^n</p>
-      <p>onde k é a constante de velocidade e [A], [B] são as concentrações dos reagentes.</p>
+      <p>A Teoria de Colisões explica a formação de produtos em uma reação química com base nas colisões eficazes entre as partículas reagentes.</p>
+      <p>Velocidade = k * [A]^x * [B]^y</p>
+      <p>onde k é a constante de velocidade e [A] e [B] são as concentrações dos reagentes.</p>
     `
   } else if (selectedOperation === 'conversoesTemperatura') {
     explanation = `
-      <p>As Conversões de Temperatura são utilizadas para transformar valores de temperatura entre diferentes escalas, como Celsius (°C) e Fahrenheit (°F).</p>
+      <p>As Conversões de Temperatura são utilizadas para converter entre diferentes escalas de temperatura, como Celsius (°C) e Fahrenheit (°F).</p>
+      <p>Exemplo:</p>
+      <p>Converter 25°C para Fahrenheit: (25°C * 9/5) + 32 = 77°F</p>
     `
   } else if (selectedOperation === 'solucoesNaoIdeais') {
     explanation = `
-      <p>As Soluções Não Ideais desviam do comportamento ideal devido a interações intermoleculares. O fator de desvio é expresso como:</p>
-      <p>Fator de Desvio (φ) = (V_real - V_ideal) / V_ideal</p>
+      <p>As Soluções Não Ideais desviam-se do comportamento previsto pelas leis ideais. A atividade é usada para corrigir os cálculos.</p>
+      <p>Atividade = Concentração Real / Concentração Ideal</p>
     `
   } else if (selectedOperation === 'rendimentoReacao') {
     explanation = `
-      <p>O Rendimento da Reação compara a quantidade real de produto obtido com a quantidade teórica prevista. A fórmula é:</p>
+      <p>O Rendimento da Reação compara a quantidade real de produto obtido com a quantidade teórica esperada. É expresso como uma porcentagem.</p>
       <p>Rendimento (%) = (Quantidade Real / Quantidade Teórica) * 100</p>
     `
   } else if (selectedOperation === 'equacoesTermoquimicas') {
     explanation = `
-      <p>As Equações Termoquímicas descrevem as mudanças de energia associadas a uma reação química. O calor de reação (ΔH) é a diferença de entalpia entre reagentes e produtos.</p>
+      <p>As Equações Termoquímicas envolvem a variação de entalpia (ΔH) em uma reação química. Pode ser endotérmica (ΔH > 0) ou exotérmica (ΔH < 0).</p>
+      <p>Exemplo:</p>
+      <p>ΔH = Hprodutos - Hreagentes</p>
     `
   }
 
