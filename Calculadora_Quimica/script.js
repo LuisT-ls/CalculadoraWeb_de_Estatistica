@@ -28,6 +28,7 @@ const explanationText = document.getElementById('calcExplanation')
 
 operationSelect.addEventListener('change', () => {
   updateInputFields()
+  showExplanation(operationSelect.value)
 })
 
 calculateButton.addEventListener('click', () => {
@@ -41,7 +42,7 @@ calculateButton.addEventListener('click', () => {
 showExplanationButton.addEventListener('click', () => {
   const selectedOperation = operationSelect.value
   showExplanation(selectedOperation)
-  const explanation = explanationText // Use a referência já existente
+  const explanation = explanationText
   if (
     explanation.style.display === 'none' ||
     explanation.style.display === ''
@@ -50,11 +51,6 @@ showExplanationButton.addEventListener('click', () => {
   } else {
     explanation.style.display = 'none'
   }
-})
-
-operationSelect.addEventListener('change', () => {
-  updateInputFields()
-  showExplanation(operationSelect.value)
 })
 
 function updateInputFields() {
@@ -125,21 +121,27 @@ function updateInputFields() {
     addInputField('pressaoC', 'Pressão Parcial (C) (atm):')
     addInputField('pressaoD', 'Pressão Parcial (D) (atm):')
   } else if (selectedOperation === 'misturaGases') {
-    // Adicione os campos de entrada relevantes para mistura de gases
+    addInputField('pressaoTotal', 'Pressão Total (atm):')
+    addInputField('fracaoMolar1', 'Fração Molar do Gás 1:')
+    addInputField('constanteGases', 'Constante dos Gases (atm L/(mol K):')
   } else if (selectedOperation === 'numeroOxidacao') {
-    // Adicione os campos de entrada relevantes para número de oxidação
+    addInputField('composto', 'Composto:')
   } else if (selectedOperation === 'teoriaColisoes') {
     // Não são necessários campos de entrada para teoria de colisões
   } else if (selectedOperation === 'conversoesTemperatura') {
     addInputField('temperaturaCelsius', 'Temperatura (°C):')
     addInputField('temperaturaFahrenheit', 'Temperatura (°F):')
   } else if (selectedOperation === 'solucoesNaoIdeais') {
-    // Adicione os campos de entrada relevantes para soluções não ideais
+    addInputField('concentracaoReal', 'Concentração Real (mol/L):')
+    addInputField('concentracaoIdeal', 'Concentração Ideal (mol/L):')
   } else if (selectedOperation === 'rendimentoReacao') {
     addInputField('quantidadeReal', 'Quantidade Real:')
     addInputField('quantidadeTeorica', 'Quantidade Teórica:')
   } else if (selectedOperation === 'equacoesTermoquimicas') {
-    // Adicione os campos de entrada relevantes para equações termoquímicas
+    addInputField('entalpia', 'Entalpia (kJ):')
+    addInputField('temperaturaInicial', 'Temperatura Inicial (K):')
+    addInputField('temperaturaFinal', 'Temperatura Final (K):')
+    addInputField('quantidade', 'Quantidade (mol):')
   }
 }
 
@@ -185,11 +187,10 @@ function balanceChemicalEquation(inputs) {
 }
 
 function calculateGasMixture(inputs) {
-  // Implementação da lógica para mistura de gases
+  // Adicione a lógica de cálculo considerando inputs.pressaoParcial1 e inputs.pressaoParcial2
   const totalPressure = inputs.pressaoTotal
   const partialPressure1 = inputs.pressaoParcial1
   const partialPressure2 = inputs.pressaoParcial2
-
   const moleFraction1 = partialPressure1 / totalPressure
   const moleFraction2 = partialPressure2 / totalPressure
 
@@ -200,7 +201,6 @@ function calculateGasMixture(inputs) {
 }
 
 function calculateOxidationNumber(inputs) {
-  // Implementação da lógica para número de oxidação
   const compound = inputs.composto
   const oxidationNumbers = getOxidationNumbers(compound)
 
@@ -223,8 +223,7 @@ function calculateResult() {
       const originalUnit = inputs.unidadeOriginal
       const targetUnit = inputs.unidadeAlvo
       const originalValue = inputs.valorOriginal
-
-      // Realiza a conversão de unidades
+      balanceamentoEquacoes
       result = convertUnits(originalValue, originalUnit, targetUnit)
       break
     case 'calculosestequiometricos':
@@ -244,7 +243,7 @@ function calculateResult() {
     case 'reacoesQuimicas':
       result = equationOfReaction(inputs)
       break
-    case 'balanceamentoEquacoesQuimicas':
+    case 'balanceamentoEquacoes':
       result = balanceChemicalEquation(inputs)
       break
     case 'leiBoyleCharlesGayLussac':
@@ -258,7 +257,7 @@ function calculateResult() {
       result = inputs.pH // Assuming pH is already calculated in the input
       break
     case 'constantesQuimicas':
-      result = inputs.produtoConcentracoes / inputs.reagenteConcentracoes
+      result = getChemicalConstant('gasIdeal') * inputs.temperatura
       break
     case 'temperaturaPressaoPadrao':
       result =
@@ -313,7 +312,7 @@ function calculateResult() {
       result = (inputs.quantidadeReal / inputs.quantidadeTeorica) * 100
       break
     case 'equacoesTermoquimicas':
-      result = inputs.entalpiaProdutos - inputs.entalpiaReagentes
+      result = inputs.entalpia
       break
     default:
       throw new Error('Operação desconhecida')
