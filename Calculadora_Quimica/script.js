@@ -425,39 +425,44 @@ function showExplanation(selectedOperation) {
     `
   } else if (selectedOperation === 'equacaoNernst') {
     explanation = `
-      <p>A Equação de Nernst descreve a relação entre o potencial de eletrodo, a constante de equilíbrio e a atividade dos íons em uma célula eletroquímica não padrão.</p>
-      <p>Fórmula: E = E° - (0.0592 / n) * log(Q)</p>
-      <p>onde E° é o potencial padrão de eletrodo, n é o número de elétrons envolvidos e Q é a constante de equilíbrio.</p>
+      <p>A Equação de Nernst é usada para calcular o potencial de eletrodo de uma célula eletroquímica em não condições padrão. Leva em consideração a concentração dos íons no eletrodo.</p>
+      <p>Exemplo:</p>
+      <p>Equação de Nernst: E = E° - (RT/nF) * ln(Q)</p>
+      <p>onde E é o potencial de eletrodo, E° é o potencial padrão, R é a constante dos gases ideais, T é a temperatura, n é o número de elétrons na reação, F é a constante de Faraday e Q é o quociente de reação.</p>
     `
   } else if (selectedOperation === 'constanteEquilibrioPressaoParcial') {
     explanation = `
-      <p>A Constante de Equilíbrio em Termos de Pressão Parcial é usada em reações gasosas. A expressão é semelhante à constante de equilíbrio, mas utiliza pressões parciais em vez de concentrações.</p>
+      <p>A Constante de Equilíbrio em Termos de Pressão Parcial é usada para expressar a relação entre as pressões parciais dos reagentes e produtos em uma reação em equilíbrio.</p>
       <p>Exemplo:</p>
-      <p>Expressão para Kp: (PA^a * PB^b) / (PC^c * PD^d)</p>
+      <p>Equação para Kp: Kp = (P_C^c * P_D^d) / (P_A^a * P_B^b)</p>
+      <p>onde P_A, P_B, P_C e P_D são as pressões parciais dos reagentes e produtos, e a, b, c e d são os coeficientes estequiométricos na equação química.</p>
     `
   } else if (selectedOperation === 'misturaGases') {
     explanation = `
-      <p>A Mistura de Gases envolve o cálculo das frações molares e pressões parciais de diferentes gases em uma mistura. A lei de Dalton é usada para isso.</p>
+      <p>A Mistura de Gases envolve o cálculo das frações molares e das pressões parciais de gases em uma mistura gasosa.</p>
       <p>Exemplo:</p>
-      <p>Pressão parcial de A = Fração molar de A * Pressão total</p>
+      <p>Fração molar (Xi) = Ni / N_total</p>
+      <p>Pressão parcial (Pi) = Xi * Pressão total</p>
     `
   } else if (selectedOperation === 'numeroOxidacao') {
     explanation = `
-      <p>O Número de Oxidação é uma carga atribuída a um átomo em uma molécula ou íon. Deve-se levar em consideração as regras para atribuição de números de oxidação.</p>
+      <p>O Número de Oxidação é um número que representa a carga que um átomo tem ou parece ter quando as ligações são consideradas de maneira iônica.</p>
       <p>Exemplo:</p>
-      <p>Número de oxidação do oxigênio em H2O: -2</p>
+      <p>Para o íon Cl⁻, o número de oxidação do cloro é -1.</p>
     `
   } else if (selectedOperation === 'teoriaColisoes') {
     explanation = `
-      <p>A Teoria de Colisões explica a formação de produtos em uma reação química com base nas colisões eficazes entre as partículas reagentes.</p>
-      <p>Velocidade = k * [A]^x * [B]^y</p>
-      <p>onde k é a constante de velocidade e [A] e [B] são as concentrações dos reagentes.</p>
+      <p>A Teoria de Colisões explica como as colisões entre moléculas levam a reações químicas. A constante de velocidade (k) está relacionada à frequência e à eficácia dessas colisões.</p>
+      <p>Exemplo:</p>
+      <p>Lei da velocidade: k = A * exp(-Ea/RT)</p>
+      <p>onde A é o fator de frequência, Ea é a energia de ativação, R é a constante dos gases ideais e T é a temperatura.</p>
     `
   } else if (selectedOperation === 'conversoesTemperatura') {
     explanation = `
-      <p>As Conversões de Temperatura são utilizadas para converter entre diferentes escalas de temperatura, como Celsius (°C) e Fahrenheit (°F).</p>
+      <p>As Conversões de Temperatura permitem converter entre diferentes escalas de temperatura, como Celsius e Fahrenheit.</p>
       <p>Exemplo:</p>
-      <p>Converter 25°C para Fahrenheit: (25°C * 9/5) + 32 = 77°F</p>
+      <p>Converter 25°C para Fahrenheit:</p>
+      <p>F = (25 * 9/5) + 32 = 77°F</p>
     `
   } else if (selectedOperation === 'solucoesNaoIdeais') {
     explanation = `
