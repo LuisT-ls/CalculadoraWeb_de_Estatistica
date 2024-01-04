@@ -31,7 +31,11 @@ operationSelect.addEventListener('change', () => {
 })
 
 calculateButton.addEventListener('click', () => {
-  calculateResult()
+  try {
+    calculateResult()
+  } catch (error) {
+    resultDiv.textContent = `Erro ao calcular: ${error.message}`
+  }
 })
 
 showExplanationButton.addEventListener('click', () => {
@@ -290,7 +294,7 @@ function calculateResult() {
         (inputs.pressaoTotal * inputs.fracaoMolar1) / inputs.constanteGases
       break
     case 'numeroOxidacao':
-      // You need to implement the calculation for this operation
+      throw new Error('Operação não implementada: Número de Oxidação')
       break
     case 'teoriaColisoes':
       result = inputs.constanteVelocidade * Math.pow(inputs.concentracao, 2)
@@ -312,9 +316,10 @@ function calculateResult() {
       result = inputs.entalpiaProdutos - inputs.entalpiaReagentes
       break
     default:
-      // Handle unknown operation
-      break
+      throw new Error('Operação desconhecida')
   }
+
+  result = Math.round(result * 100) / 100
 
   const resultDiv = document.getElementById('result')
   resultDiv.textContent = `Resultado: ${result}`
