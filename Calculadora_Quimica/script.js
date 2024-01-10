@@ -55,7 +55,6 @@ showExplanationButton.addEventListener('click', () => {
 
 function updateInputFields() {
   const selectedOperation = operationSelect.value
-
   const explanationsVisible = explanationText.style.display === 'block'
   inputFields.innerHTML = ''
   if (!explanationsVisible) {
@@ -63,8 +62,9 @@ function updateInputFields() {
   }
 
   if (selectedOperation === 'conversaoUnidades') {
-    addInputField('valorOriginal', 'Valor Original:')
-    addInputField('fatorConversao', 'Fator de Conversão:')
+    addUnitSelector('unidadeOriginal', 'Unidade de Origem:', unitOptions)
+    addUnitSelector('unidadeAlvo', 'Unidade de Destino:', unitOptions)
+    addInputField('valorAConverter', 'Valor a Converter:')
   } else if (selectedOperation === 'calculosestequiometricos') {
     addInputField('quantidadeReagente', 'Quantidade de Reagente (mol):')
     addInputField('coeficienteReagente', 'Coeficiente Estequiométrico:')
@@ -145,6 +145,37 @@ function updateInputFields() {
   }
 }
 
+// Adicione esta função para criar um seletor de unidade com as opções fornecidas
+function addUnitSelector(id, label, unitOptions) {
+  const fieldDiv = document.createElement('div')
+  fieldDiv.innerHTML = `
+    <label for="${id}">${label}</label>
+    <select id="${id}">
+      ${unitOptions
+        .map(option => `<option value="${option}">${option}</option>`)
+        .join('')}
+    </select>
+  `
+  inputFields.appendChild(fieldDiv)
+}
+
+// Adicione um array de opções de unidade (isso pode ser personalizado)
+const unitOptions = ['Litro', 'Mol', 'Grama', 'outraUnidade']
+
+function convertUnits(value, fromUnit, toUnit) {
+  if (fromUnit === 'Litro' && toUnit === 'Mol') {
+    return value / chemicalConstants.volumeMolarPadrao
+  } else if (fromUnit === 'Mol' && toUnit === 'Litro') {
+    return value * chemicalConstants.volumeMolarPadrao
+  } else if (fromUnit === 'Grama' && toUnit === 'Mol') {
+    return value / chemicalConstants.avogadro
+  } else if (fromUnit === 'Mol' && toUnit === 'Grama') {
+    return value * chemicalConstants.avogadro
+  } else {
+    throw new Error('Conversão não suportada para as unidades especificadas')
+  }
+}
+
 function addInputField(id, label) {
   const fieldDiv = document.createElement('div')
   fieldDiv.innerHTML = `
@@ -222,8 +253,7 @@ function calculateResult() {
     case 'conversaoUnidades':
       const originalUnit = inputs.unidadeOriginal
       const targetUnit = inputs.unidadeAlvo
-      const originalValue = inputs.valorOriginal
-      balanceamentoEquacoes
+      const originalValue = inputs.valorAConverter
       result = convertUnits(originalValue, originalUnit, targetUnit)
       break
     case 'calculosestequiometricos':
