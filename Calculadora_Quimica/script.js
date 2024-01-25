@@ -33,7 +33,7 @@ operationSelect.addEventListener('change', () => {
 
 calculateButton.addEventListener('click', () => {
   try {
-    calculateConversion()
+    calculateResult()
   } catch (error) {
     resultDiv.textContent = `Erro ao calcular: ${error.message}`
   }
@@ -173,30 +173,6 @@ function convertUnits(value, fromUnit, toUnit) {
     return value * chemicalConstants.avogadro
   } else {
     throw new Error('Conversão não suportada para as unidades especificadas')
-  }
-}
-
-function calculateConversion() {
-  // Obter valor, unidade de origem e unidade de destino do usuário
-  const valueToConvert = parseFloat(
-    document.getElementById('valorAConverter').value
-  )
-  const originalUnit = document.getElementById('unidadeOriginal').value
-  const targetUnit = document.getElementById('unidadeAlvo').value
-
-  try {
-    if (originalUnit !== targetUnit) {
-      const result = convertUnits(valueToConvert, originalUnit, targetUnit)
-      document.getElementById(
-        'result'
-      ).textContent = `Resultado: ${result} ${targetUnit}`
-    } else {
-      throw new Error(
-        'As unidades de origem e destino são iguais. Nenhuma conversão é necessária.'
-      )
-    }
-  } catch (error) {
-    document.getElementById('result').textContent = `Erro: ${error.message}`
   }
 }
 
