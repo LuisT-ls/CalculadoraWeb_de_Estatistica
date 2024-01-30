@@ -383,7 +383,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function removeTrailingZeros(valueString) {
-    // Remove zeros à direita e ponto decimal, se não houver casas decimais
     return valueString.replace(/\.?0+$/, '')
   }
 
@@ -451,7 +450,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function formatMassaResult(value) {
-    // Remove trailing zeros and unnecessary decimal point
     const formattedValue = value.toFixed(6).replace(/\.?0+$/, '')
     return formattedValue
   }
@@ -490,21 +488,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function convertVolume(value, fromUnit, toUnit) {
     const conversionFactors = {
-      'Quilômetro Cúbico (km³)': 1e-18,
-      'Hectômetro Cúbico (hm³)': 1e-15,
-      'Decâmetro Cúbico (dam³)': 1e-12,
+      'Quilômetro Cúbico (km³)': 0.001,
+      'Hectômetro Cúbico (hm³)': 0.01,
+      'Decâmetro Cúbico (dam³)': 0.1,
       'Metro Cúbico (m³)': 1,
-      'Decímetro Cúbico (dm³)': 1e3,
-      'Centímetro Cúbico (cm³)': 1e6,
-      'Milímetro Cúbico (mm³)': 1e9
+      'Decímetro Cúbico (dm³)': 10,
+      'Centímetro Cúbico (cm³)': 100,
+      'Milímetro Cúbico (mm³)': 1000
     }
 
-    const valueInCubicMeters = value * conversionFactors[fromUnit]
-    return valueInCubicMeters / conversionFactors[toUnit]
+    const valueInCubicMillimeters = value / conversionFactors[fromUnit]
+    return valueInCubicMillimeters * conversionFactors[toUnit]
   }
 
   function formatVolumeResult(value) {
-    // Use Number() to remove trailing zeros and unnecessary decimal point
     const formattedValue = Number(value.toFixed(6))
     return formattedValue.toString()
   }
@@ -543,7 +540,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function removeTrailingZeros(valueString) {
-    // Remove zeros à direita e ponto decimal, se não houver casas decimais
     return valueString.replace(/\.?0+$/, '').replace(/\.$/, '')
   }
 
@@ -576,21 +572,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertTempo(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue)
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unidade</th>
+                    <th>Valor Convertido</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableRows.join('')}
+            </tbody>
+        </table>
     `
   }
 
@@ -613,7 +610,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const valueInSeconds = value * conversionFactors[fromUnit]
-    return valueInSeconds / conversionFactors[toUnit]
+    const convertedValue = valueInSeconds / conversionFactors[toUnit]
+    const roundedValue = Number(convertedValue.toPrecision(6))
+
+    return removeTrailingZeros(roundedValue.toString())
+  }
+
+  function formatTempoResult(value) {
+    // Check if the value is an integer
+    if (Number.isInteger(value)) {
+      return value.toFixed(0)
+    } else {
+      return value.toFixed(6).replace(/\.?0+$/, '')
+    }
   }
 
   function generateVelocidadeTable(value, selectedUnit) {
@@ -627,7 +636,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertVelocidade(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -655,7 +665,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const valueInKmPerHour = value * conversionFactors[fromUnit]
-    return valueInKmPerHour / conversionFactors[toUnit]
+    const convertedValue = valueInKmPerHour / conversionFactors[toUnit]
+    return convertedValue
   }
 
   function generateAnguloTable(value, selectedUnit) {
@@ -663,7 +674,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertAngulo(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -703,7 +715,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertPressao(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
