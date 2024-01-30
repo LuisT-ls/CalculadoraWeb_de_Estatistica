@@ -145,12 +145,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const areaUnits = [
     'Quilômetro Quadrado (km²)',
-    'Hectômetro Quadrado (hm²)',
-    'Decâmetro Quadrado (dam²)',
     'Metro Quadrado (m²)',
-    'Decímetro Quadrado (dm²)',
-    'Centímetro Quadrado (cm²)',
-    'Milímetro Quadrado (mm²)'
+    'Milha Quadrada (mi²)',
+    'Quintal Quadrado (sq c)',
+    'Pé Quadrado (ft²)',
+    'Polegada Quadrada (in²)',
+    'Hectare (ha)',
+    'Acre (acre)'
   ]
 
   const tempoUnits = [
@@ -362,7 +363,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertComprimento(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -380,6 +382,11 @@ document.addEventListener('DOMContentLoaded', function () {
     `
   }
 
+  function removeTrailingZeros(valueString) {
+    // Remove zeros à direita e ponto decimal, se não houver casas decimais
+    return valueString.replace(/\.?0+$/, '')
+  }
+
   function convertComprimento(value, fromUnit, toUnit) {
     const conversionFactors = {
       'Quilômetro (km)': 0.001,
@@ -391,8 +398,9 @@ document.addEventListener('DOMContentLoaded', function () {
       'Milímetro (mm)': 1000
     }
 
-    const valueInMeters = value * conversionFactors[fromUnit]
-    return valueInMeters / conversionFactors[toUnit]
+    const valueInMeters = value / conversionFactors[fromUnit]
+    const convertedValue = valueInMeters * conversionFactors[toUnit]
+    return convertedValue
   }
 
   function generateMassaTable(value, selectedUnit) {
@@ -408,7 +416,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertMassa(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = formatMassaResult(convertedValue)
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -441,6 +450,12 @@ document.addEventListener('DOMContentLoaded', function () {
     return valueInGrams / conversionFactors[toUnit]
   }
 
+  function formatMassaResult(value) {
+    // Remove trailing zeros and unnecessary decimal point
+    const formattedValue = value.toFixed(6).replace(/\.?0+$/, '')
+    return formattedValue
+  }
+
   function generateVolumeTable(value, selectedUnit) {
     const units = [
       'Quilômetro Cúbico (km³)',
@@ -454,7 +469,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableRows = units.map(unit => {
       const convertedValue = convertVolume(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = formatVolumeResult(convertedValue)
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -487,20 +503,28 @@ document.addEventListener('DOMContentLoaded', function () {
     return valueInCubicMeters / conversionFactors[toUnit]
   }
 
+  function formatVolumeResult(value) {
+    // Use Number() to remove trailing zeros and unnecessary decimal point
+    const formattedValue = Number(value.toFixed(6))
+    return formattedValue.toString()
+  }
+
   function generateAreaTable(value, selectedUnit) {
     const units = [
       'Quilômetro Quadrado (km²)',
-      'Hectômetro Quadrado (hm²)',
-      'Decâmetro Quadrado (dam²)',
       'Metro Quadrado (m²)',
-      'Decímetro Quadrado (dm²)',
-      'Centímetro Quadrado (cm²)',
-      'Milímetro Quadrado (mm²)'
+      'Milha Quadrada (mi²)',
+      'Quintal Quadrado (sq c)',
+      'Pé Quadrado (ft²)',
+      'Polegada Quadrada (in²)',
+      'Hectare (ha)',
+      'Acre (acre)'
     ]
 
     const tableRows = units.map(unit => {
       const convertedValue = convertArea(value, selectedUnit, unit)
-      return `<tr><td>${unit}</td><td>${convertedValue.toFixed(6)}</td></tr>`
+      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
+      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
     })
 
     return `
@@ -518,15 +542,21 @@ document.addEventListener('DOMContentLoaded', function () {
     `
   }
 
+  function removeTrailingZeros(valueString) {
+    // Remove zeros à direita e ponto decimal, se não houver casas decimais
+    return valueString.replace(/\.?0+$/, '').replace(/\.$/, '')
+  }
+
   function convertArea(value, fromUnit, toUnit) {
     const conversionFactors = {
-      'Quilômetro Quadrado (km²)': 1e-6,
-      'Hectômetro Quadrado (hm²)': 1e-4,
-      'Decâmetro Quadrado (dam²)': 1e-2,
-      'Metro Quadrado (m²)': 1,
-      'Decímetro Quadrado (dm²)': 1e2,
-      'Centímetro Quadrado (cm²)': 1e4,
-      'Milímetro Quadrado (mm²)': 1e6
+      'Quilômetro Quadrado (km²)': 1,
+      'Metro Quadrado (m²)': 1e6,
+      'Milha Quadrada (mi²)': 2.58999e6,
+      'Quintal Quadrado (sq c)': 1e4,
+      'Pé Quadrado (ft²)': 1.07639e7,
+      'Polegada Quadrada (in²)': 1.55e9,
+      'Hectare (ha)': 1e4,
+      'Acre (acre)': 4.04686e6
     }
 
     const valueInSquareMeters = value * conversionFactors[fromUnit]
