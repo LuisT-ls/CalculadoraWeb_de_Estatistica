@@ -436,13 +436,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function convertMassa(value, fromUnit, toUnit) {
     const conversionFactors = {
-      'Quilograma (kg)': 0.001,
-      'Hectograma (hg)': 0.01,
-      'Decagrama (dag)': 0.1,
+      'Quilograma (kg)': 1000,
+      'Hectograma (hg)': 100,
+      'Decagrama (dag)': 10,
       'Grama (g)': 1,
-      'Decigrama (dg)': 10,
-      'Centigrama (cg)': 100,
-      'Miligrama (mg)': 1000
+      'Decigrama (dg)': 0.1,
+      'Centigrama (cg)': 0.01,
+      'Miligrama (mg)': 0.001
     }
 
     const valueInGrams = value * conversionFactors[fromUnit]
@@ -594,10 +594,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function convertTempo(value, fromUnit, toUnit) {
     const secondsInMinute = 60
     const secondsInHour = 3600
-    const secondsInDay = 86400 // 24 horas em um dia
+    const secondsInDay = 86400 // 24 hours in a day
     const daysInWeek = 7
-    const daysInMonth = 30 // Aproximado
-    const daysInYear = 365 // Aproximado
+    const daysInMonth = 30 // Approximate
+    const daysInYear = 365 // Approximate
 
     const conversionFactors = {
       'Segundo (s)': 1,
@@ -611,18 +611,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const valueInSeconds = value * conversionFactors[fromUnit]
     const convertedValue = valueInSeconds / conversionFactors[toUnit]
-    const roundedValue = Number(convertedValue.toPrecision(6))
+    const roundedValue = Number(convertedValue.toPrecision(9))
 
     return removeTrailingZeros(roundedValue.toString())
   }
 
-  function formatTempoResult(value) {
-    // Check if the value is an integer
-    if (Number.isInteger(value)) {
-      return value.toFixed(0)
-    } else {
-      return value.toFixed(6).replace(/\.?0+$/, '')
-    }
+  function removeTrailingZeros(valueString) {
+    return valueString.replace(/\.?0+$/, '').replace(/\.$/, '')
+  }
+
+  function formatTempoResult(value, unit) {
+    const roundedValue = Number(value.toFixed(10))
+
+    // Corrigir para exibir zero à direita
+    const formattedValue = roundedValue.toLocaleString(undefined, {
+      minimumFractionDigits: 10,
+      useGrouping: false
+    })
+
+    return formattedValue.replace(/\.?0+$/, '')
   }
 
   function generateVelocidadeTable(value, selectedUnit) {
