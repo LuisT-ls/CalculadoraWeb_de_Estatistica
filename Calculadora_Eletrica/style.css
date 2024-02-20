@@ -1,0 +1,202 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 2.5rem; /* 40px / 16px = 2.5rem */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 50rem; /* 800px / 16px = 50rem */
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 0.625rem; /* 10px / 16px = 0.625rem */
+  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2); /* 10px / 16px = 0.625rem */
+  padding: 1.25rem; /* 20px / 16px = 1.25rem */
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+  color: #333;
+}
+
+/* Estilos para o botão de alternar o modo escuro */
+#toggleDarkMode,
+button#calculate,
+button#clear,
+button#showExplanation {
+  background-color: #333;
+  color: #ffffff;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 0.625rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#toggleDarkMode:hover,
+button#calculate:hover,
+button#clear:hover,
+button#showExplanation:hover {
+  background-color: #555;
+}
+
+/* Estilo para o modo escuro */
+.dark-mode {
+  background-color: #111;
+  color: #ffffff;
+}
+
+/* Estilização do .container para o modo escuro */
+.dark-mode .container {
+  background-color: #222;
+  color: #ffffff;
+}
+
+/* Cores de texto personalizadas para o modo escuro */
+.dark-mode h1,
+.dark-mode label,
+.dark-mode p {
+  color: #ffffff;
+}
+
+/* Mudanças no select no modo escuro */
+.dark-mode select option:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.operation-select {
+  text-align: center;
+  display: block;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+select {
+  width: 100%; /* Largura total para preencher a tela */
+  max-width: 250px; /* Largura máxima */
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background-color: #555;
+  transition: background-color 0.3s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  padding-right: 30px;
+  font-size: 16px;
+  outline: 1px solid transparent;
+}
+
+select:hover {
+  background-color: #777;
+}
+
+.input-fields {
+  margin-bottom: 20px;
+}
+
+.input-fields label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type='number'] {
+  width: 100%; /* Largura total para preencher a tela */
+  max-width: 250px; /* Largura máxima */
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background-color: #555;
+  font-size: 16px;
+  outline: 1px solid transparent;
+}
+
+option {
+  color: #fff;
+  background-color: #555;
+}
+
+#calculate,
+#clear {
+  color: #555;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.result {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+footer {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.625rem;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s, color 0.3s;
+}
+
+footer a:hover {
+  color: #666;
+  border-bottom: 2px solid #666;
+}
+
+footer .signature {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Estilos específicos para telas menores */
+@media (max-width: 768px) {
+  #toggleDarkMode {
+    display: none;
+  }
+
+  .container {
+    padding: 1rem; /* Reduz o preenchimento */
+    margin: 10px; /* Reduz a margem */
+  }
+
+  select,
+  input[type='number'] {
+    font-size: 14px; /* Reduz o tamanho da fonte */
+  }
+  footer p {
+    font-size: 1rem;
+  }
+}
