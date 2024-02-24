@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const unitSelection = document.getElementById("unit-selection");
   const inputFields = document.getElementById("input-fields");
   const calcExplanation = document.getElementById("calcExplanation");
+  const showExplanationButton = document.getElementById("showExplanation");
+  showExplanationButton.addEventListener("click", showExplanation);
 
   operationSelect.addEventListener("change", function () {
     unitSelection.innerHTML = "";
@@ -424,6 +426,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showExplanation() {
     const selectedOperation = operationSelect.value;
+    const calcExplanation = document.getElementById("calcExplanation");
+    const isExplanationVisible = calcExplanation.classList.contains("show");
+
+    if (isExplanationVisible) {
+      calcExplanation.classList.remove("show");
+    } else {
+      calcExplanation.classList.add("show");
+
+      switch (selectedOperation) {
+        default:
+          calcExplanation.textContent = "Descrição da operação selecionada.";
+      }
+    }
 
     switch (selectedOperation) {
       case "lei-ohm":
