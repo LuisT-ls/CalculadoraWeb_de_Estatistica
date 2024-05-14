@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     calcExplanation.textContent = ''
 
     setupCalculation()
-    showExplanation()
   })
 
   function setupCalculation() {
@@ -428,256 +427,253 @@ document.addEventListener('DOMContentLoaded', function () {
     const calcExplanation = document.getElementById('calcExplanation')
     const isExplanationVisible = calcExplanation.classList.contains('show')
 
+    calcExplanation.textContent = ''
+
     if (isExplanationVisible) {
       calcExplanation.classList.remove('show')
     } else {
       calcExplanation.classList.add('show')
 
       switch (selectedOperation) {
+        case 'lei-ohm':
+          calcExplanation.textContent =
+            'A Lei de Ohm relaciona a tensão, corrente e resistência em um circuito elétrico.'
+          break
+        case 'lei-ohm-reversa':
+          calcExplanation.textContent =
+            'A Lei de Ohm Reversa é usada para calcular a resistência quando a tensão e a corrente são conhecidas.'
+          break
+        case 'potencia-eletrica':
+          calcExplanation.textContent =
+            'O cálculo da potência elétrica é obtido multiplicando a tensão pela corrente em um circuito.'
+          break
+        case 'resistencia-serie':
+          calcExplanation.textContent =
+            'A resistência total em um circuito em série é a soma das resistências individuais.'
+          break
+        case 'resistencia-paralelo':
+          calcExplanation.textContent =
+            'A resistência total em um circuito em paralelo é obtida utilizando a fórmula das resistências paralelas.'
+          break
+        case 'lkt':
+          calcExplanation.textContent =
+            'A Lei de Kirchhoff para tensões (LKT) afirma que a soma das tensões em um loop fechado é zero.'
+          break
+        case 'lkc':
+          calcExplanation.textContent =
+            'A Lei de Kirchhoff para correntes (LKC) estabelece que a soma das correntes em um nó é zero.'
+          break
+        case 'capacitancia-serie':
+          calcExplanation.textContent =
+            'A capacitância total em um circuito em série é inversamente proporcional à soma inversa das capacitâncias individuais.'
+          break
+        case 'capacitancia-paralelo':
+          calcExplanation.textContent =
+            'A capacitância total em um circuito em paralelo é a soma das capacitâncias individuais.'
+          break
+        case 'lei-joule':
+          calcExplanation.textContent =
+            'A Lei de Joule calcula a energia térmica gerada em um resistor, multiplicando a corrente ao quadrado pela resistência e pelo tempo.'
+          break
+        case 'constante-tempo-rc':
+          calcExplanation.textContent =
+            'A constante de tempo em um circuito RC é o produto da resistência e capacitância.'
+          break
+        case 'indutancia-serie':
+          calcExplanation.textContent =
+            'A indutância total em um circuito em série é a soma das indutâncias individuais.'
+          break
+        case 'indutancia-paralelo':
+          calcExplanation.textContent =
+            'A indutância total em um circuito em paralelo é obtida utilizando a fórmula das indutâncias paralelas.'
+          break
+        case 'impedancia-curto-circuito':
+          calcExplanation.textContent =
+            'A impedância de um circuito em curto-circuito é a razão entre a tensão e a corrente de curto-circuito.'
+          break
+        case 'ajuste-transformadores':
+          calcExplanation.textContent =
+            'O ajuste de transformadores envolve o cálculo da relação de transformação para atender a requisitos específicos de tensão.'
+          break
+        case 'secao-transversal-condutores':
+          calcExplanation.textContent =
+            'O cálculo da seção transversal de condutores é baseado na corrente e na temperatura ambiente.'
+          break
+        case 'corrente-curto-circuito':
+          calcExplanation.textContent =
+            'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
+          break
+        case 'queda-tensao-transmissao':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em linhas de transmissão leva em consideração a corrente, impedância e distância.'
+          break
+        case 'calculo-dimensionamento-condutores':
+          calcExplanation.textContent =
+            'O dimensionamento de condutores é feito considerando a corrente e a queda de tensão desejada.'
+          break
+        case 'calculo-fator-potencia':
+          calcExplanation.textContent =
+            'O cálculo do fator de potência envolve a relação entre a potência real e a potência aparente.'
+          break
+        case 'calculo-potencia-trifasica':
+          calcExplanation.textContent =
+            'O cálculo da potência trifásica é obtido multiplicando a tensão de linha pela corrente de fase e pela raiz de 3.'
+          break
+        case 'calculo-ressonancia-circuitos-lc':
+          calcExplanation.textContent =
+            'O cálculo da ressonância em circuitos LC envolve a determinação da frequência de ressonância.'
+          break
+        case 'compensacao-fator-potencia':
+          calcExplanation.textContent =
+            'A compensação do fator de potência envolve o ajuste da potência reativa para atingir um fator de potência desejado.'
+          break
+        case 'dimensionamento-disjuntores-fusiveis':
+          calcExplanation.textContent =
+            'O dimensionamento de disjuntores e fusíveis envolve a escolha da corrente e do tempo de atuação adequados.'
+          break
+        case 'analise-harmonicos':
+          calcExplanation.textContent =
+            'A análise de harmônicos envolve a avaliação de componentes harmônicos em um sistema elétrico.'
+          break
+        case 'calculo-perda-energia-linhas-transmissao':
+          calcExplanation.textContent =
+            'O cálculo da perda de energia em linhas de transmissão leva em consideração a corrente, resistência e tempo de operação.'
+          break
+        case 'calculo-iluminacao':
+          calcExplanation.textContent =
+            'O cálculo da iluminação envolve a relação entre o fluxo luminoso e a iluminância desejada.'
+          break
+        case 'calculo-corrente-curto-circuito-disjuntores':
+          calcExplanation.textContent =
+            'O cálculo da corrente de curto-circuito para disjuntores envolve a divisão da potência de curto-circuito pela tensão.'
+          break
+        case 'calculo-tensao-toque-passo-linhas-aereas':
+          calcExplanation.textContent =
+            'O cálculo da tensão de toque em linhas aéreas leva em consideração a tensão e o espaçamento entre fases.'
+          break
+        case 'avaliacao-queda-tensao-linhas-distribuicao':
+          calcExplanation.textContent =
+            'A avaliação da queda de tensão em linhas de distribuição envolve a corrente, resistência e distância.'
+          break
+        case 'calculo-capacitores-correcao-fator-potencia':
+          calcExplanation.textContent =
+            'O cálculo de capacitores para correção do fator de potência envolve o ajuste da potência reativa.'
+          break
+        case 'calculo-temperatura-condutores':
+          calcExplanation.textContent =
+            'O cálculo da temperatura de condutores envolve a corrente, resistência do condutor e temperatura ambiente.'
+          break
+        case 'determinacao-resistencia-equivalente-circuitos-paralelo':
+          calcExplanation.textContent =
+            'A determinação da resistência equivalente em circuitos paralelos é obtida utilizando a fórmula das resistências paralelas.'
+          break
+        case 'calculo-consumo-energia':
+          calcExplanation.textContent =
+            'O cálculo do consumo de energia é obtido multiplicando a potência pelo tempo de operação.'
+          break
+        case 'calculo-perda-energia-motores':
+          calcExplanation.textContent =
+            'O cálculo da perda de energia em motores leva em consideração a eficiência do motor, potência e tempo de operação.'
+          break
+        case 'calculo-capacitancia-total-serie':
+          calcExplanation.textContent =
+            'O cálculo da capacitância total em circuitos em série é obtido pela soma inversa das capacitâncias individuais.'
+          break
+        case 'calculo-capacitancia-total-paralelo':
+          calcExplanation.textContent =
+            'O cálculo da capacitância total em circuitos em paralelo é a soma das capacitâncias individuais.'
+          break
+        case 'calculo-pico-corrente-circuitos-indutivos':
+          calcExplanation.textContent =
+            'O cálculo da corrente de pico em circuitos indutivos envolve a indutância e o tempo de interrupção.'
+          break
+        case 'calculo-corrente-curto-circuito':
+          calcExplanation.textContent =
+            'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
+          break
+        case 'queda-tensao-condutores':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em condutores envolve a corrente, resistência do condutor e distância.'
+          break
+        case 'calculo-eficiencia-transformadores':
+          calcExplanation.textContent =
+            'O cálculo da eficiência de transformadores é obtido dividindo a potência de saída pela potência de entrada.'
+          break
+        case 'calculo-autotransformadores':
+          calcExplanation.textContent =
+            'O cálculo de autotransformadores envolve a determinação da relação de transformação para atender aos requisitos de tensão.'
+          break
+        case 'tempo-estabilizacao-controle':
+          calcExplanation.textContent =
+            'O tempo de estabilização em sistemas de controle é o intervalo necessário para que a resposta atinja a estabilidade após uma perturbação.'
+          break
+        case 'calculo-queda-tensao-transformadores':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em transformadores leva em consideração a corrente, impedância e fator de potência.'
+          break
+        case 'calculo-potencia-aparente':
+          calcExplanation.textContent =
+            'O cálculo da potência aparente é obtido pela raiz quadrada da soma dos quadrados da potência ativa e reativa.'
+          break
+        case 'calculo-corrente-nominal-motores':
+          calcExplanation.textContent =
+            'O cálculo da corrente nominal em motores é obtido pela potência e tensão de operação.'
+          break
+        case 'calculo-queda-tensao-cabos-alimentadores':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em cabos alimentadores leva em consideração a corrente, resistência e distância.'
+          break
+        case 'calculo-indutancia-total-serie':
+          calcExplanation.textContent =
+            'O cálculo da indutância total em circuitos em série é a soma das indutâncias individuais.'
+          break
+        case 'calculo-indutancia-total-paralelo':
+          calcExplanation.textContent =
+            'O cálculo da indutância total em circuitos em paralelo é obtido utilizando a fórmula das indutâncias paralelas.'
+          break
+        case 'calculo-corrente-fuga':
+          calcExplanation.textContent =
+            'O cálculo da corrente de fuga envolve a tensão e a resistência de isolamento em um circuito.'
+          break
+        case 'calculo-constante-tempo-rl':
+          calcExplanation.textContent =
+            'A constante de tempo em um circuito RL é o quociente da indutância pela resistência.'
+          break
+        case 'calculo-queda-tensao-luminarias':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em luminárias leva em consideração a corrente, resistência e distância.'
+          break
+        case 'calculo-tensao-induzida':
+          calcExplanation.textContent =
+            'O cálculo da tensão induzida em um condutor móvel em um campo magnético envolve a velocidade, comprimento do condutor e intensidade do campo.'
+          break
+        case 'calculo-queda-tensao-reatores':
+          calcExplanation.textContent =
+            'O cálculo da queda de tensão em reatores leva em consideração a corrente, resistência e distância.'
+          break
+        case 'calculo-corrente-nominal-transformadores':
+          calcExplanation.textContent =
+            'O cálculo da corrente nominal em transformadores é obtido pela potência e tensão de operação.'
+          break
+        case 'calculo-potencia-reativa':
+          calcExplanation.textContent =
+            'O cálculo da potência reativa é obtido pela multiplicação da tensão pela corrente e pelo seno do ângulo de defasagem.'
+          break
+        case 'calculo-corrente-curto-circuito-transformadores':
+          calcExplanation.textContent =
+            'O cálculo da corrente de curto-circuito em transformadores envolve a potência de curto-circuito e a tensão nominal.'
+          break
+        case 'calculo-corrente-fuga-transformadores':
+          calcExplanation.textContent =
+            'O cálculo da corrente de fuga em transformadores envolve a tensão, a resistência de isolamento e a capacitância.'
+          break
+        case 'resistor-protecao-leds':
+          calcExplanation.textContent =
+            'O resistor de proteção para LEDs é utilizado para limitar a corrente que passa pelo LED, protegendo-o contra danos causados por correntes excessivas.'
+          break
         default:
           calcExplanation.textContent = 'Descrição da operação selecionada.'
       }
-    }
-
-    switch (selectedOperation) {
-      case 'lei-ohm':
-        calcExplanation.textContent =
-          'A Lei de Ohm relaciona a tensão, corrente e resistência em um circuito elétrico.'
-        break
-      case 'lei-ohm-reversa':
-        calcExplanation.textContent =
-          'A Lei de Ohm Reversa é usada para calcular a resistência quando a tensão e a corrente são conhecidas.'
-        break
-      case 'potencia-eletrica':
-        calcExplanation.textContent =
-          'O cálculo da potência elétrica é obtido multiplicando a tensão pela corrente em um circuito.'
-        break
-      case 'resistencia-serie':
-        calcExplanation.textContent =
-          'A resistência total em um circuito em série é a soma das resistências individuais.'
-        break
-      case 'resistencia-paralelo':
-        calcExplanation.textContent =
-          'A resistência total em um circuito em paralelo é obtida utilizando a fórmula das resistências paralelas.'
-        break
-      case 'lkt':
-        calcExplanation.textContent =
-          'A Lei de Kirchhoff para tensões (LKT) afirma que a soma das tensões em um loop fechado é zero.'
-        break
-      case 'lkc':
-        calcExplanation.textContent =
-          'A Lei de Kirchhoff para correntes (LKC) estabelece que a soma das correntes em um nó é zero.'
-        break
-      case 'capacitancia-serie':
-        calcExplanation.textContent =
-          'A capacitância total em um circuito em série é inversamente proporcional à soma inversa das capacitâncias individuais.'
-        break
-      case 'capacitancia-paralelo':
-        calcExplanation.textContent =
-          'A capacitância total em um circuito em paralelo é a soma das capacitâncias individuais.'
-        break
-      case 'lei-joule':
-        calcExplanation.textContent =
-          'A Lei de Joule calcula a energia térmica gerada em um resistor, multiplicando a corrente ao quadrado pela resistência e pelo tempo.'
-        break
-      case 'constante-tempo-rc':
-        calcExplanation.textContent =
-          'A constante de tempo em um circuito RC é o produto da resistência e capacitância.'
-        break
-      case 'indutancia-serie':
-        calcExplanation.textContent =
-          'A indutância total em um circuito em série é a soma das indutâncias individuais.'
-        break
-      case 'indutancia-paralelo':
-        calcExplanation.textContent =
-          'A indutância total em um circuito em paralelo é obtida utilizando a fórmula das indutâncias paralelas.'
-        break
-      case 'impedancia-curto-circuito':
-        calcExplanation.textContent =
-          'A impedância de um circuito em curto-circuito é a razão entre a tensão e a corrente de curto-circuito.'
-        break
-      case 'ajuste-transformadores':
-        calcExplanation.textContent =
-          'O ajuste de transformadores envolve o cálculo da relação de transformação para atender a requisitos específicos de tensão.'
-        break
-      case 'secao-transversal-condutores':
-        calcExplanation.textContent =
-          'O cálculo da seção transversal de condutores é baseado na corrente e na temperatura ambiente.'
-        break
-      case 'corrente-curto-circuito':
-        calcExplanation.textContent =
-          'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
-        break
-      case 'queda-tensao-transmissao':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em linhas de transmissão leva em consideração a corrente, impedância e distância.'
-        break
-      case 'calculo-dimensionamento-condutores':
-        calcExplanation.textContent =
-          'O dimensionamento de condutores é feito considerando a corrente e a queda de tensão desejada.'
-        break
-      case 'calculo-fator-potencia':
-        calcExplanation.textContent =
-          'O cálculo do fator de potência envolve a relação entre a potência real e a potência aparente.'
-        break
-      case 'calculo-potencia-trifasica':
-        calcExplanation.textContent =
-          'O cálculo da potência trifásica é obtido multiplicando a tensão de linha pela corrente de fase e pela raiz de 3.'
-        break
-      case 'calculo-ressonancia-circuitos-lc':
-        calcExplanation.textContent =
-          'O cálculo da ressonância em circuitos LC envolve a determinação da frequência de ressonância.'
-        break
-      case 'compensacao-fator-potencia':
-        calcExplanation.textContent =
-          'A compensação do fator de potência envolve o ajuste da potência reativa para atingir um fator de potência desejado.'
-        break
-      case 'dimensionamento-disjuntores-fusiveis':
-        calcExplanation.textContent =
-          'O dimensionamento de disjuntores e fusíveis envolve a escolha da corrente e do tempo de atuação adequados.'
-        break
-      case 'analise-harmonicos':
-        calcExplanation.textContent =
-          'A análise de harmônicos envolve a avaliação de componentes harmônicos em um sistema elétrico.'
-        break
-      case 'calculo-perda-energia-linhas-transmissao':
-        calcExplanation.textContent =
-          'O cálculo da perda de energia em linhas de transmissão leva em consideração a corrente, resistência e tempo de operação.'
-        break
-      case 'calculo-iluminacao':
-        calcExplanation.textContent =
-          'O cálculo da iluminação envolve a relação entre o fluxo luminoso e a iluminância desejada.'
-        break
-      case 'calculo-corrente-curto-circuito-disjuntores':
-        calcExplanation.textContent =
-          'O cálculo da corrente de curto-circuito para disjuntores envolve a divisão da potência de curto-circuito pela tensão.'
-        break
-      case 'calculo-tensao-toque-passo-linhas-aereas':
-        calcExplanation.textContent =
-          'O cálculo da tensão de toque em linhas aéreas leva em consideração a tensão e o espaçamento entre fases.'
-        break
-      case 'avaliacao-queda-tensao-linhas-distribuicao':
-        calcExplanation.textContent =
-          'A avaliação da queda de tensão em linhas de distribuição envolve a corrente, resistência e distância.'
-        break
-      case 'calculo-capacitores-correcao-fator-potencia':
-        calcExplanation.textContent =
-          'O cálculo de capacitores para correção do fator de potência envolve o ajuste da potência reativa.'
-        break
-      case 'calculo-temperatura-condutores':
-        calcExplanation.textContent =
-          'O cálculo da temperatura de condutores envolve a corrente, resistência do condutor e temperatura ambiente.'
-        break
-      case 'determinacao-resistencia-equivalente-circuitos-paralelo':
-        calcExplanation.textContent =
-          'A determinação da resistência equivalente em circuitos paralelos é obtida utilizando a fórmula das resistências paralelas.'
-        break
-      case 'calculo-consumo-energia':
-        calcExplanation.textContent =
-          'O cálculo do consumo de energia é obtido multiplicando a potência pelo tempo de operação.'
-        break
-      case 'calculo-perda-energia-motores':
-        calcExplanation.textContent =
-          'O cálculo da perda de energia em motores leva em consideração a eficiência do motor, potência e tempo de operação.'
-        break
-      case 'calculo-capacitancia-total-serie':
-        calcExplanation.textContent =
-          'O cálculo da capacitância total em circuitos em série é obtido pela soma inversa das capacitâncias individuais.'
-        break
-      case 'calculo-capacitancia-total-paralelo':
-        calcExplanation.textContent =
-          'O cálculo da capacitância total em circuitos em paralelo é a soma das capacitâncias individuais.'
-        break
-      case 'calculo-pico-corrente-circuitos-indutivos':
-        calcExplanation.textContent =
-          'O cálculo da corrente de pico em circuitos indutivos envolve a indutância e o tempo de interrupção.'
-        break
-      case 'calculo-corrente-curto-circuito':
-        calcExplanation.textContent =
-          'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
-        break
-      case 'queda-tensao-condutores':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em condutores envolve a corrente, resistência do condutor e distância.'
-        break
-      case 'calculo-eficiencia-transformadores':
-        calcExplanation.textContent =
-          'O cálculo da eficiência de transformadores é obtido dividindo a potência de saída pela potência de entrada.'
-        break
-      case 'calculo-autotransformadores':
-        calcExplanation.textContent =
-          'O cálculo de autotransformadores envolve a determinação da relação de transformação para atender aos requisitos de tensão.'
-        break
-      case 'tempo-estabilizacao-controle':
-        calcExplanation.textContent =
-          'O tempo de estabilização em sistemas de controle é o intervalo necessário para que a resposta atinja a estabilidade após uma perturbação.'
-        break
-      case 'calculo-queda-tensao-transformadores':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em transformadores leva em consideração a corrente, impedância e fator de potência.'
-        break
-      case 'calculo-potencia-aparente':
-        calcExplanation.textContent =
-          'O cálculo da potência aparente é obtido pela raiz quadrada da soma dos quadrados da potência ativa e reativa.'
-        break
-      case 'calculo-corrente-nominal-motores':
-        calcExplanation.textContent =
-          'O cálculo da corrente nominal em motores é obtido pela potência e tensão de operação.'
-        break
-      case 'calculo-queda-tensao-cabos-alimentadores':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em cabos alimentadores leva em consideração a corrente, resistência e distância.'
-        break
-      case 'calculo-indutancia-total-serie':
-        calcExplanation.textContent =
-          'O cálculo da indutância total em circuitos em série é a soma das indutâncias individuais.'
-        break
-      case 'calculo-indutancia-total-paralelo':
-        calcExplanation.textContent =
-          'O cálculo da indutância total em circuitos em paralelo é obtido utilizando a fórmula das indutâncias paralelas.'
-        break
-      case 'calculo-corrente-fuga':
-        calcExplanation.textContent =
-          'O cálculo da corrente de fuga envolve a tensão e a resistência de isolamento em um circuito.'
-        break
-      case 'calculo-constante-tempo-rl':
-        calcExplanation.textContent =
-          'A constante de tempo em um circuito RL é o quociente da indutância pela resistência.'
-        break
-      case 'calculo-queda-tensao-luminarias':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em luminárias leva em consideração a corrente, resistência e distância.'
-        break
-      case 'calculo-tensao-induzida':
-        calcExplanation.textContent =
-          'O cálculo da tensão induzida em um condutor móvel em um campo magnético envolve a velocidade, comprimento do condutor e intensidade do campo.'
-        break
-      case 'calculo-queda-tensao-reatores':
-        calcExplanation.textContent =
-          'O cálculo da queda de tensão em reatores leva em consideração a corrente, resistência e distância.'
-        break
-      case 'calculo-corrente-nominal-transformadores':
-        calcExplanation.textContent =
-          'O cálculo da corrente nominal em transformadores é obtido pela potência e tensão de operação.'
-        break
-      case 'calculo-potencia-reativa':
-        calcExplanation.textContent =
-          'O cálculo da potência reativa é obtido pela multiplicação da tensão pela corrente e pelo seno do ângulo de defasagem.'
-        break
-      case 'calculo-corrente-curto-circuito-transformadores':
-        calcExplanation.textContent =
-          'O cálculo da corrente de curto-circuito em transformadores envolve a potência de curto-circuito e a tensão nominal.'
-        break
-      case 'calculo-corrente-fuga-transformadores':
-        calcExplanation.textContent =
-          'O cálculo da corrente de fuga em transformadores envolve a tensão, a resistência de isolamento e a capacitância.'
-        break
-      case 'resistor-protecao-leds':
-        calcExplanation.textContent =
-          'O resistor de proteção para LEDs é utilizado para limitar a corrente que passa pelo LED, protegendo-o contra danos causados por correntes excessivas.'
-        break
-      default:
-        calcExplanation.textContent = 'Descrição da operação selecionada.'
     }
   }
 
