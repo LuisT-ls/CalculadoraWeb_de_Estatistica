@@ -696,8 +696,8 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   function performCalculation(operation) {
-    // Adicione lógica para realizar cálculos com base na operação selecionada
-    // Exemplo:
+    let result
+
     switch (operation) {
       case 'lei-ohm':
         const voltage = parseFloat(document.getElementById('voltage').value)
@@ -705,10 +705,337 @@ document.addEventListener('DOMContentLoaded', function () {
         const resistance = voltage / current
         displayResult(resistance)
         break
-      // Adicione mais casos conforme necessário
+      case 'lei-ohm-reversa':
+        const current2 = parseFloat(document.getElementById('current').value)
+        const voltage2 = parseFloat(
+          document.getElementById('voltage_reverse').value
+        )
+        result = voltage2 / current2
+        break
+      case 'potencia-eletrica':
+        const voltage3 = parseFloat(document.getElementById('voltage').value)
+        const current3 = parseFloat(document.getElementById('current').value)
+        result = voltage3 * current3
+        break
+      case 'resistencia-serie':
+        const resistance1 = parseFloat(
+          document.getElementById('resistance1').value
+        )
+        const resistance2 = parseFloat(
+          document.getElementById('resistance2').value
+        )
+        result = resistance1 + resistance2
+        break
+      case 'resistencia-paralelo':
+        const resistance3 = parseFloat(
+          document.getElementById('resistance1').value
+        )
+        const resistance4 = parseFloat(
+          document.getElementById('resistance2').value
+        )
+        result = (resistance3 * resistance4) / (resistance3 + resistance4)
+        break
+      case 'lkt':
+        const voltage4 = parseFloat(document.getElementById('voltage1').value)
+        const voltage5 = parseFloat(document.getElementById('voltage2').value)
+        result = voltage4 + voltage5
+        break
+      case 'lkc':
+        const current4 = parseFloat(document.getElementById('current1').value)
+        const current5 = parseFloat(document.getElementById('current2').value)
+        result = current4 + current5
+        break
+      case 'capacitancia-serie':
+        const capacitance1 = parseFloat(
+          document.getElementById('capacitance1').value
+        )
+        const capacitance2 = parseFloat(
+          document.getElementById('capacitance2').value
+        )
+        result = (capacitance1 * capacitance2) / (capacitance1 + capacitance2)
+        break
+      case 'capacitancia-paralelo':
+        const capacitance3 = parseFloat(
+          document.getElementById('capacitance1').value
+        )
+        const capacitance4 = parseFloat(
+          document.getElementById('capacitance2').value
+        )
+        result = capacitance3 + capacitance4
+        break
+      case 'lei-joule':
+        const current6 = parseFloat(document.getElementById('current').value)
+        const resistance5 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const time = parseFloat(document.getElementById('time').value)
+        result = current6 ** 2 * resistance5 * time
+        break
+      case 'constante-tempo-rc':
+        const resistance6 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const capacitance5 = parseFloat(
+          document.getElementById('capacitance').value
+        )
+        result = resistance6 * capacitance5
+        break
+      case 'indutancia-serie':
+      case 'indutancia-paralelo':
+        const inductance = parseFloat(
+          document.getElementById('inductance').value
+        )
+        result = inductance
+        break
+      case 'impedancia-curto-circuito':
+        const voltage6 = parseFloat(document.getElementById('voltage').value)
+        const shortCircuitCurrent = parseFloat(
+          document.getElementById('shortCircuitCurrent').value
+        )
+        result = voltage6 / shortCircuitCurrent
+        break
+      case 'ajuste-transformadores':
+        const primaryVoltage = parseFloat(
+          document.getElementById('primaryVoltage').value
+        )
+        const secondaryVoltage = parseFloat(
+          document.getElementById('secondaryVoltage').value
+        )
+        result = primaryVoltage / secondaryVoltage
+        break
+      case 'secao-transversal-condutores':
+        const current7 = parseFloat(document.getElementById('current').value)
+        const temperature = parseFloat(
+          document.getElementById('temperature').value
+        )
+        // Adicione a lógica para calcular a seção transversal dos condutores
+        break
+      case 'corrente-curto-circuito':
+        const voltage7 = parseFloat(document.getElementById('voltage').value)
+        const impedance = parseFloat(document.getElementById('impedance').value)
+        result = voltage7 / impedance
+        break
+      case 'queda-tensao-transmissao':
+        const current8 = parseFloat(document.getElementById('current').value)
+        const impedance2 = parseFloat(
+          document.getElementById('impedance').value
+        )
+        const distance = parseFloat(document.getElementById('distance').value)
+        result = current8 * impedance2 * distance
+        break
+      case 'calculo-dimensionamento-condutores':
+        const current9 = parseFloat(document.getElementById('current').value)
+        const voltageDrop = parseFloat(
+          document.getElementById('voltageDrop').value
+        )
+        // Adicione a lógica para calcular o dimensionamento de condutores
+        break
+      case 'calculo-fator-potencia':
+        const apparentPower = parseFloat(
+          document.getElementById('apparentPower').value
+        )
+        const realPower = parseFloat(document.getElementById('realPower').value)
+        result = realPower / apparentPower
+        break
+      case 'calculo-potencia-trifasica':
+        const lineVoltage = parseFloat(
+          document.getElementById('lineVoltage').value
+        )
+        const current10 = parseFloat(document.getElementById('current').value)
+        result = Math.sqrt(3) * lineVoltage * current10
+        break
+      case 'calculo-ressonancia-circuitos-lc':
+        const inductance2 = parseFloat(
+          document.getElementById('inductance').value
+        )
+        const capacitance6 = parseFloat(
+          document.getElementById('capacitance').value
+        )
+        result = 1 / Math.sqrt(inductance2 * capacitance6)
+        break
+      case 'compensacao-fator-potencia':
+        const powerFactor = parseFloat(
+          document.getElementById('powerFactor').value
+        )
+        const desiredPowerFactor = parseFloat(
+          document.getElementById('desiredPowerFactor').value
+        )
+        // Adicione a lógica para calcular a compensação do fator de potência
+        break
+      case 'dimensionamento-disjuntores-fusiveis':
+        const current11 = parseFloat(document.getElementById('current').value)
+        const time2 = parseFloat(document.getElementById('time').value)
+        // Adicione a lógica para dimensionar disjuntores e fusíveis
+        break
+      case 'analise-harmonicos':
+        const harmonicOrder = parseFloat(
+          document.getElementById('harmonicOrder').value
+        )
+        const current12 = parseFloat(document.getElementById('current').value)
+        // Adicione a lógica para analisar harmônicos
+        break
+      case 'calculo-perda-energia-linhas-transmissao':
+        const current13 = parseFloat(document.getElementById('current').value)
+        const resistance7 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const time3 = parseFloat(document.getElementById('time').value)
+        result = current13 ** 2 * resistance7 * time3
+        break
+      case 'calculo-iluminacao':
+        const luminousFlux = parseFloat(
+          document.getElementById('luminousFlux').value
+        )
+        const illuminance = parseFloat(
+          document.getElementById('illuminance').value
+        )
+        result = luminousFlux / illuminance
+        break
+      case 'calculo-corrente-curto-circuito-disjuntores':
+        const voltage8 = parseFloat(document.getElementById('voltage').value)
+        const shortCircuitPower = parseFloat(
+          document.getElementById('shortCircuitPower').value
+        )
+        result = shortCircuitPower / voltage8
+        break
+      case 'calculo-tensao-toque-passo-linhas-aereas':
+        const voltage9 = parseFloat(document.getElementById('voltage').value)
+        const spacing = parseFloat(document.getElementById('spacing').value)
+        // Adicione a lógica para calcular a tensão de toque e passo em linhas aéreas
+        break
+      case 'avaliacao-queda-tensao-linhas-distribuicao':
+        const current14 = parseFloat(document.getElementById('current').value)
+        const resistance8 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const distance2 = parseFloat(document.getElementById('distance').value)
+        result = current14 * resistance8 * distance2
+        break
+      case 'calculo-capacitores-correcao-fator-potencia':
+        const powerFactor2 = parseFloat(
+          document.getElementById('powerFactor').value
+        )
+        const desiredPowerFactor2 = parseFloat(
+          document.getElementById('desiredPowerFactor').value
+        )
+        const systemVoltage = parseFloat(
+          document.getElementById('systemVoltage').value
+        )
+        // Adicione a lógica para calcular capacitores para correção do fator de potência
+        break
+      case 'calculo-temperatura-condutores':
+        const current15 = parseFloat(document.getElementById('current').value)
+        const resistance9 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const ambientTemperature = parseFloat(
+          document.getElementById('ambientTemperature').value
+        )
+        // Adicione a lógica para calcular a temperatura de condutores
+        break
+      case 'determinacao-resistencia-equivalente-circuitos-paralelo':
+        const resistance10 = parseFloat(
+          document.getElementById('resistance1').value
+        )
+        const resistance11 = parseFloat(
+          document.getElementById('resistance2').value
+        )
+        result = (resistance10 * resistance11) / (resistance10 + resistance11)
+        break
+      case 'calculo-consumo-energia':
+        const power = parseFloat(document.getElementById('power').value)
+        const time4 = parseFloat(document.getElementById('time').value)
+        result = power * time4
+        break
+      case 'calculo-perda-energia-motores':
+        const efficiency = parseFloat(
+          document.getElementById('efficiency').value
+        )
+        const power2 = parseFloat(document.getElementById('power').value)
+        const time5 = parseFloat(document.getElementById('time').value)
+        result = (1 - efficiency / 100) * power2 * time5
+        break
+      case 'calculo-capacitancia-total-serie':
+        const capacitance7 = parseFloat(
+          document.getElementById('capacitance1').value
+        )
+        const capacitance8 = parseFloat(
+          document.getElementById('capacitance2').value
+        )
+        result = (capacitance7 * capacitance8) / (capacitance7 + capacitance8)
+        break
+      case 'calculo-capacitancia-total-paralelo':
+        const capacitance9 = parseFloat(
+          document.getElementById('capacitance1').value
+        )
+        const capacitance10 = parseFloat(
+          document.getElementById('capacitance2').value
+        )
+        result = capacitance9 + capacitance10
+        break
+      case 'calculo-pico-corrente-circuitos-indutivos':
+        const inductance3 = parseFloat(
+          document.getElementById('inductance').value
+        )
+        const time6 = parseFloat(document.getElementById('time').value)
+        // Adicione a lógica para calcular o pico de corrente em circuitos indutivos
+        break
+      case 'calculo-corrente-curto-circuito':
+        const voltage10 = parseFloat(document.getElementById('voltage').value)
+        const shortCircuitPower2 = parseFloat(
+          document.getElementById('shortCircuitPower').value
+        )
+        result = shortCircuitPower2 / voltage10
+        break
+      case 'queda-tensao-condutores':
+        const current16 = parseFloat(document.getElementById('current').value)
+        const resistance12 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const distance3 = parseFloat(document.getElementById('distance').value)
+        result = current16 * resistance12 * distance3
+        break
+      case 'calculo-eficiencia-transformadores':
+        const inputPower = parseFloat(
+          document.getElementById('inputPower').value
+        )
+        const outputPower = parseFloat(
+          document.getElementById('outputPower').value
+        )
+        result = (outputPower / inputPower) * 100
+        break
+      case 'calculo-autotransformadores':
+        const primaryVoltage2 = parseFloat(
+          document.getElementById('primaryVoltage').value
+        )
+        const secondaryVoltage2 = parseFloat(
+          document.getElementById('secondaryVoltage').value
+        )
+        result = primaryVoltage2 / secondaryVoltage2
+        break
+      case 'tempo-estabilizacao-controle':
+        const resistance13 = parseFloat(
+          document.getElementById('resistance').value
+        )
+        const capacitance11 = parseFloat(
+          document.getElementById('capacitance').value
+        )
+        result = resistance13 * capacitance11
+        break
+      case 'resistor-protecao-leds':
+        const forwardVoltage = parseFloat(
+          document.getElementById('forwardVoltage').value
+        )
+        const forwardCurrent = parseFloat(
+          document.getElementById('forwardCurrent').value
+        )
+        const supplyVoltage = 5 // Assumindo uma tensão de alimentação de 5V
+        result = (supplyVoltage - forwardVoltage) / forwardCurrent
+        break
       default:
-      // Adicione lógica para outras operações
+        result = 'Operação inválida'
     }
+    displayResult(result)
   }
 
   function displayResult(result) {
