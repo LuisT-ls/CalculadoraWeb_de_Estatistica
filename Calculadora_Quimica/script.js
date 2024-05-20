@@ -54,92 +54,107 @@ operationSelect.addEventListener('change', () => {
 })
 
 function updateInputFields() {
+  
   const selectedOperation = operationSelect.value
+  const explanationsVisible = explanationText.style.display === 'block'
   inputFields.innerHTML = ''
+  if (!explanationsVisible) {
+    explanationText.style.display = 'none'
+  }
+
   switch (selectedOperation) {
     case 'conversaoUnidades':
-      addInputField('valor', 'Valor')
-      addInputField('unidadeOrigem', 'Unidade de Origem')
-      addInputField('unidadeDestino', 'Unidade de Destino')
+      addInputField('valor', 'Valor:')
+      addInputField('unidadeOrigem', 'Unidade de Origem:')
+      addInputField('unidadeDestino', 'Unidade de Destino:')
       break
     case 'calculosestequiometricos':
-      addInputField('massaReagente', 'Massa do Reagente (g)')
-      addInputField('massaProduto', 'Massa do Produto (g)')
+      addInputField('massaReagente', 'Massa do Reagente:')
+      addInputField('massaProduto', 'Massa do Produto:')
       break
     case 'massaMolar':
-      addInputField('formulaQuimica', 'Fórmula Química')
+      addInputField('formulaQuimica', 'Fórmula Química:')
+      break
+    case 'concentracaoSolucoes':
+      addInputField('massaSoluto', 'Massa do Soluto:')
+      addInputField('volumeSolucao', 'Volume da Solução:')
+      break
+    case 'diluicaoSolucoes':
+      addInputField('concentracaoInicial', 'Concentração Inicial:')
+      addInputField('volumeInicial', 'Volume Inicial:')
+      addInputField('volumeFinal', 'Volume Final:')
       break
     case 'reacoesQuimicas':
-      addInputField('equacaoReacao', 'Equação da Reação')
+      addInputField('equacaoReacao', 'Equação da Reação:')
       break
     case 'balanceamentoEquacoesQuimicas':
-      addInputField('equacaoNaoBalanceada', 'Equação Não Balanceada')
+      addInputField('equacaoNaoBalanceada', 'Equação Não Balanceada:')
       break
     case 'leiBoyleCharlesGayLussac':
-      addInputField('pressaoInicial', 'Pressão Inicial (atm)')
-      addInputField('volumeInicial', 'Volume Inicial (L)')
-      addInputField('temperaturaInicial', 'Temperatura Inicial (K)')
-      addInputField('pressaoFinal', 'Pressão Final (atm)')
-      addInputField('volumeFinal', 'Volume Final (L)')
-      addInputField('temperaturaFinal', 'Temperatura Final (K)')
-      break
-    case 'constantesQuimicas':
-      addInputField('constanteEquilibrio', 'Constante de Equilíbrio')
-      break
-    case 'temperaturaPressaoPadrao':
-      addInputField('temperatura', 'Temperatura (K)')
-      addInputField('pressao', 'Pressão (atm)')
-      break
-    case 'equilibrioQuimico':
-      // Add input fields for chemical equilibrium calculation
-      break
-    case 'leiLambertBeer':
-      addInputField('absorbancia', 'Absorbância')
-      addInputField('concentracao', 'Concentração (mol/L)')
-      addInputField('caminhoOptico', 'Caminho Óptico (cm)')
-      break
-    case 'cineticaQuimica':
-      addInputField('concentracaoInicial', 'Concentração Inicial (mol/L)')
-      addInputField('tempoReacao', 'Tempo de Reação (s)')
-      break
-    case 'equacaoNernst':
-      addInputField('potencialPadrao', 'Potencial Padrão (V)')
-      addInputField('concentracaoIons', 'Concentração de Íons (mol/L)')
-      break
-    case 'constanteEquilibrioPressaoParcial':
-      addInputField('pressaoReagentes', 'Pressão dos Reagentes (atm)')
-      addInputField('pressaoProdutos', 'Pressão dos Produtos (atm)')
-      break
-    case 'misturaGases':
-      addInputField('volumeGas1', 'Volume do Gás 1 (L)')
-      addInputField('volumeGas2', 'Volume do Gás 2 (L)')
-      break
-    case 'numeroOxidacao':
-      addInputField('formulaQuimica', 'Fórmula Química')
-      break
-    case 'teoriaColisoes':
-      addInputField('concentracaoReagentes', 'Concentração dos Reagentes (mol/L)')
-      addInputField('temperatura', 'Temperatura (K)')
-      break
-    case 'conversoesTemperatura':
-      addInputField('temperaturaOrigem', 'Temperatura de Origem')
-      addInputField('escalaOrigem', 'Escala de Origem')
-      addInputField('escalaDestino', 'Escala de Destino')
-      break
-    case 'solucoesNaoIdeais':
-      addInputField('composicaoSolucao', 'Composição da Solução')
-      addInputField('temperatura', 'Temperatura (K)')
-      break
-    case 'rendimentoReacao':
-      addInputField('rendimentoTeorico', 'Rendimento Teórico (%)')
-      addInputField('rendimentoPratico', 'Rendimento Prático (%)')
-      break
-    case 'equacoesTermoquimicas':
-      addInputField('equacaoTermoquimica', 'Equação Termoquímica')
+      addInputField('pressaoInicial', 'Pressão Inicial:')
+      addInputField('volumeInicial', 'Volume Inicial:')
+      addInputField('temperaturaInicial', 'Temperatura Inicial:')
+      addInputField('pressaoFinal', 'Pressão Final:')
+      addInputField('volumeFinal', 'Volume Final:')
+      addInputField('temperaturaFinal', 'Temperatura Final:')
       break
     case 'solucoesTampao':
-      addInputField('concentrationAcid', 'Concentração do Ácido (mol/L)')
-      addInputField('concentrationBase', 'Concentração da Base (mol/L)')
+      addInputField('concentracaoAcido', 'Concentração do Ácido:')
+      addInputField('concentracaoBase', 'Concentração da Base:')
+      break
+    case 'constantesQuimicas':
+      addInputField('constanteEquilibrio', 'Constante de Equilíbrio:')
+      break
+    case 'temperaturaPressaoPadrao':
+      addInputField('temperatura', 'Temperatura:')
+      addInputField('pressao', 'Pressão:')
+      break
+    case 'equilibrioQuimico':
+      addInputField('equacaoEquilibrio', 'Equação de Equilíbrio:')
+      break
+    case 'leiLambertBeer':
+      addInputField('absorbancia', 'Absorbância:')
+      addInputField('concentracao', 'Concentração:')
+      addInputField('caminhoOptico', 'Caminho Óptico:')
+      break
+    case 'cineticaQuimica':
+      addInputField('concentracaoInicial', 'Concentração Inicial:')
+      addInputField('tempoReacao', 'Tempo de Reação:')
+      break
+    case 'equacaoNernst':
+      addInputField('potencialPadrao', 'Potencial Padrão:')
+      addInputField('concentracaoIons', 'Concentração de Íons:')
+      break
+    case 'constanteEquilibrioPressaoParcial':
+      addInputField('pressaoReagentes', 'Pressão dos Reagentes:')
+      addInputField('pressaoProdutos', 'Pressão dos Produtos:')
+      break
+    case 'misturaGases':
+      addInputField('volumeGas1', 'Volume do Gás 1:')
+      addInputField('volumeGas2', 'Volume do Gás 2:')
+      break
+    case 'numeroOxidacao':
+      addInputField('formulaQuimica', 'Fórmula Química:')
+      break
+    case 'teoriaColisoes':
+      addInputField('concentracaoReagentes', 'Concentração dos Reagentes:')
+      addInputField('temperatura', 'Temperatura:')
+      break
+    case 'conversoesTemperatura':
+      addInputField('temperaturaOrigem', 'Temperatura de Origem:')
+      addInputField('escalaOrigem', 'Escala de Origem:')
+      addInputField('escalaDestino', 'Escala de Destino:')
+      break
+    case 'solucoesNaoIdeais':
+      addInputField('composicaoSolucao', 'Composição da Solução:')
+      addInputField('temperatura', 'Temperatura:')
+      break
+    case 'rendimentoReacao':
+      addInputField('rendimentoTeorico', 'Rendimento Teórico:')
+      addInputField('rendimentoPratico', 'Rendimento Prático:')
+      break
+    case 'equacoesTermoquimicas':
+      addInputField('equacaoTermoquimica', 'Equação Termoquímica:')
       break
     default:
       break
@@ -147,13 +162,12 @@ function updateInputFields() {
 }
 
 function addInputField(id, label) {
-  const inputField = document.createElement('div')
-  inputField.classList.add('input-field')
-  inputField.innerHTML = `
+  const fieldDiv = document.createElement('div')
+  fieldDiv.innerHTML = `
     <label for="${id}">${label}</label>
-    <input type="text" id="${id}" name="${id}">
+    <input type="number" id="${id}">
   `
-  inputFields.appendChild(inputField)
+  inputFields.appendChild(fieldDiv)
 }
 
 function formatCurrency(amount) {
