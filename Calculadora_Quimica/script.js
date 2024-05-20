@@ -54,7 +54,6 @@ operationSelect.addEventListener('change', () => {
 })
 
 function updateInputFields() {
-  
   const selectedOperation = operationSelect.value
   const explanationsVisible = explanationText.style.display === 'block'
   inputFields.innerHTML = ''
@@ -65,6 +64,8 @@ function updateInputFields() {
   switch (selectedOperation) {
     case 'conversaoUnidades':
       addInputField('valor', 'Valor:')
+      const unidadesOrigem = ['g', 'mol', 'L']
+      const unidadesDestino = ['g', 'mol', 'L']
       addInputField('unidadeOrigem', 'Unidade de Origem:')
       addInputField('unidadeDestino', 'Unidade de Destino:')
       break
@@ -372,6 +373,23 @@ function calculateResult() {
   }
 
   resultDiv.textContent = result
+}
+
+function addDropdown(id, label, options) {
+  const fieldDiv = document.createElement('div')
+  const dropdown = document.createElement('select')
+  dropdown.id = id
+  options.forEach(option => {
+    const optionElement = document.createElement('option')
+    optionElement.value = option
+    optionElement.textContent = option
+    dropdown.appendChild(optionElement)
+  })
+  fieldDiv.innerHTML = `
+    <label for="${id}">${label}</label>
+  `
+  fieldDiv.appendChild(dropdown)
+  inputFields.appendChild(fieldDiv)
 }
 
 function convertUnits(value, unitFrom, unitTo) {

@@ -61,7 +61,27 @@
         </div>
       </div>
       <div id="input-fields" class="input-fields">
-        <!-- Input fields will be added dynamically with JavaScript -->
+        <!-- Input fields para conversaoUnidades -->
+        <div>
+          <label for="valor">Valor:</label>
+          <input type="number" id="valor" />
+        </div>
+        <div>
+          <label for="unidadeOrigem">Unidade de Origem:</label>
+          <select id="unidadeOrigem">
+            <option value="g">g</option>
+            <option value="mol">mol</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div>
+          <label for="unidadeDestino">Unidade de Destino:</label>
+          <select id="unidadeDestino">
+            <option value="g">g</option>
+            <option value="mol">mol</option>
+            <option value="L">L</option>
+          </select>
+        </div>
       </div>
       <button id="calculate">Calcular</button>
       <div class="result" id="result"></div>
