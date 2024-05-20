@@ -17,1029 +17,825 @@ function toggleDarkMode() {
 
 document.addEventListener('DOMContentLoaded', function () {
   toggleDarkMode()
+})
 
-  const operationSelect = document.getElementById('operation')
-  const unitSelection = document.getElementById('unit-selection')
-  const inputFields = document.getElementById('input-fields')
-  const calcExplanation = document.getElementById('calcExplanation')
-  const showExplanationButton = document.getElementById('showExplanation')
-  showExplanationButton.addEventListener('click', showExplanation)
+const operationSelect = document.getElementById('operation')
+const inputFields = document.getElementById('input-fields')
+const calculateButton = document.getElementById('calculate')
+const resultDiv = document.getElementById('result')
+const showExplanationButton = document.getElementById('showExplanation')
+const explanationText = document.getElementById('calcExplanation')
 
-  operationSelect.addEventListener('change', function () {
-    unitSelection.innerHTML = ''
-    inputFields.innerHTML = ''
-    calcExplanation.textContent = ''
+operationSelect.addEventListener('change', () => {
+  updateInputFields()
+})
 
-    setupCalculation()
-  })
+calculateButton.addEventListener('click', () => {
+  calculateResult()
+})
 
-  function setupCalculation() {
-    const selectedOperation = operationSelect.value
-
-    // Limpa campos de entrada e explicações anteriores
-    unitSelection.innerHTML = ''
-    inputFields.innerHTML = ''
-    calcExplanation.textContent = ''
-
-    switch (selectedOperation) {
-      case 'lei-ohm':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML = '<input type="number" id="voltage" required>'
-        break
-      case 'lei-ohm-reversa':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="voltage">Tensão (V):</label>' +
-          '<input type="number" id="voltage_reverse" required>'
-        break
-      case 'potencia-eletrica':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="current">Corrente (A):</label>' +
-          '<input type="number" id="current" required>'
-        break
-
-      case 'resistencia-serie':
-        unitSelection.innerHTML =
-          '<label for="resistance1">Resistência 1 (Ω):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="resistance1" required>' +
-          '<label for="resistance2">Resistência 2 (Ω):</label>' +
-          '<input type="number" id="resistance2" required>'
-        break
-
-      case 'resistencia-paralelo':
-        unitSelection.innerHTML =
-          '<label for="resistance1">Resistência 1 (Ω):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="resistance1" required>' +
-          '<label for="resistance2">Resistência 2 (Ω):</label>' +
-          '<input type="number" id="resistance2" required>'
-        break
-
-      case 'lkt':
-        unitSelection.innerHTML = '<label for="voltage1">Tensão 1 (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage1" required>' +
-          '<label for="voltage2">Tensão 2 (V):</label>' +
-          '<input type="number" id="voltage2" required>'
-        break
-
-      case 'lkc':
-        unitSelection.innerHTML =
-          '<label for="current1">Corrente 1 (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current1" required>' +
-          '<label for="current2">Corrente 2 (A):</label>' +
-          '<input type="number" id="current2" required>'
-        break
-
-      case 'capacitancia-serie':
-        unitSelection.innerHTML =
-          '<label for="capacitance1">Capacitância 1 (F):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="capacitance1" required>' +
-          '<label for="capacitance2">Capacitância 2 (F):</label>' +
-          '<input type="number" id="capacitance2" required>'
-        break
-
-      case 'capacitancia-paralelo':
-        unitSelection.innerHTML =
-          '<label for="capacitance1">Capacitância 1 (F):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="capacitance1" required>' +
-          '<label for="capacitance2">Capacitância 2 (F):</label>' +
-          '<input type="number" id="capacitance2" required>'
-        break
-
-      case 'lei-joule':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="resistance">Resistência (Ω):</label>' +
-          '<input type="number" id="resistance" required>' +
-          '<label for="time">Tempo (s):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'constante-tempo-rc':
-        unitSelection.innerHTML =
-          '<label for="resistance">Resistência (Ω):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="resistance" required>' +
-          '<label for="capacitance">Capacitância (F):</label>' +
-          '<input type="number" id="capacitance" required>'
-        break
-
-      case 'indutancia-serie':
-      case 'indutancia-paralelo':
-        unitSelection.innerHTML =
-          '<label for="inductance">Indutância (H):</label>'
-        inputFields.innerHTML = '<input type="number" id="inductance" required>'
-        break
-
-      case 'impedancia-curto-circuito':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="shortCircuitCurrent">Corrente de Curto-Circuito (A):</label>' +
-          '<input type="number" id="shortCircuitCurrent" required>'
-        break
-
-      case 'ajuste-transformadores':
-        unitSelection.innerHTML =
-          '<label for="primaryVoltage">Tensão Primária (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="primaryVoltage" required>' +
-          '<label for="secondaryVoltage">Tensão Secundária (V):</label>' +
-          '<input type="number" id="secondaryVoltage" required>'
-        break
-
-      case 'secao-transversal-condutores':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="temperature">Temperatura (°C):</label>' +
-          '<input type="number" id="temperature" required>'
-        break
-
-      case 'corrente-curto-circuito':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="impedance">Impedância (Ω):</label>' +
-          '<input type="number" id="impedance" required>'
-        break
-
-      case 'queda-tensao-transmissao':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="impedance">Impedância (Ω):</label>' +
-          '<input type="number" id="impedance" required>' +
-          '<label for="distance">Distância (m):</label>' +
-          '<input type="number" id="distance" required>'
-        break
-
-      case 'calculo-dimensionamento-condutores':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="voltageDrop">Queda de Tensão (%):</label>' +
-          '<input type="number" id="voltageDrop" required>'
-        break
-
-      case 'calculo-fator-potencia':
-        unitSelection.innerHTML =
-          '<label for="apparentPower">Potência Aparente (VA):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="apparentPower" required>' +
-          '<label for="realPower">Potência Real (W):</label>' +
-          '<input type="number" id="realPower" required>'
-        break
-
-      case 'calculo-potencia-trifasica':
-        unitSelection.innerHTML =
-          '<label for="lineVoltage">Tensão de Linha (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="lineVoltage" required>' +
-          '<label for="current">Corrente de Fase (A):</label>' +
-          '<input type="number" id="current" required>'
-        break
-
-      case 'calculo-ressonancia-circuitos-lc':
-        unitSelection.innerHTML =
-          '<label for="inductance">Indutância (H):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="inductance" required>' +
-          '<label for="capacitance">Capacitância (F):</label>' +
-          '<input type="number" id="capacitance" required>'
-        break
-
-      case 'compensacao-fator-potencia':
-        unitSelection.innerHTML =
-          '<label for="powerFactor">Fator de Potência Atual:</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="powerFactor" required>' +
-          '<label for="desiredPowerFactor">Fator de Potência Desejado:</label>' +
-          '<input type="number" id="desiredPowerFactor" required>'
-        break
-
-      case 'dimensionamento-disjuntores-fusiveis':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="time">Tempo de Atuação (s):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'analise-harmonicos':
-        unitSelection.innerHTML =
-          '<label for="harmonicOrder">Ordem Harmônica:</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="harmonicOrder" required>' +
-          '<label for="current">Corrente (A):</label>' +
-          '<input type="number" id="current" required>'
-        break
-
-      case 'calculo-perda-energia-linhas-transmissao':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="resistance">Resistência da Linha (Ω):</label>' +
-          '<input type="number" id="resistance" required>' +
-          '<label for="time">Tempo de Operação (h):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'calculo-iluminacao':
-        unitSelection.innerHTML =
-          '<label for="luminousFlux">Fluxo Luminoso (lm):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="luminousFlux" required>' +
-          '<label for="illuminance">Iluminância (lux):</label>' +
-          '<input type="number" id="illuminance" required>'
-        break
-
-      case 'calculo-corrente-curto-circuito-disjuntores':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="shortCircuitPower">Potência de Curto-Circuito (VA):</label>' +
-          '<input type="number" id="shortCircuitPower" required>'
-        break
-
-      case 'calculo-tensao-toque-passo-linhas-aereas':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="spacing">Espaçamento entre Fases (m):</label>' +
-          '<input type="number" id="spacing" required>'
-        break
-
-      case 'avaliacao-queda-tensao-linhas-distribuicao':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="resistance">Resistência da Linha (Ω):</label>' +
-          '<input type="number" id="resistance" required>' +
-          '<label for="distance">Distância (m):</label>' +
-          '<input type="number" id="distance" required>'
-        break
-
-      case 'calculo-capacitores-correcao-fator-potencia':
-        unitSelection.innerHTML =
-          '<label for="powerFactor">Fator de Potência Atual:</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="powerFactor" required>' +
-          '<label for="desiredPowerFactor">Fator de Potência Desejado:</label>' +
-          '<input type="number" id="desiredPowerFactor" required>' +
-          '<label for="systemVoltage">Tensão do Sistema (V):</label>' +
-          '<input type="number" id="systemVoltage" required>'
-        break
-
-      case 'calculo-temperatura-condutores':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="resistance">Resistência do Condutor (Ω/km):</label>' +
-          '<input type="number" id="resistance" required>' +
-          '<label for="ambientTemperature">Temperatura Ambiente (°C):</label>' +
-          '<input type="number" id="ambientTemperature" required>'
-        break
-
-      case 'determinacao-resistencia-equivalente-circuitos-paralelo':
-        unitSelection.innerHTML =
-          '<label for="resistance1">Resistência 1 (Ω):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="resistance1" required>' +
-          '<label for="resistance2">Resistência 2 (Ω):</label>' +
-          '<input type="number" id="resistance2" required>'
-        break
-
-      case 'calculo-consumo-energia':
-        unitSelection.innerHTML = '<label for="power">Potência (W):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="power" required>' +
-          '<label for="time">Tempo (h):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'calculo-perda-energia-motores':
-        unitSelection.innerHTML =
-          '<label for="efficiency">Eficiência do Motor (%):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="efficiency" required>' +
-          '<label for="power">Potência do Motor (W):</label>' +
-          '<input type="number" id="power" required>' +
-          '<label for="time">Tempo de Operação (h):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'calculo-capacitancia-total-serie':
-        unitSelection.innerHTML =
-          '<label for="capacitance1">Capacitância 1 (F):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="capacitance1" required>' +
-          '<label for="capacitance2">Capacitância 2 (F):</label>' +
-          '<input type="number" id="capacitance2" required>'
-        break
-
-      case 'calculo-capacitancia-total-paralelo':
-        unitSelection.innerHTML =
-          '<label for="capacitance1">Capacitância 1 (F):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="capacitance1" required>' +
-          '<label for="capacitance2">Capacitância 2 (F):</label>' +
-          '<input type="number" id="capacitance2" required>'
-        break
-
-      case 'calculo-pico-corrente-circuitos-indutivos':
-        unitSelection.innerHTML =
-          '<label for="inductance">Indutância (H):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="inductance" required>' +
-          '<label for="time">Tempo de Interrupção (s):</label>' +
-          '<input type="number" id="time" required>'
-        break
-
-      case 'calculo-corrente-curto-circuito':
-        unitSelection.innerHTML = '<label for="voltage">Tensão (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="voltage" required>' +
-          '<label for="shortCircuitPower">Potência de Curto-Circuito (VA):</label>' +
-          '<input type="number" id="shortCircuitPower" required>'
-        break
-
-      case 'queda-tensao-condutores':
-        unitSelection.innerHTML = '<label for="current">Corrente (A):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="current" required>' +
-          '<label for="resistance">Resistência do Condutor (Ω/km):</label>' +
-          '<input type="number" id="resistance" required>' +
-          '<label for="distance">Distância (m):</label>' +
-          '<input type="number" id="distance" required>'
-        break
-
-      case 'calculo-eficiencia-transformadores':
-        unitSelection.innerHTML =
-          '<label for="inputPower">Potência de Entrada (VA):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="inputPower" required>' +
-          '<label for="outputPower">Potência de Saída (VA):</label>' +
-          '<input type="number" id="outputPower" required>'
-        break
-
-      case 'calculo-autotransformadores':
-        unitSelection.innerHTML =
-          '<label for="primaryVoltage">Tensão Primária (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="primaryVoltage" required>' +
-          '<label for="secondaryVoltage">Tensão Secundária (V):</label>' +
-          '<input type="number" id="secondaryVoltage" required>'
-        break
-
-      case 'tempo-estabilizacao-controle':
-        unitSelection.innerHTML =
-          '<label for="resistance">Resistência (Ω):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="resistance" required>' +
-          '<label for="capacitance">Capacitância (F):</label>' +
-          '<input type="number" id="capacitance" required>'
-        break
-
-      case 'resistor-protecao-leds':
-        unitSelection.innerHTML =
-          '<label for="forwardVoltage">Tensão Direta (V):</label>'
-        inputFields.innerHTML =
-          '<input type="number" id="forwardVoltage" required>' +
-          '<label for="forwardCurrent">Corrente Direta (A):</label>' +
-          '<input type="number" id="forwardCurrent" required>'
-        break
-      default:
-    }
-  }
-
-  function showExplanation() {
-    const selectedOperation = operationSelect.value
-    const calcExplanation = document.getElementById('calcExplanation')
-    const isExplanationVisible = calcExplanation.classList.contains('show')
-
-    calcExplanation.textContent = ''
-
-    if (isExplanationVisible) {
-      calcExplanation.classList.remove('show')
-    } else {
-      calcExplanation.classList.add('show')
-
-      switch (selectedOperation) {
-        case 'lei-ohm':
-          calcExplanation.textContent =
-            'A Lei de Ohm relaciona a tensão, corrente e resistência em um circuito elétrico.'
-          break
-        case 'lei-ohm-reversa':
-          calcExplanation.textContent =
-            'A Lei de Ohm Reversa é usada para calcular a resistência quando a tensão e a corrente são conhecidas.'
-          break
-        case 'potencia-eletrica':
-          calcExplanation.textContent =
-            'O cálculo da potência elétrica é obtido multiplicando a tensão pela corrente em um circuito.'
-          break
-        case 'resistencia-serie':
-          calcExplanation.textContent =
-            'A resistência total em um circuito em série é a soma das resistências individuais.'
-          break
-        case 'resistencia-paralelo':
-          calcExplanation.textContent =
-            'A resistência total em um circuito em paralelo é obtida utilizando a fórmula das resistências paralelas.'
-          break
-        case 'lkt':
-          calcExplanation.textContent =
-            'A Lei de Kirchhoff para tensões (LKT) afirma que a soma das tensões em um loop fechado é zero.'
-          break
-        case 'lkc':
-          calcExplanation.textContent =
-            'A Lei de Kirchhoff para correntes (LKC) estabelece que a soma das correntes em um nó é zero.'
-          break
-        case 'capacitancia-serie':
-          calcExplanation.textContent =
-            'A capacitância total em um circuito em série é inversamente proporcional à soma inversa das capacitâncias individuais.'
-          break
-        case 'capacitancia-paralelo':
-          calcExplanation.textContent =
-            'A capacitância total em um circuito em paralelo é a soma das capacitâncias individuais.'
-          break
-        case 'lei-joule':
-          calcExplanation.textContent =
-            'A Lei de Joule calcula a energia térmica gerada em um resistor, multiplicando a corrente ao quadrado pela resistência e pelo tempo.'
-          break
-        case 'constante-tempo-rc':
-          calcExplanation.textContent =
-            'A constante de tempo em um circuito RC é o produto da resistência e capacitância.'
-          break
-        case 'indutancia-serie':
-          calcExplanation.textContent =
-            'A indutância total em um circuito em série é a soma das indutâncias individuais.'
-          break
-        case 'indutancia-paralelo':
-          calcExplanation.textContent =
-            'A indutância total em um circuito em paralelo é obtida utilizando a fórmula das indutâncias paralelas.'
-          break
-        case 'impedancia-curto-circuito':
-          calcExplanation.textContent =
-            'A impedância de um circuito em curto-circuito é a razão entre a tensão e a corrente de curto-circuito.'
-          break
-        case 'ajuste-transformadores':
-          calcExplanation.textContent =
-            'O ajuste de transformadores envolve o cálculo da relação de transformação para atender a requisitos específicos de tensão.'
-          break
-        case 'secao-transversal-condutores':
-          calcExplanation.textContent =
-            'O cálculo da seção transversal de condutores é baseado na corrente e na temperatura ambiente.'
-          break
-        case 'corrente-curto-circuito':
-          calcExplanation.textContent =
-            'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
-          break
-        case 'queda-tensao-transmissao':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em linhas de transmissão leva em consideração a corrente, impedância e distância.'
-          break
-        case 'calculo-dimensionamento-condutores':
-          calcExplanation.textContent =
-            'O dimensionamento de condutores é feito considerando a corrente e a queda de tensão desejada.'
-          break
-        case 'calculo-fator-potencia':
-          calcExplanation.textContent =
-            'O cálculo do fator de potência envolve a relação entre a potência real e a potência aparente.'
-          break
-        case 'calculo-potencia-trifasica':
-          calcExplanation.textContent =
-            'O cálculo da potência trifásica é obtido multiplicando a tensão de linha pela corrente de fase e pela raiz de 3.'
-          break
-        case 'calculo-ressonancia-circuitos-lc':
-          calcExplanation.textContent =
-            'O cálculo da ressonância em circuitos LC envolve a determinação da frequência de ressonância.'
-          break
-        case 'compensacao-fator-potencia':
-          calcExplanation.textContent =
-            'A compensação do fator de potência envolve o ajuste da potência reativa para atingir um fator de potência desejado.'
-          break
-        case 'dimensionamento-disjuntores-fusiveis':
-          calcExplanation.textContent =
-            'O dimensionamento de disjuntores e fusíveis envolve a escolha da corrente e do tempo de atuação adequados.'
-          break
-        case 'analise-harmonicos':
-          calcExplanation.textContent =
-            'A análise de harmônicos envolve a avaliação de componentes harmônicos em um sistema elétrico.'
-          break
-        case 'calculo-perda-energia-linhas-transmissao':
-          calcExplanation.textContent =
-            'O cálculo da perda de energia em linhas de transmissão leva em consideração a corrente, resistência e tempo de operação.'
-          break
-        case 'calculo-iluminacao':
-          calcExplanation.textContent =
-            'O cálculo da iluminação envolve a relação entre o fluxo luminoso e a iluminância desejada.'
-          break
-        case 'calculo-corrente-curto-circuito-disjuntores':
-          calcExplanation.textContent =
-            'O cálculo da corrente de curto-circuito para disjuntores envolve a divisão da potência de curto-circuito pela tensão.'
-          break
-        case 'calculo-tensao-toque-passo-linhas-aereas':
-          calcExplanation.textContent =
-            'O cálculo da tensão de toque em linhas aéreas leva em consideração a tensão e o espaçamento entre fases.'
-          break
-        case 'avaliacao-queda-tensao-linhas-distribuicao':
-          calcExplanation.textContent =
-            'A avaliação da queda de tensão em linhas de distribuição envolve a corrente, resistência e distância.'
-          break
-        case 'calculo-capacitores-correcao-fator-potencia':
-          calcExplanation.textContent =
-            'O cálculo de capacitores para correção do fator de potência envolve o ajuste da potência reativa.'
-          break
-        case 'calculo-temperatura-condutores':
-          calcExplanation.textContent =
-            'O cálculo da temperatura de condutores envolve a corrente, resistência do condutor e temperatura ambiente.'
-          break
-        case 'determinacao-resistencia-equivalente-circuitos-paralelo':
-          calcExplanation.textContent =
-            'A determinação da resistência equivalente em circuitos paralelos é obtida utilizando a fórmula das resistências paralelas.'
-          break
-        case 'calculo-consumo-energia':
-          calcExplanation.textContent =
-            'O cálculo do consumo de energia é obtido multiplicando a potência pelo tempo de operação.'
-          break
-        case 'calculo-perda-energia-motores':
-          calcExplanation.textContent =
-            'O cálculo da perda de energia em motores leva em consideração a eficiência do motor, potência e tempo de operação.'
-          break
-        case 'calculo-capacitancia-total-serie':
-          calcExplanation.textContent =
-            'O cálculo da capacitância total em circuitos em série é obtido pela soma inversa das capacitâncias individuais.'
-          break
-        case 'calculo-capacitancia-total-paralelo':
-          calcExplanation.textContent =
-            'O cálculo da capacitância total em circuitos em paralelo é a soma das capacitâncias individuais.'
-          break
-        case 'calculo-pico-corrente-circuitos-indutivos':
-          calcExplanation.textContent =
-            'O cálculo da corrente de pico em circuitos indutivos envolve a indutância e o tempo de interrupção.'
-          break
-        case 'calculo-corrente-curto-circuito':
-          calcExplanation.textContent =
-            'O cálculo da corrente de curto-circuito envolve a divisão da tensão pelo valor da impedância.'
-          break
-        case 'queda-tensao-condutores':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em condutores envolve a corrente, resistência do condutor e distância.'
-          break
-        case 'calculo-eficiencia-transformadores':
-          calcExplanation.textContent =
-            'O cálculo da eficiência de transformadores é obtido dividindo a potência de saída pela potência de entrada.'
-          break
-        case 'calculo-autotransformadores':
-          calcExplanation.textContent =
-            'O cálculo de autotransformadores envolve a determinação da relação de transformação para atender aos requisitos de tensão.'
-          break
-        case 'tempo-estabilizacao-controle':
-          calcExplanation.textContent =
-            'O tempo de estabilização em sistemas de controle é o intervalo necessário para que a resposta atinja a estabilidade após uma perturbação.'
-          break
-        case 'calculo-queda-tensao-transformadores':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em transformadores leva em consideração a corrente, impedância e fator de potência.'
-          break
-        case 'calculo-potencia-aparente':
-          calcExplanation.textContent =
-            'O cálculo da potência aparente é obtido pela raiz quadrada da soma dos quadrados da potência ativa e reativa.'
-          break
-        case 'calculo-corrente-nominal-motores':
-          calcExplanation.textContent =
-            'O cálculo da corrente nominal em motores é obtido pela potência e tensão de operação.'
-          break
-        case 'calculo-queda-tensao-cabos-alimentadores':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em cabos alimentadores leva em consideração a corrente, resistência e distância.'
-          break
-        case 'calculo-indutancia-total-serie':
-          calcExplanation.textContent =
-            'O cálculo da indutância total em circuitos em série é a soma das indutâncias individuais.'
-          break
-        case 'calculo-indutancia-total-paralelo':
-          calcExplanation.textContent =
-            'O cálculo da indutância total em circuitos em paralelo é obtido utilizando a fórmula das indutâncias paralelas.'
-          break
-        case 'calculo-corrente-fuga':
-          calcExplanation.textContent =
-            'O cálculo da corrente de fuga envolve a tensão e a resistência de isolamento em um circuito.'
-          break
-        case 'calculo-constante-tempo-rl':
-          calcExplanation.textContent =
-            'A constante de tempo em um circuito RL é o quociente da indutância pela resistência.'
-          break
-        case 'calculo-queda-tensao-luminarias':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em luminárias leva em consideração a corrente, resistência e distância.'
-          break
-        case 'calculo-tensao-induzida':
-          calcExplanation.textContent =
-            'O cálculo da tensão induzida em um condutor móvel em um campo magnético envolve a velocidade, comprimento do condutor e intensidade do campo.'
-          break
-        case 'calculo-queda-tensao-reatores':
-          calcExplanation.textContent =
-            'O cálculo da queda de tensão em reatores leva em consideração a corrente, resistência e distância.'
-          break
-        case 'calculo-corrente-nominal-transformadores':
-          calcExplanation.textContent =
-            'O cálculo da corrente nominal em transformadores é obtido pela potência e tensão de operação.'
-          break
-        case 'calculo-potencia-reativa':
-          calcExplanation.textContent =
-            'O cálculo da potência reativa é obtido pela multiplicação da tensão pela corrente e pelo seno do ângulo de defasagem.'
-          break
-        case 'calculo-corrente-curto-circuito-transformadores':
-          calcExplanation.textContent =
-            'O cálculo da corrente de curto-circuito em transformadores envolve a potência de curto-circuito e a tensão nominal.'
-          break
-        case 'calculo-corrente-fuga-transformadores':
-          calcExplanation.textContent =
-            'O cálculo da corrente de fuga em transformadores envolve a tensão, a resistência de isolamento e a capacitância.'
-          break
-        case 'resistor-protecao-leds':
-          calcExplanation.textContent =
-            'O resistor de proteção para LEDs é utilizado para limitar a corrente que passa pelo LED, protegendo-o contra danos causados por correntes excessivas.'
-          break
-        default:
-          calcExplanation.textContent = 'Descrição da operação selecionada.'
-      }
-    }
-  }
-
-  const calculateButton = document.getElementById('calculate')
-  calculateButton.addEventListener('click', function () {
-    const selectedOperation = operationSelect.value
-    performCalculation(selectedOperation)
-
-    const resultDiv = document.getElementById('result')
-    resultDiv.textContent = 'Resultado do cálculo aqui.'
-  })
-
-  const clearButton = document.getElementById('clear')
-  clearButton.addEventListener('click', function () {
-    unitSelection.innerHTML = ''
-    inputFields.innerHTML = ''
-    calcExplanation.textContent = ''
-    const resultDiv = document.getElementById('result')
-    resultDiv.textContent = ''
-  })
-
-  function performCalculation(operation) {
-    let result
-
-    switch (operation) {
-      case 'lei-ohm':
-        const voltage = parseFloat(document.getElementById('voltage').value)
-        const current = parseFloat(document.getElementById('current').value)
-        const resistance = voltage / current
-        displayResult(resistance)
-        break
-      case 'lei-ohm-reversa':
-        const current2 = parseFloat(document.getElementById('current').value)
-        const voltage2 = parseFloat(
-          document.getElementById('voltage_reverse').value
-        )
-        result = voltage2 / current2
-        break
-      case 'potencia-eletrica':
-        const voltage3 = parseFloat(document.getElementById('voltage').value)
-        const current3 = parseFloat(document.getElementById('current').value)
-        result = voltage3 * current3
-        break
-      case 'resistencia-serie':
-        const resistance1 = parseFloat(
-          document.getElementById('resistance1').value
-        )
-        const resistance2 = parseFloat(
-          document.getElementById('resistance2').value
-        )
-        result = resistance1 + resistance2
-        break
-      case 'resistencia-paralelo':
-        const resistance3 = parseFloat(
-          document.getElementById('resistance1').value
-        )
-        const resistance4 = parseFloat(
-          document.getElementById('resistance2').value
-        )
-        result = (resistance3 * resistance4) / (resistance3 + resistance4)
-        break
-      case 'lkt':
-        const voltage4 = parseFloat(document.getElementById('voltage1').value)
-        const voltage5 = parseFloat(document.getElementById('voltage2').value)
-        result = voltage4 + voltage5
-        break
-      case 'lkc':
-        const current4 = parseFloat(document.getElementById('current1').value)
-        const current5 = parseFloat(document.getElementById('current2').value)
-        result = current4 + current5
-        break
-      case 'capacitancia-serie':
-        const capacitance1 = parseFloat(
-          document.getElementById('capacitance1').value
-        )
-        const capacitance2 = parseFloat(
-          document.getElementById('capacitance2').value
-        )
-        result = (capacitance1 * capacitance2) / (capacitance1 + capacitance2)
-        break
-      case 'capacitancia-paralelo':
-        const capacitance3 = parseFloat(
-          document.getElementById('capacitance1').value
-        )
-        const capacitance4 = parseFloat(
-          document.getElementById('capacitance2').value
-        )
-        result = capacitance3 + capacitance4
-        break
-      case 'lei-joule':
-        const current6 = parseFloat(document.getElementById('current').value)
-        const resistance5 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const time = parseFloat(document.getElementById('time').value)
-        result = current6 ** 2 * resistance5 * time
-        break
-      case 'constante-tempo-rc':
-        const resistance6 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const capacitance5 = parseFloat(
-          document.getElementById('capacitance').value
-        )
-        result = resistance6 * capacitance5
-        break
-      case 'indutancia-serie':
-      case 'indutancia-paralelo':
-        const inductance = parseFloat(
-          document.getElementById('inductance').value
-        )
-        result = inductance
-        break
-      case 'impedancia-curto-circuito':
-        const voltage6 = parseFloat(document.getElementById('voltage').value)
-        const shortCircuitCurrent = parseFloat(
-          document.getElementById('shortCircuitCurrent').value
-        )
-        result = voltage6 / shortCircuitCurrent
-        break
-      case 'ajuste-transformadores':
-        const primaryVoltage = parseFloat(
-          document.getElementById('primaryVoltage').value
-        )
-        const secondaryVoltage = parseFloat(
-          document.getElementById('secondaryVoltage').value
-        )
-        result = primaryVoltage / secondaryVoltage
-        break
-      case 'secao-transversal-condutores':
-        const current7 = parseFloat(document.getElementById('current').value)
-        const temperature = parseFloat(
-          document.getElementById('temperature').value
-        )
-        // Adicione a lógica para calcular a seção transversal dos condutores
-        break
-      case 'corrente-curto-circuito':
-        const voltage7 = parseFloat(document.getElementById('voltage').value)
-        const impedance = parseFloat(document.getElementById('impedance').value)
-        result = voltage7 / impedance
-        break
-      case 'queda-tensao-transmissao':
-        const current8 = parseFloat(document.getElementById('current').value)
-        const impedance2 = parseFloat(
-          document.getElementById('impedance').value
-        )
-        const distance = parseFloat(document.getElementById('distance').value)
-        result = current8 * impedance2 * distance
-        break
-      case 'calculo-dimensionamento-condutores':
-        const current9 = parseFloat(document.getElementById('current').value)
-        const voltageDrop = parseFloat(
-          document.getElementById('voltageDrop').value
-        )
-        // Adicione a lógica para calcular o dimensionamento de condutores
-        break
-      case 'calculo-fator-potencia':
-        const apparentPower = parseFloat(
-          document.getElementById('apparentPower').value
-        )
-        const realPower = parseFloat(document.getElementById('realPower').value)
-        result = realPower / apparentPower
-        break
-      case 'calculo-potencia-trifasica':
-        const lineVoltage = parseFloat(
-          document.getElementById('lineVoltage').value
-        )
-        const current10 = parseFloat(document.getElementById('current').value)
-        result = Math.sqrt(3) * lineVoltage * current10
-        break
-      case 'calculo-ressonancia-circuitos-lc':
-        const inductance2 = parseFloat(
-          document.getElementById('inductance').value
-        )
-        const capacitance6 = parseFloat(
-          document.getElementById('capacitance').value
-        )
-        result = 1 / Math.sqrt(inductance2 * capacitance6)
-        break
-      case 'compensacao-fator-potencia':
-        const powerFactor = parseFloat(
-          document.getElementById('powerFactor').value
-        )
-        const desiredPowerFactor = parseFloat(
-          document.getElementById('desiredPowerFactor').value
-        )
-        // Adicione a lógica para calcular a compensação do fator de potência
-        break
-      case 'dimensionamento-disjuntores-fusiveis':
-        const current11 = parseFloat(document.getElementById('current').value)
-        const time2 = parseFloat(document.getElementById('time').value)
-        // Adicione a lógica para dimensionar disjuntores e fusíveis
-        break
-      case 'analise-harmonicos':
-        const harmonicOrder = parseFloat(
-          document.getElementById('harmonicOrder').value
-        )
-        const current12 = parseFloat(document.getElementById('current').value)
-        // Adicione a lógica para analisar harmônicos
-        break
-      case 'calculo-perda-energia-linhas-transmissao':
-        const current13 = parseFloat(document.getElementById('current').value)
-        const resistance7 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const time3 = parseFloat(document.getElementById('time').value)
-        result = current13 ** 2 * resistance7 * time3
-        break
-      case 'calculo-iluminacao':
-        const luminousFlux = parseFloat(
-          document.getElementById('luminousFlux').value
-        )
-        const illuminance = parseFloat(
-          document.getElementById('illuminance').value
-        )
-        result = luminousFlux / illuminance
-        break
-      case 'calculo-corrente-curto-circuito-disjuntores':
-        const voltage8 = parseFloat(document.getElementById('voltage').value)
-        const shortCircuitPower = parseFloat(
-          document.getElementById('shortCircuitPower').value
-        )
-        result = shortCircuitPower / voltage8
-        break
-      case 'calculo-tensao-toque-passo-linhas-aereas':
-        const voltage9 = parseFloat(document.getElementById('voltage').value)
-        const spacing = parseFloat(document.getElementById('spacing').value)
-        // Adicione a lógica para calcular a tensão de toque e passo em linhas aéreas
-        break
-      case 'avaliacao-queda-tensao-linhas-distribuicao':
-        const current14 = parseFloat(document.getElementById('current').value)
-        const resistance8 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const distance2 = parseFloat(document.getElementById('distance').value)
-        result = current14 * resistance8 * distance2
-        break
-      case 'calculo-capacitores-correcao-fator-potencia':
-        const powerFactor2 = parseFloat(
-          document.getElementById('powerFactor').value
-        )
-        const desiredPowerFactor2 = parseFloat(
-          document.getElementById('desiredPowerFactor').value
-        )
-        const systemVoltage = parseFloat(
-          document.getElementById('systemVoltage').value
-        )
-        // Adicione a lógica para calcular capacitores para correção do fator de potência
-        break
-      case 'calculo-temperatura-condutores':
-        const current15 = parseFloat(document.getElementById('current').value)
-        const resistance9 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const ambientTemperature = parseFloat(
-          document.getElementById('ambientTemperature').value
-        )
-        // Adicione a lógica para calcular a temperatura de condutores
-        break
-      case 'determinacao-resistencia-equivalente-circuitos-paralelo':
-        const resistance10 = parseFloat(
-          document.getElementById('resistance1').value
-        )
-        const resistance11 = parseFloat(
-          document.getElementById('resistance2').value
-        )
-        result = (resistance10 * resistance11) / (resistance10 + resistance11)
-        break
-      case 'calculo-consumo-energia':
-        const power = parseFloat(document.getElementById('power').value)
-        const time4 = parseFloat(document.getElementById('time').value)
-        result = power * time4
-        break
-      case 'calculo-perda-energia-motores':
-        const efficiency = parseFloat(
-          document.getElementById('efficiency').value
-        )
-        const power2 = parseFloat(document.getElementById('power').value)
-        const time5 = parseFloat(document.getElementById('time').value)
-        result = (1 - efficiency / 100) * power2 * time5
-        break
-      case 'calculo-capacitancia-total-serie':
-        const capacitance7 = parseFloat(
-          document.getElementById('capacitance1').value
-        )
-        const capacitance8 = parseFloat(
-          document.getElementById('capacitance2').value
-        )
-        result = (capacitance7 * capacitance8) / (capacitance7 + capacitance8)
-        break
-      case 'calculo-capacitancia-total-paralelo':
-        const capacitance9 = parseFloat(
-          document.getElementById('capacitance1').value
-        )
-        const capacitance10 = parseFloat(
-          document.getElementById('capacitance2').value
-        )
-        result = capacitance9 + capacitance10
-        break
-      case 'calculo-pico-corrente-circuitos-indutivos':
-        const inductance3 = parseFloat(
-          document.getElementById('inductance').value
-        )
-        const time6 = parseFloat(document.getElementById('time').value)
-        // Adicione a lógica para calcular o pico de corrente em circuitos indutivos
-        break
-      case 'calculo-corrente-curto-circuito':
-        const voltage10 = parseFloat(document.getElementById('voltage').value)
-        const shortCircuitPower2 = parseFloat(
-          document.getElementById('shortCircuitPower').value
-        )
-        result = shortCircuitPower2 / voltage10
-        break
-      case 'queda-tensao-condutores':
-        const current16 = parseFloat(document.getElementById('current').value)
-        const resistance12 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const distance3 = parseFloat(document.getElementById('distance').value)
-        result = current16 * resistance12 * distance3
-        break
-      case 'calculo-eficiencia-transformadores':
-        const inputPower = parseFloat(
-          document.getElementById('inputPower').value
-        )
-        const outputPower = parseFloat(
-          document.getElementById('outputPower').value
-        )
-        result = (outputPower / inputPower) * 100
-        break
-      case 'calculo-autotransformadores':
-        const primaryVoltage2 = parseFloat(
-          document.getElementById('primaryVoltage').value
-        )
-        const secondaryVoltage2 = parseFloat(
-          document.getElementById('secondaryVoltage').value
-        )
-        result = primaryVoltage2 / secondaryVoltage2
-        break
-      case 'tempo-estabilizacao-controle':
-        const resistance13 = parseFloat(
-          document.getElementById('resistance').value
-        )
-        const capacitance11 = parseFloat(
-          document.getElementById('capacitance').value
-        )
-        result = resistance13 * capacitance11
-        break
-      case 'resistor-protecao-leds':
-        const forwardVoltage = parseFloat(
-          document.getElementById('forwardVoltage').value
-        )
-        const forwardCurrent = parseFloat(
-          document.getElementById('forwardCurrent').value
-        )
-        const supplyVoltage = 5 // Assumindo uma tensão de alimentação de 5V
-        result = (supplyVoltage - forwardVoltage) / forwardCurrent
-        break
-      default:
-        result = 'Operação inválida'
-    }
-    displayResult(result)
-  }
-
-  function displayResult(result) {
-    const resultDiv = document.getElementById('result')
-    resultDiv.textContent = 'Resultado do cálculo: ' + result
+showExplanationButton.addEventListener('click', () => {
+  const selectedOperation = operationSelect.value
+  showExplanation(selectedOperation)
+  const explanation = explanationText // Use a referência já existente
+  if (
+    explanation.style.display === 'none' ||
+    explanation.style.display === ''
+  ) {
+    explanation.style.display = 'block'
+  } else {
+    explanation.style.display = 'none'
   }
 })
+
+operationSelect.addEventListener('change', () => {
+  updateInputFields()
+  showExplanation(operationSelect.value)
+})
+
+function updateInputFields() {
+  const selectedOperation = operationSelect.value
+
+  const explanationsVisible = explanationText.style.display === 'block'
+  inputFields.innerHTML = ''
+  if (!explanationsVisible) {
+    explanationText.style.display = 'none'
+  }
+
+  switch (selectedOperation) {
+    case 'lei-ohm':
+      addInputField('voltagem', 'Voltagem (V):')
+      addInputField('corrente', 'Corrente (A):')
+      break
+    case 'lei-ohm-reversa':
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('corrente', 'Corrente (A):')
+      break
+    case 'potencia-eletrica':
+      addInputField('voltagem', 'Voltagem (V):')
+      addInputField('corrente', 'Corrente (A):')
+      break
+    case 'resistencia-serie':
+      addInputField('resistencias', 'Resistências (Ω) (separadas por vírgula):')
+      break
+    case 'resistencia-paralelo':
+      addInputField('resistencias', 'Resistências (Ω) (separadas por vírgula):')
+      break
+    case 'lkt':
+      addInputField('tensoes', 'Tensões (V) (separadas por vírgula):')
+      break
+    case 'lkc':
+      addInputField('correntes', 'Correntes (A) (separadas por vírgula):')
+      break
+    case 'capacitancia-serie':
+      addInputField(
+        'capacitancias',
+        'Capacitâncias (F) (separadas por vírgula):'
+      )
+      break
+    case 'capacitancia-paralelo':
+      addInputField(
+        'capacitancias',
+        'Capacitâncias (F) (separadas por vírgula):'
+      )
+      break
+    case 'lei-joule':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('tempo', 'Tempo (s):')
+      break
+    case 'constante-tempo-rc':
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('capacitancia', 'Capacitância (F):')
+      break
+    case 'indutancia-serie':
+      addInputField('indutancias', 'Indutâncias (H) (separadas por vírgula):')
+      break
+    case 'indutancia-paralelo':
+      addInputField('indutancias', 'Indutâncias (H) (separadas por vírgula):')
+      break
+    case 'impedancia-curto-circuito':
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('indutancia', 'Indutância (H):')
+      break
+    case 'ajuste-transformadores':
+      addInputField('potencia', 'Potência (VA):')
+      addInputField('tensaoPrimaria', 'Tensão Primária (V):')
+      addInputField('tensaoSecundaria', 'Tensão Secundária (V):')
+      break
+    case 'secao-transversal-condutores':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('comprimento', 'Comprimento (m):')
+      addInputField('quedaTensao', 'Queda de Tensão (%):')
+      break
+    case 'corrente-curto-circuito':
+      addInputField('impedancia', 'Impedância (Ω):')
+      addInputField('tensao', 'Tensão (V):')
+      break
+    case 'queda-tensao-transmissao':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('comprimento', 'Comprimento (m):')
+      break
+    case 'calculo-dimensionamento-condutores':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('comprimento', 'Comprimento (m):')
+      addInputField('tipoCondutor', 'Tipo de Condutor:')
+      break
+    case 'calculo-fator-potencia':
+      addInputField('potenciaAtiva', 'Potência Ativa (W):')
+      addInputField('potenciaReativa', 'Potência Reativa (VAR):')
+      break
+    case 'calculo-potencia-trifasica':
+      addInputField('tensao', 'Tensão (V):')
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('fatorPotencia', 'Fator de Potência:')
+      break
+    case 'calculo-ressonancia-circuitos-lc':
+      addInputField('indutancia', 'Indutância (H):')
+      addInputField('capacitancia', 'Capacitância (F):')
+      break
+    case 'compensacao-fator-potencia':
+      addInputField('potenciaAparente', 'Potência Aparente (VA):')
+      addInputField('fatorPotenciaAtual', 'Fator de Potência Atual:')
+      addInputField('fatorPotenciaDesejado', 'Fator de Potência Desejado:')
+      break
+    case 'dimensionamento-disjuntores-fusiveis':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('tensao', 'Tensão (V):')
+      addInputField('tipoCarga', 'Tipo de Carga:')
+      break
+    case 'analise-harmonicos':
+      addInputField(
+        'correntesHarmonicas',
+        'Correntes Harmônicas (A) (separadas por vírgula):'
+      )
+      break
+    case 'calculo-perda-energia-linhas-transmissao':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('comprimento', 'Comprimento (m):')
+      break
+    case 'calculo-iluminacao':
+      addInputField('area', 'Área (m²):')
+      addInputField('nivelIluminacao', 'Nível de Iluminação (lux):')
+      break
+    case 'calculo-corrente-curto-circuito-disjuntores':
+      addInputField('tensao', 'Tensão (V):')
+      addInputField('impedancia', 'Impedância (Ω):')
+      break
+    case 'calculo-tensao-toque-passo-linhas-aereas':
+      addInputField('correnteFuga', 'Corrente de Fuga (A):')
+      addInputField('resistenciaSolo', 'Resistência do Solo (Ω):')
+      break
+    case 'avaliacao-queda-tensao-linhas-distribuicao':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('resistencia', 'Resistência (Ω):')
+      addInputField('comprimento', 'Comprimento (m):')
+      break
+    case 'calculo-capacitores-correcao-fator-potencia':
+      addInputField('potenciaReativa', 'Potência Reativa (VAR):')
+      addInputField('fatorPotenciaAtual', 'Fator de Potência Atual:')
+      addInputField('fatorPotenciaDesejado', 'Fator de Potência Desejado:')
+      break
+    case 'calculo-temperatura-condutores':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('resistenciaTermica', 'Resistência Térmica (°C/W):')
+      break
+    case 'determinacao-resistencia-equivalente-circuitos-paralelo':
+      addInputField('resistencias', 'Resistências (Ω) (separadas por vírgula):')
+      break
+    case 'calculo-consumo-energia':
+      addInputField('potencia', 'Potência (W):')
+      addInputField('tempo', 'Tempo de Uso (h):')
+      break
+    case 'calculo-perda-energia-motores':
+      addInputField('potencia', 'Potência (W):')
+      addInputField('eficiencia', 'Eficiência (%):')
+      break
+    case 'calculo-capacitancia-total-serie':
+      addInputField(
+        'capacitancias',
+        'Capacitâncias (F) (separadas por vírgula):'
+      )
+      break
+    case 'calculo-capacitancia-total-paralelo':
+      addInputField(
+        'capacitancias',
+        'Capacitâncias (F) (separadas por vírgula):'
+      )
+      break
+    case 'calculo-pico-corrente-circuitos-indutivos':
+      addInputField('indutancia', 'Indutância (H):')
+      addInputField('tensao', 'Tensão (V):')
+      break
+    case 'calculo-corrente-curto-circuito':
+      addInputField('tensao', 'Tensão (V):')
+      addInputField('impedancia', 'Impedância (Ω):')
+      break
+    case 'queda-tensao-condutores':
+      addInputField('corrente', 'Corrente (A):')
+      addInputField('comprimento', 'Comprimento (m):')
+      break
+    case 'calculo-eficiencia-transformadores':
+      addInputField('potenciaEntrada', 'Potência de Entrada (W):')
+      addInputField('potenciaSaida', 'Potência de Saída (W):')
+      break
+    case 'calculo-autotransformadores':
+      addInputField('potencia', 'Potência (VA):')
+      addInputField('tensaoPrimaria', 'Tensão Primária (V):')
+      addInputField('tensaoSecundaria', 'Tensão Secundária (V):')
+      break
+    case 'tempo-estabilizacao-controle':
+      addInputField('tempoResposta', 'Tempo de Resposta (s):')
+      addInputField('percentOvershoot', 'Percentual de Overshoot (%):')
+      break
+    case 'resistor-protecao-leds':
+      addInputField('tensaoFonte', 'Tensão da Fonte (V):')
+      addInputField('correnteLed', 'Corrente do LED (A):')
+      addInputField('tensaoLed', 'Tensão do LED (V):')
+      break
+  }
+}
+
+function addInputField(id, label) {
+  const inputField = document.createElement('div')
+  inputField.className = 'input-field'
+  inputField.innerHTML = `<label for="${id}">${label}</label><input type="number" id="${id}" />`
+  inputFields.appendChild(inputField)
+}
+
+document
+  .getElementById('operation')
+  .addEventListener('change', updateInputFields)
+updateInputFields() // Initialize input fields on page load
+
+function calculateResult() {
+  const selectedOperation = operationSelect.value
+  let result = 0
+  let formattedResult = ''
+
+  const inputValues = {}
+  document.querySelectorAll('.input-field input').forEach(input => {
+    inputValues[input.id] = parseFloat(input.value)
+  })
+
+  switch (selectedOperation) {
+    case 'lei-ohm':
+      result = inputValues.voltagem / inputValues.corrente
+      formattedResult = `Resultado (Resistência): ${result.toFixed(2)} Ω`
+      break
+    case 'lei-ohm-reversa':
+      result = inputValues.resistencia * inputValues.corrente
+      formattedResult = `Resultado (Voltagem): ${result.toFixed(2)} V`
+      break
+    case 'potencia-eletrica':
+      result = inputValues.voltagem * inputValues.corrente
+      formattedResult = `Resultado (Potência): ${result.toFixed(2)} W`
+      break
+    case 'resistencia-serie':
+      const resistenciasSerie = inputValues.resistencias.split(',').map(Number)
+      result = resistenciasSerie.reduce((total, r) => total + r, 0)
+      formattedResult = `Resultado (Resistência Equivalente): ${result.toFixed(
+        2
+      )} Ω`
+      break
+    case 'resistencia-paralelo':
+      const resistenciasParalelo = inputValues.resistencias
+        .split(',')
+        .map(Number)
+      result = 1 / resistenciasParalelo.reduce((total, r) => total + 1 / r, 0)
+      formattedResult = `Resultado (Resistência Equivalente): ${result.toFixed(
+        2
+      )} Ω`
+      break
+    case 'lkt':
+      const tensoes = inputValues.tensoes.split(',').map(Number)
+      result = tensoes.reduce((total, t) => total + t, 0)
+      formattedResult = `Resultado (Soma das Tensões): ${result.toFixed(2)} V`
+      break
+    case 'lkc':
+      const correntes = inputValues.correntes.split(',').map(Number)
+      result = correntes.reduce((total, c) => total + c, 0)
+      formattedResult = `Resultado (Soma das Correntes): ${result.toFixed(2)} A`
+      break
+    case 'capacitancia-serie':
+      const capacitanciasSerie = inputValues.capacitancias
+        .split(',')
+        .map(Number)
+      result = 1 / capacitanciasSerie.reduce((total, c) => total + 1 / c, 0)
+      formattedResult = `Resultado (Capacitância Equivalente): ${result.toFixed(
+        2
+      )} F`
+      break
+    case 'capacitancia-paralelo':
+      const capacitanciasParalelo = inputValues.capacitancias
+        .split(',')
+        .map(Number)
+      result = capacitanciasParalelo.reduce((total, c) => total + c, 0)
+      formattedResult = `Resultado (Capacitância Equivalente): ${result.toFixed(
+        2
+      )} F`
+      break
+    case 'lei-joule':
+      result =
+        Math.pow(inputValues.corrente, 2) *
+        inputValues.resistencia *
+        inputValues.tempo
+      formattedResult = `Resultado (Energia Dissipada): ${result.toFixed(2)} J`
+      break
+    case 'constante-tempo-rc':
+      result = inputValues.resistencia * inputValues.capacitancia
+      formattedResult = `Resultado (Constante de Tempo): ${result.toFixed(2)} s`
+      break
+    case 'indutancia-serie':
+      const indutanciasSerie = inputValues.indutancias.split(',').map(Number)
+      result = indutanciasSerie.reduce((total, l) => total + l, 0)
+      formattedResult = `Resultado (Indutância Equivalente): ${result.toFixed(
+        2
+      )} H`
+      break
+    case 'indutancia-paralelo':
+      const indutanciasParalelo = inputValues.indutancias.split(',').map(Number)
+      result = 1 / indutanciasParalelo.reduce((total, l) => total + 1 / l, 0)
+      formattedResult = `Resultado (Indutância Equivalente): ${result.toFixed(
+        2
+      )} H`
+      break
+    case 'impedancia-curto-circuito':
+      result = Math.sqrt(
+        Math.pow(inputValues.resistencia, 2) +
+          Math.pow(2 * Math.PI * 60 * inputValues.indutancia, 2)
+      )
+      formattedResult = `Resultado (Impedância): ${result.toFixed(2)} Ω`
+      break
+    case 'ajuste-transformadores':
+      result =
+        inputValues.potencia /
+        (inputValues.tensaoSecundaria / inputValues.tensaoPrimaria)
+      formattedResult = `Resultado (Ajuste): ${result.toFixed(2)} A`
+      break
+    case 'secao-transversal-condutores':
+      result =
+        (inputValues.corrente * inputValues.comprimento) /
+        (inputValues.quedaTensao / 100)
+      formattedResult = `Resultado (Seção Transversal): ${result.toFixed(
+        2
+      )} mm²`
+      break
+    case 'corrente-curto-circuito':
+      result = inputValues.tensao / inputValues.impedancia
+      formattedResult = `Resultado (Corrente de Curto-Circuito): ${result.toFixed(
+        2
+      )} A`
+      break
+    case 'queda-tensao-transmissao':
+      result =
+        inputValues.corrente * inputValues.resistencia * inputValues.comprimento
+      formattedResult = `Resultado (Queda de Tensão): ${result.toFixed(2)} V`
+      break
+    case 'calculo-dimensionamento-condutores':
+      result = (inputValues.corrente * inputValues.comprimento) / 56 // 56 is a constant for copper conductors
+      formattedResult = `Resultado (Dimensão do Condutor): ${result.toFixed(
+        2
+      )} mm²`
+      break
+    case 'calculo-fator-potencia':
+      result =
+        inputValues.potenciaAtiva /
+        Math.sqrt(
+          Math.pow(inputValues.potenciaAtiva, 2) +
+            Math.pow(inputValues.potenciaReativa, 2)
+        )
+      formattedResult = `Resultado (Fator de Potência): ${result.toFixed(2)}`
+      break
+    case 'calculo-potencia-trifasica':
+      result =
+        inputValues.tensao *
+        inputValues.corrente *
+        Math.sqrt(3) *
+        inputValues.fatorPotencia
+      formattedResult = `Resultado (Potência Trifásica): ${result.toFixed(2)} W`
+      break
+    case 'calculo-ressonancia-circuitos-lc':
+      result =
+        1 /
+        (2 *
+          Math.PI *
+          Math.sqrt(inputValues.indutancia * inputValues.capacitancia))
+      formattedResult = `Resultado (Frequência de Ressonância): ${result.toFixed(
+        2
+      )} Hz`
+      break
+    case 'compensacao-fator-potencia':
+      const potenciaAtiva =
+        inputValues.potenciaAparente * inputValues.fatorPotenciaAtual
+      const potenciaReativaAtual = Math.sqrt(
+        Math.pow(inputValues.potenciaAparente, 2) - Math.pow(potenciaAtiva, 2)
+      )
+      const potenciaReativaDesejada =
+        potenciaAtiva * Math.tan(Math.acos(inputValues.fatorPotenciaDesejado))
+      result = potenciaReativaAtual - potenciaReativaDesejada
+      formattedResult = `Resultado (Compensação Necessária): ${result.toFixed(
+        2
+      )} VAR`
+      break
+    case 'dimensionamento-disjuntores-fusiveis':
+      result = inputValues.corrente * 1.25 // safety factor of 25%
+      formattedResult = `Resultado (Corrente do Disjuntor/Fusível): ${result.toFixed(
+        2
+      )} A`
+      break
+    case 'analise-harmonicos':
+      const correntesHarmonicas = inputValues.correntesHarmonicas
+        .split(',')
+        .map(Number)
+      result = Math.sqrt(
+        correntesHarmonicas.reduce((total, c) => total + Math.pow(c, 2), 0)
+      )
+      formattedResult = `Resultado (Corrente Harmônica Total): ${result.toFixed(
+        2
+      )} A`
+      break
+    case 'calculo-perda-energia-linhas-transmissao':
+      result =
+        Math.pow(inputValues.corrente, 2) *
+        inputValues.resistencia *
+        inputValues.comprimento
+      formattedResult = `Resultado (Perda de Energia): ${result.toFixed(2)} W`
+      break
+    case 'calculo-iluminacao':
+      result = (inputValues.area * inputValues.nivelIluminacao) / 1000 // 1000 to convert lux to lumens
+      formattedResult = `Resultado (Quantidade de Lâmpadas): ${result.toFixed(
+        2
+      )} lâmpadas`
+      break
+    case 'calculo-corrente-curto-circuito-disjuntores':
+      result = inputValues.tensao / inputValues.impedancia
+      formattedResult = `Resultado (Corrente de Curto-Circuito): ${result.toFixed(
+        2
+      )} A`
+      break
+    case 'calculo-tensao-toque-passo-linhas-aereas':
+      result = inputValues.correnteFuga * inputValues.resistenciaSolo
+      formattedResult = `Resultado (Tensão de Toque/Passo): ${result.toFixed(
+        2
+      )} V`
+      break
+    case 'avaliacao-queda-tensao-linhas-distribuicao':
+      result =
+        inputValues.corrente * inputValues.resistencia * inputValues.comprimento
+      formattedResult = `Resultado (Queda de Tensão): ${result.toFixed(2)} V`
+      break
+    case 'calculo-capacitores-correcao-fator-potencia':
+      const potenciaAtivaFatorCorrecao =
+        inputValues.potenciaAparente * inputValues.fatorPotenciaAtual
+      const potenciaReativaAtualFatorCorrecao = Math.sqrt(
+        Math.pow(inputValues.potenciaAparente, 2) -
+          Math.pow(potenciaAtivaFatorCorrecao, 2)
+      )
+      const potenciaReativaDesejadaFatorCorrecao =
+        potenciaAtivaFatorCorrecao *
+        Math.tan(Math.acos(inputValues.fatorPotenciaDesejado))
+      result =
+        potenciaReativaAtualFatorCorrecao - potenciaReativaDesejadaFatorCorrecao
+      formattedResult = `Resultado (Capacitor Necessário): ${result.toFixed(
+        2
+      )} VAR`
+      break
+    case 'calculo-temperatura-condutores':
+      result = (inputValues.corrente * inputValues.comprimento) / 58 // 58 is a constant for aluminum conductors
+      formattedResult = `Resultado (Temperatura): ${result.toFixed(2)} °C`
+      break
+    case 'determinacao-resistencia-equivalente-circuitos-paralelo':
+      const resistenciasEquivalenteParalelo = inputValues.resistencias
+        .split(',')
+        .map(Number)
+      result =
+        1 /
+        resistenciasEquivalenteParalelo.reduce((total, r) => total + 1 / r, 0)
+      formattedResult = `Resultado (Resistência Equivalente): ${result.toFixed(
+        2
+      )} Ω`
+      break
+    case 'calculo-consumo-energia':
+      result = (inputValues.potencia * inputValues.tempo) / 1000 // Convert W to kWh
+      formattedResult = `Resultado (Consumo de Energia): ${result.toFixed(
+        2
+      )} kWh`
+      break
+    case 'calculo-perda-energia-motores':
+      result = inputValues.potencia * (1 - inputValues.eficiencia / 100)
+      formattedResult = `Resultado (Perda de Energia): ${result.toFixed(2)} W`
+      break
+    case 'calculo-capacitancia-total-serie':
+      const capacitanciasTotalSerie = inputValues.capacitancias
+        .split(',')
+        .map(Number)
+      result =
+        1 / capacitanciasTotalSerie.reduce((total, c) => total + 1 / c, 0)
+      formattedResult = `Resultado (Capacitância Total): ${result.toFixed(2)} F`
+      break
+    case 'calculo-capacitancia-total-paralelo':
+      const capacitanciasTotalParalelo = inputValues.capacitancias
+        .split(',')
+        .map(Number)
+      result = capacitanciasTotalParalelo.reduce((total, c) => total + c, 0)
+      formattedResult = `Resultado (Capacitância Total): ${result.toFixed(2)} F`
+      break
+    case 'calculo-pico-corrente-circuitos-indutivos':
+      result = inputValues.voltagem / inputValues.resistencia
+      formattedResult = `Resultado (Pico de Corrente): ${result.toFixed(2)} A`
+      break
+    case 'queda-tensao-condutores':
+      result = (inputValues.corrente * inputValues.comprimento) / 58 // 58 is a constant for aluminum conductors
+      formattedResult = `Resultado (Queda de Tensão): ${result.toFixed(2)} V`
+      break
+    case 'calculo-eficiencia-transformadores':
+      result = (inputValues.potenciaSaida / inputValues.potenciaEntrada) * 100
+      formattedResult = `Resultado (Eficiência): ${result.toFixed(2)}%`
+      break
+    case 'calculo-autotransformadores':
+      result =
+        inputValues.potencia *
+        (inputValues.tensaoSecundaria / inputValues.tensaoPrimaria)
+      formattedResult = `Resultado (Autotransformador): ${result.toFixed(2)} VA`
+      break
+    case 'tempo-estabilizacao-controle':
+      result =
+        -inputValues.tempoResposta /
+        Math.log(inputValues.percentOvershoot / 100)
+      formattedResult = `Resultado (Tempo de Estabilização): ${result.toFixed(
+        2
+      )} s`
+      break
+    case 'resistor-protecao-leds':
+      result =
+        (inputValues.tensaoFonte - inputValues.tensaoLed) /
+        inputValues.correnteLed
+      formattedResult = `Resultado (Resistor): ${result.toFixed(2)} Ω`
+      break
+    default:
+      formattedResult = 'Operação não suportada'
+  }
+
+  resultDiv.textContent = formattedResult
+}
+
+document.getElementById('calculate').addEventListener('click', calculateResult)
+
+function showExplanation(selectedOperation) {
+  let explanation = ''
+
+  switch (selectedOperation) {
+    case 'lei-ohm':
+      explanation = `
+        <p>A Lei de Ohm é usada para determinar a relação entre voltagem, corrente e resistência em um circuito elétrico. A fórmula é:</p>
+        <p>Resistência (R) = Voltagem (V) / Corrente (I)</p>
+      `
+      break
+    case 'lei-ohm-reversa':
+      explanation = `
+        <p>A Lei de Ohm reversa é usada para calcular a voltagem em um circuito, dado a resistência e a corrente. A fórmula é:</p>
+        <p>Voltagem (V) = Resistência (R) * Corrente (I)</p>
+      `
+      break
+    case 'potencia-eletrica':
+      explanation = `
+        <p>O cálculo da potência elétrica é usado para determinar a quantidade de energia consumida por um circuito. A fórmula é:</p>
+        <p>Potência (P) = Voltagem (V) * Corrente (I)</p>
+      `
+      break
+    case 'resistencia-serie':
+      explanation = `
+        <p>O cálculo da resistência equivalente em série é usado para determinar a resistência total em um circuito com resistores em série. A fórmula é:</p>
+        <p>Resistência Equivalente (R) = R1 + R2 + ... + Rn</p>
+      `
+      break
+    case 'resistencia-paralelo':
+      explanation = `
+        <p>O cálculo da resistência equivalente em paralelo é usado para determinar a resistência total em um circuito com resistores em paralelo. A fórmula é:</p>
+        <p>1 / Resistência Equivalente (R) = 1 / R1 + 1 / R2 + ... + 1 / Rn</p>
+      `
+      break
+    case 'lkt':
+      explanation = `
+        <p>A Lei de Kirchhoff para tensões (LKT) afirma que a soma das tensões em qualquer malha fechada de um circuito é igual a zero. A fórmula é:</p>
+        <p>Soma das Tensões = V1 + V2 + ... + Vn = 0</p>
+      `
+      break
+    case 'lkc':
+      explanation = `
+        <p>A Lei de Kirchhoff para correntes (LKC) afirma que a soma das correntes que entram em um nó é igual à soma das correntes que saem desse nó. A fórmula é:</p>
+        <p>Soma das Correntes = I1 + I2 + ... + In = 0</p>
+      `
+      break
+    case 'capacitancia-serie':
+      explanation = `
+        <p>O cálculo da capacitância equivalente em série é usado para determinar a capacitância total em um circuito com capacitores em série. A fórmula é:</p>
+        <p>1 / Capacitância Equivalente (C) = 1 / C1 + 1 / C2 + ... + 1 / Cn</p>
+      `
+      break
+    case 'capacitancia-paralelo':
+      explanation = `
+        <p>O cálculo da capacitância equivalente em paralelo é usado para determinar a capacitância total em um circuito com capacitores em paralelo. A fórmula é:</p>
+        <p>Capacitância Equivalente (C) = C1 + C2 + ... + Cn</p>
+      `
+      break
+    case 'lei-joule':
+      explanation = `
+        <p>A Lei de Joule é usada para calcular a energia dissipada em um resistor em forma de calor. A fórmula é:</p>
+        <p>Energia Dissipada (E) = Corrente^2 (I^2) * Resistência (R) * Tempo (t)</p>
+      `
+      break
+    case 'constante-tempo-rc':
+      explanation = `
+        <p>A constante de tempo de um circuito RC (resistor e capacitor) é o tempo necessário para que a tensão no capacitor atinja aproximadamente 63% do seu valor final após uma mudança de tensão. A fórmula é:</p>
+        <p>Constante de Tempo (τ) = Resistência (R) * Capacitância (C)</p>
+      `
+      break
+    case 'indutancia-serie':
+      explanation = `
+        <p>O cálculo da indutância equivalente em série é usado para determinar a indutância total em um circuito com indutores em série. A fórmula é:</p>
+        <p>Indutância Equivalente (L) = L1 + L2 + ... + Ln</p>
+      `
+      break
+    case 'indutancia-paralelo':
+      explanation = `
+        <p>O cálculo da indutância equivalente em paralelo é usado para determinar a indutância total em um circuito com indutores em paralelo. A fórmula é:</p>
+        <p>1 / Indutância Equivalente (L) = 1 / L1 + 1 / L2 + ... + 1 / Ln</p>
+      `
+      break
+    case 'impedancia-curto-circuito':
+      explanation = `
+        <p>O cálculo da impedância de curto-circuito é usado para determinar a impedância total em um circuito durante um curto-circuito. A fórmula é:</p>
+        <p>Impedância (Z) = √(Resistência^2 (R^2) + (2π * Frequência (f) * Indutância (L))^2)</p>
+      `
+      break
+    case 'ajuste-transformadores':
+      explanation = `
+        <p>O ajuste de transformadores é usado para calcular a corrente em um transformador baseado na potência e na relação de tensão entre os enrolamentos primário e secundário. A fórmula é:</p>
+        <p>Corrente (I) = Potência (P) / (Tensão Secundária (Vs) / Tensão Primária (Vp))</p>
+      `
+      break
+    case 'secao-transversal-condutores':
+      explanation = `
+        <p>O cálculo da seção transversal de condutores é usado para determinar a área necessária de um condutor elétrico para transportar uma corrente específica com uma queda de tensão permitida. A fórmula é:</p>
+        <p>Seção Transversal (A) = (Corrente (I) * Comprimento (L)) / (Queda de Tensão (ΔV) / 100)</p>
+      `
+      break
+    case 'corrente-curto-circuito':
+      explanation = `
+        <p>O cálculo da corrente de curto-circuito é usado para determinar a corrente que flui em um circuito durante um curto-circuito. A fórmula é:</p>
+        <p>Corrente de Curto-Circuito (Isc) = Tensão (V) / Impedância (Z)</p>
+      `
+      break
+    case 'queda-tensao-transmissao':
+      explanation = `
+        <p>O cálculo da queda de tensão em linhas de transmissão é usado para determinar a queda de tensão em um condutor devido à resistência ao transportar corrente. A fórmula é:</p>
+        <p>Queda de Tensão (ΔV) = Corrente (I) * Resistência (R) * Comprimento (L)</p>
+      `
+      break
+    case 'calculo-dimensionamento-condutores':
+      explanation = `
+        <p>O cálculo do dimensionamento de condutores é usado para determinar a área necessária de um condutor para transportar uma corrente específica com base em um fator de segurança. A fórmula é:</p>
+        <p>Dimensão do Condutor (A) = Corrente (I) * Comprimento (L) / 56 (constante para condutores de cobre)</p>
+      `
+      break
+    case 'calculo-fator-potencia':
+      explanation = `
+        <p>O cálculo do fator de potência é usado para determinar a relação entre a potência ativa e a potência aparente em um circuito. A fórmula é:</p>
+        <p>Fator de Potência (PF) = Potência Ativa (P) / √(Potência Ativa^2 (P^2) + Potência Reativa^2 (Q^2))</p>
+      `
+      break
+    case 'calculo-potencia-trifasica':
+      explanation = `
+        <p>O cálculo da potência trifásica é usado para determinar a potência total em um sistema trifásico. A fórmula é:</p>
+        <p>Potência Trifásica (P) = Tensão (V) * Corrente (I) * √3 * Fator de Potência (PF)</p>
+      `
+      break
+    case 'calculo-ressonancia-circuitos-lc':
+      explanation = `
+        <p>O cálculo da frequência de ressonância em circuitos LC é usado para determinar a frequência na qual a impedância de um circuito LC é mínima. A fórmula é:</p>
+        <p>Frequência de Ressonância (f) = 1 / (2π * √(Indutância (L) * Capacitância (C)))</p>
+      `
+      break
+    case 'compensacao-fator-potencia':
+      explanation = `
+        <p>A compensação do fator de potência é usada para calcular a quantidade de capacitância necessária para corrigir o fator de potência de um sistema elétrico. A fórmula é:</p>
+        <p>Capacitância Necessária (C) = Potência Reativa (Q) / (2π * Frequência (f) * Tensão^2 (V^2))</p>
+      `
+      break
+    case 'calculo-potencia-reativa':
+      explanation = `
+        <p>O cálculo da potência reativa é usado para determinar a potência que oscila entre o gerador e o campo magnético em um circuito AC. A fórmula é:</p>
+        <p>Potência Reativa (Q) = Tensão (V) * Corrente (I) * sen(φ)</p>
+      `
+      break
+    case 'determinacao-capacidade-conducao-condutores':
+      explanation = `
+        <p>A determinação da capacidade de condução dos condutores é usada para calcular a corrente máxima que um condutor pode transportar sem sobreaquecer. A fórmula é baseada em normas e fatores de correção específicos.</p>
+      `
+      break
+    case 'corrente-rms-circuitos-ac':
+      explanation = `
+        <p>O cálculo da corrente RMS (Root Mean Square) em circuitos AC é usado para determinar o valor eficaz da corrente. A fórmula é:</p>
+        <p>Corrente RMS (Irms) = Corrente de Pico (Ipeak) / √2</p>
+      `
+      break
+    case 'avaliacao-queda-tensao-linhas-distribuicao':
+      explanation = `
+        <p>A avaliação da queda de tensão em linhas de distribuição é usada para determinar a queda de tensão ao longo de uma linha de transmissão de energia elétrica. A fórmula é:</p>
+        <p>Queda de Tensão (ΔV) = Corrente (I) * Resistência (R) * Comprimento (L)</p>
+      `
+      break
+    case 'calculo-capacitores-correcao-fator-potencia':
+      explanation = `
+        <p>O cálculo dos capacitores para correção do fator de potência é usado para determinar a quantidade de capacitância necessária para melhorar o fator de potência de um sistema. A fórmula é:</p>
+        <p>Capacitância Necessária (C) = Potência Reativa Atual (Q) * (1 - Fator de Potência Atual / Fator de Potência Desejado) / (2π * Frequência (f) * Tensão^2 (V^2))</p>
+      `
+      break
+    case 'calculo-temperatura-condutores':
+      explanation = `
+        <p>O cálculo da temperatura dos condutores é usado para determinar a temperatura de operação de um condutor com base na corrente e na resistência. A fórmula é:</p>
+        <p>Temperatura (T) = Corrente (I) * Comprimento (L) / 58 (constante para condutores de alumínio)</p>
+      `
+      break
+    case 'determinacao-resistencia-equivalente-circuitos-paralelo':
+      explanation = `
+        <p>A determinação da resistência equivalente em circuitos paralelo é usada para calcular a resistência total de um circuito com resistores em paralelo. A fórmula é:</p>
+        <p>1 / Resistência Equivalente (R) = 1 / R1 + 1 / R2 + ... + 1 / Rn</p>
+      `
+      break
+    case 'calculo-consumo-energia':
+      explanation = `
+        <p>O cálculo do consumo de energia é usado para determinar a quantidade de energia consumida por um dispositivo elétrico ao longo do tempo. A fórmula é:</p>
+        <p>Consumo de Energia (E) = Potência (P) * Tempo (t) / 1000 (para converter W para kWh)</p>
+      `
+      break
+    case 'calculo-perda-energia-motores':
+      explanation = `
+        <p>O cálculo da perda de energia em motores é usado para determinar a quantidade de energia perdida devido à ineficiência de um motor. A fórmula é:</p>
+        <p>Perda de Energia (P) = Potência (P) * (1 - Eficiência (η) / 100)</p>
+      `
+      break
+    case 'calculo-capacitancia-total-serie':
+      explanation = `
+        <p>O cálculo da capacitância total em série é usado para determinar a capacitância equivalente de capacitores conectados em série. A fórmula é:</p>
+        <p>1 / Capacitância Equivalente (C) = 1 / C1 + 1 / C2 + ... + 1 / Cn</p>
+      `
+      break
+    case 'calculo-capacitancia-total-paralelo':
+      explanation = `
+        <p>O cálculo da capacitância total em paralelo é usado para determinar a capacitância equivalente de capacitores conectados em paralelo. A fórmula é:</p>
+        <p>Capacitância Equivalente (C) = C1 + C2 + ... + Cn</p>
+      `
+      break
+    case 'calculo-pico-corrente-circuitos-indutivos':
+      explanation = `
+        <p>O cálculo do pico de corrente em circuitos indutivos é usado para determinar a corrente máxima em um circuito com um indutor. A fórmula é:</p>
+        <p>Pico de Corrente (Ipeak) = Voltagem (V) / Resistência (R)</p>
+      `
+      break
+    case 'queda-tensao-condutores':
+      explanation = `
+        <p>O cálculo da queda de tensão em condutores é usado para determinar a queda de tensão ao longo de um condutor devido à resistência ao transportar corrente. A fórmula é:</p>
+        <p>Queda de Tensão (ΔV) = Corrente (I) * Comprimento (L) / 58 (constante para condutores de alumínio)</p>
+      `
+      break
+    case 'calculo-eficiencia-transformadores':
+      explanation = `
+        <p>O cálculo da eficiência de transformadores é usado para determinar a eficiência de um transformador ao converter energia. A fórmula é:</p>
+        <p>Eficiência (η) = (Potência de Saída (Pout) / Potência de Entrada (Pin)) * 100</p>
+      `
+      break
+    case 'calculo-autotransformadores':
+      explanation = `
+        <p>O cálculo de autotransformadores é usado para determinar a potência em um autotransformador com base nas tensões primária e secundária. A fórmula é:</p>
+        <p>Autotransformador (VA) = Potência (P) * (Tensão Secundária (Vs) / Tensão Primária (Vp))</p>
+      `
+      break
+    case 'tempo-estabilizacao-controle':
+      explanation = `
+        <p>O cálculo do tempo de estabilização no controle é usado para determinar o tempo necessário para que uma variável de controle atinja um valor estável após uma mudança. A fórmula é:</p>
+        <p>Tempo de Estabilização (ts) = -Tempo de Resposta (tr) / ln(Percentual de Overshoot (OS) / 100)</p>
+      `
+      break
+    case 'resistor-protecao-leds':
+      explanation = `
+        <p>O cálculo do resistor de proteção para LEDs é usado para determinar o valor do resistor necessário para limitar a corrente através de um LED. A fórmula é:</p>
+        <p>Resistor (R) = (Tensão da Fonte (Vf) - Tensão do LED (Vled)) / Corrente do LED (Iled)</p>
+      `
+      break
+    default:
+      explanation = 'Operação não suportada'
+  }
+
+  explanationText.innerHTML = explanation
+}
+
+document.getElementById('showExplanation').addEventListener('click', () => {
+  const selectedOperation = operationSelect.value
+  showExplanation(selectedOperation)
+})
+updateInputFields()

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,24 +6,6 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
     <title>Calculadora Elétrica</title>
-    <style>
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-
-      th {
-        background-color: #555;
-      }
-    </style>
   </head>
   <body>
     <div class="container">
@@ -35,17 +17,13 @@
           <option value="lei-ohm">Lei de Ohm</option>
           <option value="lei-ohm-reversa">Lei de Ohm Reversa</option>
           <option value="potencia-eletrica">Potência Elétrica</option>
-          <option value="resistencia-serie">Resistência Total em Série</option>
-          <option value="resistencia-paralelo">
-            Resistência Total em Paralelo
-          </option>
-          <option value="lkt">Lei de Kirchhoff para Tensão (LKT)</option>
-          <option value="lkc">Lei de Kirchhoff para Corrente (LKC)</option>
-          <option value="capacitancia-serie">
-            Capacitância Total em Série
-          </option>
+          <option value="resistencia-serie">Resistência em Série</option>
+          <option value="resistencia-paralelo">Resistência em Paralelo</option>
+          <option value="lkt">Lei de Kirchhoff das Tensões (LKT)</option>
+          <option value="lkc">Lei de Kirchhoff das Correntes (LKC)</option>
+          <option value="capacitancia-serie">Capacitância em Série</option>
           <option value="capacitancia-paralelo">
-            Capacitância Total em Paralelo
+            Capacitância em Paralelo
           </option>
           <option value="lei-joule">Lei de Joule</option>
           <option value="constante-tempo-rc">Constante de Tempo RC</option>
@@ -61,29 +39,31 @@
             Seção Transversal de Condutores
           </option>
           <option value="corrente-curto-circuito">
-            Cálculo de Corrente de Curto-Circuito
+            Corrente de Curto-Circuito
           </option>
           <option value="queda-tensao-transmissao">
-            Cálculo de Queda de Tensão em Linhas de Transmissão
+            Queda de Tensão na Transmissão
           </option>
-          <option value="dimensionamento-condutores">
+          <option value="calculo-dimensionamento-condutores">
             Cálculo de Dimensionamento de Condutores
           </option>
-          <option value="fator-potencia">Cálculo de Fator de Potência</option>
-          <option value="potencia-trifasica">
+          <option value="calculo-fator-potencia">
+            Cálculo do Fator de Potência
+          </option>
+          <option value="calculo-potencia-trifasica">
             Cálculo de Potência Trifásica
           </option>
-          <option value="ressonancia-lc">
+          <option value="calculo-ressonancia-circuitos-lc">
             Cálculo de Ressonância em Circuitos LC
           </option>
           <option value="compensacao-fator-potencia">
-            Compensação de Fator de Potência
+            Compensação do Fator de Potência
           </option>
           <option value="dimensionamento-disjuntores-fusiveis">
             Dimensionamento de Disjuntores e Fusíveis
           </option>
           <option value="analise-harmonicos">Análise de Harmônicos</option>
-          <option value="perda-transmissao">
+          <option value="calculo-perda-energia-linhas-transmissao">
             Cálculo de Perda de Energia em Linhas de Transmissão
           </option>
           <option value="calculo-iluminacao">Cálculo de Iluminação</option>
@@ -100,12 +80,12 @@
             Cálculo de Capacitores para Correção do Fator de Potência
           </option>
           <option value="calculo-temperatura-condutores">
-            Cálculo de Temperatura em Condutores
+            Cálculo de Temperatura dos Condutores
           </option>
           <option
             value="determinacao-resistencia-equivalente-circuitos-paralelo"
           >
-            Determinação de Resistência Equivalente de Circuitos em Paralelo
+            Determinação da Resistência Equivalente em Circuitos Paralelo
           </option>
           <option value="calculo-consumo-energia">
             Cálculo de Consumo de Energia
@@ -113,16 +93,16 @@
           <option value="calculo-perda-energia-motores">
             Cálculo de Perda de Energia em Motores
           </option>
-          <option value="capacitancia-serie">
+          <option value="calculo-capacitancia-total-serie">
             Cálculo de Capacitância Total em Série
           </option>
-          <option value="capacitancia-paralelo">
+          <option value="calculo-capacitancia-total-paralelo">
             Cálculo de Capacitância Total em Paralelo
           </option>
           <option value="calculo-pico-corrente-circuitos-indutivos">
             Cálculo de Pico de Corrente em Circuitos Indutivos
           </option>
-          <option value="corrente-curto-circuito">
+          <option value="calculo-corrente-curto-circuito">
             Cálculo de Corrente de Curto-Circuito
           </option>
           <option value="queda-tensao-condutores">
@@ -135,7 +115,7 @@
             Cálculo de Autotransformadores
           </option>
           <option value="tempo-estabilizacao-controle">
-            Tempo de Estabilização de um Circuito RC
+            Tempo de Estabilização de Controle
           </option>
           <option value="resistor-protecao-leds">
             Resistor de Proteção para LEDs
@@ -147,14 +127,10 @@
           <div id="calcExplanation" class="explanation-text"></div>
         </div>
       </div>
-      <div id="unit-selection" class="input-fields">
-        <!-- Unit selection dropdown will be added dynamically with JavaScript -->
-      </div>
       <div id="input-fields" class="input-fields">
         <!-- Input fields will be added dynamically with JavaScript -->
       </div>
       <button id="calculate">Calcular</button>
-      <button id="clear">Limpar</button>
       <div class="result" id="result"></div>
       <footer>
         <p>&copy; 2024 Luís Teixeira. Todos os direitos reservados.</p>
