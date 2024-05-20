@@ -55,105 +55,91 @@ operationSelect.addEventListener('change', () => {
 
 function updateInputFields() {
   const selectedOperation = operationSelect.value
-  const explanationsVisible = explanationText.style.display === 'block'
   inputFields.innerHTML = ''
-  if (!explanationsVisible) {
-    explanationText.style.display = 'none'
-  }
-
   switch (selectedOperation) {
     case 'conversaoUnidades':
-      addInputField('valor', 'Valor:')
-      addInputField('unidadeOrigem', 'Unidade de Origem:')
-      addInputField('unidadeDestino', 'Unidade de Destino:')
+      addInputField('valor', 'Valor')
+      addInputField('unidadeOrigem', 'Unidade de Origem')
+      addInputField('unidadeDestino', 'Unidade de Destino')
       break
     case 'calculosestequiometricos':
-      addInputField('massaReagente', 'Massa do Reagente:')
-      addInputField('massaProduto', 'Massa do Produto:')
+      addInputField('massaReagente', 'Massa do Reagente (g)')
+      addInputField('massaProduto', 'Massa do Produto (g)')
       break
     case 'massaMolar':
-      addInputField('formulaQuimica', 'Fórmula Química:')
-      break
-    case 'concentracaoSolucoes':
-      addInputField('massaSoluto', 'Massa do Soluto:')
-      addInputField('volumeSolucao', 'Volume da Solução:')
-      break
-    case 'diluicaoSolucoes':
-      addInputField('concentracaoInicial', 'Concentração Inicial:')
-      addInputField('volumeInicial', 'Volume Inicial:')
-      addInputField('volumeFinal', 'Volume Final:')
+      addInputField('formulaQuimica', 'Fórmula Química')
       break
     case 'reacoesQuimicas':
-      addInputField('equacaoReacao', 'Equação da Reação:')
+      addInputField('equacaoReacao', 'Equação da Reação')
       break
     case 'balanceamentoEquacoesQuimicas':
-      addInputField('equacaoNaoBalanceada', 'Equação Não Balanceada:')
+      addInputField('equacaoNaoBalanceada', 'Equação Não Balanceada')
       break
     case 'leiBoyleCharlesGayLussac':
-      addInputField('pressaoInicial', 'Pressão Inicial:')
-      addInputField('volumeInicial', 'Volume Inicial:')
-      addInputField('temperaturaInicial', 'Temperatura Inicial:')
-      addInputField('pressaoFinal', 'Pressão Final:')
-      addInputField('volumeFinal', 'Volume Final:')
-      addInputField('temperaturaFinal', 'Temperatura Final:')
-      break
-    case 'solucoesTampao':
-      addInputField('concentracaoAcido', 'Concentração do Ácido:')
-      addInputField('concentracaoBase', 'Concentração da Base:')
+      addInputField('pressaoInicial', 'Pressão Inicial (atm)')
+      addInputField('volumeInicial', 'Volume Inicial (L)')
+      addInputField('temperaturaInicial', 'Temperatura Inicial (K)')
+      addInputField('pressaoFinal', 'Pressão Final (atm)')
+      addInputField('volumeFinal', 'Volume Final (L)')
+      addInputField('temperaturaFinal', 'Temperatura Final (K)')
       break
     case 'constantesQuimicas':
-      addInputField('constanteEquilibrio', 'Constante de Equilíbrio:')
+      addInputField('constanteEquilibrio', 'Constante de Equilíbrio')
       break
     case 'temperaturaPressaoPadrao':
-      addInputField('temperatura', 'Temperatura:')
-      addInputField('pressao', 'Pressão:')
+      addInputField('temperatura', 'Temperatura (K)')
+      addInputField('pressao', 'Pressão (atm)')
       break
     case 'equilibrioQuimico':
-      addInputField('equacaoEquilibrio', 'Equação de Equilíbrio:')
+      // Add input fields for chemical equilibrium calculation
       break
     case 'leiLambertBeer':
-      addInputField('absorbancia', 'Absorbância:')
-      addInputField('concentracao', 'Concentração:')
-      addInputField('caminhoOptico', 'Caminho Óptico:')
+      addInputField('absorbancia', 'Absorbância')
+      addInputField('concentracao', 'Concentração (mol/L)')
+      addInputField('caminhoOptico', 'Caminho Óptico (cm)')
       break
     case 'cineticaQuimica':
-      addInputField('concentracaoInicial', 'Concentração Inicial:')
-      addInputField('tempoReacao', 'Tempo de Reação:')
+      addInputField('concentracaoInicial', 'Concentração Inicial (mol/L)')
+      addInputField('tempoReacao', 'Tempo de Reação (s)')
       break
     case 'equacaoNernst':
-      addInputField('potencialPadrao', 'Potencial Padrão:')
-      addInputField('concentracaoIons', 'Concentração de Íons:')
+      addInputField('potencialPadrao', 'Potencial Padrão (V)')
+      addInputField('concentracaoIons', 'Concentração de Íons (mol/L)')
       break
     case 'constanteEquilibrioPressaoParcial':
-      addInputField('pressaoReagentes', 'Pressão dos Reagentes:')
-      addInputField('pressaoProdutos', 'Pressão dos Produtos:')
+      addInputField('pressaoReagentes', 'Pressão dos Reagentes (atm)')
+      addInputField('pressaoProdutos', 'Pressão dos Produtos (atm)')
       break
     case 'misturaGases':
-      addInputField('volumeGas1', 'Volume do Gás 1:')
-      addInputField('volumeGas2', 'Volume do Gás 2:')
+      addInputField('volumeGas1', 'Volume do Gás 1 (L)')
+      addInputField('volumeGas2', 'Volume do Gás 2 (L)')
       break
     case 'numeroOxidacao':
-      addInputField('formulaQuimica', 'Fórmula Química:')
+      addInputField('formulaQuimica', 'Fórmula Química')
       break
     case 'teoriaColisoes':
-      addInputField('concentracaoReagentes', 'Concentração dos Reagentes:')
-      addInputField('temperatura', 'Temperatura:')
+      addInputField('concentracaoReagentes', 'Concentração dos Reagentes (mol/L)')
+      addInputField('temperatura', 'Temperatura (K)')
       break
     case 'conversoesTemperatura':
-      addInputField('temperaturaOrigem', 'Temperatura de Origem:')
-      addInputField('escalaOrigem', 'Escala de Origem:')
-      addInputField('escalaDestino', 'Escala de Destino:')
+      addInputField('temperaturaOrigem', 'Temperatura de Origem')
+      addInputField('escalaOrigem', 'Escala de Origem')
+      addInputField('escalaDestino', 'Escala de Destino')
       break
     case 'solucoesNaoIdeais':
-      addInputField('composicaoSolucao', 'Composição da Solução:')
-      addInputField('temperatura', 'Temperatura:')
+      addInputField('composicaoSolucao', 'Composição da Solução')
+      addInputField('temperatura', 'Temperatura (K)')
       break
     case 'rendimentoReacao':
-      addInputField('rendimentoTeorico', 'Rendimento Teórico:')
-      addInputField('rendimentoPratico', 'Rendimento Prático:')
+      addInputField('rendimentoTeorico', 'Rendimento Teórico (%)')
+      addInputField('rendimentoPratico', 'Rendimento Prático (%)')
       break
     case 'equacoesTermoquimicas':
-      addInputField('equacaoTermoquimica', 'Equação Termoquímica:')
+      addInputField('equacaoTermoquimica', 'Equação Termoquímica')
+      break
+    case 'solucoesTampao':
+      addInputField('concentrationAcid', 'Concentração do Ácido (mol/L)')
+      addInputField('concentrationBase', 'Concentração da Base (mol/L)')
       break
     default:
       break
@@ -161,253 +147,13 @@ function updateInputFields() {
 }
 
 function addInputField(id, label) {
-  const fieldDiv = document.createElement('div')
-  fieldDiv.innerHTML = `
+  const inputField = document.createElement('div')
+  inputField.classList.add('input-field')
+  inputField.innerHTML = `
     <label for="${id}">${label}</label>
-    <input type="number" id="${id}">
+    <input type="text" id="${id}" name="${id}">
   `
-  inputFields.appendChild(fieldDiv)
-}
-
-function calculateResult() {
-  const selectedOperation = operationSelect.value
-  let result = 0
-  let formattedResult = ''
-
-  const inputMappings = {
-    conversaoUnidades: ['valor', 'unidadeOrigem', 'unidadeDestino'],
-    calculosestequiometricos: ['massaReagente', 'massaProduto'],
-    massaMolar: ['formulaQuimica'],
-    concentracaoSolucoes: ['massaSoluto', 'volumeSolucao'],
-    diluicaoSolucoes: ['concentracaoInicial', 'volumeInicial', 'volumeFinal'],
-    reacoesQuimicas: ['equacaoReacao'],
-    balanceamentoEquacoesQuimicas: ['equacaoNaoBalanceada'],
-    leiBoyleCharlesGayLussac: [
-      'pressaoInicial',
-      'volumeInicial',
-      'temperaturaInicial',
-      'pressaoFinal',
-      'volumeFinal',
-      'temperaturaFinal'
-    ],
-    solucoesTampao: ['concentracaoAcido', 'concentracaoBase'],
-    constantesQuimicas: ['constanteEquilibrio'],
-    temperaturaPressaoPadrao: ['temperatura', 'pressao'],
-    equilibrioQuimico: ['equacaoEquilibrio'],
-    leiLambertBeer: ['absorbancia', 'concentracao', 'caminhoOptico'],
-    cineticaQuimica: ['concentracaoInicial', 'tempoReacao'],
-    equacaoNernst: ['potencialPadrao', 'concentracaoIons'],
-    constanteEquilibrioPressaoParcial: ['pressaoReagentes', 'pressaoProdutos'],
-    misturaGases: ['volumeGas1', 'volumeGas2'],
-    numeroOxidacao: ['formulaQuimica'],
-    teoriaColisoes: ['concentracaoReagentes', 'temperatura'],
-    conversoesTemperatura: [
-      'temperaturaOrigem',
-      'escalaOrigem',
-      'escalaDestino'
-    ],
-    solucoesNaoIdeais: ['composicaoSolucao', 'temperatura'],
-    rendimentoReacao: ['rendimentoTeorico', 'rendimentoPratico'],
-    equacoesTermoquimicas: ['equacaoTermoquimica']
-  }
-
-  const inputValues = {}
-
-  if (inputMappings[selectedOperation]) {
-    inputMappings[selectedOperation].forEach(field => {
-      const fieldValue = document.getElementById(field).value.trim() // Remover espaços em branco
-      if (fieldValue !== '') {
-        inputValues[field] = parseFloat(fieldValue)
-      } else {
-        // Se algum campo estiver vazio, exiba uma mensagem de erro
-        resultDiv.textContent = 'Preencha todos os campos de entrada.'
-        return // Encerrar a execução da função corretamente
-      }
-    })
-
-    switch (selectedOperation) {
-      case 'conversaoUnidades':
-        result = convertUnits(
-          inputValues.valor,
-          inputValues.unidadeOrigem,
-          inputValues.unidadeDestino
-        )
-        formattedResult = `${result} ${inputValues.unidadeDestino}`
-        break
-
-      case 'calculosestequiometricos':
-        result = calculateStoichiometry(
-          inputValues.massaReagente,
-          inputValues.massaProduto
-        )
-        formattedResult = `${result} g`
-        break
-
-      case 'massaMolar':
-        result = calculateMolarMass(inputValues.formulaQuimica)
-        formattedResult = `${result} g/mol`
-        break
-
-      case 'concentracaoSolucoes':
-        result = calculateSolutionConcentration(
-          inputValues.massaSoluto,
-          inputValues.volumeSolucao
-        )
-        formattedResult = `${result} g/L`
-        break
-
-      case 'diluicaoSolucoes':
-        result = diluteSolution(
-          inputValues.concentracaoInicial,
-          inputValues.volumeInicial,
-          inputValues.volumeFinal
-        )
-        formattedResult = `${result} g/L`
-        break
-
-      case 'reacoesQuimicas':
-        result = calculateChemicalReaction(inputValues.equacaoReacao)
-        formattedResult = result
-        break
-
-      case 'balanceamentoEquacoesQuimicas':
-        result = balanceChemicalEquation(inputValues.equacaoNaoBalanceada)
-        formattedResult = result
-        break
-
-      case 'leiBoyleCharlesGayLussac':
-        result = calculateBoyleCharlesGayLussac(
-          inputValues.pressaoInicial,
-          inputValues.volumeInicial,
-          inputValues.temperaturaInicial,
-          inputValues.pressaoFinal,
-          inputValues.volumeFinal,
-          inputValues.temperaturaFinal
-        )
-        formattedResult = `${result} L`
-        break
-
-      case 'solucoesTampao':
-        result = calculateBufferSolution(
-          inputValues.concentracaoAcido,
-          inputValues.concentracaoBase
-        )
-        formattedResult = `${result} g/L`
-        break
-
-      case 'constantesQuimicas':
-        result = calculateEquilibriumConstant(inputValues.constanteEquilibrio)
-        formattedResult = result
-        break
-
-      case 'temperaturaPressaoPadrao':
-        result = calculateStandardPressureTemperature(
-          inputValues.temperatura,
-          inputValues.pressao
-        )
-        formattedResult = `${result} atm`
-        break
-
-      case 'equilibrioQuimico':
-        result = calculateChemicalEquilibrium(inputValues.equacaoEquilibrio)
-        formattedResult = result
-        break
-
-      case 'leiLambertBeer':
-        result = calculateLambertBeer(
-          inputValues.absorbancia,
-          inputValues.concentracao,
-          inputValues.caminhoOptico
-        )
-        formattedResult = result
-        break
-
-      case 'cineticaQuimica':
-        result = calculateChemicalKinetics(
-          inputValues.concentracaoInicial,
-          inputValues.tempoReacao
-        )
-        formattedResult = `${result} mol/L`
-        break
-
-      case 'equacaoNernst':
-        result = calculateNernstEquation(
-          inputValues.potencialPadrao,
-          inputValues.concentracaoIons
-        )
-        formattedResult = `${result} V`
-        break
-
-      case 'constanteEquilibrioPressaoParcial':
-        result = calculatePartialPressureEquilibriumConstant(
-          inputValues.pressaoReagentes,
-          inputValues.pressaoProdutos
-        )
-        formattedResult = result
-        break
-
-      case 'misturaGases':
-        result = calculateGasMixture(
-          inputValues.volumeGas1,
-          inputValues.volumeGas2
-        )
-        formattedResult = `${result} L`
-        break
-
-      case 'numeroOxidacao':
-        result = calculateOxidationNumber(inputValues.formulaQuimica)
-        formattedResult = result
-        break
-
-      case 'teoriaColisoes':
-        result = calculateCollisionTheory(
-          inputValues.concentracaoReagentes,
-          inputValues.temperatura
-        )
-        formattedResult = result
-        break
-
-      case 'conversoesTemperatura':
-        result = convertTemperature(
-          inputValues.temperaturaOrigem,
-          inputValues.escalaOrigem,
-          inputValues.escalaDestino
-        )
-        formattedResult = `${result}°`
-        break
-
-      case 'solucoesNaoIdeais':
-        result = calculateNonIdealSolutions(
-          inputValues.composicaoSolucao,
-          inputValues.temperatura
-        )
-        formattedResult = `${result} atm`
-        break
-
-      case 'rendimentoReacao':
-        result = calculateReactionYield(
-          inputValues.rendimentoTeorico,
-          inputValues.rendimentoPratico
-        )
-        formattedResult = `${result} %`
-        break
-
-      case 'equacoesTermoquimicas':
-        result = calculateThermochemicalEquations(
-          inputValues.equacaoTermoquimica
-        )
-        formattedResult = result
-        break
-
-      default:
-        formattedResult = 'Operação inválida'
-    }
-
-    resultDiv.textContent = formattedResult
-  } else {
-    // Se a operação selecionada não tiver mapeamento de entrada, exiba uma mensagem de erro
-    resultDiv.textContent = 'Operação não suportada.'
-  }
+  inputFields.appendChild(inputField)
 }
 
 function formatCurrency(amount) {
@@ -416,6 +162,542 @@ function formatCurrency(amount) {
     currency: 'BRL',
     minimumFractionDigits: 2
   })
+}
+
+function calculateResult() {
+  const selectedOperation = operationSelect.value
+  let result = ''
+
+  switch (selectedOperation) {
+    case 'conversaoUnidades':
+      const valor = parseFloat(document.getElementById('valor').value)
+      const unidadeOrigem = document.getElementById('unidadeOrigem').value
+      const unidadeDestino = document.getElementById('unidadeDestino').value
+      result = convertUnits(valor, unidadeOrigem, unidadeDestino)
+      break
+    case 'calculosestequiometricos':
+      const massaReagente = parseFloat(
+        document.getElementById('massaReagente').value
+      )
+      const massaProduto = parseFloat(
+        document.getElementById('massaProduto').value
+      )
+      result = calculateStoichiometry(massaReagente, massaProduto)
+      break
+    case 'massaMolar':
+      const formulaQuimica = document.getElementById('formulaQuimica').value
+      result = calculateMolarMass(formulaQuimica)
+      break
+    case 'reacoesQuimicas':
+      const equacaoReacao = document.getElementById('equacaoReacao').value
+      result = calculateReaction(equacaoReacao)
+      break
+    case 'balanceamentoEquacoesQuimicas':
+      const equacaoNaoBalanceada = document.getElementById(
+        'equacaoNaoBalanceada'
+      ).value
+      result = balanceChemicalEquation(equacaoNaoBalanceada)
+      break
+    case 'leiBoyleCharlesGayLussac':
+      const pressaoInicial = parseFloat(
+        document.getElementById('pressaoInicial').value
+      )
+      const volumeInicial = parseFloat(
+        document.getElementById('volumeInicial').value
+      )
+      const temperaturaInicial = parseFloat(
+        document.getElementById('temperaturaInicial').value
+      )
+      const pressaoFinal = parseFloat(
+        document.getElementById('pressaoFinal').value
+      )
+      const volumeFinal = parseFloat(
+        document.getElementById('volumeFinal').value
+      )
+      const temperaturaFinal = parseFloat(
+        document.getElementById('temperaturaFinal').value
+      )
+      result = calculateGasLaw(
+        pressaoInicial,
+        volumeInicial,
+        temperaturaInicial,
+        pressaoFinal,
+        volumeFinal,
+        temperaturaFinal
+      )
+      break
+    case 'constantesQuimicas':
+      const constanteEquilibrio = parseFloat(
+        document.getElementById('constanteEquilibrio').value
+      )
+      result = calculateChemicalConstants(constanteEquilibrio)
+      break
+    case 'temperaturaPressaoPadrao':
+      const temperatura = parseFloat(
+        document.getElementById('temperatura').value
+      )
+      const pressao = parseFloat(document.getElementById('pressao').value)
+      result = calculateStandardConditions(temperatura, pressao)
+      break
+    case 'equilibrioQuimico':
+      // Calculate chemical equilibrium based on input values
+      result = calculateChemicalEquilibrium()
+      break
+    case 'leiLambertBeer':
+      const absorbancia = parseFloat(
+        document.getElementById('absorbancia').value
+      )
+      const concentracao = parseFloat(
+        document.getElementById('concentracao').value
+      )
+      const caminhoOptico = parseFloat(
+        document.getElementById('caminhoOptico').value
+      )
+      result = calculateLambertBeerLaw(absorbancia, concentracao, caminhoOptico)
+      break
+    case 'cineticaQuimica':
+      const concentracaoInicialCin = parseFloat(
+        document.getElementById('concentracaoInicial').value
+      )
+      const tempoReacao = parseFloat(
+        document.getElementById('tempoReacao').value
+      )
+      result = calculateChemicalKinetics(concentracaoInicialCin, tempoReacao)
+      break
+    case 'equacaoNernst':
+      const potencialPadrao = parseFloat(
+        document.getElementById('potencialPadrao').value
+      )
+      const concentracaoIons = parseFloat(
+        document.getElementById('concentracaoIons').value
+      )
+      result = calculateNernstEquation(potencialPadrao, concentracaoIons)
+      break
+    case 'constanteEquilibrioPressaoParcial':
+      const pressaoReagentes = parseFloat(
+        document.getElementById('pressaoReagentes').value
+      )
+      const pressaoProdutos = parseFloat(
+        document.getElementById('pressaoProdutos').value
+      )
+      result = calculatePartialPressureEquilibrium(
+        pressaoReagentes,
+        pressaoProdutos
+      )
+      break
+    case 'misturaGases':
+      const volumeGas1 = parseFloat(document.getElementById('volumeGas1').value)
+      const volumeGas2 = parseFloat(document.getElementById('volumeGas2').value)
+      result = calculateGasMixture(volumeGas1, volumeGas2)
+      break
+    case 'numeroOxidacao':
+      const formulaQuimicaNO = document.getElementById('formulaQuimica').value
+      result = calculateOxidationNumber(formulaQuimicaNO)
+      break
+    case 'teoriaColisoes':
+      const concentracaoReagentes = parseFloat(
+        document.getElementById('concentracaoReagentes').value
+      )
+      const temperaturaColisoes = parseFloat(
+        document.getElementById('temperatura').value
+      )
+      result = calculateCollisionTheory(
+        concentracaoReagentes,
+        temperaturaColisoes
+      )
+      break
+    case 'conversoesTemperatura':
+      const temperaturaOrigem = parseFloat(
+        document.getElementById('temperaturaOrigem').value
+      )
+      const escalaOrigem = document.getElementById('escalaOrigem').value
+      const escalaDestino = document.getElementById('escalaDestino').value
+      result = convertTemperature(
+        temperaturaOrigem,
+        escalaOrigem,
+        escalaDestino
+      )
+      break
+    case 'solucoesNaoIdeais':
+      const composicaoSolucao = parseFloat(
+        document.getElementById('composicaoSolucao').value
+      )
+      const temperaturaSolucao = parseFloat(
+        document.getElementById('temperatura').value
+      )
+      result = calculateNonIdealSolutions(composicaoSolucao, temperaturaSolucao)
+      break
+    case 'rendimentoReacao':
+      const rendimentoTeorico = parseFloat(
+        document.getElementById('rendimentoTeorico').value
+      )
+      const rendimentoPratico = parseFloat(
+        document.getElementById('rendimentoPratico').value
+      )
+      result = calculateReactionYield(rendimentoTeorico, rendimentoPratico)
+      break
+    case 'equacoesTermoquimicas':
+      const equacaoTermoquimica = document.getElementById(
+        'equacaoTermoquimica'
+      ).value
+      result = calculateThermochemicalEquations(equacaoTermoquimica)
+      break
+    case 'solucoesTampao':
+      // Calculation logic for Soluções Tampão
+      const concentrationAcid = parseFloat(
+        document.getElementById('concentrationAcid').value
+      )
+      const concentrationBase = parseFloat(
+        document.getElementById('concentrationBase').value
+      )
+      result = calculateBufferSolution(concentrationAcid, concentrationBase)
+      break
+    default:
+      result = 'Nenhum cálculo realizado para a operação selecionada'
+      break
+  }
+
+  resultDiv.textContent = result
+}
+
+function convertUnits(value, unitFrom, unitTo) {
+  let result = 0
+  switch (unitFrom) {
+    case 'g':
+      if (unitTo === 'mol') {
+        result = value / 18.01528
+      } else if (unitTo === 'L') {
+        result = value / 1000
+      }
+      break
+    case 'mol':
+      if (unitTo === 'g') {
+        result = value * 18.01528
+      } else if (unitTo === 'L') {
+        result = value / 55.55
+      }
+      break
+    case 'L':
+      if (unitTo === 'g') {
+        result = value * 1000
+      } else if (unitTo === 'mol') {
+        result = value * 55.55
+      }
+      break
+    default:
+      result = 'Conversão de unidades não suportada'
+      break
+  }
+  return result
+}
+
+function calculateStoichiometry(massReactant, massProduct) {
+  const stoichiometry = massProduct / massReactant
+  return `A relação estequiométrica entre os reagentes e produtos é de ${stoichiometry}`
+}
+
+function calculateMolarMass(formula) {
+  const molarMasses = {
+    H: 1.008,
+    C: 12.011,
+    N: 14.007,
+    O: 15.999,
+    F: 18.998,
+    Na: 22.99,
+    Mg: 24.305,
+    Al: 26.982,
+    Si: 28.085,
+    P: 30.974,
+    S: 32.06,
+    Cl: 35.45,
+    K: 39.098,
+    Ca: 40.078,
+    Cr: 51.996,
+    Mn: 54.938,
+    Fe: 55.845,
+    Co: 58.933,
+    Ni: 58.693,
+    Cu: 63.546,
+    Zn: 65.38,
+    Br: 79.904,
+    Ag: 107.868,
+    I: 126.904,
+    Ba: 137.328,
+    Hg: 200.592,
+    Pb: 207.2
+  }
+
+  let molarMass = 0
+  for (let i = 0; i < formula.length; i++) {
+    const element = formula[i]
+    let count = ''
+    while (i + 1 < formula.length && !isNaN(formula[i + 1])) {
+      count += formula[i + 1]
+      i++
+    }
+    count = count === '' ? 1 : parseInt(count)
+    molarMass += molarMasses[element] * count
+  }
+  return molarMass
+}
+
+function calculateReaction(equation) {
+  const reactants = equation.split('->')[0].split('+')
+  const products = equation.split('->')[1].split('+')
+  const reactantMolarMass = reactants
+    .map(reactant => calculateMolarMass(reactant))
+    .reduce((acc, mass) => acc + mass, 0)
+  const productMolarMass = products
+    .map(product => calculateMolarMass(product))
+    .reduce((acc, mass) => acc + mass, 0)
+  return `A massa molar dos reagentes é ${reactantMolarMass} g/mol e dos produtos é ${productMolarMass} g/mol`
+}
+
+function balanceChemicalEquation(unbalancedEquation) {
+  const equation = unbalancedEquation.split('->')
+  const reactants = equation[0].split('+')
+  const products = equation[1].split('+')
+  const reactantElements = {}
+  const productElements = {}
+  const elements = new Set()
+  const coefficients = { reactants: [], products: [] }
+  reactants.forEach(reactant => {
+    const element = reactant.trim().match(/[A-Z][a-z]*/g)
+    element.forEach(el => {
+      const count = reactant.trim().match(/\d+/g)
+      reactantElements[el] = count ? parseInt(count) : 1
+      elements.add(el)
+    })
+  })
+  products.forEach(product => {
+    const element = product.trim().match(/[A-Z][a-z]*/g)
+    element.forEach(el => {
+      const count = product.trim().match(/\d+/g)
+      productElements[el] = count ? parseInt(count) : 1
+      elements.add(el)
+    })
+  })
+  const matrix = []
+  elements.forEach(el => {
+    const row = []
+    reactants.forEach(reactant => {
+      const count = reactantElements[el] || 0
+      row.push(-count)
+    })
+    products.forEach(product => {
+      const count = productElements[el] || 0
+      row.push(count)
+    })
+    matrix.push(row)
+  })
+  const coefficientsMatrix = math.matrix(matrix)
+  const constants = math.zeros(matrix.length)
+  const solutions = math.lusolve(coefficientsMatrix, constants)
+  for (let i = 0; i < reactants.length; i++) {
+    coefficients.reactants.push(solutions[i][0])
+  }
+  for (let i = reactants.length; i < solutions.length; i++) {
+    coefficients.products.push(solutions[i][0])
+  }
+  return `Equação balanceada: ${reactants
+    .map((reactant, i) => `${coefficients.reactants[i]} ${reactant}`)
+    .join(' + ')} -> ${products
+    .map((product, i) => `${coefficients.products[i]} ${product}`)
+    .join(' + ')}`.replace(/1 /g, '')
+}
+
+function calculateGasLaw(
+  initialPressure,
+  initialVolume,
+  initialTemperature,
+  finalPressure,
+  finalVolume,
+  finalTemperature
+) {
+  const R = 0.0821
+  let result = ''
+  if (initialPressure && initialVolume && initialTemperature) {
+    if (finalPressure && finalVolume && finalTemperature) {
+      const initialMoles =
+        (initialPressure * initialVolume) / (R * initialTemperature)
+      const finalMoles = (finalPressure * finalVolume) / (R * finalTemperature)
+      result = `O número de mols iniciais é ${initialMoles} e o número de mols finais é ${finalMoles}`
+    } else {
+      result = 'Favor preencher todos os campos para cálculo'
+    }
+  } else {
+    result = 'Favor preencher todos os campos para cálculo'
+  }
+  return result
+}
+
+function calculateChemicalConstants(equilibriumConstant) {
+  const constants = { Kc: '', Kp: '', Kf: '', Ka: '', Kb: '', Kw: '' }
+  const result =
+    equilibriumConstant === 0
+      ? 'Constante de equilíbrio inválida'
+      : equilibriumConstant === 1
+      ? 'Constante de equilíbrio igual a 1'
+      : equilibriumConstant > 1
+      ? 'Constante de equilíbrio maior que 1'
+      : 'Constante de equilíbrio menor que 1'
+  constants.Kc = equilibriumConstant
+  constants.Kp = equilibriumConstant
+  constants.Kf = equilibriumConstant
+  constants.Ka = equilibriumConstant
+  constants.Kb = equilibriumConstant
+  constants.Kw = equilibriumConstant
+  return result
+}
+
+function calculateStandardConditions(temperature, pressure) {
+  const standardConditions = { temperature: 273.15, pressure: 1 }
+  const result =
+    temperature === standardConditions.temperature &&
+    pressure === standardConditions.pressure
+      ? 'Condições padrão'
+      : 'Condições não padrão'
+  return result
+}
+
+function calculateChemicalEquilibrium() {
+  // Calculate chemical equilibrium based on input values
+  return 'Cálculo de equilíbrio químico'
+}
+
+function calculateLambertBeerLaw(absorbance, concentration, opticalPath) {
+  const molarAbsorptivity = absorbance / (concentration * opticalPath)
+  return `A absortividade molar é ${molarAbsorptivity} L/(mol*cm)`
+}
+
+function calculateChemicalKinetics(initialConcentration, reactionTime) {
+  const rateConstant = initialConcentration / reactionTime
+  return `A constante de velocidade da reação é ${rateConstant} mol/L*s`
+}
+
+function calculateNernstEquation(standardPotential, ionConcentration) {
+  const R = 8.314
+  const temperature = 298
+  const nernstPotential =
+    standardPotential - ((R * temperature) / 2.303) * Math.log(ionConcentration) // Corrige a fórmula
+  return `O potencial de Nernst é ${nernstPotential} V`
+}
+
+function calculatePartialPressureEquilibrium(
+  pressureReactants,
+  pressureProducts
+) {
+  const equilibriumConstant = pressureProducts / pressureReactants
+  return `A constante de equilíbrio de pressão parcial é ${equilibriumConstant}`
+}
+
+function calculateGasMixture(volumeGas1, volumeGas2) {
+  const totalVolume = volumeGas1 + volumeGas2
+  const partialPressureGas1 = (volumeGas1 / totalVolume) * 1
+  const partialPressureGas2 = (volumeGas2 / totalVolume) * 1
+  return `A pressão parcial do gás 1 é ${partialPressureGas1} atm e do gás 2 é ${partialPressureGas2} atm`
+}
+
+function calculateOxidationNumber(chemicalFormula) {
+  const oxidationNumbers = {
+    H: 1,
+    O: -2,
+    F: -1,
+    Na: 1,
+    Mg: 2,
+    Al: 3,
+    Si: 4,
+    P: 5,
+    S: 6,
+    Cl: -1,
+    K: 1,
+    Ca: 2,
+    Cr: 6,
+    Mn: 7,
+    Fe: 3,
+    Co: 3,
+    Ni: 2,
+    Cu: 2,
+    Zn: 2,
+    Br: -1,
+    Ag: 1,
+    I: -1,
+    Ba: 2,
+    Hg: 2,
+    Pb: 2
+  }
+
+  let oxidationNumber = 0
+  for (let i = 0; i < chemicalFormula.length; i++) {
+    const element = chemicalFormula[i]
+    let count = ''
+    while (i + 1 < chemicalFormula.length && !isNaN(chemicalFormula[i + 1])) {
+      count += chemicalFormula[i + 1]
+      i++
+    }
+    count = count === '' ? 1 : parseInt(count)
+    oxidationNumber += oxidationNumbers[element] * count
+  }
+
+  return oxidationNumber
+}
+
+function calculateCollisionTheory(reactantConcentration, temperature) {
+  const collisionFrequency =
+    reactantConcentration * Math.sqrt((8 * 8.314 * temperature) / Math.PI)
+  return `A frequência de colisão é ${collisionFrequency} colisões/s`
+}
+
+function convertTemperature(temperature, scaleFrom, scaleTo) {
+  let convertedTemperature = 0
+  if (scaleFrom === scaleTo) {
+    convertedTemperature = temperature
+  } else if (scaleFrom === 'C' && scaleTo === 'F') {
+    convertedTemperature = (temperature * 9) / 5 + 32
+  } else if (scaleFrom === 'F' && scaleTo === 'C') {
+    convertedTemperature = ((temperature - 32) * 5) / 9
+  } else if (scaleFrom === 'C' && scaleTo === 'K') {
+    convertedTemperature = temperature + 273.15
+  } else if (scaleFrom === 'K' && scaleTo === 'C') {
+    convertedTemperature = temperature - 273.15
+  } else if (scaleFrom === 'F' && scaleTo === 'K') {
+    convertedTemperature = ((temperature - 32) * 5) / 9 + 273.15
+  } else if (scaleFrom === 'K' && scaleTo === 'F') {
+    convertedTemperature = ((temperature - 273.15) * 9) / 5 + 32
+  } else {
+    convertedTemperature = 'Conversão de temperatura não suportada'
+  }
+
+  return convertedTemperature
+}
+
+function calculateNonIdealSolutions(solutionComposition, solutionTemperature) {
+  const nonIdealFactor = 1 + solutionComposition * solutionTemperature
+  return `O fator de não idealidade é ${nonIdealFactor}`
+}
+
+function calculateReactionYield(theoreticalYield, practicalYield) {
+  const reactionYield = (practicalYield / theoreticalYield) * 100
+  return `O rendimento da reação é de ${reactionYield}%`
+}
+
+function calculateThermochemicalEquations(thermochemicalEquation) {
+  const equation = thermochemicalEquation.split('->')
+  const reactants = equation[0].split('+')
+  const products = equation[1].split('+')
+  const reactantEnthalpy = reactants
+    .map(reactant => calculateMolarMass(reactant))
+    .reduce((acc, mass) => acc + mass, 0)
+  const productEnthalpy = products
+    .map(product => calculateMolarMass(product))
+    .reduce((acc, mass) => acc + mass, 0)
+  return `A entalpia dos reagentes é ${reactantEnthalpy} kJ/mol e dos produtos é ${productEnthalpy} kJ/mol`
+}
+
+function calculateBufferSolution(acidConcentration, baseConcentration) {
+  const pH =
+    0.5 * (Math.log10(acidConcentration) - Math.log10(baseConcentration))
+  return `O pH da solução tampão é ${pH}`
 }
 
 function showExplanation(selectedOperation) {
