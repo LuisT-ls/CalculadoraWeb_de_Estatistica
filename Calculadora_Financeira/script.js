@@ -129,72 +129,74 @@ function calculateResult() {
     inputValues[field] = parseFloat(document.getElementById(field).value)
   })
 
-  if (selectedOperation === 'capital') {
-    result =
-      inputValues.montante /
-      (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
-    formattedResult = `Resultado: ${formatCurrency(result)}`
-  } else if (selectedOperation === 'montante') {
-    result =
-      inputValues.principal *
-      (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
-    formattedResult = `Resultado: ${formatCurrency(result)}`
-  } else if (selectedOperation === 'juros') {
-    result = inputValues.montante - inputValues.principal
-    formattedResult = `Resultado: ${formatCurrency(result)}`
-  } else if (selectedOperation === 'desconto') {
-    result = (inputValues.precoOriginal * inputValues.percentagemDesconto) / 100
-    const precoComDesconto = inputValues.precoOriginal - result
-    formattedResult = `
-      Desconto: ${result.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-        minimumFractionDigits: 2
-      })}
-      /// Preço Atualizado: ${precoComDesconto.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-        minimumFractionDigits: 2
-      })}
-    `
-  } else if (selectedOperation === 'taxa') {
-    result =
-      ((inputValues.montante / inputValues.principal - 1) /
-        (inputValues.tempo / 12)) *
-      100
-    formattedResult = `Resultado: ${result.toFixed(2)}%`
-  } else if (selectedOperation === 'percentagem') {
-    result = (inputValues.porcentagem / 100) * inputValues.valor
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
-  } else if (selectedOperation === 'variacao') {
-    result =
-      ((inputValues.valorFinal - inputValues.valorInicial) /
-        inputValues.valorInicial) *
-      100
-    formattedResult = `Resultado: ${result.toFixed(2)}%`
-  } else if (selectedOperation === 'jurosSimples') {
-    result =
-      inputValues.principal *
-      (inputValues.taxa / 100) *
-      (inputValues.tempo / 12)
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
-  } else if (selectedOperation === 'jurosCompostos') {
-    result =
-      inputValues.principal *
-      (Math.pow(1 + inputValues.taxa / 100 / 12, inputValues.tempo) - 1)
-    formattedResult = `Resultado: ${result.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    })}`
+  switch (selectedOperation) {
+    case 'capital':
+      result =
+        inputValues.montante /
+        (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    case 'montante':
+      result =
+        inputValues.principal *
+        (1 + (inputValues.taxa / 100) * (inputValues.tempo / 12))
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    case 'juros':
+      result = inputValues.montante - inputValues.principal
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    case 'desconto':
+      result =
+        (inputValues.precoOriginal * inputValues.percentagemDesconto) / 100
+      const precoComDesconto = inputValues.precoOriginal - result
+      formattedResult = `
+        Desconto: ${formatCurrency(result)}
+        /// Preço Atualizado: ${formatCurrency(precoComDesconto)}
+      `
+      break
+
+    case 'taxa':
+      result =
+        ((inputValues.montante / inputValues.principal - 1) /
+          (inputValues.tempo / 12)) *
+        100
+      formattedResult = `Resultado: ${result.toFixed(2)}%`
+      break
+
+    case 'percentagem':
+      result = (inputValues.porcentagem / 100) * inputValues.valor
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    case 'variacao':
+      result =
+        ((inputValues.valorFinal - inputValues.valorInicial) /
+          inputValues.valorInicial) *
+        100
+      formattedResult = `Resultado: ${result.toFixed(2)}%`
+      break
+
+    case 'jurosSimples':
+      result =
+        inputValues.principal *
+        (inputValues.taxa / 100) *
+        (inputValues.tempo / 12)
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    case 'jurosCompostos':
+      result =
+        inputValues.principal *
+        (Math.pow(1 + inputValues.taxa / 100 / 12, inputValues.tempo) - 1)
+      formattedResult = `Resultado: ${formatCurrency(result)}`
+      break
+
+    default:
+      formattedResult = 'Operação inválida'
   }
 
   resultDiv.textContent = formattedResult
