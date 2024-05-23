@@ -166,7 +166,7 @@ function addInputField(id, label) {
   const fieldDiv = document.createElement('div')
   fieldDiv.innerHTML = `
     <label for="${id}">${label}</label>
-    <input type="number" id="${id}">
+    <input type="text" id="${id}"> 
   `
   inputFields.appendChild(fieldDiv)
 }
@@ -545,14 +545,14 @@ function calculateMolarMass(chemicalFormula) {
   }
 
   let molarMass = 0
-  for (let i = 0; i < chemicalFormula.length; i++) {
-    const element = chemicalFormula[i]
-    let count = ''
-    while (i + 1 < chemicalFormula.length && !isNaN(chemicalFormula[i + 1])) {
-      count += chemicalFormula[i + 1]
-      i++
-    }
-    count = count === '' ? 1 : parseInt(count)
+  const regex = /[A-Z][a-z]?\d*/g
+  let matches
+
+  while ((matches = regex.exec(chemicalFormula)) !== null) {
+    const element = matches[0].match(/[A-Z][a-z]?/)[0]
+    const count = matches[0].match(/\d+/)
+      ? parseInt(matches[0].match(/\d+/)[0])
+      : 1
     molarMass += atomicMasses[element] * count
   }
 
