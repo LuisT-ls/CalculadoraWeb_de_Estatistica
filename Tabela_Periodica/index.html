@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
+    <title>Tabela Periódica</title>
+    <meta
+      name="description"
+      content="Tabela Periódica com informações sobre os elementos químicos"
+    />
+    <meta name="author" content="Luís Teixeira" />
+    <meta name="contact" content="luishg213@outlook.com" />
+  </head>
+  <body>
+    <div class="container">
+      <button
+        id="toggleDarkMode"
+        onclick="toggleDarkMode()"
+        aria-label="Alternar modo escuro"
+      >
+        🌙
+      </button>
+      <main>
+        <h1>Bem-vindo à sua Tabela Periódica</h1>
+        <div class="input">
+          <label for="search">Pesquisar por nome ou símbolo:</label>
+          <input
+            type="text"
+            id="search"
+            placeholder="Pesquisar"
+            oninput="searchElement()"
+          />
+        </div>
+      </main>
+      <footer>
+        <p>&copy; 2024 Luís Teixeira. Todos os direitos reservados.</p>
+        <p>
+          <a href="https://github.com/LuisT-ls" target="_blank">Meu Github</a>
+        </p>
+        <p>
+          <a href="https://www.linkedin.com/in/luis-tei/" target="_blank"
+            >Meu LinkedIn</a
+          >
+        </p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
