@@ -141,7 +141,7 @@ input:focus {
 }
 
 .element-table {
-  width: 100%;
+  width: 60%;
   border-collapse: collapse;
   margin: 1rem auto;
   overflow: hidden;
@@ -151,11 +151,7 @@ input:focus {
 }
 
 .element-header {
-  background: linear-gradient(
-    to right,
-    #007bff,
-    #0056b3
-  );
+  background: linear-gradient(to right, #007bff, #0056b3);
   color: #333;
   padding: 1rem;
   text-align: left;

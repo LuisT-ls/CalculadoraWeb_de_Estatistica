@@ -94,7 +94,11 @@ function displayElementInfo(element) {
   ]
   properties.forEach(createTableRow)
   infoContainer.appendChild(table)
-  document.body.appendChild(infoContainer)
+
+  // Insere o infoContainer dentro do main logo após a div de input
+  const mainElement = document.querySelector('main')
+  const inputDiv = document.querySelector('.input')
+  mainElement.insertBefore(infoContainer, inputDiv.nextSibling)
 
   function createTableRow({ label, value }) {
     const row = table.insertRow()
