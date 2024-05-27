@@ -44,7 +44,56 @@ function searchElement() {
     })
 }
 
-// Função para exibir informações do elemento (modularizada)
+// Função para carregar a tabela periódica do arquivo JSON
+async function loadPeriodicTable() {
+  const response = await fetch('periodicTable.json')
+  const periodicTable = await response.json()
+  return periodicTable
+}
+
+// Função para exibir a tabela periódica completa
+async function showPeriodicTable() {
+  const container = document.getElementById('periodic-table-container')
+  container.innerHTML = '' // Limpa o contêiner
+
+  const periodicTable = await loadPeriodicTable()
+
+  // Cria a tabela periódica usando CSS grid
+  periodicTable.forEach(element => {
+    const cell = document.createElement('div')
+    cell.classList.add('periodic-table-cell')
+    cell.style.gridColumn = getGridColumn(element)
+    cell.style.gridRow = getGridRow(element)
+    cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
+    container.appendChild(cell)
+  })
+
+  container.style.display = 'grid'
+}
+
+// Função auxiliar para determinar a coluna da grade (grupo)
+function getGridColumn(element) {
+  if (element.period === 6 && element.group >= 3 && element.group <= 12) {
+    return element.group + 2 // Adaptação para a série dos lantanídeos
+  } else if (
+    element.period === 7 &&
+    element.group >= 3 &&
+    element.group <= 12
+  ) {
+    return element.group + 2 // Adaptação para a série dos actinídeos
+  }
+  return element.group
+}
+
+// Função auxiliar para determinar a linha da grade (período)
+function getGridRow(element) {
+  if (element.period >= 6 && element.group >= 3 && element.group <= 12) {
+    return element.period + 1 // Adaptação para a série dos lantanídeos e actinídeos
+  }
+  return element.period
+}
+
+// Função para exibir informações do elemento (sem alterações)
 function displayElementInfo(element) {
   clearElementInfo()
 
@@ -117,3 +166,8 @@ function clearElementInfo() {
     infoContainer.remove()
   }
 }
+
+// Event listener para o botão de mostrar a tabela periódica completa
+document
+  .getElementById('show-periodic-table-btn')
+  .addEventListener('click', showPeriodicTable)

@@ -173,6 +173,39 @@ input:focus {
   font-weight: bold;
 }
 
+/* Estilos para o contêiner da tabela periódica */
+.periodic-table-container {
+  display: none;
+  grid-template-columns: repeat(
+    18,
+    1fr
+  ); /* 18 colunas para cobrir todos os grupos */
+  grid-gap: 1px;
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para as células dos elementos na tabela periódica completa */
+.periodic-table-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.periodic-table-cell:hover {
+  transform: scale(1.05);
+}
+
 /* Estilos para o label */
 label {
   font-size: 1.1rem;
