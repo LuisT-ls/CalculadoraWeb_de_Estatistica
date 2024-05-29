@@ -1,120 +1,946 @@
 [
-  { "symbol": "H", "name": "Hidrogênio", "atomicNumber": 1, "group": 1, "period": 1, "block": "s" },
-  { "symbol": "He", "name": "Hélio", "atomicNumber": 2, "group": 18, "period": 1, "block": "s" },
-  { "symbol": "Li", "name": "Lítio", "atomicNumber": 3, "group": 1, "period": 2, "block": "s" },
-  { "symbol": "Be", "name": "Berílio", "atomicNumber": 4, "group": 2, "period": 2, "block": "s" },
-  { "symbol": "B", "name": "Boro", "atomicNumber": 5, "group": 13, "period": 2, "block": "p" },
-  { "symbol": "C", "name": "Carbono", "atomicNumber": 6, "group": 14, "period": 2, "block": "p" },
-  { "symbol": "N", "name": "Nitrogênio", "atomicNumber": 7, "group": 15, "period": 2, "block": "p" },
-  { "symbol": "O", "name": "Oxigênio", "atomicNumber": 8, "group": 16, "period": 2, "block": "p" },
-  { "symbol": "F", "name": "Flúor", "atomicNumber": 9, "group": 17, "period": 2, "block": "p" },
-  { "symbol": "Ne", "name": "Neônio", "atomicNumber": 10, "group": 18, "period": 2, "block": "p" },
-  { "symbol": "Na", "name": "Sódio", "atomicNumber": 11, "group": 1, "period": 3, "block": "s" },
-  { "symbol": "Mg", "name": "Magnésio", "atomicNumber": 12, "group": 2, "period": 3, "block": "s" },
-  { "symbol": "Al", "name": "Alumínio", "atomicNumber": 13, "group": 13, "period": 3, "block": "p" },
-  { "symbol": "Si", "name": "Silício", "atomicNumber": 14, "group": 14, "period": 3, "block": "p" },
-  { "symbol": "P", "name": "Fósforo", "atomicNumber": 15, "group": 15, "period": 3, "block": "p" },
-  { "symbol": "S", "name": "Enxofre", "atomicNumber": 16, "group": 16, "period": 3, "block": "p" },
-  { "symbol": "Cl", "name": "Cloro", "atomicNumber": 17, "group": 17, "period": 3, "block": "p" },
-  { "symbol": "Ar", "name": "Argônio", "atomicNumber": 18, "group": 18, "period": 3, "block": "p" },
-  { "symbol": "K", "name": "Potássio", "atomicNumber": 19, "group": 1, "period": 4, "block": "s" },
-  { "symbol": "Ca", "name": "Cálcio", "atomicNumber": 20, "group": 2, "period": 4, "block": "s" },
-  { "symbol": "Sc", "name": "Escândio", "atomicNumber": 21, "group": 3, "period": 4, "block": "d" },
-  { "symbol": "Ti", "name": "Titânio", "atomicNumber": 22, "group": 4, "period": 4, "block": "d" },
-  { "symbol": "V", "name": "Vanádio", "atomicNumber": 23, "group": 5, "period": 4, "block": "d" },
-  { "symbol": "Cr", "name": "Cromo", "atomicNumber": 24, "group": 6, "period": 4, "block": "d" },
-  { "symbol": "Mn", "name": "Manganês", "atomicNumber": 25, "group": 7, "period": 4, "block": "d" },
-  { "symbol": "Fe", "name": "Ferro", "atomicNumber": 26, "group": 8, "period": 4, "block": "d" },
-  { "symbol": "Co", "name": "Cobalto", "atomicNumber": 27, "group": 9, "period": 4, "block": "d" },
-  { "symbol": "Ni", "name": "Níquel", "atomicNumber": 28, "group": 10, "period": 4, "block": "d" },
-  { "symbol": "Cu", "name": "Cobre", "atomicNumber": 29, "group": 11, "period": 4, "block": "d" },
-  { "symbol": "Zn", "name": "Zinco", "atomicNumber": 30, "group": 12, "period": 4, "block": "d" },
-  { "symbol": "Ga", "name": "Gálio", "atomicNumber": 31, "group": 13, "period": 4, "block": "p" },
-  { "symbol": "Ge", "name": "Germânio", "atomicNumber": 32, "group": 14, "period": 4, "block": "p" },
-  { "symbol": "As", "name": "Arsênio", "atomicNumber": 33, "group": 15, "period": 4, "block": "p" },
-  { "symbol": "Se", "name": "Selênio", "atomicNumber": 34, "group": 16, "period": 4, "block": "p" },
-  { "symbol": "Br", "name": "Bromo", "atomicNumber": 35, "group": 17, "period": 4, "block": "p" },
-  { "symbol": "Kr", "name": "Criptônio", "atomicNumber": 36, "group": 18, "period": 4, "block": "p" },
-  { "symbol": "Rb", "name": "Rubídio", "atomicNumber": 37, "group": 1, "period": 5, "block": "s" },
-  { "symbol": "Sr", "name": "Estrôncio", "atomicNumber": 38, "group": 2, "period": 5, "block": "s" },
-  { "symbol": "Y", "name": "Ítrio", "atomicNumber": 39, "group": 3, "period": 5, "block": "d" },
-  { "symbol": "Zr", "name": "Zircônio", "atomicNumber": 40, "group": 4, "period": 5, "block": "d" },
-  { "symbol": "Nb", "name": "Nióbio", "atomicNumber": 41, "group": 5, "period": 5, "block": "d" },
-  { "symbol": "Mo", "name": "Molibdênio", "atomicNumber": 42, "group": 6, "period": 5, "block": "d" },
-  { "symbol": "Tc", "name": "Tecnécio", "atomicNumber": 43, "group": 7, "period": 5, "block": "d" },
-  { "symbol": "Ru", "name": "Rutênio", "atomicNumber": 44, "group": 8, "period": 5, "block": "d" },
-  { "symbol": "Rh", "name": "Ródio", "atomicNumber": 45, "group": 9, "period": 5, "block": "d" },
-  { "symbol": "Pd", "name": "Paládio", "atomicNumber": 46, "group": 10, "period": 5, "block": "d" },
-  { "symbol": "Ag", "name": "Prata", "atomicNumber": 47, "group": 11, "period": 5, "block": "d" },
-  { "symbol": "Cd", "name": "Cádmio", "atomicNumber": 48, "group": 12, "period": 5, "block": "d" },
-  { "symbol": "In", "name": "Índio", "atomicNumber": 49, "group": 13, "period": 5, "block": "p" },
-  { "symbol": "Sn", "name": "Estanho", "atomicNumber": 50, "group": 14, "period": 5, "block": "p" },
-  { "symbol": "Sb", "name": "Antimônio", "atomicNumber": 51, "group": 15, "period": 5, "block": "p" },
-  { "symbol": "Te", "name": "Telúrio", "atomicNumber": 52, "group": 16, "period": 5, "block": "p" },
-  { "symbol": "I", "name": "Iodo", "atomicNumber": 53, "group": 17, "period": 5, "block": "p" },
-  { "symbol": "Xe", "name": "Xenônio", "atomicNumber": 54, "group": 18, "period": 5, "block": "p" },
-  { "symbol": "Cs", "name": "Césio", "atomicNumber": 55, "group": 1, "period": 6, "block": "s" },
-  { "symbol": "Ba", "name": "Bário", "atomicNumber": 56, "group": 2, "period": 6, "block": "s" },
-  { "symbol": "La", "name": "Lantânio", "atomicNumber": 57, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Ce", "name": "Cério", "atomicNumber": 58, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Pr", "name": "Praseodímio", "atomicNumber": 59, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Nd", "name": "Neodímio", "atomicNumber": 60, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Pm", "name": "Promécio", "atomicNumber": 61, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Sm", "name": "Samário", "atomicNumber": 62, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Eu", "name": "Európio", "atomicNumber": 63, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Gd", "name": "Gadolínio", "atomicNumber": 64, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Tb", "name": "Térbio", "atomicNumber": 65, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Dy", "name": "Disprósio", "atomicNumber": 66, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Ho", "name": "Hólmio", "atomicNumber": 67, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Er", "name": "Érbio", "atomicNumber": 68, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Tm", "name": "Túlio", "atomicNumber": 69, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Yb", "name": "Itérbio", "atomicNumber": 70, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Lu", "name": "Lutécio", "atomicNumber": 71, "group": 3, "period": 6, "block": "f" },
-  { "symbol": "Hf", "name": "Háfnio", "atomicNumber": 72, "group": 4, "period": 6, "block": "d" },
-  { "symbol": "Ta", "name": "Tântalo", "atomicNumber": 73, "group": 5, "period": 6, "block": "d" },
-  { "symbol": "W", "name": "Tungstênio", "atomicNumber": 74, "group": 6, "period": 6, "block": "d" },
-  { "symbol": "Re", "name": "Rênio", "atomicNumber": 75, "group": 7, "period": 6, "block": "d" },
-  { "symbol": "Os", "name": "Ósmio", "atomicNumber": 76, "group": 8, "period": 6, "block": "d" },
-  { "symbol": "Ir", "name": "Irídio", "atomicNumber": 77, "group": 9, "period": 6, "block": "d" },
-  { "symbol": "Pt", "name": "Platina", "atomicNumber": 78, "group": 10, "period": 6, "block": "d" },
-  { "symbol": "Au", "name": "Ouro", "atomicNumber": 79, "group": 11, "period": 6, "block": "d" },
-  { "symbol": "Hg", "name": "Mercúrio", "atomicNumber": 80, "group": 12, "period": 6, "block": "d" },
-  { "symbol": "Tl", "name": "Tálio", "atomicNumber": 81, "group": 13, "period": 6, "block": "p" },
-  { "symbol": "Pb", "name": "Chumbo", "atomicNumber": 82, "group": 14, "period": 6, "block": "p" },
-  { "symbol": "Bi", "name": "Bismuto", "atomicNumber": 83, "group": 15, "period": 6, "block": "p" },
-  { "symbol": "Po", "name": "Polônio", "atomicNumber": 84, "group": 16, "period": 6, "block": "p" },
-  { "symbol": "At", "name": "Astato", "atomicNumber": 85, "group": 17, "period": 6, "block": "p" },
-  { "symbol": "Rn", "name": "Radônio", "atomicNumber": 86, "group": 18, "period": 6, "block": "p" },
-  { "symbol": "Fr", "name": "Frâncio", "atomicNumber": 87, "group": 1, "period": 7, "block": "s" },
-  { "symbol": "Ra", "name": "Rádio", "atomicNumber": 88, "group": 2, "period": 7, "block": "s" },
-  { "symbol": "Ac", "name": "Actínio", "atomicNumber": 89, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Th", "name": "Tório", "atomicNumber": 90, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Pa", "name": "Protactínio", "atomicNumber": 91, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "U", "name": "Urânio", "atomicNumber": 92, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Np", "name": "Netúnio", "atomicNumber": 93, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Pu", "name": "Plutônio", "atomicNumber": 94, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Am", "name": "Amerício", "atomicNumber": 95, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Cm", "name": "Cúrio", "atomicNumber": 96, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Bk", "name": "Berquélio", "atomicNumber": 97, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Cf", "name": "Califórnio", "atomicNumber": 98, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Es", "name": "Einstênio", "atomicNumber": 99, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Fm", "name": "Férmio", "atomicNumber": 100, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Md", "name": "Mendelévio", "atomicNumber": 101, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "No", "name": "Nobélio", "atomicNumber": 102, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Lr", "name": "Laurêncio", "atomicNumber": 103, "group": 3, "period": 7, "block": "f" },
-  { "symbol": "Rf", "name": "Rutherfórdio", "atomicNumber": 104, "group": 4, "period": 7, "block": "d" },
-  { "symbol": "Db", "name": "Dúbnio", "atomicNumber": 105, "group": 5, "period": 7, "block": "d" },
-  { "symbol": "Sg", "name": "Seabórgio", "atomicNumber": 106, "group": 6, "period": 7, "block": "d" },
-  { "symbol": "Bh", "name": "Bóhrio", "atomicNumber": 107, "group": 7, "period": 7, "block": "d" },
-  { "symbol": "Hs", "name": "Hássio", "atomicNumber": 108, "group": 8, "period": 7, "block": "d" },
-  { "symbol": "Mt", "name": "Meitnério", "atomicNumber": 109, "group": 9, "period": 7, "block": "d" },
-  { "symbol": "Ds", "name": "Darmstádio", "atomicNumber": 110, "group": 10, "period": 7, "block": "d" },
-  { "symbol": "Rg", "name": "Roentgênio", "atomicNumber": 111, "group": 11, "period": 7, "block": "d" },
-  { "symbol": "Cn", "name": "Copernício", "atomicNumber": 112, "group": 12, "period": 7, "block": "d" },
-  { "symbol": "Nh", "name": "Nihônio", "atomicNumber": 113, "group": 13, "period": 7, "block": "p" },
-  { "symbol": "Fl", "name": "Fleróvio", "atomicNumber": 114, "group": 14, "period": 7, "block": "p" },
-  { "symbol": "Mc", "name": "Moscóvio", "atomicNumber": 115, "group": 15, "period": 7, "block": "p" },
-  { "symbol": "Lv", "name": "Livermório", "atomicNumber": 116, "group": 16, "period": 7, "block": "p" },
-  { "symbol": "Ts", "name": "Tenessino", "atomicNumber": 117, "group": 17, "period": 7, "block": "p" },
-  { "symbol": "Og", "name": "Oganesónio", "atomicNumber": 118, "group": 18, "period": 7, "block": "p" }
+  {
+    "symbol": "H",
+    "name": "Hidrogênio",
+    "atomicNumber": 1,
+    "group": 1,
+    "period": 1,
+    "block": "s"
+  },
+  {
+    "symbol": "He",
+    "name": "Hélio",
+    "atomicNumber": 2,
+    "group": 18,
+    "period": 1,
+    "block": "s"
+  },
+  {
+    "symbol": "Li",
+    "name": "Lítio",
+    "atomicNumber": 3,
+    "group": 1,
+    "period": 2,
+    "block": "s"
+  },
+  {
+    "symbol": "Be",
+    "name": "Berílio",
+    "atomicNumber": 4,
+    "group": 2,
+    "period": 2,
+    "block": "s"
+  },
+  {
+    "symbol": "B",
+    "name": "Boro",
+    "atomicNumber": 5,
+    "group": 13,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "C",
+    "name": "Carbono",
+    "atomicNumber": 6,
+    "group": 14,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "N",
+    "name": "Nitrogênio",
+    "atomicNumber": 7,
+    "group": 15,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "O",
+    "name": "Oxigênio",
+    "atomicNumber": 8,
+    "group": 16,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "F",
+    "name": "Flúor",
+    "atomicNumber": 9,
+    "group": 17,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "Ne",
+    "name": "Neônio",
+    "atomicNumber": 10,
+    "group": 18,
+    "period": 2,
+    "block": "p"
+  },
+  {
+    "symbol": "Na",
+    "name": "Sódio",
+    "atomicNumber": 11,
+    "group": 1,
+    "period": 3,
+    "block": "s"
+  },
+  {
+    "symbol": "Mg",
+    "name": "Magnésio",
+    "atomicNumber": 12,
+    "group": 2,
+    "period": 3,
+    "block": "s"
+  },
+  {
+    "symbol": "Al",
+    "name": "Alumínio",
+    "atomicNumber": 13,
+    "group": 13,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "Si",
+    "name": "Silício",
+    "atomicNumber": 14,
+    "group": 14,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "P",
+    "name": "Fósforo",
+    "atomicNumber": 15,
+    "group": 15,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "S",
+    "name": "Enxofre",
+    "atomicNumber": 16,
+    "group": 16,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "Cl",
+    "name": "Cloro",
+    "atomicNumber": 17,
+    "group": 17,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "Ar",
+    "name": "Argônio",
+    "atomicNumber": 18,
+    "group": 18,
+    "period": 3,
+    "block": "p"
+  },
+  {
+    "symbol": "K",
+    "name": "Potássio",
+    "atomicNumber": 19,
+    "group": 1,
+    "period": 4,
+    "block": "s"
+  },
+  {
+    "symbol": "Ca",
+    "name": "Cálcio",
+    "atomicNumber": 20,
+    "group": 2,
+    "period": 4,
+    "block": "s"
+  },
+  {
+    "symbol": "Sc",
+    "name": "Escândio",
+    "atomicNumber": 21,
+    "group": 3,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Ti",
+    "name": "Titânio",
+    "atomicNumber": 22,
+    "group": 4,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "V",
+    "name": "Vanádio",
+    "atomicNumber": 23,
+    "group": 5,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Cr",
+    "name": "Cromo",
+    "atomicNumber": 24,
+    "group": 6,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Mn",
+    "name": "Manganês",
+    "atomicNumber": 25,
+    "group": 7,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Fe",
+    "name": "Ferro",
+    "atomicNumber": 26,
+    "group": 8,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Co",
+    "name": "Cobalto",
+    "atomicNumber": 27,
+    "group": 9,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Ni",
+    "name": "Níquel",
+    "atomicNumber": 28,
+    "group": 10,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Cu",
+    "name": "Cobre",
+    "atomicNumber": 29,
+    "group": 11,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Zn",
+    "name": "Zinco",
+    "atomicNumber": 30,
+    "group": 12,
+    "period": 4,
+    "block": "d"
+  },
+  {
+    "symbol": "Ga",
+    "name": "Gálio",
+    "atomicNumber": 31,
+    "group": 13,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "Ge",
+    "name": "Germânio",
+    "atomicNumber": 32,
+    "group": 14,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "As",
+    "name": "Arsênio",
+    "atomicNumber": 33,
+    "group": 15,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "Se",
+    "name": "Selênio",
+    "atomicNumber": 34,
+    "group": 16,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "Br",
+    "name": "Bromo",
+    "atomicNumber": 35,
+    "group": 17,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "Kr",
+    "name": "Criptônio",
+    "atomicNumber": 36,
+    "group": 18,
+    "period": 4,
+    "block": "p"
+  },
+  {
+    "symbol": "Rb",
+    "name": "Rubídio",
+    "atomicNumber": 37,
+    "group": 1,
+    "period": 5,
+    "block": "s"
+  },
+  {
+    "symbol": "Sr",
+    "name": "Estrôncio",
+    "atomicNumber": 38,
+    "group": 2,
+    "period": 5,
+    "block": "s"
+  },
+  {
+    "symbol": "Y",
+    "name": "Ítrio",
+    "atomicNumber": 39,
+    "group": 3,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Zr",
+    "name": "Zircônio",
+    "atomicNumber": 40,
+    "group": 4,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Nb",
+    "name": "Nióbio",
+    "atomicNumber": 41,
+    "group": 5,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Mo",
+    "name": "Molibdênio",
+    "atomicNumber": 42,
+    "group": 6,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Tc",
+    "name": "Tecnécio",
+    "atomicNumber": 43,
+    "group": 7,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Ru",
+    "name": "Rutênio",
+    "atomicNumber": 44,
+    "group": 8,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Rh",
+    "name": "Ródio",
+    "atomicNumber": 45,
+    "group": 9,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Pd",
+    "name": "Paládio",
+    "atomicNumber": 46,
+    "group": 10,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Ag",
+    "name": "Prata",
+    "atomicNumber": 47,
+    "group": 11,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "Cd",
+    "name": "Cádmio",
+    "atomicNumber": 48,
+    "group": 12,
+    "period": 5,
+    "block": "d"
+  },
+  {
+    "symbol": "In",
+    "name": "Índio",
+    "atomicNumber": 49,
+    "group": 13,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "Sn",
+    "name": "Estanho",
+    "atomicNumber": 50,
+    "group": 14,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "Sb",
+    "name": "Antimônio",
+    "atomicNumber": 51,
+    "group": 15,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "Te",
+    "name": "Telúrio",
+    "atomicNumber": 52,
+    "group": 16,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "I",
+    "name": "Iodo",
+    "atomicNumber": 53,
+    "group": 17,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "Xe",
+    "name": "Xenônio",
+    "atomicNumber": 54,
+    "group": 18,
+    "period": 5,
+    "block": "p"
+  },
+  {
+    "symbol": "Cs",
+    "name": "Césio",
+    "atomicNumber": 55,
+    "group": 1,
+    "period": 6,
+    "block": "s"
+  },
+  {
+    "symbol": "Ba",
+    "name": "Bário",
+    "atomicNumber": 56,
+    "group": 2,
+    "period": 6,
+    "block": "s"
+  },
+  {
+    "symbol": "La",
+    "name": "Lantânio",
+    "atomicNumber": 57,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Ce",
+    "name": "Cério",
+    "atomicNumber": 58,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Pr",
+    "name": "Praseodímio",
+    "atomicNumber": 59,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Nd",
+    "name": "Neodímio",
+    "atomicNumber": 60,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Pm",
+    "name": "Promécio",
+    "atomicNumber": 61,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Sm",
+    "name": "Samário",
+    "atomicNumber": 62,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Eu",
+    "name": "Európio",
+    "atomicNumber": 63,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Gd",
+    "name": "Gadolínio",
+    "atomicNumber": 64,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Tb",
+    "name": "Térbio",
+    "atomicNumber": 65,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Dy",
+    "name": "Disprósio",
+    "atomicNumber": 66,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Ho",
+    "name": "Hólmio",
+    "atomicNumber": 67,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Er",
+    "name": "Érbio",
+    "atomicNumber": 68,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Tm",
+    "name": "Túlio",
+    "atomicNumber": 69,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Yb",
+    "name": "Itérbio",
+    "atomicNumber": 70,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Lu",
+    "name": "Lutécio",
+    "atomicNumber": 71,
+    "group": 3,
+    "period": 6,
+    "block": "f"
+  },
+  {
+    "symbol": "Hf",
+    "name": "Háfnio",
+    "atomicNumber": 72,
+    "group": 4,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Ta",
+    "name": "Tântalo",
+    "atomicNumber": 73,
+    "group": 5,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "W",
+    "name": "Tungstênio",
+    "atomicNumber": 74,
+    "group": 6,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Re",
+    "name": "Rênio",
+    "atomicNumber": 75,
+    "group": 7,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Os",
+    "name": "Ósmio",
+    "atomicNumber": 76,
+    "group": 8,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Ir",
+    "name": "Irídio",
+    "atomicNumber": 77,
+    "group": 9,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Pt",
+    "name": "Platina",
+    "atomicNumber": 78,
+    "group": 10,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Au",
+    "name": "Ouro",
+    "atomicNumber": 79,
+    "group": 11,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Hg",
+    "name": "Mercúrio",
+    "atomicNumber": 80,
+    "group": 12,
+    "period": 6,
+    "block": "d"
+  },
+  {
+    "symbol": "Tl",
+    "name": "Tálio",
+    "atomicNumber": 81,
+    "group": 13,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "Pb",
+    "name": "Chumbo",
+    "atomicNumber": 82,
+    "group": 14,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "Bi",
+    "name": "Bismuto",
+    "atomicNumber": 83,
+    "group": 15,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "Po",
+    "name": "Polônio",
+    "atomicNumber": 84,
+    "group": 16,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "At",
+    "name": "Astato",
+    "atomicNumber": 85,
+    "group": 17,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "Rn",
+    "name": "Radônio",
+    "atomicNumber": 86,
+    "group": 18,
+    "period": 6,
+    "block": "p"
+  },
+  {
+    "symbol": "Fr",
+    "name": "Frâncio",
+    "atomicNumber": 87,
+    "group": 1,
+    "period": 7,
+    "block": "s"
+  },
+  {
+    "symbol": "Ra",
+    "name": "Rádio",
+    "atomicNumber": 88,
+    "group": 2,
+    "period": 7,
+    "block": "s"
+  },
+  {
+    "symbol": "Ac",
+    "name": "Actínio",
+    "atomicNumber": 89,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Th",
+    "name": "Tório",
+    "atomicNumber": 90,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Pa",
+    "name": "Protactínio",
+    "atomicNumber": 91,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "U",
+    "name": "Urânio",
+    "atomicNumber": 92,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Np",
+    "name": "Netúnio",
+    "atomicNumber": 93,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Pu",
+    "name": "Plutônio",
+    "atomicNumber": 94,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Am",
+    "name": "Amerício",
+    "atomicNumber": 95,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Cm",
+    "name": "Cúrio",
+    "atomicNumber": 96,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Bk",
+    "name": "Berquélio",
+    "atomicNumber": 97,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Cf",
+    "name": "Califórnio",
+    "atomicNumber": 98,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Es",
+    "name": "Einstênio",
+    "atomicNumber": 99,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Fm",
+    "name": "Férmio",
+    "atomicNumber": 100,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Md",
+    "name": "Mendelévio",
+    "atomicNumber": 101,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "No",
+    "name": "Nobélio",
+    "atomicNumber": 102,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Lr",
+    "name": "Laurêncio",
+    "atomicNumber": 103,
+    "group": 3,
+    "period": 7,
+    "block": "f"
+  },
+  {
+    "symbol": "Rf",
+    "name": "Rutherfórdio",
+    "atomicNumber": 104,
+    "group": 4,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Db",
+    "name": "Dúbnio",
+    "atomicNumber": 105,
+    "group": 5,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Sg",
+    "name": "Seabórgio",
+    "atomicNumber": 106,
+    "group": 6,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Bh",
+    "name": "Bóhrio",
+    "atomicNumber": 107,
+    "group": 7,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Hs",
+    "name": "Hássio",
+    "atomicNumber": 108,
+    "group": 8,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Mt",
+    "name": "Meitnério",
+    "atomicNumber": 109,
+    "group": 9,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Ds",
+    "name": "Darmstádio",
+    "atomicNumber": 110,
+    "group": 10,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Rg",
+    "name": "Roentgênio",
+    "atomicNumber": 111,
+    "group": 11,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Cn",
+    "name": "Copernício",
+    "atomicNumber": 112,
+    "group": 12,
+    "period": 7,
+    "block": "d"
+  },
+  {
+    "symbol": "Nh",
+    "name": "Nihônio",
+    "atomicNumber": 113,
+    "group": 13,
+    "period": 7,
+    "block": "p"
+  },
+  {
+    "symbol": "Fl",
+    "name": "Fleróvio",
+    "atomicNumber": 114,
+    "group": 14,
+    "period": 7,
+    "block": "p"
+  },
+  {
+    "symbol": "Mc",
+    "name": "Moscóvio",
+    "atomicNumber": 115,
+    "group": 15,
+    "period": 7,
+    "block": "p"
+  },
+  {
+    "symbol": "Lv",
+    "name": "Livermório",
+    "atomicNumber": 116,
+    "group": 16,
+    "period": 7,
+    "block": "p"
+  },
+  {
+    "symbol": "Ts",
+    "name": "Tenessino",
+    "atomicNumber": 117,
+    "group": 17,
+    "period": 7,
+    "block": "p"
+  },
+  {
+    "symbol": "Og",
+    "name": "Oganesónio",
+    "atomicNumber": 118,
+    "group": 18,
+    "period": 7,
+    "block": "p"
+  }
 ]
