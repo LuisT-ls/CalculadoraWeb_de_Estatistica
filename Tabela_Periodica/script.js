@@ -54,21 +54,29 @@ async function loadPeriodicTable() {
 // Função para exibir a tabela periódica completa
 async function showPeriodicTable() {
   const container = document.getElementById('periodic-table-container')
-  container.innerHTML = '' // Limpa o contêiner
+  const button = document.getElementById('showPeriodicTable') // Obter o botão
 
-  const periodicTable = await loadPeriodicTable()
+  if (container.style.display === 'grid') {
+    // A tabela está visível, então vamos ocultá-la
+    container.style.display = 'none'
+    button.textContent = 'Exibir a Tabela Periódica'
+  } else {
+    container.innerHTML = '' // Limpa o contêiner caso esteja vazio
 
-  // Cria a tabela periódica usando CSS grid
-  periodicTable.forEach(element => {
-    const cell = document.createElement('div')
-    cell.classList.add('periodic-table-cell')
-    cell.style.gridColumn = getGridColumn(element)
-    cell.style.gridRow = getGridRow(element)
-    cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
-    container.appendChild(cell)
-  })
+    const periodicTable = await loadPeriodicTable()
 
-  container.style.display = 'grid'
+    periodicTable.forEach(element => {
+      const cell = document.createElement('div')
+      cell.classList.add('periodic-table-cell')
+      cell.style.gridColumn = getGridColumn(element)
+      cell.style.gridRow = getGridRow(element)
+      cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
+      container.appendChild(cell)
+    })
+
+    container.style.display = 'grid'
+    button.textContent = 'Ocultar a Tabela Periódica'
+  }
 }
 
 // Função auxiliar para determinar a coluna da grade (grupo)
