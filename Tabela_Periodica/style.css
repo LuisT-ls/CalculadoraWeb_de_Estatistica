@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 80%;
   margin: 0 auto;
   background-color: #fff;
   border-radius: 1rem;
@@ -174,36 +174,78 @@ input:focus {
 }
 
 /* Estilos para o contêiner da tabela periódica */
+/* Estilos para o contêiner da tabela periódica */
 .periodic-table-container {
-  display: none;
-  grid-template-columns: repeat(
-    18,
-    1fr
-  ); /* 18 colunas para cobrir todos os grupos */
-  grid-gap: 1px;
-  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 5px;
+  margin: 2rem auto;
   padding: 1rem;
-  background-color: #333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
 }
 
-/* Estilos para as células dos elementos na tabela periódica completa */
+/* Estilos para as células dos elementos */
 .periodic-table-cell {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  background-color: #333;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10%;
+  box-sizing: border-box;
   text-align: center;
-  transition: transform 0.2s;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+/* Cores de fundo para diferentes categorias de elementos */
+.alcalino {
+  background-color: #ffcccc;
+}
+.alcalino-terroso {
+  background-color: #ffebcc;
+}
+.lantanideo {
+  background-color: #ccccff;
+}
+.actinideo {
+  background-color: #ccffff;
+}
+.transicao {
+  background-color: #e6ccff;
+}
+.pos-transicao {
+  background-color: #d9ffcc;
+}
+.metaloides {
+  background-color: #ffffcc;
+}
+.nao-metais {
+  background-color: #ccffcc;
+}
+.halogenios {
+  background-color: #cce6ff;
+}
+.gases-nobres {
+  background-color: #f2f2f2;
+}
+
+/* Efeito de foco ao passar o mouse */
 .periodic-table-cell:hover {
+  background-color: #ddd;
   transform: scale(1.05);
+}
+
+/* Estilos para o modo escuro */
+.dark-mode .periodic-table-container {
+  background-color: #333;
+}
+
+.dark-mode .periodic-table-cell {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark-mode .periodic-table-cell:hover {
+  background-color: #666;
 }
 
 /* Estilos para o label */
