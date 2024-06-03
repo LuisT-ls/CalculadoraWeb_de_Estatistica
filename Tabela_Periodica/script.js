@@ -54,14 +54,13 @@ async function loadPeriodicTable() {
 // Função para exibir a tabela periódica completa
 async function showPeriodicTable() {
   const container = document.getElementById('periodic-table-container')
-  const button = document.getElementById('showPeriodicTable') // Obter o botão
+  const button = document.getElementById('showPeriodicTable')
 
   if (container.style.display === 'grid') {
-    // A tabela está visível, então vamos ocultá-la
     container.style.display = 'none'
     button.textContent = 'Exibir a Tabela Periódica'
   } else {
-    container.innerHTML = '' // Limpa o contêiner caso esteja vazio
+    container.innerHTML = ''
 
     const periodicTable = await loadPeriodicTable()
 
@@ -81,23 +80,11 @@ async function showPeriodicTable() {
 
 // Função auxiliar para determinar a coluna da grade (grupo)
 function getGridColumn(element) {
-  if (element.period === 6 && element.group >= 3 && element.group <= 12) {
-    return element.group + 2 // Adaptação para a série dos lantanídeos
-  } else if (
-    element.period === 7 &&
-    element.group >= 3 &&
-    element.group <= 12
-  ) {
-    return element.group + 2 // Adaptação para a série dos actinídeos
-  }
-  return element.group
+  return element.group === 0 ? 1 : element.group + 1
 }
 
 // Função auxiliar para determinar a linha da grade (período)
 function getGridRow(element) {
-  if (element.period >= 6 && element.group >= 3 && element.group <= 12) {
-    return element.period + 1 // Adaptação para a série dos lantanídeos e actinídeos
-  }
   return element.period
 }
 

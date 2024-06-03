@@ -44,8 +44,8 @@ h1 {
 
 /* Estilo para botões no modo claro */
 .light-mode button {
-  background-color: #333; /* Cor de fundo azul */
-  color: #fff; /* Cor do texto branco */
+  background-color: #333; /* Cor de fundo */
+  color: #fff; /* Cor do texto */
 }
 
 .light-mode button:hover {
@@ -60,8 +60,8 @@ h1 {
 
 /* Estilização do .container para o modo escuro */
 .dark-mode .container {
-  background-color: #222; /* Cor de fundo do .container no modo escuro */
-  color: #ffffff; /* Cor do texto do .container no modo escuro */
+  background-color: #222;
+  color: #ffffff;
 }
 
 /* Cores de texto personalizadas para o modo escuro */
@@ -70,21 +70,21 @@ h1 {
 .dark-mode p,
 .dark-mode span,
 .dark-mode .result {
-  color: #ffffff; /* Cor do texto para cabeçalhos, labels, parágrafos, e spans no modo escuro */
+  color: #ffffff;
 }
 
 /* Cores de texto para botões no modo escuro */
 .dark-mode button {
-  background-color: #333; /* Cor de fundo dos botões no modo escuro */
-  color: #fff; /* Cor do texto dos botões no modo escuro */
-  padding: 0.625rem 1.25rem; /* 10px / 16px = 0.625rem, 20px / 16px = 1.25rem */
-  border-radius: 0.3125rem; /* 5px / 16px = 0.3125rem */
+  background-color: #333;
+  color: #fff;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.3125rem;
   cursor: pointer;
-  font-size: 1rem; /* 16px / 16px = 1rem */
+  font-size: 1rem;
 }
 
 .dark-mode button:hover {
-  background-color: #555; /* Cor do botão no hover no modo escuro */
+  background-color: #555;
 }
 
 .dark-mode th {
@@ -152,7 +152,7 @@ input:focus {
 
 .element-header {
   background: linear-gradient(to right, #007bff, #0056b3);
-  color: #333;
+  color: #fff;
   padding: 1rem;
   text-align: left;
   font-weight: bold;
@@ -174,63 +174,61 @@ input:focus {
 }
 
 /* Estilos para o contêiner da tabela periódica */
-/* Estilos para o contêiner da tabela periódica */
 .periodic-table-container {
   display: grid;
-  grid-template-columns: repeat(18, 1fr);
-  gap: 5px;
-  margin: 2rem auto;
+  grid-template-columns: repeat(
+    18,
+    1fr
+  ); /* 18 colunas para a tabela principal */
+  gap: 8px; /* Espaçamento entre as células */
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 1rem;
   padding: 1rem;
   max-width: 100%;
-}
-
-/* Estilos para as células dos elementos */
-.periodic-table-cell {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10%;
   box-sizing: border-box;
+}
+
+.periodic-table-cell {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 15px;
   text-align: center;
-  font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-/* Cores de fundo para diferentes categorias de elementos */
-.alcalino {
-  background-color: #ffcccc;
-}
-.alcalino-terroso {
-  background-color: #ffebcc;
-}
-.lantanideo {
-  background-color: #ccccff;
-}
-.actinideo {
-  background-color: #ccffff;
-}
-.transicao {
-  background-color: #e6ccff;
-}
-.pos-transicao {
-  background-color: #d9ffcc;
-}
-.metaloides {
-  background-color: #ffffcc;
-}
-.nao-metais {
-  background-color: #ccffcc;
-}
-.halogenios {
-  background-color: #cce6ff;
-}
-.gases-nobres {
-  background-color: #f2f2f2;
-}
-
-/* Efeito de foco ao passar o mouse */
 .periodic-table-cell:hover {
-  background-color: #ddd;
-  transform: scale(1.05);
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.s-block {
+  background-color: #e0f2f1;
+}
+.p-block {
+  background-color: #f0f4c3;
+}
+.d-block {
+  background-color: #e1bee7;
+}
+.f-block {
+  background-color: #d1c4e9;
+}
+
+.f-block-container {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr); /* 14 colunas para cada série */
+  gap: 5px;
+  margin-top: 1rem; /* Espaçamento da tabela principal */
+  padding: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.f-block-label {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem; /* Espaçamento do rótulo */
 }
 
 /* Estilos para o modo escuro */
@@ -251,56 +249,9 @@ input:focus {
 /* Estilos para o label */
 label {
   font-size: 1.1rem;
-  font-weight: bold;
+  color: #333;
 }
 
-/* Estilos para o parágrafo */
-p {
-  margin-top: 1rem;
-}
-
-/* Estilos para o span */
-span {
-  font-weight: bold;
-}
-
-/* Estilos para a tabela */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-th {
-  background-color: #333;
-  color: #fff;
-  padding: 0.75rem;
-}
-
-td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #ddd;
-}
-
-td:first-child {
-  font-weight: bold;
-}
-
-td:nth-child(2) {
-  font-style: italic;
-}
-
-td:last-child {
-  font-weight: bold;
-}
-
-/* Estilos para o resultado */
-.result {
-  margin-top: 1rem;
-  font-size: 1.5rem;
-}
-
-/* Estilos para o rodapé */
 footer {
   margin-top: 2rem;
   padding: 1rem 0;
@@ -334,37 +285,21 @@ footer .signature {
   color: #555;
 }
 
-/* Estilos para telas menores */
+/* Estilos específicos para telas menores */
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  .container {
-    max-width: 90%;
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-container button {
-    width: 100%;
-    margin: 0.5rem 0;
-    padding: 1rem;
-  }
-
   #toggleDarkMode {
     display: none;
   }
 
+  .container {
+    padding: 1rem; /* Reduz o preenchimento */
+    margin: 10px; /* Reduz a margem */
+  }
+
+  select,
+  input[type='number'] {
+    font-size: 14px; /* Reduz o tamanho da fonte */
+  }
   footer p {
     font-size: 1rem;
   }
