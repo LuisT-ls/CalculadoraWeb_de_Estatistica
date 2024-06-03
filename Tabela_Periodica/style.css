@@ -176,11 +176,8 @@ input:focus {
 /* Estilos para o contêiner da tabela periódica */
 .periodic-table-container {
   display: grid;
-  grid-template-columns: repeat(
-    18,
-    1fr
-  ); /* 18 colunas para a tabela principal */
-  gap: 8px; /* Espaçamento entre as células */
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 4px;
   font-family: 'Open Sans', sans-serif;
   margin-top: 1rem;
   padding: 1rem;
@@ -200,35 +197,6 @@ input:focus {
 .periodic-table-cell:hover {
   background-color: #e0e0e0;
   cursor: pointer;
-}
-
-.s-block {
-  background-color: #e0f2f1;
-}
-.p-block {
-  background-color: #f0f4c3;
-}
-.d-block {
-  background-color: #e1bee7;
-}
-.f-block {
-  background-color: #d1c4e9;
-}
-
-.f-block-container {
-  display: grid;
-  grid-template-columns: repeat(14, 1fr); /* 14 colunas para cada série */
-  gap: 5px;
-  margin-top: 1rem; /* Espaçamento da tabela principal */
-  padding: 1rem;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.f-block-label {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 0.5rem; /* Espaçamento do rótulo */
 }
 
 /* Estilos para o modo escuro */
@@ -292,14 +260,22 @@ footer .signature {
   }
 
   .container {
-    padding: 1rem; /* Reduz o preenchimento */
-    margin: 10px; /* Reduz a margem */
+    padding: 1rem;
+    margin: 10px;
   }
 
   select,
   input[type='number'] {
-    font-size: 14px; /* Reduz o tamanho da fonte */
+    font-size: 14px;
   }
+
+  .periodic-table-container {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(40px, 1fr)
+    );
+  }
+
   footer p {
     font-size: 1rem;
   }
