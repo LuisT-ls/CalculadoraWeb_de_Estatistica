@@ -37,31 +37,36 @@
     />
   </head>
   <body>
-    <div class="container">
-      <header>
+    <div class="container" role="main">
+      <header role="banner">
         <button
           id="toggleDarkMode"
           onclick="toggleDarkMode()"
           aria-label="Alternar modo escuro"
+          tabindex="0"
         >
-          <img
-            src="dark-mode-icon.png"
-            alt="Ícone de alternância para o modo escuro"
-          />
+          <img src="dark-mode-icon.png" alt="Ícone de modo escuro" />
         </button>
         <h1>Bem-vindo à sua Tabela Periódica</h1>
       </header>
       <main>
-        <section class="input">
+        <section class="input" aria-label="Pesquisar elementos">
           <label for="search">Pesquisar por nome ou símbolo:</label>
           <input
             type="text"
             id="search"
             placeholder="Pesquisar"
             oninput="searchElement()"
+            aria-describedby="searchInstructions"
           />
+          <p id="searchInstructions">
+            Digite o nome ou símbolo de um elemento para buscar.
+          </p>
         </section>
-        <section class="button-container">
+        <section
+          class="button-container"
+          aria-label="Controles da tabela periódica"
+        >
           <button id="showPeriodicTable" onclick="showPeriodicTable()">
             Exibir a Tabela Periódica
           </button>
@@ -70,12 +75,14 @@
         <section
           id="periodic-table-container"
           class="periodic-table-container"
+          aria-label="Tabela Periódica"
           style="display: none"
         ></section>
         <!-- Seção dos Lantanídeos -->
         <section
           id="lanthanides-container"
           class="lanthanides-container"
+          aria-label="Lantanídeos"
           style="display: none"
         >
           <h3>Lantanídeos (La–Lu)</h3>
@@ -86,6 +93,7 @@
         <section
           id="actinides-container"
           class="actinides-container"
+          aria-label="Actinídeos"
           style="display: none"
         >
           <h3>Actinídeos (Ac–Lr)</h3>

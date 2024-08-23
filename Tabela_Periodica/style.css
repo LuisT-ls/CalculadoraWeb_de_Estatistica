@@ -242,8 +242,8 @@ input:focus {
   text-align: center;
   transition: background-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-    border-radius: 4px;
+  cursor: pointer;
+  border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 0.65rem;
   height: 40px;
@@ -323,7 +323,7 @@ input:focus {
 }
 
 .modal {
-  background: #fff;
+  background: #777;
   padding: 20px;
   border-radius: 8px;
   max-width: 500px;
@@ -355,6 +355,12 @@ input:focus {
 
 .close-modal:hover {
   background-color: #555;
+}
+
+button:focus,
+input:focus {
+  outline: 3px solid #007bff;
+  outline-offset: 2px;
 }
 
 /* Estilos para o modo escuro */
