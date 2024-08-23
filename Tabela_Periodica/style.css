@@ -227,8 +227,8 @@ input:focus {
   grid-template-columns: repeat(
     18,
     1fr
-  ); /* 18 colunas para acomodar todos os grupos */
-  gap: 2px; /* Reduzido o espaçamento entre as células */
+  );
+  gap: 2px;
   font-family: 'Open Sans', sans-serif;
   margin-top: 1rem;
   padding: 1rem;
@@ -242,7 +242,8 @@ input:focus {
   border: 1px solid #ddd;
   padding: 5px;
   text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease, color 0.3s ease;
   cursor: pointer;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -252,11 +253,20 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #333;
 }
 
+/* Efeito ao passar o mouse */
 .periodic-table-cell:hover {
   background-color: #e0e0e0;
-  transform: translateY(-2px);
+  color: #000;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    135deg,
+    #777,
+    #999
+  );
 }
 
 /* Estilos para Lantanídeos e Actinídeos */
@@ -350,10 +360,7 @@ footer .signature {
   }
 
   .periodic-table-container {
-    grid-template-columns: repeat(
-      6,
-      1fr
-    );
+    grid-template-columns: repeat(6, 1fr);
     padding: 0.5rem;
   }
 
@@ -363,6 +370,10 @@ footer .signature {
     font-size: 0.55rem;
   }
 
+  .periodic-table-cell:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+
   footer p {
     font-size: 1rem;
   }
@@ -370,10 +381,7 @@ footer .signature {
 
 @media (max-width: 1024px) {
   .periodic-table-container {
-    grid-template-columns: repeat(
-      9,
-      1fr
-    );
+    grid-template-columns: repeat(9, 1fr);
     padding: 0.5rem;
   }
 
@@ -381,6 +389,10 @@ footer .signature {
     height: 35px;
     width: 35px;
     font-size: 0.6rem;
+  }
+
+  .periodic-table-cell:hover {
+    transform: translateY(-4px) scale(1.08);
   }
 }
 
@@ -394,5 +406,9 @@ footer .signature {
     height: 25px;
     width: 25px;
     font-size: 0.5rem;
+  }
+
+  .periodic-table-cell:hover {
+    transform: translateY(-2px) scale(1.03);
   }
 }
