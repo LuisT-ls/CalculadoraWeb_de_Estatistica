@@ -131,6 +131,32 @@ input:focus {
   border-color: #333;
 }
 
+/* Estilos para a lista de sugestões */
+.suggestions-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #555;
+  background-color: #777;
+  position: absolute;
+  width: 30%;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover,
+.suggestions-list li:focus {
+  background-color: #999;
+}
+
 /* Estilos para o container da tabela */
 .element-info {
   margin-top: 2rem;

@@ -58,10 +58,20 @@
             placeholder="Pesquisar"
             oninput="searchElement()"
             aria-describedby="searchInstructions"
+            aria-autocomplete="list"
+            aria-controls="suggestions-list"
+            aria-expanded="false"
           />
           <p id="searchInstructions">
             Digite o nome ou símbolo de um elemento para buscar.
           </p>
+
+          <!-- Contêiner para sugestões -->
+          <ul
+            id="suggestions-list"
+            class="suggestions-list"
+            role="listbox"
+          ></ul>
         </section>
         <section
           class="button-container"

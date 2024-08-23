@@ -19,36 +19,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para buscar e exibir informações do elemento
 const searchInput = document.getElementById('search')
+const suggestionsList = document.getElementById('suggestions-list')
 function searchElement() {
   const searchTerm = searchInput.value.toLowerCase().trim()
   if (searchTerm === '') {
-    clearElementInfo()
+    clearSuggestions()
     return
   }
 
   fetch('elements.json')
     .then(response => response.json())
     .then(elements => {
-      const element = elements.find(
-        el =>
-          el.name.toLowerCase().includes(searchTerm) ||
-          el.symbol.toLowerCase() === searchTerm
+      const matches = elements.filter(
+        element =>
+          element.name.toLowerCase().startsWith(searchTerm) ||
+          element.symbol.toLowerCase().startsWith(searchTerm)
       )
 
-      if (element) {
-        displayElementInfo(element)
-      } else {
-        clearElementInfo()
-      }
+      displaySuggestions(matches)
     })
     .catch(error => {
-      clearElementInfo()
-      const errorMessage = document.createElement('p')
-      errorMessage.textContent =
-        'Erro ao carregar os dados dos elementos químicos.'
-      document.body.appendChild(errorMessage)
       console.error('Erro ao buscar os elementos:', error)
+      clearSuggestions()
     })
+}
+
+// Função para exibir as sugestões
+function displaySuggestions(matches) {
+  clearSuggestions()
+  if (matches.length === 0) {
+    suggestionsList.classList.remove('show')
+    return
+  }
+
+  matches.forEach(element => {
+    const li = document.createElement('li')
+    li.textContent = `${element.name} (${element.symbol})`
+    li.tabIndex = 0 // Permite foco via teclado
+    li.addEventListener('click', () => {
+      searchInput.value = element.name
+      clearSuggestions()
+      displayElementInfo(element)
+    })
+    suggestionsList.appendChild(li)
+  })
+
+  suggestionsList.style.display = 'block'
+  searchInput.setAttribute('aria-expanded', 'true')
+}
+
+// Função para limpar as sugestões
+function clearSuggestions() {
+  suggestionsList.innerHTML = ''
+  suggestionsList.style.display = 'none'
+  searchInput.setAttribute('aria-expanded', 'false')
 }
 
 // Função para carregar a tabela periódica do arquivo JSON
