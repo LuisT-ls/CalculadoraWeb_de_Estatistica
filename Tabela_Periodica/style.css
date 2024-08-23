@@ -224,10 +224,7 @@ input:focus {
 /* Estilos para o contêiner da tabela periódica */
 .periodic-table-container {
   display: grid;
-  grid-template-columns: repeat(
-    18,
-    1fr
-  );
+  grid-template-columns: repeat(18, 1fr);
   gap: 2px;
   font-family: 'Open Sans', sans-serif;
   margin-top: 1rem;
@@ -262,11 +259,7 @@ input:focus {
   color: #000;
   transform: translateY(-5px) scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(
-    135deg,
-    #777,
-    #999
-  );
+  background: linear-gradient(135deg, #777, #999);
 }
 
 /* Estilos para Lantanídeos e Actinídeos */
@@ -285,6 +278,69 @@ input:focus {
 .lanthanides-grid .periodic-table-cell,
 .actinides-grid .periodic-table-cell {
   grid-column: span 1;
+}
+
+/* Estilos para tooltips */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease;
+}
+
+/* Estilos para a modal de detalhes */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.modal p {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.close-modal {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  float: right;
+}
+
+.close-modal:hover {
+  background-color: #555;
 }
 
 /* Estilos para o modo escuro */

@@ -58,6 +58,60 @@ async function loadPeriodicTable() {
   return periodicTable
 }
 
+// Função para exibir tooltips
+function createTooltip(element) {
+  const tooltip = document.createElement('div')
+  tooltip.className = 'tooltip'
+  tooltip.innerHTML = `
+    <strong>${element.name} (${element.symbol})</strong><br>
+    Número Atômico: ${element.atomicNumber}<br>
+    Massa Atômica: ${element.atomicMass || 'Desconhecida'}<br>
+    Configuração Eletrônica: ${element.electronConfiguration || 'Desconhecida'}
+  `
+  document.body.appendChild(tooltip)
+
+  return tooltip
+}
+
+function positionTooltip(tooltip, event) {
+  const tooltipWidth = tooltip.offsetWidth
+  const tooltipHeight = tooltip.offsetHeight
+  const xOffset = 15 // Deslocamento horizontal
+  const yOffset = 15 // Deslocamento vertical
+
+  let left = event.pageX + xOffset
+  let top = event.pageY + yOffset
+
+  // Prevenção de overflow na borda da janela
+  if (left + tooltipWidth > window.innerWidth) {
+    left = event.pageX - tooltipWidth - xOffset
+  }
+  if (top + tooltipHeight > window.innerHeight) {
+    top = event.pageY - tooltipHeight - yOffset
+  }
+
+  tooltip.style.left = `${left}px`
+  tooltip.style.top = `${top}px`
+}
+
+// Função para associar tooltips às células da tabela
+function addTooltipListeners(cell, element) {
+  let tooltip
+
+  cell.addEventListener('mouseenter', event => {
+    tooltip = createTooltip(element)
+    positionTooltip(tooltip, event)
+  })
+
+  cell.addEventListener('mousemove', event => {
+    positionTooltip(tooltip, event)
+  })
+
+  cell.addEventListener('mouseleave', () => {
+    tooltip.remove()
+  })
+}
+
 // Função para exibir a tabela periódica completa
 async function showPeriodicTable() {
   const container = document.getElementById('periodic-table-container')
@@ -80,17 +134,17 @@ async function showPeriodicTable() {
         cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
 
         if (element.period === 6 && element.group === 3) {
-          // Lantanídeos (La-Lu)
           document.querySelector('.lanthanides-grid').appendChild(cell)
         } else if (element.period === 7 && element.group === 3) {
-          // Actinídeos (Ac-Lr)
           document.querySelector('.actinides-grid').appendChild(cell)
         } else {
-          // Outros elementos
           cell.style.gridColumn = getGridColumn(element)
           cell.style.gridRow = getGridRow(element)
           container.appendChild(cell)
         }
+
+        addTooltipListeners(cell, element)
+        addModalListener(cell, element)
       })
     }
     container.style.display = 'grid'
@@ -98,6 +152,47 @@ async function showPeriodicTable() {
     actinidesContainer.style.display = 'block'
     button.textContent = 'Ocultar a Tabela Periódica'
   }
+}
+
+// Função para criar a modal de detalhes
+function createModal(element) {
+  const modalOverlay = document.createElement('div')
+  modalOverlay.className = 'modal-overlay'
+  const modal = document.createElement('div')
+  modal.className = 'modal'
+
+  modal.innerHTML = `
+    <h2>${element.name} (${element.symbol})</h2>
+    <p><strong>Número Atômico:</strong> ${element.atomicNumber}</p>
+    <p><strong>Massa Atômica:</strong> ${
+      element.atomicMass || 'Desconhecida'
+    }</p>
+    <p><strong>Configuração Eletrônica:</strong> ${
+      element.electronConfiguration || 'Desconhecida'
+    }</p>
+    <p><strong>Grupo:</strong> ${element.group}</p>
+    <p><strong>Período:</strong> ${element.period}</p>
+    <button class="close-modal">Fechar</button>
+  `
+
+  modalOverlay.appendChild(modal)
+  document.body.appendChild(modalOverlay)
+
+  modalOverlay.addEventListener('click', event => {
+    if (
+      event.target === modalOverlay ||
+      event.target.classList.contains('close-modal')
+    ) {
+      modalOverlay.remove()
+    }
+  })
+}
+
+// Modificação na função de exibição das células para abrir a modal ao clicar
+function addModalListener(cell, element) {
+  cell.addEventListener('click', () => {
+    createModal(element)
+  })
 }
 
 // Função auxiliar para determinar a coluna da grade (grupo)
