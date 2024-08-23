@@ -15,16 +15,18 @@
   </head>
   <body>
     <div class="container">
-      <button
-        id="toggleDarkMode"
-        onclick="toggleDarkMode()"
-        aria-label="Alternar modo escuro"
-      >
-        🌙
-      </button>
-      <main>
+      <header>
+        <button
+          id="toggleDarkMode"
+          onclick="toggleDarkMode()"
+          aria-label="Alternar modo escuro"
+        >
+          <img src="dark-mode-icon.png" alt="Ícone de modo escuro" />
+        </button>
         <h1>Bem-vindo à sua Tabela Periódica</h1>
-        <div class="input">
+      </header>
+      <main>
+        <section class="input">
           <label for="search">Pesquisar por nome ou símbolo:</label>
           <input
             type="text"
@@ -32,18 +34,37 @@
             placeholder="Pesquisar"
             oninput="searchElement()"
           />
-        </div>
-        <div class="button-container">
+        </section>
+        <section class="button-container">
           <button id="showPeriodicTable" onclick="showPeriodicTable()">
             Exibir a Tabela Periódica
           </button>
-        </div>
-        <div id="element-info-container"></div>
-        <div
+        </section>
+        <section id="element-info-container"></section>
+        <section
           id="periodic-table-container"
           class="periodic-table-container"
           style="display: none"
-        ></div>
+        ></section>
+        <!-- Seção dos Lantanídeos -->
+        <section
+          id="lanthanides-container"
+          class="lanthanides-container"
+          style="display: none"
+        >
+          <h3>Lantanídeos (La–Lu)</h3>
+          <div class="lanthanides-grid"></div>
+        </section>
+
+        <!-- Seção dos Actinídeos -->
+        <section
+          id="actinides-container"
+          class="actinides-container"
+          style="display: none"
+        >
+          <h3>Actinídeos (Ac–Lr)</h3>
+          <div class="actinides-grid"></div>
+        </section>
       </main>
       <footer>
         <p>&copy; 2024 Luís Teixeira. Todos os direitos reservados.</p>

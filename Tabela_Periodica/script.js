@@ -1,14 +1,21 @@
 // Função para alternar o modo escuro (simplificada com operador ternário)
 function toggleDarkMode() {
   const body = document.body
-  const button = document.getElementById('toggleDarkMode')
-
   body.classList.toggle('dark-mode')
+  const button = document.getElementById('toggleDarkMode')
   button.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙'
-  button.classList.toggle('light-mode', !body.classList.contains('dark-mode'))
 }
 
-document.addEventListener('DOMContentLoaded', toggleDarkMode)
+// Carrega o modo escuro ou claro assim que a página é carregada
+document.addEventListener('DOMContentLoaded', () => {
+  toggleDarkMode()
+
+  // Otimização de desempenho para evitar criação repetida de elementos
+  const elementInfoContainer = document.querySelector('.element-info')
+  if (elementInfoContainer && !elementInfoContainer.hasChildNodes()) {
+    elementInfoContainer.style.display = 'none'
+  }
+})
 
 // Função para buscar e exibir informações do elemento
 const searchInput = document.getElementById('search')
@@ -54,26 +61,41 @@ async function loadPeriodicTable() {
 // Função para exibir a tabela periódica completa
 async function showPeriodicTable() {
   const container = document.getElementById('periodic-table-container')
+  const lanthanidesContainer = document.getElementById('lanthanides-container')
+  const actinidesContainer = document.getElementById('actinides-container')
   const button = document.getElementById('showPeriodicTable')
 
   if (container.style.display === 'grid') {
     container.style.display = 'none'
+    lanthanidesContainer.style.display = 'none'
+    actinidesContainer.style.display = 'none'
     button.textContent = 'Exibir a Tabela Periódica'
   } else {
-    container.innerHTML = ''
+    if (!container.innerHTML) {
+      const periodicTable = await loadPeriodicTable()
 
-    const periodicTable = await loadPeriodicTable()
+      periodicTable.forEach(element => {
+        const cell = document.createElement('div')
+        cell.classList.add('periodic-table-cell')
+        cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
 
-    periodicTable.forEach(element => {
-      const cell = document.createElement('div')
-      cell.classList.add('periodic-table-cell')
-      cell.style.gridColumn = getGridColumn(element)
-      cell.style.gridRow = getGridRow(element)
-      cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
-      container.appendChild(cell)
-    })
-
+        if (element.period === 6 && element.group === 3) {
+          // Lantanídeos (La-Lu)
+          document.querySelector('.lanthanides-grid').appendChild(cell)
+        } else if (element.period === 7 && element.group === 3) {
+          // Actinídeos (Ac-Lr)
+          document.querySelector('.actinides-grid').appendChild(cell)
+        } else {
+          // Outros elementos
+          cell.style.gridColumn = getGridColumn(element)
+          cell.style.gridRow = getGridRow(element)
+          container.appendChild(cell)
+        }
+      })
+    }
     container.style.display = 'grid'
+    lanthanidesContainer.style.display = 'block'
+    actinidesContainer.style.display = 'block'
     button.textContent = 'Ocultar a Tabela Periódica'
   }
 }
@@ -85,10 +107,16 @@ function getGridColumn(element) {
 
 // Função auxiliar para determinar a linha da grade (período)
 function getGridRow(element) {
+  if (
+    (element.period === 6 && element.group === 3) ||
+    (element.period === 7 && element.group === 3)
+  ) {
+    return null // Exclui La-Lu e Ac-Lr da tabela principal
+  }
   return element.period
 }
 
-// Função para exibir informações do elemento (sem alterações)
+// Função para exibir informações do elemento
 function displayElementInfo(element) {
   clearElementInfo()
 
@@ -154,15 +182,10 @@ function displayElementInfo(element) {
   }
 }
 
-// Função para limpar informações do elemento (sem alterações)
+// Função para limpar informações do elemento
 function clearElementInfo() {
   const infoContainer = document.querySelector('.element-info')
   if (infoContainer) {
     infoContainer.remove()
   }
 }
-
-// Event listener para o botão de mostrar a tabela periódica completa
-document
-  .getElementById('show-periodic-table-btn')
-  .addEventListener('click', showPeriodicTable)
