@@ -58,6 +58,13 @@ async function loadPeriodicTable() {
   return periodicTable
 }
 
+// Função para carregar os dados do JSON de elementos
+async function loadElementsData() {
+  const response = await fetch('elements.json')
+  const elementsData = await response.json()
+  return elementsData
+}
+
 // Função para exibir tooltips
 function createTooltip(element) {
   const tooltip = document.createElement('div')
@@ -127,11 +134,15 @@ async function showPeriodicTable() {
   } else {
     if (!container.innerHTML) {
       const periodicTable = await loadPeriodicTable()
+      const elementsData = await loadElementsData()
 
-      periodicTable.forEach(element => {
+      elementsData.forEach((element, index) => {
         const cell = document.createElement('div')
         cell.classList.add('periodic-table-cell')
         cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
+
+        // Definindo o delay da animação com base na ordem dos elementos
+        cell.style.setProperty('--animation-delay', `${index * 0.05}s`)
 
         if (element.period === 6 && element.group === 3) {
           document.querySelector('.lanthanides-grid').appendChild(cell)
@@ -143,6 +154,7 @@ async function showPeriodicTable() {
           container.appendChild(cell)
         }
 
+        // Adiciona tooltips e modal listeners a cada célula
         addTooltipListeners(cell, element)
         addModalListener(cell, element)
       })
@@ -188,7 +200,7 @@ function createModal(element) {
   })
 }
 
-// Modificação na função de exibição das células para abrir a modal ao clicar
+// Função para associar o evento de abertura da modal às células da tabela
 function addModalListener(cell, element) {
   cell.addEventListener('click', () => {
     createModal(element)

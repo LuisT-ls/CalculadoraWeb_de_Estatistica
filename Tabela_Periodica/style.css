@@ -236,13 +236,14 @@ input:focus {
 /* Estilos para cada célula da tabela periódica */
 .periodic-table-cell {
   background-color: #f5f5f5;
+  color: #333;
   border: 1px solid #ddd;
   padding: 5px;
   text-align: center;
   transition: background-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-  border-radius: 4px;
+    cursor: pointer;
+    border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 0.65rem;
   height: 40px;
@@ -250,7 +251,9 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: var(--animation-delay);
 }
 
 /* Efeito ao passar o mouse */
@@ -260,6 +263,17 @@ input:focus {
   transform: translateY(-5px) scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, #777, #999);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Estilos para Lantanídeos e Actinídeos */
