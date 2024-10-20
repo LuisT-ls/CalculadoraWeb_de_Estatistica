@@ -1,185 +1,501 @@
-/* Estilos gerais */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  background-color: #f4f4f4;
+/* Variáveis CSS */
+:root {
+  --primary-color: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-dark: #1d4ed8;
+  --bg-color: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --text-color: #1e293b;
+  --text-secondary: #475569;
+  --button-bg: #3b82f6;
+  --button-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+  --button-hover-gradient: linear-gradient(135deg, #2563eb, #1d4ed8);
+  --footer-bg: #e2e8f0;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.dark-mode {
+  --primary-color: #60a5fa;
+  --primary-light: #93c5fd;
+  --primary-dark: #3b82f6;
+  --bg-color: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-color: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --button-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+  --button-hover-gradient: linear-gradient(135deg, #60a5fa, #3b82f6);
+  --footer-bg: #1e293b;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Reset e estilos base */
+* {
   margin: 0;
-  padding: 2.5rem;
-  transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* Container principal */
 .container {
-  max-width: 50rem; /* 800px / 16px = 50rem */
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 0.625rem; /* 10px / 16px = 0.625rem */
-  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2); /* 10px / 16px = 0.625rem */
-  padding: 1.25rem; /* 20px / 16px = 1.25rem */
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+  padding: 2rem;
+  flex: 1;
+  position: relative;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--text-secondary) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  background-position: -19px -19px;
 }
 
-h1 {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Estilos para o botão de alternar o modo escuro */
+/* Toggle Theme Button */
 #toggleDarkMode {
-  background-color: #333;
-  color: #ffffff;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.3125rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--button-gradient);
+  color: white;
   cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s var(--transition-bounce);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
 }
 
 #toggleDarkMode:hover {
-  background-color: #555;
+  transform: scale(1.1) rotate(8deg);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
 }
 
-/* Estilo para botões no modo claro */
-.light-mode button {
-  background-color: #333; /* Cor de fundo azul */
-  color: #fff; /* Cor do texto branco */
-}
-
-.light-mode button:hover {
-  background-color: #555; /* Cor mais escura no hover */
-}
-
-/* Estilo para o modo escuro */
-.dark-mode {
-  background-color: #111;
-  color: #ffffff;
-}
-
-/* Estilização do .container para o modo escuro */
-.dark-mode .container {
-  background-color: #222; /* Cor de fundo do .container no modo escuro */
-  color: #ffffff; /* Cor do texto do .container no modo escuro */
-}
-
-/* Cores de texto personalizadas para o modo escuro */
-.dark-mode h1,
-.dark-mode label,
-.dark-mode p,
-.dark-mode span,
-.dark-mode .result {
-  color: #ffffff; /* Cor do texto para cabeçalhos, labels, parágrafos, e spans no modo escuro */
-}
-
-/* Cores de texto para botões no modo escuro */
-.dark-mode button {
-  background-color: #333; /* Cor de fundo dos botões no modo escuro */
-  color: #fff; /* Cor do texto dos botões no modo escuro */
-  padding: 0.625rem 1.25rem; /* 10px / 16px = 0.625rem, 20px / 16px = 1.25rem */
-  border-radius: 0.3125rem; /* 5px / 16px = 0.3125rem */
-  cursor: pointer;
-  font-size: 1rem; /* 16px / 16px = 1rem */
-}
-
-.dark-mode button:hover {
-  background-color: #555; /* Cor do botão no hover no modo escuro */
-}
-
-.dark-mode th {
-  background-color: #333;
-  color: #fff;
-}
-
-/* Estilos para a div de botões */
-.button-container {
+/* Títulos e textos */
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
   text-align: center;
-  margin-top: 1rem;
+  background: var(--button-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  animation: slideDown 0.8s var(--transition-bounce);
 }
 
-/* Estilos para os botões dentro da div */
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--button-gradient);
+  border-radius: 2px;
+}
+
+p {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Container de botões */
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  perspective: 1000px;
+}
+
+/* Botões */
 .button-container button {
-  background-color: #333;
-  color: #ffffff;
+  padding: 1.75rem;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.3125rem;
+  border-radius: var(--border-radius);
+  background: var(--button-gradient);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  margin: 0.5rem;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.4s var(--transition-bounce);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-container button span {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.button-container button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--button-hover-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .button-container button:hover {
-  background-color: #555;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-hover);
 }
 
+.button-container button:hover::before {
+  opacity: 1;
+}
+
+.button-container button:hover span {
+  transform: scale(1.05);
+}
+
+.button-container button:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Footer */
 footer {
-  margin-top: 2rem;
-  padding: 1rem 0;
-  background-color: #333;
-  color: #fff;
+  background: var(--footer-bg);
+  position: relative;
+  margin-top: 4rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.footer-wave-top {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-color) 25%, transparent 25%) -10px
+      0,
+    linear-gradient(225deg, var(--primary-color) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, var(--primary-color) 25%, transparent 25%),
+    linear-gradient(45deg, var(--primary-color) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-color: transparent;
+  opacity: 0.1;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  border-radius: 0.625rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
 }
 
-footer p {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+.footer-section:hover {
+  transform: translateY(-5px);
 }
 
-footer a {
-  color: #fff;
+.footer-section h3 {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: var(--button-gradient);
+  border-radius: 3px;
+}
+
+.footer-section p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  color: var(--text-color);
   text-decoration: none;
-  font-weight: bold;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s, color 0.3s;
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
-footer a:hover {
-  color: #666;
-  border-bottom: 2px solid #666;
+.footer-link:hover {
+  border-color: var(--primary-color);
+  background: var(--button-gradient);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-footer .signature {
-  font-style: italic;
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.footer-copyright {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  position: relative;
+}
+
+.footer-copyright::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: var(--button-gradient);
+}
+
+.footer-copyright p {
+  color: var(--text-secondary);
   font-size: 0.9rem;
-  color: #555;
+  margin: 0;
 }
 
-/* Estilos para telas menores */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
+/* Animações */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
   .container {
-    max-width: 90%;
-    padding: 1rem;
+    padding: 1.5rem;
+    background-size: 30px 30px;
   }
 
   h1 {
-    font-size: 24px;
+    font-size: 2.5rem;
   }
 
   .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
   }
 
-  .button-container button {
-    width: 100%;
-    margin: 0.5rem 0;
-    padding: 1rem;
+  .container {
+    padding-top: 4rem;
   }
 
   #toggleDarkMode {
-    display: none;
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
   }
 
-  footer p {
+  .button-container {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    padding: 1rem;
+  }
+
+  .button-container button {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    margin-top: 3rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .footer-section {
+    padding: 1rem;
+  }
+
+  .footer-wave-top {
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  p {
     font-size: 1rem;
   }
+
+  .button-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  #toggleDarkMode {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+
+  .footer-content {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-link {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .footer-copyright {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+  border-radius: var(--border-radius);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
