@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
 
   <body>
@@ -42,6 +43,9 @@
           </button>
           <button type="button" onclick="exportResults()">
             <strong>Exportar para CSV</strong>
+          </button>
+          <button type="button" onclick="exportResultsAsPDF()">
+            <strong>Exportar para PDF</strong>
           </button>
           <button type="button" onclick="generateFrequencyChart()">
             <strong>Gerar Gráfico</strong>
@@ -117,7 +121,9 @@
           <a href="https://github.com/LuisT-ls" target="_blank">Meu Github</a>
         </p>
         <p>
-          <a href="https://www.linkedin.com/in/luis-tei/" target="_blank">Meu LinkedIn</a>
+          <a href="https://www.linkedin.com/in/luis-tei/" target="_blank"
+            >Meu LinkedIn</a
+          >
         </p>
       </footer>
     </div>

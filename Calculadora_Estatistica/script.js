@@ -131,6 +131,47 @@ function exportResults() {
   link.click()
 }
 
+function exportResultsAsPDF() {
+  const { jsPDF } = window.jspdf
+  const doc = new jsPDF()
+
+  // Obter os resultados
+  const numbersInput = document.getElementById('numbers').value
+  const numbers = numbersInput.split(/\s*,\s*| /).map(Number)
+
+  let yPosition = 20
+  doc.setFontSize(16)
+  doc.text('Resultados da Calculadora de Estatísticas', 10, yPosition)
+  yPosition += 10
+
+  doc.setFontSize(12)
+  doc.text(`Rol: ${formatRol(numbers)}`, 10, yPosition)
+  yPosition += 10
+
+  const resultFields = [
+    { label: 'Amplitude Total', id: 'amplitudeTotal' },
+    { label: 'Tamanho da Amostra', id: 'tamanhoAmostra' },
+    { label: 'Média', id: 'mean' },
+    { label: 'Mediana', id: 'median' },
+    { label: 'Moda', id: 'mode' },
+    { label: 'Tipo de Moda', id: 'modeType' },
+    { label: 'Desvio Padrão', id: 'stdDev' },
+    { label: 'Variância', id: 'variance' },
+    { label: 'Assimetria', id: 'skewness' },
+    { label: 'Curtose', id: 'kurtosis' },
+    { label: 'Coeficiente de Variação', id: 'coefficientOfVariation' }
+  ]
+
+  resultFields.forEach(field => {
+    const value = document.getElementById(field.id).textContent
+    doc.text(`${field.label}: ${value}`, 10, yPosition)
+    yPosition += 10
+  })
+
+  // Salvar o PDF
+  doc.save('estatisticas.pdf')
+}
+
 function calculateStatistics() {
   const input = document.getElementById('numbers').value
   const numbers = input.split(/\s*,\s*| /).map(Number)
