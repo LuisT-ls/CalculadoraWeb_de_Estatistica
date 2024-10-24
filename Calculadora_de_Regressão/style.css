@@ -1,360 +1,375 @@
-/* Estilos gerais */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f4f4f4;
+/* Variables */
+:root {
+  /* Color Scheme with Palette */
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.1);
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --error-color: #dc2626;
+
+  /* Theme Colors */
+  --background: var(--background-light);
+  --card-bg: var(--card-light);
+  --text-color: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --border-color: var(--border-light);
+  --hover-bg: var(--hover-light);
+
+  /* Light Theme */
+  --background-light: #fafafa;
+  --card-light: #ffffff;
+  --text-light: #18181b;
+  --text-light-secondary: #52525b;
+  --border-light: #e4e4e7;
+  --hover-light: #f4f4f5;
+
+  /* Dark Theme */
+  --background-dark: #09090b;
+  --card-dark: #18181b;
+  --text-dark: #fafafa;
+  --text-dark-secondary: #a1a1aa;
+  --border-dark: #27272a;
+  --hover-dark: #27272a;
+}
+
+/* Dark Mode Override */
+.dark-mode {
+  --background: var(--background-dark);
+  --card-bg: var(--card-dark);
+  --text-color: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --border-color: var(--border-dark);
+  --hover-bg: var(--hover-dark);
+}
+
+/* Reset and Base Styles */
+* {
   margin: 0;
-  padding: 2.5rem;
-  transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 50rem;
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 0.625rem;
-  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2);
-  padding: 1.25rem;
-  text-align: left;
-  transition: background-color 0.3s, color 0.3s;
+  padding: 2rem 1rem;
 }
 
-/* Formulário */
-form {
-  padding-bottom: 1.25rem;
-}
-
-/* Títulos */
+/* Header Styles */
 h1 {
-  color: #333;
   text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
-/* Botão de alternar modo escuro */
-#toggleDarkMode {
-  background-color: #333;
-  color: #ffffff;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.3125rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 0.625rem;
-  transition: background-color 0.3s, color 0.3s;
+h2 {
+  color: var(--text-color);
+  margin: 1.5rem 0 1rem;
+  font-size: 1.8rem;
 }
 
-#toggleDarkMode:hover {
-  background-color: #555;
+/* Form Styles */
+#regressaoForm {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
-/* Botões no modo claro */
-.light-mode button {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.light-mode button:hover {
-  background-color: #0056b3;
-}
-
-/* Modo escuro */
-.dark-mode {
-  background-color: #111;
-  color: #ffffff;
-}
-
-/* Estilização específica do modo escuro */
-.dark-mode .container,
-.dark-mode #description {
-  background-color: #222;
-  color: #ffffff;
-}
-
-/* Cores de texto no modo escuro */
-.dark-mode h1,
-.dark-mode label,
-.dark-mode p,
-.dark-mode span,
-.dark-mode .result {
-  color: #ffffff;
-}
-
-/* Botões no modo escuro */
-.dark-mode button {
-  background-color: #333;
-  color: #ffffff;
-}
-
-.dark-mode button:hover {
-  background-color: #555;
-}
-
-/* Input */
-input[type='text'] {
-  background-color: #f2f2f2;
-  width: 80%;
-  padding: 0.625rem;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  border-radius: 0.3125rem;
-  font-size: 1rem;
-  display: block;
-  color: #333;
-}
-
-/* Rótulo */
 label {
-  font-size: 1.125rem;
-  color: #333;
   display: block;
-  text-align: center;
-  margin: 0.625rem auto;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  font-weight: 500;
 }
 
-/* Container de botões */
-.button-container {
-  text-align: center;
-  margin-top: 0.625rem;
-}
-
-/* Botões dentro do container */
-button {
-  background-color: #333;
-  color: #ffffff;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.3125rem;
-  cursor: pointer;
+input[type='text'] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   font-size: 1rem;
-  margin: 0 0.3125rem;
+  transition: border-color 0.3s;
+}
+
+input[type='text']:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Button Styles */
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  flex: 1;
+  min-width: 120px;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
-/* Parágrafos */
-p {
-  font-size: 1.125rem;
-  color: #333;
-  margin: 0.625rem 0;
+button:active {
+  transform: translateY(0);
 }
 
-/* Resultados */
-.result {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-}
-
-span {
-  font-weight: bold;
-}
-
-#result-container {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#scatter-plot {
-  height: 400px;
-  width: 80%;
-  max-width: 600px;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-.hidden {
-  display: none;
-}
-
-#description {
-  margin-top: 20px;
-  padding: 20px;
-  display: none;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  text-align: left;
-  color: #444;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-}
-
-#description h2 {
-  font-size: 28px;
-  color: #f5f5f5;
-  margin-bottom: 15px;
-}
-
-#description p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-#description ul {
-  margin-bottom: 15px;
-  list-style-type: none;
-  padding-left: 0;
-}
-
-#description li {
-  margin-bottom: 8px;
-}
-
-#description strong {
-  font-weight: bold;
-  color: #f5f5f5;
-}
-
-.formula {
-  font-family: 'Cambria Math', 'Arial', sans-serif;
-  font-size: 1.3em;
-  color: #f5f5f5;
-  line-height: 1.8;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.math-container {
+#toggleDarkMode {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  min-width: unset;
+  border-radius: 50%;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  z-index: 1000;
 }
 
-.math-container math {
-  display: inline-block;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+/* Results Section */
+#result {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.math-container span {
-  margin: 0 8px;
+#result p {
+  margin-bottom: 1rem;
+  color: var(--text-color);
 }
 
-.math-container mfrac {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  font-size: 1.7em;
+#result span {
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
-.math-container msqrt {
-  margin-top: 10px;
-  margin-bottom: 10px;
+/* Table Styles */
+#table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
 }
 
-.math-container mo,
-.math-container mi {
-  font-size: 1.3em;
-}
-
-/* Estilos para a tabela de regressão */
-.regression-container {
-  margin-top: 20px;
-}
-
-.regression-table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 1rem 0;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
   text-align: center;
 }
 
-.regression-table th,
-.regression-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+th {
+  background-color: var(--primary-light);
+  color: var(--text-color);
+  font-weight: 600;
 }
 
-.regression-table th {
-  background-color: #f2f2f2;
-  color: #333;
+tr:nth-child(even) {
+  background-color: var(--hover-bg);
 }
 
-.regression-table tbody tr:nth-child(even) {
-  background-color: #333;
+/* Description Section */
+#description {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.regression-table h2 {
-  color: #333;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+#description.hidden {
+  display: none;
 }
 
+.formula {
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  color: var(--primary-color);
+}
+
+/* Footer Styles */
 footer {
-  margin-top: 2rem;
-  padding: 1rem 0;
-  background-color: #333;
-  color: #fff;
   text-align: center;
-  border-radius: 0.625rem;
-}
-
-footer p {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+  margin-top: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
 }
 
 footer a {
-  color: #fff;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: bold;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s, color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 footer a:hover {
-  color: #666;
-  border-bottom: 2px solid #666;
+  color: var(--primary-hover);
+  text-decoration: underline;
 }
 
-footer .signature {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
+/* Plot Styles */
+#scatter-plot {
+  width: 100%;
+  height: 400px;
+  margin: 2rem 0;
 }
 
-/* Estilos para telas menores */
+#scatter-plot.hidden {
+  display: none;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
   .container {
-    max-width: 90%;
     padding: 1rem;
   }
 
   h1 {
-    font-size: 24px;
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  #regressaoForm,
+  #result,
+  #description {
+    padding: 1.5rem;
   }
 
   .button-container {
-    display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
-  .button-container button {
+  button {
     width: 100%;
-    margin: 0.625rem 0;
-    padding: 1rem;
   }
 
-  .regression-container {
-    overflow-x: auto;
+  .button-container:first-of-type {
+    margin: 0 0 1.5rem 0;
+  }
+  
+  #toggleDarkMode {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+  }
+
+  #scatter-plot {
+    height: 50vh;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  input[type='text'] {
+    font-size: 0.9rem;
+  }
+
+  #result span {
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  #scatter-plot {
+    height: 40vh;
+    min-height: 200px;
+  }
+
+  .button-container:first-of-type {
+    margin: 0 0 1rem 0;
   }
 
   #toggleDarkMode {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+/* Landscape Mode Optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  #scatter-plot {
+    height: 70vh;
+    min-height: 180px;
+  }
+}
+
+/* Make sure plotly controls are visible in dark mode */
+.dark-mode .js-plotly-plot .plotly .modebar {
+  background-color: var(--card-dark) !important;
+}
+
+.dark-mode .js-plotly-plot .plotly .modebar-btn path {
+  fill: var(--text-dark) !important;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  button,
+  #toggleDarkMode {
     display: none;
   }
-  footer p {
-    font-size: 1rem;
+
+  #result,
+  #description,
+  #regressaoForm {
+    box-shadow: none;
+    border: 1px solid #ddd;
   }
 }
