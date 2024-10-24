@@ -67,7 +67,7 @@ body {
 .container {
   background-color: var(--card-bg);
   border-radius: 1.5rem;
-  padding: 2rem;
+  padding: 3.5rem 2rem 2rem 2rem;
   width: 100%;
   max-width: 600px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
