@@ -1,199 +1,292 @@
-/* Estilos gerais */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 2.5rem; /* 40px / 16px = 2.5rem */
-  transition: background-color 0.3s, color 0.3s;
+/* Variables */
+:root {
+  /* Color Scheme with Palette */
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.1);
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --error-color: #dc2626;
+
+  /* Theme Colors */
+  --background: var(--background-light);
+  --card-bg: var(--card-light);
+  --text-color: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --border-color: var(--border-light);
+  --hover-bg: var(--hover-light);
+
+  /* Light Theme */
+  --background-light: #fafafa;
+  --card-light: #ffffff;
+  --text-light: #18181b;
+  --text-light-secondary: #52525b;
+  --border-light: #e4e4e7;
+  --hover-light: #f4f4f5;
+
+  /* Dark Theme */
+  --background-dark: #09090b;
+  --card-dark: #18181b;
+  --text-dark: #fafafa;
+  --text-dark-secondary: #a1a1aa;
+  --border-dark: #27272a;
+  --hover-dark: #27272a;
 }
 
-.container {
-  max-width: 50rem; /* 800px / 16px = 50rem */
-  margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 0.625rem; /* 10px / 16px = 0.625rem */
-  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2); /* 10px / 16px = 0.625rem */
-  padding: 1.25rem; /* 20px / 16px = 1.25rem */
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-h1 {
-  color: #333;
-}
-
-/* Estilos para o botão de alternar o modo escuro */
-#toggleDarkMode,
-button#calculate,
-button#showExplanation {
-  background-color: #333;
-  color: #ffffff;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.3125rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 0.625rem;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#toggleDarkMode:hover,
-button#calculate:hover,
-button#showExplanation:hover {
-  background-color: #555;
-}
-
-/* Estilo para o modo escuro */
+/* Dark Mode Override */
 .dark-mode {
-  background-color: #111;
-  color: #ffffff;
+  --background: var(--background-dark);
+  --card-bg: var(--card-dark);
+  --text-color: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --border-color: var(--border-dark);
+  --hover-bg: var(--hover-dark);
 }
 
-/* Estilização do .container para o modo escuro */
-.dark-mode .container {
-  background-color: #222;
-  color: #ffffff;
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-/* Cores de texto personalizadas para o modo escuro */
-.dark-mode h1,
-.dark-mode label,
-.dark-mode p {
-  color: #ffffff;
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Mudanças no select no modo escuro */
-.dark-mode select option:hover {
-  background-color: #333;
-  color: #fff;
+/* Container Styles */
+.container {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
 }
 
-.operation-select {
+/* Dark Mode Toggle */
+#toggleDarkMode {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+#toggleDarkMode:hover {
+  transform: scale(1.1);
+  background-color: var(--hover-bg);
+}
+
+/* Header Styles */
+h1 {
+  color: var(--text-color);
   text-align: center;
-  display: block;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Operation Select Styles */
+.operation-select {
+  margin-bottom: 2rem;
 }
 
 label {
-  font-weight: bold;
   display: block;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 select {
-  width: 100%; /* Largura total para preencher a tela */
-  max-width: 250px; /* Largura máxima */
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 10px;
-  background-color: #555;
-  transition: background-color 0.3s;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-position: right center;
-  background-repeat: no-repeat;
-  padding-right: 30px;
-  font-size: 16px;
-  outline: 1px solid transparent;
-}
-
-select:hover {
-  background-color: #777;
-}
-
-.input-fields {
-  margin-bottom: 20px;
-}
-
-.input-fields label {
-  display: block;
-  margin-top: 10px;
-}
-
-input[type='number'] {
-  width: 100%; /* Largura total para preencher a tela */
-  max-width: 250px; /* Largura máxima */
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 10px;
-  background-color: #555;
-  font-size: 16px;
-  outline: 1px solid transparent;
-}
-
-option {
-  color: #fff;
-  background-color: #555;
-}
-
-#calculate {
-  color: #555;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
+  outline: none;
 }
 
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Explanation Section */
+.explanation {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--hover-bg);
+  border-radius: 8px;
+}
+
+.explanation p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+#showExplanation {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#showExplanation:hover {
+  background-color: var(--primary-hover);
+}
+
+.explanation-text {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  display: none;
+}
+
+/* Input Fields */
+.input-fields {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
+  outline: none;
+}
+
+/* Calculate Button */
+#calculate {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+#calculate:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Result Section */
 .result {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 20px;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--hover-bg);
+  margin-bottom: 2rem;
+  font-weight: 500;
+  text-align: center;
 }
 
+/* Footer Styles */
 footer {
-  margin-top: 2rem;
-  padding: 1rem 0;
-  background-color: #333;
-  color: #fff;
   text-align: center;
-  border-radius: 0.625rem;
+  color: var(--text-secondary);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
 footer p {
   margin-bottom: 0.5rem;
-  font-size: 1.1rem;
 }
 
 footer a {
-  color: #fff;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: bold;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s, color 0.3s;
+  font-weight: 500;
 }
 
 footer a:hover {
-  color: #666;
-  border-bottom: 2px solid #666;
+  text-decoration: underline;
 }
 
-footer .signature {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
+/* Success, Warning, and Error States */
+.success {
+  color: var(--success-color);
 }
 
-/* Estilos específicos para telas menores */
+.warning {
+  color: var(--warning-color);
+}
+
+.error {
+  color: var(--error-color);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  #toggleDarkMode {
-    display: none;
+  .container {
+    padding: 1.5rem;
   }
 
-  .container {
-    padding: 1rem; /* Reduz o preenchimento */
-    margin: 10px; /* Reduz a margem */
+  h1 {
+    font-size: 1.75rem;
   }
 
   select,
-  input[type='number'] {
-    font-size: 14px; /* Reduz o tamanho da fonte */
+  input,
+  button {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
-  footer p {
-    font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #toggleDarkMode {
+    top: 0.75rem;
+    right: 0.75rem;
   }
 }
