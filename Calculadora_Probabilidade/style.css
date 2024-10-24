@@ -1,243 +1,341 @@
-/* Estilos gerais */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f4f4f4;
+/* Variables */
+:root {
+  /* Color Scheme with Palette */
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: rgba(79, 70, 229, 0.1);
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --error-color: #dc2626;
+
+  /* Theme Colors */
+  --background: var(--background-light);
+  --card-bg: var(--card-light);
+  --text-color: var(--text-light);
+  --text-secondary: var(--text-light-secondary);
+  --border-color: var(--border-light);
+  --hover-bg: var(--hover-light);
+
+  /* Light Theme */
+  --background-light: #fafafa;
+  --card-light: #ffffff;
+  --text-light: #18181b;
+  --text-light-secondary: #52525b;
+  --border-light: #e4e4e7;
+  --hover-light: #f4f4f5;
+
+  /* Dark Theme */
+  --background-dark: #09090b;
+  --card-dark: #18181b;
+  --text-dark: #fafafa;
+  --text-dark-secondary: #a1a1aa;
+  --border-dark: #27272a;
+  --hover-dark: #27272a;
+}
+
+/* Dark Mode Override */
+.dark-mode {
+  --background: var(--background-dark);
+  --card-bg: var(--card-dark);
+  --text-color: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --border-color: var(--border-dark);
+  --hover-bg: var(--hover-dark);
+}
+
+/* Reset and Base Styles */
+* {
   margin: 0;
-  padding: 2.5rem; /* 40px / 16px = 2.5rem */
-  transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 50rem; /* 800px / 16px = 50rem */
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 0.625rem; /* 10px / 16px = 0.625rem */
-  box-shadow: 0px 0px 0.625rem rgba(0, 0, 0, 0.2); /* 10px / 16px = 0.625rem */
-  padding: 1.25rem; /* 20px / 16px = 1.25rem */
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+header {
   text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 3rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-  color: #333;
+  font-size: 2.75rem;
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-hover)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 1.5rem 0;
+  letter-spacing: -0.025em;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-/* Estilos para o botão de alternar o modo escuro */
-#toggleDarkMode,
-button#calculate,
-button#clear,
-button#showExplanation {
-  background-color: #333;
-  color: #ffffff;
-  border: none;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.3125rem;
+#toggleDarkMode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+  font-size: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 0.625rem;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 2;
 }
 
-#toggleDarkMode:hover,
-button#calculate:hover,
-button#clear:hover,
-button#showExplanation:hover {
-  background-color: #555;
+#toggleDarkMode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para o modo escuro */
-.dark-mode {
-  background-color: #111;
-  color: #ffffff;
+/* Main Content */
+main {
+  flex: 1;
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
-/* Estilização do .container para o modo escuro */
-.dark-mode .container {
-  background-color: #222;
-}
-
-/* Cores de texto personalizadas para o modo escuro */
-.dark-mode h1,
-.dark-mode label,
-.dark-mode p {
-  color: #ffffff;
-}
-
-/* Mudanças no select no modo escuro */
-.dark-mode select {
-  background-color: #555;
-}
-
-.dark-mode select option:hover {
-  background-color: #333;
-  color: #fff;
-}
-
+/* Operation Select Section */
 .operation-select {
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 2.5rem;
 }
 
 label {
-  font-weight: bold;
   display: block;
-  margin-bottom: 10px;
-  text-align: center;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
 }
 
 select {
   width: 100%;
-  max-width: 250px;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 10px;
-  background-color: #555;
-  transition: background-color 0.3s;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   appearance: none;
-  background-position: right center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  padding-right: 30px;
-  font-size: 16px;
-  outline: 1px solid transparent;
+  background-position: right 1rem center;
+  background-size: 1.2em;
 }
 
-select:hover {
-  background-color: #777;
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
 }
 
-.input-fields {
-  margin-bottom: 20px;
+/* Explanation Section */
+.explanation {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: var(--hover-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
 }
 
-.input-fields label {
-  display: block;
-  margin-top: 10px;
+.explanation p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
 }
 
-input[type='number'] {
-  width: 100%;
-  max-width: 250px;
-  padding: 10px;
-  border: 1px solid #555;
+#showExplanation {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
   border-radius: 10px;
-  background-color: #555;
-  font-size: 16px;
-  outline: 1px solid transparent;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-option {
-  color: #fff;
-  background-color: #555;
+#showExplanation:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.explanation-text {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: none;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Input Fields */
+.input-fields {
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  outline: none;
+}
+
+/* Buttons */
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 #calculate,
 #clear {
-  color: #555;
-  padding: 10px 20px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
+#calculate {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#clear {
+  background-color: var(--error-color);
+  color: white;
+}
+
+#calculate:hover,
+#clear:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Result Section */
 .result {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-/* Estilos para a tabela no modo escuro */
-.dark-mode table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-}
-
-.dark-mode th,
-.dark-mode td {
-  padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.dark-mode th {
-  background-color: #f2f2f2;
-}
-
-.dark-mode tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.dark-mode tr:hover {
-  background-color: #ddd;
-}
-
-/* Cores de texto para a tabela no modo escuro */
-.dark-mode th,
-.dark-mode td {
-  color: #fff;
-}
-
-/* Cores de fundo para a tabela no modo escuro */
-.dark-mode tr,
-.dark-mode th,
-.dark-mode td {
-  background-color: #222;
-}
-
-footer {
   margin-top: 2rem;
-  padding: 1rem 0;
-  background-color: #333;
-  color: #fff;
+  padding: 1.5rem;
+  background-color: var(--hover-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  min-height: 80px;
+  transition: all 0.3s ease;
+  color: var(--text-color);
+}
+
+.result p,
+.result span,
+.result div {
+  color: var(--text-color);
+}
+
+.dark-mode .result {
+  background-color: var(--card-dark);
+  color: var(--text-dark);
+}
+
+.dark-mode .result p,
+.dark-mode .result span,
+.dark-mode .result div {
+  color: var(--text-dark);
+}
+
+.dark-mode th,
+.dark-mode td {
+  color: var(--border-dark);
+}
+
+.result.success {
+  border-left: 4px solid var(--success-color);
+}
+
+.result.error {
+  border-left: 4px solid var(--error-color);
+}
+
+/* Footer */
+footer {
   text-align: center;
-  border-radius: 0.625rem;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  color: var(--text-secondary);
 }
 
 footer p {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+  margin: 0.5rem 0;
 }
 
 footer a {
-  color: #fff;
+  color: var(--primary-color);
   text-decoration: none;
-  font-weight: bold;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s, color 0.3s;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 footer a:hover {
-  color: #666;
-  border-bottom: 2px solid #666;
+  color: var(--primary-hover);
+  text-decoration: underline;
 }
 
-footer .signature {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* Transição suave entre temas claro e escuro */
-body,
-.container {
-  transition: background-color 0.5s, color 0.5s;
-}
-
-/* Adicione transição suave para o modo escuro */
-.dark-mode,
-.dark-mode .container {
-  transition: background-color 0.5s, color 0.5s;
-}
-
-/* Adicione animação de fade-in para a tabela no modo escuro */
-.dark-mode table {
-  animation: fadeIn 0.5s ease-in-out;
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
@@ -249,56 +347,94 @@ body,
   }
 }
 
-.input-column {
-  display: inline-block;
-  margin-right: 20px;
+.input-fields,
+.result {
+  animation: fadeIn 0.4s ease-out;
 }
 
-/* Estilos específicos para telas menores */
-@media (max-width: 768px) {
-  #toggleDarkMode {
-    display: none;
+@media (min-width: 769px) {
+  header {
+    padding-top: 0;
   }
 
+  #toggleDarkMode {
+    right: 0;
+    transform: none;
+  }
+
+  #toggleDarkMode:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .container {
     padding: 1rem;
-    margin: 10px;
+  }
+
+  header {
+    margin-top: 3.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  #toggleDarkMode {
+    top: -3rem;
+    right: 0;
+    padding: 10px;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  #toggleDarkMode {
+    padding: 10px;
+    font-size: 1.25rem;
+  }
+
+  main {
+    padding: 1.25rem;
   }
 
   select,
-  input[type='number'] {
-    font-size: 14px;
+  input,
+  button {
+    font-size: 0.95rem;
   }
 
-  footer p {
-    font-size: 1rem;
-  }
-
-  .input-column {
-    display: block;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-
-  .input-fields label {
-    margin-top: 5px;
-  }
-
-  input[type='number'] {
-    font-size: 14px;
-  }
-
-  table {
-    font-size: 12px;
-  }
-
-  th,
-  td {
-    padding: 5px;
-  }
-
+  .explanation,
   .result {
-    font-size: 16px;
-    margin-top: 10px;
+    padding: 1rem;
   }
+}
+
+/* Glass Morphism Effect for Cards */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
 }
