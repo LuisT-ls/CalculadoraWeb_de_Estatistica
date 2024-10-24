@@ -27,80 +27,52 @@ document.addEventListener('DOMContentLoaded', function () {
   const calculateButton = document.getElementById('calculate')
   const resultDisplay = document.getElementById('result')
 
-  // Define an object to store explanations for each operation
+  // Objeto com as explicações para cada tipo de operação
   const explanations = {
-    comprimento: `
-      <div class="explanation-content">
-        <h2>Comprimento</h2>
-        <p>
-          A unidade de <strong>comprimento</strong> refere-se à medida de distância entre dois pontos em uma linha reta. 
-          Ela é comumente usada para medir dimensões lineares, como o comprimento de uma sala, a largura de uma estrada, etc.
-        </p>
-      </div>`,
-
-    massa: `
-      <div class="explanation-content">
-        <h2>Massa</h2>
-        <p>
-          A unidade de <strong>massa</strong> é utilizada para medir a quantidade de matéria em um objeto. 
-          Ela é essencial em diversas áreas, desde a física até a culinária, onde é usada para pesar ingredientes e calcular proporções em receitas.
-        </p>
-      </div>`,
-
-    volume: `
-      <div class="explanation-content">
-        <h2>Volume</h2>
-        <p>
-          A unidade de <strong>volume</strong> representa o espaço tridimensional ocupado por um objeto ou substância. 
-          É amplamente utilizada em geometria e física para medir o tamanho de recipientes, a capacidade de líquidos e objetos tridimensionais.
-        </p>
-      </div>`,
-
-    area: `
-      <div class="explanation-content">
-        <h2>Área</h2>
-        <p>
-          A unidade de <strong>área</strong> refere-se à extensão de uma superfície bidimensional. 
-          É comumente usada em geometria para medir o espaço ocupado por uma figura plana, como a área de um campo, de uma sala, ou de uma tela de computador.
-        </p>
-      </div>`,
-
-    tempo: `
-      <div class="explanation-content">
-        <h2>Tempo</h2>
-        <p>
-          A unidade de <strong>tempo</strong> é fundamental para medir a duração de eventos. 
-          Pode ser utilizada para calcular a velocidade, estimar a durabilidade de produtos, ou simplesmente marcar o tempo decorrido entre dois eventos.
-        </p>
-      </div>`,
-
-    velocidade: `
-      <div class="explanation-content">
-        <h2>Velocidade</h2>
-        <p>
-          A unidade de <strong>velocidade</strong> mede a rapidez com que um objeto se move em relação ao tempo. 
-          É frequentemente usada em física, engenharia e transporte para calcular a taxa de mudança de posição de um objeto em relação ao tempo.
-        </p>
-      </div>`,
-
-    angulo: `
-      <div class="explanation-content">
-        <h2>Ângulo</h2>
-        <p>
-          A unidade de <strong>ângulo</strong> é utilizada para medir a abertura ou inclinação entre duas linhas ou planos. 
-          É essencial em geometria e trigonometria, onde é usada para calcular distâncias, áreas, e resolver problemas relacionados à forma de objetos.
-        </p>
-      </div>`,
-
-    pressao: `
-      <div class="explanation-content">
-        <h2>Pressão</h2>
-        <p>
-          A unidade de <strong>pressão</strong> mede a força exercida por uma substância em uma determinada área. 
-          É usada em física, meteorologia, e engenharia para descrever a distribuição de forças em fluidos, gases e sólidos.
-        </p>
-      </div>`
+    comprimento:
+      'O cálculo de comprimento é usado para medir a distância entre dois pontos ou o tamanho linear de um objeto. É fundamental em diversas áreas como construção civil, arquitetura, engenharia e no dia a dia.',
+    massa:
+      'O cálculo de massa é essencial para determinar a quantidade de matéria em um objeto. É usado em comércio, indústria, medicina, culinária e muitas outras aplicações.',
+    volume:
+      'O cálculo de volume determina o espaço tridimensional ocupado por um objeto ou substância. É crucial em química, engenharia, logística e armazenamento.',
+    area: 'O cálculo de área mede o espaço bidimensional ocupado por uma superfície. É fundamental em construção, decoração, agricultura e planejamento urbano.',
+    tempo:
+      'O cálculo de tempo é usado para medir durações e converter entre diferentes unidades temporais. É essencial em planejamento, cronogramas e gerenciamento de projetos.',
+    velocidade:
+      'O cálculo de velocidade determina a taxa de variação da posição de um objeto. É crucial em transporte, física, engenharia e planejamento de rotas.',
+    angulo:
+      'O cálculo de ângulos é usado para medir rotações e orientações. É fundamental em geometria, navegação, construção e design.',
+    pressao:
+      'O cálculo de pressão mede a força exercida por unidade de área. É essencial em meteorologia, engenharia, medicina e processos industriais.'
   }
+
+  function updateExplanation() {
+    const operation = document.getElementById('operation').value
+    const explanationText = document.getElementById('calcExplanation')
+    explanationText.textContent = explanations[operation]
+  }
+
+  document
+    .getElementById('showExplanation')
+    .addEventListener('click', function () {
+      const explanationText = document.getElementById('calcExplanation')
+      explanationText.classList.toggle('active')
+
+      // Muda o texto do botão baseado no estado
+      if (explanationText.classList.contains('active')) {
+        this.textContent = 'Ocultar explicação'
+      } else {
+        this.textContent = 'Responda-me'
+      }
+    })
+
+  document
+    .getElementById('operation')
+    .addEventListener('change', updateExplanation)
+
+  document.addEventListener('DOMContentLoaded', function () {
+    updateExplanation()
+  })
 
   const operationsWithInputs = [
     'comprimento',
