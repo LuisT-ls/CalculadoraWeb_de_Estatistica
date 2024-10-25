@@ -1,358 +1,268 @@
+// Dark mode functionality
 function toggleDarkMode() {
-  const body = document.body
+  document.body.classList.toggle('dark-mode')
   const button = document.getElementById('toggleDarkMode')
-
-  const isDarkMode = body.classList.contains('dark-mode')
-
-  if (isDarkMode) {
-    body.classList.remove('dark-mode')
-    button.textContent = '🌙'
-    button.classList.add('light-mode')
-  } else {
-    body.classList.add('dark-mode')
-    button.textContent = '☀️'
-    button.classList.remove('light-mode')
-  }
+  button.textContent = document.body.classList.contains('dark-mode')
+    ? '☀️'
+    : '🌙'
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  toggleDarkMode()
-  setupEventListeners()
-})
-
-// Função para configurar os ouvintes de eventos
-function setupEventListeners() {
-  const toggleDescriptionBtn = document.getElementById('toggleDescriptionBtn')
-
-  if (toggleDescriptionBtn) {
-    toggleDescriptionBtn.addEventListener('click', toggleDescription)
-  }
-}
-
-function toggleDescription() {
-  const descriptionDiv = document.getElementById('description')
-
-  // Verifica o estilo 'display'
-  const isHidden =
-    descriptionDiv.style.display === 'none' ||
-    window.getComputedStyle(descriptionDiv).display === 'none'
-
-  // Toggle do estilo display para controlar a visibilidade
-  if (isHidden) {
-    descriptionDiv.style.display = 'block'
-    document.getElementById('toggleDescriptionBtn').textContent =
-      'Ocultar Como Calcular'
-  } else {
-    descriptionDiv.style.display = 'none'
-    document.getElementById('toggleDescriptionBtn').textContent =
-      'Mostrar Como Calcular'
-  }
-}
-
-function calculateRegression(event) {
-  // Prevenir o envio padrão do formulário
-  event.preventDefault()
-
-  // Obter os valores de entrada
-  const xValuesInput = document.getElementById('xValues').value
-  const yValuesInput = document.getElementById('yValues').value
-
-  // Verificar se há valores de entrada
-  if (!xValuesInput || !yValuesInput) {
-    alert('Por favor, insira valores para X e Y.')
-    return
-  }
-
-  // Converter os valores de string para arrays numéricos
-  const xValues = parseInputValues(xValuesInput)
-  const yValues = parseInputValues(yValuesInput)
-
-  // Calcular o coeficiente de correlação
-  const correlation = calculateCorrelation(xValues, yValues)
-
-  // Calcular os coeficientes da regressão linear
-  const regressionCoefficients = calculateRegressionCoefficients(
-    xValues,
-    yValues
-  )
-
-  // Gerar a tabela
-  generateTable(xValues, yValues)
-
-  // Gerar o diagrama de dispersão
-  generateScatterPlot(xValues, yValues)
-
-  // Exibir a div do diagrama de dispersão removendo a classe 'hidden'
-  document.getElementById('scatter-plot').classList.remove('hidden')
-
-  // Calcular o coeficiente de determinação
-  const determination = correlation ** 2
-
-  // Interpretar os resultados
-  let interpretation = ''
-  if (determination >= 0.8) {
-    interpretation = 'Fortemente correlacionado'
-  } else if (determination >= 0.6) {
-    interpretation = 'Moderadamente correlacionado'
-  } else {
-    interpretation = 'Fraco ou sem correlação'
-  }
-
-  // Exibir os resultados
-  document.getElementById('correlation').innerText = correlation.toFixed(2)
-  document.getElementById('determination').innerText = determination.toFixed(2)
-  document.getElementById('interpretation').innerText = interpretation
-
-  // Exibir a equação de regressão ajustada
-  displayRegressionEquation(regressionCoefficients)
-}
-
-// Função para gerar a tabela
-function generateTable(xValues, yValues) {
-  const tableContainer = document.getElementById('table-container')
-
-  // Limpar a tabela existente, se houver
-  tableContainer.innerHTML = ''
-
-  // Criar a tabela e os cabeçalhos
-  const table = document.createElement('table')
-  table.classList.add('regression-table') // Adiciona uma classe para estilização
-  const thead = document.createElement('thead')
-  const tbody = document.createElement('tbody')
-  const headers = ['X', 'Y', 'X²', 'Y²', 'X • Y']
-
-  // Adicionar cabeçalhos à linha do cabeçalho
-  const headerRow = document.createElement('tr')
-  headers.forEach(headerText => {
-    const th = document.createElement('th')
-    th.textContent = headerText
-    headerRow.appendChild(th)
+// Toggle description visibility
+document
+  .getElementById('toggleDescriptionBtn')
+  .addEventListener('click', function () {
+    const description = document.getElementById('description')
+    const isHidden = description.classList.toggle('hidden')
+    this.textContent = isHidden
+      ? 'Mostrar Como Calcular'
+      : 'Ocultar Como Calcular'
   })
-  thead.appendChild(headerRow)
 
-  // Inicializar os somatórios
-  let sumX = 0
-  let sumY = 0
-  let sumXSquared = 0
-  let sumYSquared = 0
-  let sumXY = 0
-
-  // Preencher os dados na tabela
-  for (let i = 0; i < xValues.length; i++) {
-    const x = xValues[i]
-    const y = yValues[i]
-    const xSquare = x ** 2
-    const ySquare = y ** 2
-    const xy = x * y
-
-    // Atualizar os somatórios
-    sumX += x
-    sumY += y
-    sumXSquared += xSquare
-    sumYSquared += ySquare
-    sumXY += xy
-
-    // Criar uma nova linha na tabela
-    const row = document.createElement('tr')
-
-    // Adicionar células com os valores calculados
-    ;[x, y, xSquare, ySquare, xy].forEach(value => {
-      const cell = document.createElement('td')
-      cell.textContent = value
-      row.appendChild(cell)
-    })
-
-    // Adicionar a linha à tbody
-    tbody.appendChild(row)
+// Format number function
+function formatNumber(num) {
+  // Verifica se o número tem decimais
+  if (Number.isInteger(num)) {
+    return num.toString() // Retorna número inteiro sem decimais
   }
 
-  // Adicionar a linha de somatórios ao tbody com uma classe de destaque
-  const sumRow = document.createElement('tr')
-  sumRow.classList.add('highlighted-row')
-  const sumLabels = ['Σ', 'Σ', 'Σ', 'Σ', 'Σ']
-  ;[sumX, sumY, sumXSquared, sumYSquared, sumXY].forEach((sum, index) => {
-    const cell = document.createElement('td')
-    const label = document.createElement('span')
-    label.textContent = `${sumLabels[index]}:`
-    cell.appendChild(label)
-    cell.textContent += sum
-    sumRow.appendChild(cell)
-  })
-  tbody.appendChild(sumRow)
-
-  // Adicionar thead e tbody à tabela
-  table.appendChild(thead)
-  table.appendChild(tbody)
-
-  // Adicionar a tabela ao contêiner
-  tableContainer.appendChild(table)
-}
-
-// Função para calcular os coeficientes da regressão linear
-function calculateRegressionCoefficients(xValues, yValues) {
-  const n = xValues.length
-  const sumX = xValues.reduce((sum, x) => sum + x, 0)
-  const sumY = yValues.reduce((sum, y) => sum + y, 0)
-  const sumXY = xValues
-    .map((x, i) => x * yValues[i])
-    .reduce((sum, xy) => sum + xy, 0)
-  const sumXSquare = xValues
-    .map(x => x ** 2)
-    .reduce((sum, xSquare) => sum + xSquare, 0)
-
-  // Coeficientes da regressão linear
-  const slope = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX ** 2)
-  const intercept = (sumY - slope * sumX) / n
-
-  return { slope, intercept }
-}
-
-// Função para exibir a equação de regressão ajustada
-function displayRegressionEquation(coefficients) {
-  const equationContainer = document.getElementById('regressionEquation')
-  const equation = `Equação de Regressão: y = ${coefficients.slope.toFixed(
-    2
-  )}x + ${coefficients.intercept.toFixed(2)}`
-  equationContainer.innerText = equation
-}
-
-// Função para analisar os valores de entrada
-function parseInputValues(input) {
-  // Verifica se a entrada contém vírgulas
-  if (input.includes(',')) {
-    // Separa os valores por vírgulas e converte para números
-    return input.split(',').map(Number)
-  } else {
-    // Se não houver vírgulas, assume que os valores estão separados por espaços
-    return input.split(' ').map(Number)
+  // Se o número original incluía uma vírgula, mantém as casas decimais originais
+  const numStr = num.toString()
+  if (numStr.includes(',')) {
+    return numStr
   }
+
+  // Caso contrário, formata com uma casa decimal
+  return num.toFixed(1)
 }
 
+// Parse input values function
+function parseValues(input) {
+  return input
+    .replace(/\s+/g, ',')
+    .split(',')
+    .filter(val => val.trim() !== '')
+    .map(Number)
+    .filter(val => !isNaN(val))
+}
+
+// Calculate mean
+function calculateMean(values) {
+  return values.reduce((sum, val) => sum + val, 0) / values.length
+}
+
+// Calculate correlation coefficient
 function calculateCorrelation(xValues, yValues) {
   const n = xValues.length
-  const sumX = xValues.reduce((sum, x) => sum + x, 0)
-  const sumY = yValues.reduce((sum, y) => sum + y, 0)
-  const sumXY = xValues
-    .map((x, i) => x * yValues[i])
-    .reduce((sum, xy) => sum + xy, 0)
-  const sumXSquare = xValues
-    .map(x => x ** 2)
-    .reduce((sum, xSquare) => sum + xSquare, 0)
-  const sumYSquare = yValues
-    .map(y => y ** 2)
-    .reduce((sum, ySquare) => sum + ySquare, 0)
+  const meanX = calculateMean(xValues)
+  const meanY = calculateMean(yValues)
 
-  const numerator = n * sumXY - sumX * sumY
-  const denominatorX = n * sumXSquare - sumX ** 2
-  const denominatorY = n * sumYSquare - sumY ** 2
+  let numerator = 0
+  let denominatorX = 0
+  let denominatorY = 0
 
-  const correlation = numerator / Math.sqrt(denominatorX * denominatorY)
-  return correlation
+  for (let i = 0; i < n; i++) {
+    const xDiff = xValues[i] - meanX
+    const yDiff = yValues[i] - meanY
+    numerator += xDiff * yDiff
+    denominatorX += xDiff * xDiff
+    denominatorY += yDiff * yDiff
+  }
+
+  return numerator / Math.sqrt(denominatorX * denominatorY)
 }
 
-function generateScatterPlot(xValues, yValues) {
-  const trace = {
+// Calculate regression coefficients
+function calculateRegressionCoefficients(xValues, yValues) {
+  const n = xValues.length
+  const meanX = calculateMean(xValues)
+  const meanY = calculateMean(yValues)
+
+  let numerator = 0
+  let denominator = 0
+
+  for (let i = 0; i < n; i++) {
+    const xDiff = xValues[i] - meanX
+    numerator += xDiff * (yValues[i] - meanY)
+    denominator += xDiff * xDiff
+  }
+
+  const b = numerator / denominator
+  const a = meanY - b * meanX
+
+  return { a, b }
+}
+
+// Create regression table
+function createRegressionTable(xValues, yValues, a, b) {
+  const tableContainer = document.getElementById('table-container')
+
+  // Calcular somatórios
+  const sumX = xValues.reduce((sum, x) => sum + x, 0)
+  const sumY = yValues.reduce((sum, y) => sum + y, 0)
+  let sumYEstimated = 0
+  let sumResidual = 0
+
+  let html = `
+    <table class="regression-table">
+      <thead>
+        <tr>
+          <th>X</th>
+          <th>Y</th>
+          <th>Y Estimado</th>
+          <th>Resíduo</th>
+        </tr>
+      </thead>
+      <tbody>
+  `
+
+  xValues.forEach((x, i) => {
+    const y = yValues[i]
+    const yEstimated = a + b * x
+    const residual = y - yEstimated
+
+    sumYEstimated += yEstimated
+    sumResidual += residual
+
+    html += `
+      <tr>
+        <td>${formatNumber(x)}</td>
+        <td>${formatNumber(y)}</td>
+        <td>${formatNumber(yEstimated)}</td>
+        <td>${formatNumber(residual)}</td>
+      </tr>
+    `
+  })
+
+  // Adicionar linha de somatório
+  html += `
+    <tr class="highlighted-row">
+      <td>∑ = ${formatNumber(sumX)}</td>
+      <td>∑ = ${formatNumber(sumY)}</td>
+      <td>∑ = ${formatNumber(sumYEstimated)}</td>
+      <td>∑ = ${formatNumber(sumResidual)}</td>
+    </tr>
+  `
+
+  html += '</tbody></table>'
+  tableContainer.innerHTML = html
+}
+
+// Create scatter plot
+function createScatterPlot(xValues, yValues, a, b) {
+  const scatterDiv = document.getElementById('scatter-plot')
+  scatterDiv.classList.remove('hidden')
+
+  // Generate regression line points
+  const xMin = Math.min(...xValues)
+  const xMax = Math.max(...xValues)
+  const xLine = [xMin, xMax]
+  const yLine = xLine.map(x => a + b * x)
+
+  const trace1 = {
     x: xValues,
     y: yValues,
     mode: 'markers',
     type: 'scatter',
-    marker: {
-      color: 'rgba(50, 171, 96, 0.9)',
-      size: 16,
-      line: {
-        color: 'rgba(255, 255, 255, 0.8)',
-        width: 2
-      },
-      opacity: 1,
-      symbol: 'circle',
-      sizemode: 'diameter'
-    }
+    name: 'Pontos',
+    marker: { color: '#4f46e5' }
   }
 
-  const regressionCoefficients = calculateRegressionCoefficients(
-    xValues,
-    yValues
-  )
-  const regressionLine = plotRegressionLine(regressionCoefficients, xValues)
+  const trace2 = {
+    x: xLine,
+    y: yLine,
+    mode: 'lines',
+    type: 'scatter',
+    name: 'Regressão',
+    line: { color: '#dc2626' }
+  }
 
   const layout = {
-    xaxis: {
-      title: 'Valores de X',
-      zeroline: false,
-      gridcolor: 'rgba(200, 200, 200, 0.2)',
-      showline: true,
-      linecolor: 'rgba(100, 100, 100, 0.8)',
-      linewidth: 2,
-      titlefont: {
-        family: 'Arial, sans-serif',
-        size: 14,
-        color: 'rgba(50, 50, 50, 0.9)'
-      }
-    },
-    yaxis: {
-      title: 'Valores de Y',
-      zeroline: false,
-      gridcolor: 'rgba(200, 200, 200, 0.2)',
-      showline: true,
-      linecolor: 'rgba(100, 100, 100, 0.8)',
-      linewidth: 2,
-      titlefont: {
-        family: 'Arial, sans-serif',
-        size: 14,
-        color: 'rgba(50, 50, 50, 0.9)'
-      }
-    },
-    showlegend: false,
-    paper_bgcolor: 'rgba(240, 240, 240, 0.95)',
-    plot_bgcolor: 'rgba(240, 240, 240, 0.95)',
-    hovermode: 'closest',
-    hoverlabel: {
-      bgcolor: 'rgba(255, 255, 255, 0.9)',
-      bordercolor: 'rgba(100, 100, 100, 0.8)',
-      font: {
-        family: 'Arial, sans-serif',
-        size: 12,
-        color: 'rgba(50, 50, 50, 0.9)'
-      }
-    },
-    margin: {
-      l: 80,
-      r: 50,
-      b: 80,
-      t: 50,
-      pad: 4
-    },
-    transition: {
-      duration: 1000,
-      easing: 'ease-out'
-    },
-    shapes: [regressionLine],
-    transition: {
-      duration: 1000,
-      easing: 'ease-out'
+    title: 'Diagrama de Dispersão com Linha de Regressão',
+    xaxis: { title: 'X' },
+    yaxis: { title: 'Y' },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: {
+      color: document.body.classList.contains('dark-mode')
+        ? '#fafafa'
+        : '#18181b'
     }
   }
 
-  Plotly.newPlot('scatter-plot', [trace], layout)
+  Plotly.newPlot('scatter-plot', [trace1, trace2], layout)
 }
 
-function plotRegressionLine(coefficients, xValues) {
-  const slope = coefficients.slope
-  const intercept = coefficients.intercept
-  const yValues = xValues.map(x => slope * x + intercept)
+// Get interpretation text based on correlation coefficient
+function getInterpretation(r) {
+  const abs_r = Math.abs(r)
+  if (abs_r > 0.9) {
+    return `Correlação ${r > 0 ? 'positiva' : 'negativa'} muito forte`
+  } else if (abs_r > 0.7) {
+    return `Correlação ${r > 0 ? 'positiva' : 'negativa'} forte`
+  } else if (abs_r > 0.5) {
+    return `Correlação ${r > 0 ? 'positiva' : 'negativa'} moderada`
+  } else if (abs_r > 0.3) {
+    return `Correlação ${r > 0 ? 'positiva' : 'negativa'} fraca`
+  } else {
+    return 'Correlação muito fraca ou inexistente'
+  }
+}
 
-  const regressionLine = {
-    type: 'line',
-    x0: Math.min(...xValues),
-    y0: Math.min(...yValues),
-    x1: Math.max(...xValues),
-    y1: Math.max(...yValues),
-    line: {
-      color: 'rgba(255, 0, 0, 0.8)',
-      width: 3,
-      dash: 'solid'
-    }
+// Main calculation function
+function calculateRegression(event) {
+  event.preventDefault()
+
+  // Get input values
+  const xInput = document.getElementById('xValues').value
+  const yInput = document.getElementById('yValues').value
+
+  // Parse values
+  const xValues = parseValues(xInput)
+  const yValues = parseValues(yInput)
+
+  // Validate input
+  if (xValues.length !== yValues.length || xValues.length < 2) {
+    alert(
+      'Por favor, insira o mesmo número de valores para X e Y (mínimo 2 valores).'
+    )
+    return
   }
 
-  return regressionLine
+  // Calculate correlation coefficient
+  const r = calculateCorrelation(xValues, yValues)
+  const r2 = r * r
+
+  // Calculate regression coefficients
+  const { a, b } = calculateRegressionCoefficients(xValues, yValues)
+
+  // Update results
+  document.getElementById('correlation').textContent = formatNumber(r)
+  document.getElementById('determination').textContent = formatNumber(r2)
+  document.getElementById('interpretation').textContent = getInterpretation(r)
+  document.getElementById(
+    'regressionEquation'
+  ).textContent = `Equação de Regressão Ajustada: Y = ${formatNumber(
+    b
+  )}X + ${formatNumber(a)}`
+
+  // Create table and plot
+  createRegressionTable(xValues, yValues, a, b)
+  createScatterPlot(xValues, yValues, a, b)
 }
+
+// Update plot on dark mode toggle
+document
+  .getElementById('toggleDarkMode')
+  .addEventListener('click', function () {
+    const scatterDiv = document.getElementById('scatter-plot')
+    if (!scatterDiv.classList.contains('hidden')) {
+      const newColor = document.body.classList.contains('dark-mode')
+        ? '#fafafa'
+        : '#18181b'
+      Plotly.relayout('scatter-plot', {
+        'font.color': newColor,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
+      })
+    }
+  })

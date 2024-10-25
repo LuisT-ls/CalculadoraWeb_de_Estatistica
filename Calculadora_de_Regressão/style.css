@@ -48,7 +48,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 body {
@@ -57,59 +56,67 @@ body {
   background-color: var(--background);
   color: var(--text-color);
   line-height: 1.6;
-  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Container and Layout */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* Header Styles */
+/* Typography */
 h1 {
-  text-align: center;
-  color: var(--primary-color);
-  margin-bottom: 2rem;
   font-size: 2.5rem;
   font-weight: 700;
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
 
 h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
   color: var(--text-color);
   margin: 1.5rem 0 1rem;
-  font-size: 1.8rem;
 }
 
 /* Form Styles */
-#regressaoForm {
+form {
   background-color: var(--card-bg);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 label {
   display: block;
+  font-weight: 500;
   margin-bottom: 0.5rem;
   color: var(--text-color);
-  font-weight: 500;
 }
 
-input[type='text'] {
+input {
   width: 100%;
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
+  font-size: 1rem;
   background-color: var(--card-bg);
   color: var(--text-color);
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input[type='text']:focus {
+input:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px var(--primary-light);
@@ -119,21 +126,21 @@ input[type='text']:focus {
 .button-container {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
 }
 
 button {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
   background-color: var(--primary-color);
   color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  flex: 1;
-  min-width: 120px;
 }
 
 button:hover {
@@ -141,22 +148,21 @@ button:hover {
   transform: translateY(-1px);
 }
 
-button:active {
-  transform: translateY(0);
-}
-
 #toggleDarkMode {
   position: fixed;
   top: 1rem;
   right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0.5rem;
-  min-width: unset;
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Results Section */
@@ -164,46 +170,47 @@ button:active {
   background-color: var(--card-bg);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#result p {
-  margin-bottom: 1rem;
-  color: var(--text-color);
-}
-
-#result span {
-  font-weight: 600;
-  color: var(--primary-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Table Styles */
-#table-container {
-  overflow-x: auto;
-  margin: 1rem 0;
-}
-
-table {
+.regression-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
-th,
-td {
-  padding: 0.75rem;
+.regression-table th,
+.regression-table td {
+  padding: 0.75rem 1rem;
+  text-align: right;
   border: 1px solid var(--border-color);
-  text-align: center;
 }
 
-th {
-  background-color: var(--primary-light);
-  color: var(--text-color);
+.regression-table th {
+  background-color: var(--primary-color);
+  color: white;
   font-weight: 600;
 }
 
-tr:nth-child(even) {
+.regression-table tr:nth-child(even) {
   background-color: var(--hover-bg);
+}
+
+.highlighted-row {
+  background-color: var(--primary-light) !important;
+  font-weight: 600;
+}
+
+/* Formula and Math Styles */
+.formula {
+  font-family: 'Computer Modern', serif;
+  font-style: italic;
+  color: var(--primary-color);
 }
 
 /* Description Section */
@@ -212,48 +219,40 @@ tr:nth-child(even) {
   padding: 2rem;
   border-radius: 1rem;
   margin: 2rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-#description.hidden {
-  display: none;
+#description ul {
+  list-style-position: inside;
+  margin: 1rem 0;
+  padding-left: 1rem;
 }
 
-.formula {
-  font-family: 'Times New Roman', serif;
-  font-style: italic;
-  color: var(--primary-color);
+#description li {
+  margin-bottom: 0.5rem;
 }
 
 /* Footer Styles */
 footer {
-  text-align: center;
-  margin-top: 3rem;
+  margin-top: auto;
   padding: 2rem 0;
-  border-top: 1px solid var(--border-color);
+  text-align: center;
   color: var(--text-secondary);
 }
 
 footer a {
   color: var(--primary-color);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
   color: var(--primary-hover);
-  text-decoration: underline;
 }
 
-/* Plot Styles */
-#scatter-plot {
-  width: 100%;
-  height: 400px;
-  margin: 2rem 0;
-}
-
-#scatter-plot.hidden {
+/* Utility Classes */
+.hidden {
   display: none;
 }
 
@@ -267,11 +266,7 @@ footer a:hover {
     font-size: 2rem;
   }
 
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  #regressaoForm,
+  form,
   #result,
   #description {
     padding: 1.5rem;
@@ -285,21 +280,10 @@ footer a:hover {
     width: 100%;
   }
 
-  .button-container:first-of-type {
-    margin: 0 0 1.5rem 0;
-  }
-  
-  #toggleDarkMode {
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 40px;
-    height: 40px;
-    padding: 0.5rem;
-  }
-
-  #scatter-plot {
-    height: 50vh;
-    min-height: 250px;
+  .regression-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 
@@ -308,46 +292,24 @@ footer a:hover {
     font-size: 1.75rem;
   }
 
-  input[type='text'] {
-    font-size: 0.9rem;
+  h2 {
+    font-size: 1.5rem;
   }
 
-  #result span {
-    display: block;
-    margin-top: 0.5rem;
+  form,
+  #result,
+  #description {
+    padding: 1rem;
   }
 
-  #scatter-plot {
-    height: 40vh;
-    min-height: 200px;
-  }
-
-  .button-container:first-of-type {
-    margin: 0 0 1rem 0;
+  input {
+    padding: 0.5rem 0.75rem;
   }
 
   #toggleDarkMode {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
   }
-}
-
-/* Landscape Mode Optimization */
-@media (max-height: 500px) and (orientation: landscape) {
-  #scatter-plot {
-    height: 70vh;
-    min-height: 180px;
-  }
-}
-
-/* Make sure plotly controls are visible in dark mode */
-.dark-mode .js-plotly-plot .plotly .modebar {
-  background-color: var(--card-dark) !important;
-}
-
-.dark-mode .js-plotly-plot .plotly .modebar-btn path {
-  fill: var(--text-dark) !important;
 }
 
 /* Print Styles */
@@ -357,18 +319,19 @@ footer a:hover {
   }
 
   .container {
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
     padding: 0;
   }
 
-  button,
-  #toggleDarkMode {
+  #toggleDarkMode,
+  #toggleDescriptionBtn {
     display: none;
   }
 
+  form,
   #result,
-  #description,
-  #regressaoForm {
+  #description {
     box-shadow: none;
     border: 1px solid #ddd;
   }
