@@ -1,322 +1,406 @@
-// Função para alternar o modo escuro (simplificada com operador ternário)
-function toggleDarkMode() {
-  const body = document.body
-  body.classList.toggle('dark-mode')
-  const button = document.getElementById('toggleDarkMode')
-  button.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙'
-}
-
-// Carrega o modo escuro ou claro assim que a página é carregada
-document.addEventListener('DOMContentLoaded', () => {
-  toggleDarkMode()
-
-  // Otimização de desempenho para evitar criação repetida de elementos
-  const elementInfoContainer = document.querySelector('.element-info')
-  if (elementInfoContainer && !elementInfoContainer.hasChildNodes()) {
-    elementInfoContainer.style.display = 'none'
-  }
-})
-
-// Função para buscar e exibir informações do elemento
-const searchInput = document.getElementById('search')
-const suggestionsList = document.getElementById('suggestions-list')
-function searchElement() {
-  const searchTerm = searchInput.value.toLowerCase().trim()
-  if (searchTerm === '') {
-    clearSuggestions()
-    return
+// Configuração inicial e gerenciamento do modo escuro
+class DarkModeManager {
+  constructor() {
+    this.init()
   }
 
-  fetch('elements.json')
-    .then(response => response.json())
-    .then(elements => {
-      const matches = elements.filter(
-        element =>
-          element.name.toLowerCase().startsWith(searchTerm) ||
-          element.symbol.toLowerCase().startsWith(searchTerm)
-      )
-
-      displaySuggestions(matches)
-    })
-    .catch(error => {
-      console.error('Erro ao buscar os elementos:', error)
-      clearSuggestions()
-    })
-}
-
-// Função para exibir as sugestões
-function displaySuggestions(matches) {
-  clearSuggestions()
-  if (matches.length === 0) {
-    suggestionsList.classList.remove('show')
-    return
+  init() {
+    this.loadInitialState()
+    this.setupEventListeners()
   }
 
-  matches.forEach(element => {
-    const li = document.createElement('li')
-    li.textContent = `${element.name} (${element.symbol})`
-    li.tabIndex = 0 // Permite foco via teclado
-    li.addEventListener('click', () => {
-      searchInput.value = element.name
-      clearSuggestions()
-      displayElementInfo(element)
-    })
-    suggestionsList.appendChild(li)
-  })
-
-  suggestionsList.style.display = 'block'
-  searchInput.setAttribute('aria-expanded', 'true')
-}
-
-// Função para limpar as sugestões
-function clearSuggestions() {
-  suggestionsList.innerHTML = ''
-  suggestionsList.style.display = 'none'
-  searchInput.setAttribute('aria-expanded', 'false')
-}
-
-// Função para carregar a tabela periódica do arquivo JSON
-async function loadPeriodicTable() {
-  const response = await fetch('periodicTable.json')
-  const periodicTable = await response.json()
-  return periodicTable
-}
-
-// Função para carregar os dados do JSON de elementos
-async function loadElementsData() {
-  const response = await fetch('elements.json')
-  const elementsData = await response.json()
-  return elementsData
-}
-
-// Função para exibir tooltips
-function createTooltip(element) {
-  const tooltip = document.createElement('div')
-  tooltip.className = 'tooltip'
-  tooltip.innerHTML = `
-    <strong>${element.name} (${element.symbol})</strong><br>
-    Número Atômico: ${element.atomicNumber}<br>
-    Massa Atômica: ${element.atomicMass || 'Desconhecida'}<br>
-    Configuração Eletrônica: ${element.electronConfiguration || 'Desconhecida'}
-  `
-  document.body.appendChild(tooltip)
-
-  return tooltip
-}
-
-function positionTooltip(tooltip, event) {
-  const tooltipWidth = tooltip.offsetWidth
-  const tooltipHeight = tooltip.offsetHeight
-  const xOffset = 15 // Deslocamento horizontal
-  const yOffset = 15 // Deslocamento vertical
-
-  let left = event.pageX + xOffset
-  let top = event.pageY + yOffset
-
-  // Prevenção de overflow na borda da janela
-  if (left + tooltipWidth > window.innerWidth) {
-    left = event.pageX - tooltipWidth - xOffset
-  }
-  if (top + tooltipHeight > window.innerHeight) {
-    top = event.pageY - tooltipHeight - yOffset
+  prefersDarkMode() {
+    return (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
   }
 
-  tooltip.style.left = `${left}px`
-  tooltip.style.top = `${top}px`
-}
+  loadDarkModePreference() {
+    const savedPreference = localStorage.getItem('darkMode')
+    return savedPreference === null
+      ? this.prefersDarkMode()
+      : savedPreference === 'true'
+  }
 
-// Função para associar tooltips às células da tabela
-function addTooltipListeners(cell, element) {
-  let tooltip
+  saveDarkModePreference(isDark) {
+    localStorage.setItem('darkMode', isDark)
+  }
 
-  cell.addEventListener('mouseenter', event => {
-    tooltip = createTooltip(element)
-    positionTooltip(tooltip, event)
-  })
+  updateUI(isDark) {
+    const body = document.body
+    const button = document.getElementById('toggleDarkMode')
 
-  cell.addEventListener('mousemove', event => {
-    positionTooltip(tooltip, event)
-  })
+    body.classList.toggle('dark-mode', isDark)
 
-  cell.addEventListener('mouseleave', () => {
-    tooltip.remove()
-  })
-}
+    button.innerHTML = isDark
+      ? '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+      : '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>'
 
-// Função para exibir a tabela periódica completa
-async function showPeriodicTable() {
-  const container = document.getElementById('periodic-table-container')
-  const lanthanidesContainer = document.getElementById('lanthanides-container')
-  const actinidesContainer = document.getElementById('actinides-container')
-  const button = document.getElementById('showPeriodicTable')
+    button.setAttribute(
+      'aria-label',
+      isDark ? 'Ativar modo claro' : 'Ativar modo escuro'
+    )
+  }
 
-  if (container.style.display === 'grid') {
-    container.style.display = 'none'
-    lanthanidesContainer.style.display = 'none'
-    actinidesContainer.style.display = 'none'
-    button.textContent = 'Exibir a Tabela Periódica'
-  } else {
-    if (!container.innerHTML) {
-      const periodicTable = await loadPeriodicTable()
-      const elementsData = await loadElementsData()
+  toggle() {
+    const isDark = !document.body.classList.contains('dark-mode')
+    this.updateUI(isDark)
+    this.saveDarkModePreference(isDark)
+  }
 
-      elementsData.forEach((element, index) => {
-        const cell = document.createElement('div')
-        cell.classList.add('periodic-table-cell')
-        cell.innerHTML = `<strong>${element.symbol}</strong><br>${element.atomicNumber}`
+  loadInitialState() {
+    const shouldBeDark = this.loadDarkModePreference()
+    this.updateUI(shouldBeDark)
+  }
 
-        // Definindo o delay da animação com base na ordem dos elementos
-        cell.style.setProperty('--animation-delay', `${index * 0.05}s`)
-
-        if (element.period === 6 && element.group === 3) {
-          document.querySelector('.lanthanides-grid').appendChild(cell)
-        } else if (element.period === 7 && element.group === 3) {
-          document.querySelector('.actinides-grid').appendChild(cell)
-        } else {
-          cell.style.gridColumn = getGridColumn(element)
-          cell.style.gridRow = getGridRow(element)
-          container.appendChild(cell)
-        }
-
-        // Adiciona tooltips e modal listeners a cada célula
-        addTooltipListeners(cell, element)
-        addModalListener(cell, element)
-      })
+  setupEventListeners() {
+    if (window.matchMedia) {
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', e => {
+          if (localStorage.getItem('darkMode') === null) {
+            this.updateUI(e.matches)
+          }
+        })
     }
-    container.style.display = 'grid'
-    lanthanidesContainer.style.display = 'block'
-    actinidesContainer.style.display = 'block'
-    button.textContent = 'Ocultar a Tabela Periódica'
   }
 }
 
-// Função para criar a modal de detalhes
-function createModal(element) {
-  const modalOverlay = document.createElement('div')
-  modalOverlay.className = 'modal-overlay'
-  const modal = document.createElement('div')
-  modal.className = 'modal'
+// Gerenciamento da Tabela Periódica
+class PeriodicTableManager {
+  constructor() {
+    this.container = document.getElementById('periodic-table-container')
+    this.lanthanidesContainer = document.getElementById('lanthanides-container')
+    this.actinidesContainer = document.getElementById('actinides-container')
+    this.button = document.getElementById('showPeriodicTable')
+    this.elementsData = null
+    this.periodicTable = null
+  }
 
-  modal.innerHTML = `
-    <h2>${element.name} (${element.symbol})</h2>
-    <p><strong>Número Atômico:</strong> ${element.atomicNumber}</p>
-    <p><strong>Massa Atômica:</strong> ${
-      element.atomicMass || 'Desconhecida'
-    }</p>
-    <p><strong>Configuração Eletrônica:</strong> ${
-      element.electronConfiguration || 'Desconhecida'
-    }</p>
-    <p><strong>Grupo:</strong> ${element.group}</p>
-    <p><strong>Período:</strong> ${element.period}</p>
-    <button class="close-modal">Fechar</button>
-  `
+  async loadData() {
+    try {
+      const [elementsResponse, tableResponse] = await Promise.all([
+        fetch('elements.json'),
+        fetch('periodicTable.json')
+      ])
+      this.elementsData = await elementsResponse.json()
+      this.periodicTable = await tableResponse.json()
+    } catch (error) {
+      console.error('Erro ao carregar dados:', error)
+    }
+  }
 
-  modalOverlay.appendChild(modal)
-  document.body.appendChild(modalOverlay)
-
-  modalOverlay.addEventListener('click', event => {
+  getGridPosition(element) {
     if (
-      event.target === modalOverlay ||
-      event.target.classList.contains('close-modal')
+      (element.period === 6 && element.group === 3) ||
+      (element.period === 7 && element.group === 3)
     ) {
-      modalOverlay.remove()
+      return { column: null, row: null }
     }
-  })
-}
-
-// Função para associar o evento de abertura da modal às células da tabela
-function addModalListener(cell, element) {
-  cell.addEventListener('click', () => {
-    createModal(element)
-  })
-}
-
-// Função auxiliar para determinar a coluna da grade (grupo)
-function getGridColumn(element) {
-  return element.group === 0 ? 1 : element.group + 1
-}
-
-// Função auxiliar para determinar a linha da grade (período)
-function getGridRow(element) {
-  if (
-    (element.period === 6 && element.group === 3) ||
-    (element.period === 7 && element.group === 3)
-  ) {
-    return null // Exclui La-Lu e Ac-Lr da tabela principal
+    return {
+      column: element.group === 0 ? 1 : element.group + 1,
+      row: element.period
+    }
   }
-  return element.period
-}
 
-// Função para exibir informações do elemento
-function displayElementInfo(element) {
-  clearElementInfo()
+  createElementCell(element, index) {
+    const cell = document.createElement('div')
+    cell.classList.add('periodic-table-cell')
+    cell.innerHTML = `
+      <div class="atomic-number">${element.atomicNumber}</div>
+      <div class="symbol">${element.symbol}</div>
+      <div class="name">${element.name}</div>
+      <div class="mass">${element.atomicMass}</div>
+    `
+    cell.style.setProperty('--animation-delay', `${index * 0.05}s`)
 
-  const {
-    name,
-    symbol,
-    atomicNumber,
-    atomicMass,
-    group,
-    period,
-    block,
-    category,
-    meltingPoint,
-    boilingPoint,
-    density,
-    electronConfiguration
-  } = element
+    this.addInteractivity(cell, element)
+    return cell
+  }
 
-  const infoContainer = document.createElement('div')
-  infoContainer.classList.add('element-info')
+  addInteractivity(cell, element) {
+    let tooltip = null
 
-  const title = document.createElement('h2')
-  title.textContent = `${name} (${symbol})`
-  infoContainer.appendChild(title)
+    cell.addEventListener('mouseenter', event => {
+      tooltip = this.createTooltip(element)
+      this.positionTooltip(tooltip, event)
+    })
 
-  const table = document.createElement('table')
-  table.classList.add('element-table')
-  const headerRow = table.insertRow()
-  headerRow.classList.add('element-header')
-  ;['Propriedade', 'Valor'].forEach(text => {
-    const th = document.createElement('th')
-    th.textContent = text
-    headerRow.appendChild(th)
-  })
+    cell.addEventListener('mousemove', event => {
+      this.positionTooltip(tooltip, event)
+    })
 
-  const properties = [
-    { label: 'Número Atômico', value: atomicNumber },
-    { label: 'Massa Atômica', value: atomicMass },
-    { label: 'Grupo', value: group },
-    { label: 'Período', value: period },
-    { label: 'Bloco', value: block },
-    { label: 'Categoria', value: category },
-    { label: 'Ponto de Fusão', value: meltingPoint },
-    { label: 'Ponto de Ebulição', value: boilingPoint },
-    { label: 'Densidade', value: density },
-    { label: 'Configuração Eletrônica', value: electronConfiguration }
-  ]
-  properties.forEach(createTableRow)
-  infoContainer.appendChild(table)
+    cell.addEventListener('mouseleave', () => {
+      if (tooltip) tooltip.remove()
+    })
 
-  // Insere o infoContainer dentro do main logo após a div de input
-  const mainElement = document.querySelector('main')
-  const inputDiv = document.querySelector('.input')
-  mainElement.insertBefore(infoContainer, inputDiv.nextSibling)
+    cell.addEventListener('click', () => {
+      this.showModal(element)
+    })
+  }
 
-  function createTableRow({ label, value }) {
-    const row = table.insertRow()
-    row.classList.add('element-cell')
-    const labelCell = row.insertCell()
-    const valueCell = row.insertCell()
-    labelCell.textContent = label
-    valueCell.textContent = value
+  createTooltip(element) {
+    const tooltip = document.createElement('div')
+    tooltip.className = 'tooltip'
+    tooltip.innerHTML = `
+      <strong>${element.name} (${element.symbol})</strong><br>
+      Número Atômico: ${element.atomicNumber}<br>
+      Massa Atômica: ${element.atomicMass || 'Desconhecida'}<br>
+      Configuração Eletrônica: ${
+        element.electronConfiguration || 'Desconhecida'
+      }
+    `
+    document.body.appendChild(tooltip)
+    return tooltip
+  }
+
+  positionTooltip(tooltip, event) {
+    if (!tooltip) return
+
+    const padding = 15
+    let x = event.pageX + padding
+    let y = event.pageY + padding
+
+    const tooltipRect = tooltip.getBoundingClientRect()
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+
+    if (x + tooltipRect.width > viewportWidth) {
+      x = event.pageX - tooltipRect.width - padding
+    }
+    if (y + tooltipRect.height > viewportHeight) {
+      y = event.pageY - tooltipRect.height - padding
+    }
+
+    tooltip.style.left = `${x}px`
+    tooltip.style.top = `${y}px`
+  }
+
+  showModal(element) {
+    const modalHTML = `
+      <div class="modal-overlay">
+        <div class="modal">
+          <h2>${element.name} (${element.symbol})</h2>
+          <div class="modal-content">
+            <p><strong>Número Atômico:</strong> ${element.atomicNumber}</p>
+            <p><strong>Massa Atômica:</strong> ${
+              element.atomicMass || 'Desconhecida'
+            }</p>
+            <p><strong>Configuração Eletrônica:</strong> ${
+              element.electronConfiguration || 'Desconhecida'
+            }</p>
+            <p><strong>Grupo:</strong> ${element.group}</p>
+            <p><strong>Período:</strong> ${element.period}</p>
+            <p><strong>Categoria:</strong> ${element.category}</p>
+            <p><strong>Densidade:</strong> ${
+              element.density || 'Desconhecida'
+            }</p>
+            <p><strong>Ponto de Fusão:</strong> ${
+              element.meltingPoint || 'Desconhecido'
+            }</p>
+            <p><strong>Ponto de Ebulição:</strong> ${
+              element.boilingPoint || 'Desconhecido'
+            }</p>
+          </div>
+          <button class="close-modal">Fechar</button>
+        </div>
+      </div>
+    `
+
+    const modalElement = document
+      .createRange()
+      .createContextualFragment(modalHTML)
+    document.body.appendChild(modalElement)
+
+    document
+      .querySelector('.modal-overlay')
+      .addEventListener('click', event => {
+        if (event.target.matches('.modal-overlay, .close-modal')) {
+          document.querySelector('.modal-overlay').remove()
+        }
+      })
+  }
+
+  async toggleDisplay() {
+    const isVisible = this.container.style.display === 'grid'
+
+    if (isVisible) {
+      this.container.style.display = 'none'
+      this.lanthanidesContainer.style.display = 'none'
+      this.actinidesContainer.style.display = 'none'
+      this.button.textContent = 'Exibir a Tabela Periódica'
+    } else {
+      if (!this.elementsData) {
+        await this.loadData()
+      }
+
+      if (!this.container.innerHTML) {
+        this.renderTable()
+      }
+
+      this.container.style.display = 'grid'
+      this.lanthanidesContainer.style.display = 'block'
+      this.actinidesContainer.style.display = 'block'
+      this.button.textContent = 'Ocultar a Tabela Periódica'
+    }
+  }
+
+  renderTable() {
+    this.elementsData.forEach((element, index) => {
+      const cell = this.createElementCell(element, index)
+      const { column, row } = this.getGridPosition(element)
+
+      if (row === null) {
+        if (element.period === 6) {
+          document.querySelector('.lanthanides-grid').appendChild(cell)
+        } else {
+          document.querySelector('.actinides-grid').appendChild(cell)
+        }
+      } else {
+        cell.style.gridColumn = column
+        cell.style.gridRow = row
+        this.container.appendChild(cell)
+      }
+    })
   }
 }
 
-// Função para limpar informações do elemento
-function clearElementInfo() {
-  const infoContainer = document.querySelector('.element-info')
-  if (infoContainer) {
-    infoContainer.remove()
+// Gerenciamento da Busca
+class SearchManager {
+  constructor() {
+    this.searchInput = document.getElementById('search')
+    this.suggestionsList = document.getElementById('suggestions-list')
+    this.elementsData = null
+    this.init()
+  }
+
+  async init() {
+    try {
+      const response = await fetch('elements.json')
+      this.elementsData = await response.json()
+      this.setupEventListeners()
+    } catch (error) {
+      console.error('Erro ao carregar elementos:', error)
+    }
+  }
+
+  setupEventListeners() {
+    this.searchInput.addEventListener('input', () => this.handleSearch())
+    document.addEventListener('click', e => {
+      if (
+        !this.searchInput.contains(e.target) &&
+        !this.suggestionsList.contains(e.target)
+      ) {
+        this.clearSuggestions()
+      }
+    })
+  }
+
+  handleSearch() {
+    const searchTerm = this.searchInput.value.toLowerCase().trim()
+    if (!searchTerm) {
+      this.clearSuggestions()
+      return
+    }
+
+    const matches = this.elementsData.filter(
+      element =>
+        element.name.toLowerCase().startsWith(searchTerm) ||
+        element.symbol.toLowerCase().startsWith(searchTerm)
+    )
+
+    this.displaySuggestions(matches)
+  }
+
+  displaySuggestions(matches) {
+    this.clearSuggestions()
+
+    if (matches.length === 0) {
+      this.suggestionsList.classList.remove('show')
+      return
+    }
+
+    matches.forEach(element => {
+      const li = document.createElement('li')
+      li.textContent = `${element.name} (${element.symbol})`
+      li.tabIndex = 0
+      li.addEventListener('click', () => {
+        this.searchInput.value = element.name
+        this.clearSuggestions()
+        this.displayElementInfo(element)
+      })
+      this.suggestionsList.appendChild(li)
+    })
+
+    this.suggestionsList.style.display = 'block'
+    this.searchInput.setAttribute('aria-expanded', 'true')
+  }
+
+  clearSuggestions() {
+    this.suggestionsList.innerHTML = ''
+    this.suggestionsList.style.display = 'none'
+    this.searchInput.setAttribute('aria-expanded', 'false')
+  }
+
+  displayElementInfo(element) {
+    const infoContainer =
+      document.querySelector('.element-info') || document.createElement('div')
+    infoContainer.className = 'element-info'
+    infoContainer.innerHTML = `
+      <h2>${element.name} (${element.symbol})</h2>
+      <table class="element-table">
+        <tr class="element-header">
+          <th>Propriedade</th>
+          <th>Valor</th>
+        </tr>
+        ${this.createInfoRows(element)}
+      </table>
+    `
+
+    const mainElement = document.querySelector('main')
+    const inputDiv = document.querySelector('.input')
+    mainElement.insertBefore(infoContainer, inputDiv.nextSibling)
+  }
+
+  createInfoRows(element) {
+    const properties = [
+      { label: 'Número Atômico', value: element.atomicNumber },
+      { label: 'Massa Atômica', value: element.atomicMass },
+      { label: 'Grupo', value: element.group },
+      { label: 'Período', value: element.period },
+      { label: 'Bloco', value: element.block },
+      { label: 'Categoria', value: element.category },
+      { label: 'Ponto de Fusão', value: element.meltingPoint },
+      { label: 'Ponto de Ebulição', value: element.boilingPoint },
+      { label: 'Densidade', value: element.density },
+      { label: 'Configuração Eletrônica', value: element.electronConfiguration }
+    ]
+
+    return properties
+      .map(
+        ({ label, value }) => `
+        <tr class="element-cell">
+          <td>${label}</td>
+          <td>${value || 'Não disponível'}</td>
+        </tr>
+      `
+      )
+      .join('')
   }
 }
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+  const darkMode = new DarkModeManager()
+  const periodicTable = new PeriodicTableManager()
+  const search = new SearchManager()
+
+  // Event Listeners
+  document
+    .getElementById('toggleDarkMode')
+    .addEventListener('click', () => darkMode.toggle())
+  document
+    .getElementById('showPeriodicTable')
+    .addEventListener('click', () => periodicTable.toggleDisplay())
+})
