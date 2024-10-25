@@ -1,3 +1,9 @@
+// Inicialização do dark mode
+document.addEventListener('DOMContentLoaded', function () {
+  const button = document.getElementById('toggleDarkMode')
+  button.textContent = '☀️'
+})
+
 // Dark mode functionality
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode')
@@ -20,18 +26,13 @@ document
 
 // Format number function
 function formatNumber(num) {
-  // Verifica se o número tem decimais
   if (Number.isInteger(num)) {
-    return num.toString() // Retorna número inteiro sem decimais
+    return num.toString()
   }
-
-  // Se o número original incluía uma vírgula, mantém as casas decimais originais
   const numStr = num.toString()
   if (numStr.includes(',')) {
     return numStr
   }
-
-  // Caso contrário, formata com uma casa decimal
   return num.toFixed(1)
 }
 
