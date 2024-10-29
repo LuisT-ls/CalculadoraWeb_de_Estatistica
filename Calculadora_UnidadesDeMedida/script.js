@@ -1,796 +1,702 @@
-function toggleDarkMode() {
-  const body = document.body
-  const button = document.getElementById('toggleDarkMode')
-
-  const isDarkMode = body.classList.contains('dark-mode')
-
-  if (isDarkMode) {
-    body.classList.remove('dark-mode')
-    button.textContent = '🌙'
-    button.classList.add('light-mode')
-  } else {
-    body.classList.add('dark-mode')
-    button.textContent = '☀️'
-    button.classList.remove('light-mode')
+// Unit conversion rates and configurations
+const unitConfigs = {
+  comprimento: {
+    units: [
+      'metros',
+      'quilômetros',
+      'centímetros',
+      'milímetros',
+      'polegadas',
+      'pés',
+      'jardas',
+      'milhas',
+      'micrómetros',
+      'nanômetros',
+      'anos-luz'
+    ],
+    baseUnit: 'metros',
+    conversions: {
+      metros: 1,
+      quilômetros: 0.001,
+      centímetros: 100,
+      milímetros: 1000,
+      polegadas: 39.3701,
+      pés: 3.28084,
+      jardas: 1.09361,
+      milhas: 0.000621371,
+      micrómetros: 1000000,
+      nanômetros: 1000000000,
+      'anos-luz': 1.057e-16
+    },
+    explanation:
+      'A conversão de comprimento é fundamental na engenharia, construção civil, navegação e em diversas áreas científicas. Permite transformar medidas entre diferentes sistemas de unidades, como o métrico e o imperial.'
+  },
+  massa: {
+    units: [
+      'quilogramas',
+      'gramas',
+      'miligramas',
+      'libras',
+      'onças',
+      'toneladas',
+      'microgramas',
+      'stones',
+      'quilates',
+      'toneladas métricas'
+    ],
+    baseUnit: 'quilogramas',
+    conversions: {
+      quilogramas: 1,
+      gramas: 1000,
+      miligramas: 1000000,
+      libras: 2.20462,
+      onças: 35.274,
+      toneladas: 0.001,
+      microgramas: 1e9,
+      stones: 0.157473,
+      quilates: 5000,
+      'toneladas métricas': 0.001
+    },
+    explanation:
+      'A conversão de massa é essencial em áreas como medicina, culinária, indústria e comércio. Permite converter entre diferentes unidades de peso, facilitando cálculos precisos e padronização de medidas.'
+  },
+  volume: {
+    units: [
+      'litros',
+      'mililitros',
+      'metros cúbicos',
+      'galões',
+      'onças líquidas',
+      'copos',
+      'centímetros cúbicos',
+      'pés cúbicos',
+      'polegadas cúbicas',
+      'barris'
+    ],
+    baseUnit: 'litros',
+    conversions: {
+      litros: 1,
+      mililitros: 1000,
+      'metros cúbicos': 0.001,
+      galões: 0.264172,
+      'onças líquidas': 33.814,
+      copos: 4.22675,
+      'centímetros cúbicos': 1000,
+      'pés cúbicos': 0.0353147,
+      'polegadas cúbicas': 61.0237,
+      barris: 0.00628981
+    },
+    explanation:
+      'A conversão de volume é crucial em laboratórios, indústria química, culinária e engenharia hidráulica. Permite calcular quantidades de líquidos e materiais em diferentes unidades de medida.'
+  },
+  area: {
+    units: [
+      'metros quadrados',
+      'quilômetros quadrados',
+      'hectares',
+      'acres',
+      'pés quadrados',
+      'polegadas quadradas',
+      'centímetros quadrados',
+      'milímetros quadrados',
+      'jardas quadradas',
+      'alqueires'
+    ],
+    baseUnit: 'metros quadrados',
+    conversions: {
+      'metros quadrados': 1,
+      'quilômetros quadrados': 0.000001,
+      hectares: 0.0001,
+      acres: 0.000247105,
+      'pés quadrados': 10.7639,
+      'polegadas quadradas': 1550,
+      'centímetros quadrados': 10000,
+      'milímetros quadrados': 1000000,
+      'jardas quadradas': 1.19599,
+      alqueires: 0.0000413223
+    },
+    explanation:
+      'A conversão de área é fundamental no planejamento urbano, agricultura, arquitetura e construção civil. Permite calcular superfícies em diferentes escalas e sistemas de medida.'
+  },
+  tempo: {
+    units: [
+      'segundos',
+      'minutos',
+      'horas',
+      'dias',
+      'semanas',
+      'meses',
+      'anos',
+      'décadas',
+      'séculos',
+      'milissegundos',
+      'microssegundos',
+      'nanossegundos'
+    ],
+    baseUnit: 'segundos',
+    conversions: {
+      segundos: 1,
+      minutos: 1 / 60,
+      horas: 1 / 3600,
+      dias: 1 / 86400,
+      semanas: 1 / 604800,
+      meses: 1 / 2592000,
+      anos: 1 / 31536000,
+      décadas: 1 / 315360000,
+      séculos: 1 / 3153600000,
+      milissegundos: 1000,
+      microssegundos: 1000000,
+      nanossegundos: 1000000000
+    },
+    explanation:
+      'A conversão de tempo é utilizada em cronometragem, planejamento, astronomia e física. Permite converter entre diferentes unidades de tempo para cálculos precisos de duração e intervalos.'
+  },
+  velocidade: {
+    units: [
+      'metros por segundo',
+      'quilômetros por hora',
+      'milhas por hora',
+      'nós',
+      'pés por segundo',
+      'mach',
+      'velocidade da luz'
+    ],
+    baseUnit: 'metros por segundo',
+    conversions: {
+      'metros por segundo': 1,
+      'quilômetros por hora': 3.6,
+      'milhas por hora': 2.23694,
+      nós: 1.94384,
+      'pés por segundo': 3.28084,
+      mach: 0.00292,
+      'velocidade da luz': 3.33564e-9
+    },
+    explanation:
+      'A conversão de velocidade é essencial na física, navegação, aviação e transportes. Permite converter entre diferentes unidades de velocidade usadas em diversos contextos.'
+  },
+  angulo: {
+    units: [
+      'graus',
+      'radianos',
+      'grados',
+      'minutos de arco',
+      'segundos de arco',
+      'rotações'
+    ],
+    baseUnit: 'graus',
+    conversions: {
+      graus: 1,
+      radianos: 0.0174533,
+      grados: 1.11111,
+      'minutos de arco': 60,
+      'segundos de arco': 3600,
+      rotações: 0.00277778
+    },
+    explanation:
+      'A conversão de ângulos é fundamental na matemática, engenharia, navegação e astronomia. Permite converter entre diferentes sistemas de medição angular.'
+  },
+  pressao: {
+    units: [
+      'pascal',
+      'bar',
+      'psi',
+      'atmosferas',
+      'torr',
+      'quilopascal',
+      'megapascal',
+      'milímetros de mercúrio'
+    ],
+    baseUnit: 'pascal',
+    conversions: {
+      pascal: 1,
+      bar: 0.00001,
+      psi: 0.000145038,
+      atmosferas: 0.00000986923,
+      torr: 0.00750062,
+      quilopascal: 0.001,
+      megapascal: 0.000001,
+      'milímetros de mercúrio': 0.00750062
+    },
+    explanation:
+      'A conversão de pressão é crucial em meteorologia, engenharia mecânica e processos industriais. Permite converter entre diferentes unidades de pressão usadas em diversos campos.'
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  toggleDarkMode()
+// Theme management
+const themeManager = {
+  isDarkMode: false,
 
-  // Get the elements
-  const showExplanationButton = document.getElementById('showExplanation')
-  const calcExplanation = document.getElementById('calcExplanation')
-  const operationSelect = document.getElementById('operation')
-  const unitSelectionContainer = document.getElementById('unit-selection')
-  const inputFieldsContainer = document.getElementById('input-fields')
-  const calculateButton = document.getElementById('calculate')
-  const resultDisplay = document.getElementById('result')
-
-  // Objeto com as explicações para cada tipo de operação
-  const explanations = {
-    comprimento:
-      'O cálculo de comprimento é usado para medir a distância entre dois pontos ou o tamanho linear de um objeto. É fundamental em diversas áreas como construção civil, arquitetura, engenharia e no dia a dia.',
-    massa:
-      'O cálculo de massa é essencial para determinar a quantidade de matéria em um objeto. É usado em comércio, indústria, medicina, culinária e muitas outras aplicações.',
-    volume:
-      'O cálculo de volume determina o espaço tridimensional ocupado por um objeto ou substância. É crucial em química, engenharia, logística e armazenamento.',
-    area: 'O cálculo de área mede o espaço bidimensional ocupado por uma superfície. É fundamental em construção, decoração, agricultura e planejamento urbano.',
-    tempo:
-      'O cálculo de tempo é usado para medir durações e converter entre diferentes unidades temporais. É essencial em planejamento, cronogramas e gerenciamento de projetos.',
-    velocidade:
-      'O cálculo de velocidade determina a taxa de variação da posição de um objeto. É crucial em transporte, física, engenharia e planejamento de rotas.',
-    angulo:
-      'O cálculo de ângulos é usado para medir rotações e orientações. É fundamental em geometria, navegação, construção e design.',
-    pressao:
-      'O cálculo de pressão mede a força exercida por unidade de área. É essencial em meteorologia, engenharia, medicina e processos industriais.'
-  }
-
-  function updateExplanation() {
-    const operation = document.getElementById('operation').value
-    const explanationText = document.getElementById('calcExplanation')
-    explanationText.textContent = explanations[operation]
-  }
-
-  document
-    .getElementById('showExplanation')
-    .addEventListener('click', function () {
-      const explanationText = document.getElementById('calcExplanation')
-      explanationText.classList.toggle('active')
-
-      // Muda o texto do botão baseado no estado
-      if (explanationText.classList.contains('active')) {
-        this.textContent = 'Ocultar explicação'
-      } else {
-        this.textContent = 'Responda-me'
-      }
-    })
-
-  document
-    .getElementById('operation')
-    .addEventListener('change', updateExplanation)
-
-  document.addEventListener('DOMContentLoaded', function () {
-    updateExplanation()
-  })
-
-  const operationsWithInputs = [
-    'comprimento',
-    'massa',
-    'volume',
-    'area',
-    'tempo',
-    'velocidade',
-    'angulo',
-    'pressao'
-  ]
-
-  const lengthUnits = [
-    'Quilômetro (km)',
-    'Hectômetro (hm)',
-    'Decâmetro (dam)',
-    'Metro (m)',
-    'Decímetro (dm)',
-    'Centímetro (cm)',
-    'Milímetro (mm)'
-  ]
-
-  const massUnits = [
-    'Quilograma (kg)',
-    'Hectograma (hg)',
-    'Decagrama (dag)',
-    'Grama (g)',
-    'Decigrama (dg)',
-    'Centigrama (cg)',
-    'Miligrama (mg)'
-  ]
-
-  const volumeUnits = [
-    'Quilômetro Cúbico (km³)',
-    'Hectômetro Cúbico (hm³)',
-    'Decâmetro Cúbico (dam³)',
-    'Metro Cúbico (m³)',
-    'Decímetro Cúbico (dm³)',
-    'Centímetro Cúbico (cm³)',
-    'Milímetro Cúbico (mm³)'
-  ]
-
-  const areaUnits = [
-    'Quilômetro Quadrado (km²)',
-    'Metro Quadrado (m²)',
-    'Milha Quadrada (mi²)',
-    'Quintal Quadrado (sq c)',
-    'Pé Quadrado (ft²)',
-    'Polegada Quadrada (in²)',
-    'Hectare (ha)',
-    'Acre (acre)'
-  ]
-
-  const tempoUnits = [
-    'Segundo (s)',
-    'Minuto (min)',
-    'Hora (h)',
-    'Dia (dia)',
-    'Semana (semana)',
-    'Mês (mês)',
-    'Ano (ano)'
-  ]
-
-  const velocidadeUnits = [
-    'Quilômetro por Hora (km/h)',
-    'Metro por Segundo (m/s)',
-    'Milha por Hora (mph)',
-    'Pé por Segundo (fps)',
-    'Nó (kn)'
-  ]
-
-  const anguloUnits = ['Grau (°)', 'Radiano (rad)', 'Grau-minuto-segundo (GMS)']
-
-  const pressaoUnits = [
-    'Pascal (Pa)',
-    'Quilopascal (kPa)',
-    'Megapascal (MPa)',
-    'Bar (bar)',
-    'Psi (psi)'
-  ]
-
-  // Function to update and show/hide the explanation for the selected operation
-  function updateExplanation() {
-    const selectedOperation = operationSelect.value
-    const explanation = explanations[selectedOperation]
-
-    // Check if the button is active (explanation is visible)
-    const isExplanationVisible =
-      showExplanationButton.classList.contains('active')
-
-    // Toggle the visibility of the explanation only if the button is active
-    if (isExplanationVisible) {
-      calcExplanation.innerHTML = explanation
+  initialize() {
+    // Check if user has a saved preference
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) {
+      this.setTheme(savedTheme === 'dark')
     } else {
-      calcExplanation.innerHTML = ''
+      // Check system preference
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches
+      this.setTheme(prefersDark)
     }
-  }
 
-  // Function to create the unit selection dropdown
-  function createUnitSelection() {
-    const selectedOperation = operationSelect.value
-
-    // Check if the selected operation requires a unit selection
-    if (operationsWithInputs.includes(selectedOperation)) {
-      const label = document.createElement('label')
-      label.textContent = 'Escolha a unidade:'
-
-      const unitSelect = document.createElement('select')
-      unitSelect.id = 'unit-select'
-
-      // Use the appropriate units based on the selected operation
-      let units
-      switch (selectedOperation) {
-        case 'comprimento':
-          units = lengthUnits
-          break
-
-        case 'massa':
-          units = massUnits
-          break
-
-        case 'volume':
-          units = volumeUnits
-          break
-
-        case 'area':
-          units = areaUnits
-          break
-
-        case 'tempo':
-          units = tempoUnits
-          break
-
-        case 'velocidade':
-          units = velocidadeUnits
-          break
-
-        case 'angulo':
-          units = anguloUnits
-          break
-
-        case 'pressao':
-          units = pressaoUnits
-          break
-
-        default:
-          units = []
-      }
-
-      units.forEach(unit => {
-        const option = document.createElement('option')
-        option.value = unit
-        option.textContent = unit
-        unitSelect.appendChild(option)
+    // Listen for system theme changes
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          this.setTheme(e.matches)
+        }
       })
+  },
 
-      unitSelectionContainer.innerHTML = ''
-      unitSelectionContainer.appendChild(label)
-      unitSelectionContainer.appendChild(unitSelect)
+  setTheme(dark) {
+    this.isDarkMode = dark
+    document.body.classList.toggle('dark-mode', dark)
+    const darkModeButton = document.getElementById('toggleDarkMode')
+    darkModeButton.textContent = dark ? '☀️' : '🌙'
+    localStorage.setItem('theme', dark ? 'dark' : 'light')
+  },
 
-      // Create the input field after the user selects a unit
-      unitSelect.addEventListener('change', function () {
-        createInputField('Digite o valor:', 'number', 'user-input')
-      })
-    } else {
-      unitSelectionContainer.innerHTML = ''
-    }
+  toggle() {
+    this.setTheme(!this.isDarkMode)
   }
+}
 
-  function createInputField(labelText, inputType, inputId) {
-    const selectedOperation = operationSelect.value
+// Input validation and formatting
+const inputValidator = {
+  isValidNumber(value) {
+    return !isNaN(value) && isFinite(value)
+  },
 
-    // Check if the selected operation requires an input field
-    if (operationsWithInputs.includes(selectedOperation)) {
-      const label = document.createElement('label')
-      label.textContent = labelText
+  formatNumber(number) {
+    return new Intl.NumberFormat('pt-BR', {
+      maximumSignificantDigits: 10,
+      minimumSignificantDigits: 1
+    }).format(number)
+  },
 
-      const input = document.createElement('input')
-      input.type = inputType
-      input.id = inputId
-
-      inputFieldsContainer.innerHTML = ''
-      inputFieldsContainer.appendChild(label)
-      inputFieldsContainer.appendChild(input)
-    } else {
-      inputFieldsContainer.innerHTML = ''
-    }
+  sanitizeInput(input) {
+    return input.replace(/[^0-9.-]/g, '')
   }
+}
 
-  function calculateResult() {
-    const selectedOperation = operationSelect.value
-    const inputValue = parseFloat(document.getElementById('user-input').value)
+// History management
+const historyManager = {
+  history: [],
+  maxHistoryItems: 10,
 
-    let resultTable
-
-    const table = document.createElement('table')
-    const headerRow = table.createTHead().insertRow(0)
-    const headerCell1 = headerRow.insertCell(0)
-    const headerCell2 = headerRow.insertCell(1)
-    headerCell1.textContent = 'Unidade'
-    headerCell2.textContent = 'Valor Convertido'
-
-    switch (selectedOperation) {
-      case 'comprimento':
-        const selectedLengthUnit = document.getElementById('unit-select').value
-        resultTable = generateComprimentoTable(inputValue, selectedLengthUnit)
-        break
-
-      case 'massa':
-        const selectedMassUnit = document.getElementById('unit-select').value
-        resultTable = generateMassaTable(inputValue, selectedMassUnit)
-        break
-      case 'volume':
-        const selectedVolumeUnit = document.getElementById('unit-select').value
-        resultTable = generateVolumeTable(inputValue, selectedVolumeUnit)
-        break
-      case 'area':
-        const selectedAreaUnit = document.getElementById('unit-select').value
-        resultTable = generateAreaTable(inputValue, selectedAreaUnit)
-        break
-      case 'tempo':
-        const selectedTempoUnit = document.getElementById('unit-select').value
-        resultTable = generateTempoTable(inputValue, selectedTempoUnit)
-        break
-      case 'velocidade':
-        const selectedVelocidadeUnit =
-          document.getElementById('unit-select').value
-        resultTable = generateVelocidadeTable(
-          inputValue,
-          selectedVelocidadeUnit
-        )
-        break
-      case 'angulo':
-        const selectedAnguloUnit = document.getElementById('unit-select').value
-        resultTable = generateAnguloTable(inputValue, selectedAnguloUnit)
-        break
-
-      case 'pressao':
-        const selectedPressaoUnit = document.getElementById('unit-select').value
-        resultTable = generatePressaoTable(inputValue, selectedPressaoUnit)
-        break
-
-      default:
-        resultTable = '<p>Operação não suportada</p>'
+  add(conversion) {
+    this.history.unshift(conversion)
+    if (this.history.length > this.maxHistoryItems) {
+      this.history.pop()
     }
+    this.saveToLocalStorage()
+    this.updateUI()
+  },
 
-    displayResult(resultTable)
-  }
+  clear() {
+    this.history = []
+    this.saveToLocalStorage()
+    this.updateUI()
+  },
 
-  function generateComprimentoTable(value, selectedUnit) {
-    const units = [
-      'Quilômetro (km)',
-      'Hectômetro (hm)',
-      'Decâmetro (dam)',
-      'Metro (m)',
-      'Decímetro (dm)',
-      'Centímetro (cm)',
-      'Milímetro (mm)'
-    ]
+  saveToLocalStorage() {
+    localStorage.setItem('conversionHistory', JSON.stringify(this.history))
+  },
 
-    const tableRows = units.map(unit => {
-      const convertedValue = convertComprimento(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
+  loadFromLocalStorage() {
+    const savedHistory = localStorage.getItem('conversionHistory')
+    if (savedHistory) {
+      this.history = JSON.parse(savedHistory)
+      this.updateUI()
+    }
+  },
 
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
+  updateUI() {
+    const historyContainer = document.getElementById('conversionHistory')
+    if (!historyContainer) return
+
+    historyContainer.innerHTML = this.history
+      .map(
+        item => `
+      <div class="history-item">
+        <span>${item.fromValue} ${item.fromUnit} = ${item.toValue} ${
+          item.toUnit
+        }</span>
+        <small>${new Date(item.timestamp).toLocaleString()}</small>
+      </div>
     `
+      )
+      .join('')
   }
+}
 
-  function removeTrailingZeros(valueString) {
-    return valueString.replace(/\.?0+$/, '')
-  }
+// DOM Elements
+const operationSelect = document.getElementById('operation')
+const unitSelectionDiv = document.getElementById('unit-selection')
+const inputFieldsDiv = document.getElementById('input-fields')
+const calculateButton = document.getElementById('calculate')
+const clearButton = document.getElementById('clear')
+const resultDiv = document.getElementById('result')
+const showExplanationButton = document.getElementById('showExplanation')
+const explanationText = document.getElementById('calcExplanation')
 
-  function convertComprimento(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Quilômetro (km)': 0.001,
-      'Hectômetro (hm)': 0.01,
-      'Decâmetro (dam)': 0.1,
-      'Metro (m)': 1,
-      'Decímetro (dm)': 10,
-      'Centímetro (cm)': 100,
-      'Milímetro (mm)': 1000
-    }
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize theme
+  themeManager.initialize()
 
-    const valueInMeters = value / conversionFactors[fromUnit]
-    const convertedValue = valueInMeters * conversionFactors[toUnit]
-    return convertedValue
-  }
+  // Initialize converter
+  updateUnitSelections()
+  loadLastUsedOptions()
 
-  function generateMassaTable(value, selectedUnit) {
-    const units = [
-      'Quilograma (kg)',
-      'Hectograma (hg)',
-      'Decagrama (dag)',
-      'Grama (g)',
-      'Decigrama (dg)',
-      'Centigrama (cg)',
-      'Miligrama (mg)'
-    ]
+  // Add event listeners
+  operationSelect.addEventListener('change', updateUnitSelections)
+  calculateButton.addEventListener('click', performCalculation)
+  clearButton.addEventListener('click', clearFields)
+  showExplanationButton.addEventListener('click', toggleExplanation)
+  document
+    .getElementById('toggleDarkMode')
+    .addEventListener('click', () => themeManager.toggle())
 
-    const tableRows = units.map(unit => {
-      const convertedValue = convertMassa(value, selectedUnit, unit)
-      const formattedValue = formatMassaResult(convertedValue)
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
+  // Load conversion history
+  historyManager.loadFromLocalStorage()
 
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function convertMassa(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Quilograma (kg)': 1000,
-      'Hectograma (hg)': 100,
-      'Decagrama (dag)': 10,
-      'Grama (g)': 1,
-      'Decigrama (dg)': 0.1,
-      'Centigrama (cg)': 0.01,
-      'Miligrama (mg)': 0.001
-    }
-
-    const valueInGrams = value * conversionFactors[fromUnit]
-    return valueInGrams / conversionFactors[toUnit]
-  }
-
-  function formatMassaResult(value) {
-    const formattedValue = value.toFixed(6).replace(/\.?0+$/, '')
-    return formattedValue
-  }
-
-  function generateVolumeTable(value, selectedUnit) {
-    const units = [
-      'Quilômetro Cúbico (km³)',
-      'Hectômetro Cúbico (hm³)',
-      'Decâmetro Cúbico (dam³)',
-      'Metro Cúbico (m³)',
-      'Decímetro Cúbico (dm³)',
-      'Centímetro Cúbico (cm³)',
-      'Milímetro Cúbico (mm³)'
-    ]
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertVolume(value, selectedUnit, unit)
-      const formattedValue = formatVolumeResult(convertedValue)
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function convertVolume(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Quilômetro Cúbico (km³)': 0.001,
-      'Hectômetro Cúbico (hm³)': 0.01,
-      'Decâmetro Cúbico (dam³)': 0.1,
-      'Metro Cúbico (m³)': 1,
-      'Decímetro Cúbico (dm³)': 10,
-      'Centímetro Cúbico (cm³)': 100,
-      'Milímetro Cúbico (mm³)': 1000
-    }
-
-    const valueInCubicMillimeters = value / conversionFactors[fromUnit]
-    return valueInCubicMillimeters * conversionFactors[toUnit]
-  }
-
-  function formatVolumeResult(value) {
-    const formattedValue = Number(value.toFixed(6))
-    return formattedValue.toString()
-  }
-
-  function generateAreaTable(value, selectedUnit) {
-    const units = [
-      'Quilômetro Quadrado (km²)',
-      'Metro Quadrado (m²)',
-      'Milha Quadrada (mi²)',
-      'Quintal Quadrado (sq c)',
-      'Pé Quadrado (ft²)',
-      'Polegada Quadrada (in²)',
-      'Hectare (ha)',
-      'Acre (acre)'
-    ]
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertArea(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function removeTrailingZeros(valueString) {
-    return valueString.replace(/\.?0+$/, '').replace(/\.$/, '')
-  }
-
-  function convertArea(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Quilômetro Quadrado (km²)': 1,
-      'Metro Quadrado (m²)': 1e6,
-      'Milha Quadrada (mi²)': 2.58999e6,
-      'Quintal Quadrado (sq c)': 1e4,
-      'Pé Quadrado (ft²)': 1.07639e7,
-      'Polegada Quadrada (in²)': 1.55e9,
-      'Hectare (ha)': 1e4,
-      'Acre (acre)': 4.04686e6
-    }
-
-    const valueInSquareMeters = value * conversionFactors[fromUnit]
-    return valueInSquareMeters / conversionFactors[toUnit]
-  }
-
-  function generateTempoTable(value, selectedUnit) {
-    const units = [
-      'Segundo (s)',
-      'Minuto (min)',
-      'Hora (h)',
-      'Dia (dia)',
-      'Semana (semana)',
-      'Mês (mês)',
-      'Ano (ano)'
-    ]
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertTempo(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue)
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-        <table>
-            <thead>
-                <tr>
-                    <th>Unidade</th>
-                    <th>Valor Convertido</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${tableRows.join('')}
-            </tbody>
-        </table>
-    `
-  }
-
-  function convertTempo(value, fromUnit, toUnit) {
-    const secondsInMinute = 60
-    const secondsInHour = 3600
-    const secondsInDay = 86400 // 24 hours in a day
-    const daysInWeek = 7
-    const daysInMonth = 30 // Approximate
-    const daysInYear = 365 // Approximate
-
-    const conversionFactors = {
-      'Segundo (s)': 1,
-      'Minuto (min)': secondsInMinute,
-      'Hora (h)': secondsInHour,
-      'Dia (dia)': secondsInDay,
-      'Semana (semana)': secondsInDay * daysInWeek,
-      'Mês (mês)': secondsInDay * daysInMonth,
-      'Ano (ano)': secondsInDay * daysInYear
-    }
-
-    const valueInSeconds = value * conversionFactors[fromUnit]
-    const convertedValue = valueInSeconds / conversionFactors[toUnit]
-    const roundedValue = Number(convertedValue.toPrecision(9))
-
-    return removeTrailingZeros(roundedValue.toString())
-  }
-
-  function removeTrailingZeros(valueString) {
-    return valueString.replace(/\.?0+$/, '').replace(/\.$/, '')
-  }
-
-  function formatTempoResult(value, unit) {
-    const roundedValue = Number(value.toFixed(10))
-
-    // Corrigir para exibir zero à direita
-    const formattedValue = roundedValue.toLocaleString(undefined, {
-      minimumFractionDigits: 10,
-      useGrouping: false
-    })
-
-    return formattedValue.replace(/\.?0+$/, '')
-  }
-
-  function generateVelocidadeTable(value, selectedUnit) {
-    const units = [
-      'Quilômetro por Hora (km/h)',
-      'Metro por Segundo (m/s)',
-      'Milha por Hora (mph)',
-      'Pé por Segundo (fps)',
-      'Nó (kn)'
-    ]
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertVelocidade(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function convertVelocidade(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Quilômetro por Hora (km/h)': 1,
-      'Metro por Segundo (m/s)': 1 / 3.6,
-      'Milha por Hora (mph)': 0.621371,
-      'Pé por Segundo (fps)': 0.911344,
-      'Nó (kn)': 0.539957
-    }
-
-    const valueInKmPerHour = value * conversionFactors[fromUnit]
-    const convertedValue = valueInKmPerHour / conversionFactors[toUnit]
-    return convertedValue
-  }
-
-  function generateAnguloTable(value, selectedUnit) {
-    const units = ['Grau (°)', 'Radiano (rad)', 'Grau-minuto-segundo (GMS)']
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertAngulo(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function convertAngulo(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Grau (°)': 1,
-      'Radiano (rad)': 0.0174533,
-      'Grau-minuto-segundo (GMS)': 0.000277778
-    }
-
-    const valueInDegrees = value * conversionFactors[fromUnit]
-    return valueInDegrees / conversionFactors[toUnit]
-  }
-
-  function generatePressaoTable(value, selectedUnit) {
-    const units = [
-      'Pascal (Pa)',
-      'Quilopascal (kPa)',
-      'Megapascal (MPa)',
-      'Bar (bar)',
-      'Psi (psi)'
-    ]
-
-    const tableRows = units.map(unit => {
-      const convertedValue = convertPressao(value, selectedUnit, unit)
-      const formattedValue = removeTrailingZeros(convertedValue.toFixed(6))
-      return `<tr><td>${unit}</td><td>${formattedValue}</td></tr>`
-    })
-
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Unidade</th>
-            <th>Valor Convertido</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows.join('')}
-        </tbody>
-      </table>
-    `
-  }
-
-  function convertPressao(value, fromUnit, toUnit) {
-    const conversionFactors = {
-      'Pascal (Pa)': 1,
-      'Quilopascal (kPa)': 0.001,
-      'Megapascal (MPa)': 1e-6,
-      'Bar (bar)': 1e-5,
-      'Psi (psi)': 0.0001450377377338
-    }
-
-    const valueInPascals = value * conversionFactors[fromUnit]
-    return valueInPascals / conversionFactors[toUnit]
-  }
-
-  function displayResult(result) {
-    resultDisplay.innerHTML = result
-  }
-
-  // Event listener for the "Responda-me" button
-  showExplanationButton.addEventListener('click', function () {
-    // Toggle the active class to track button state
-    showExplanationButton.classList.toggle('active')
-    updateExplanation()
+  // Add input validation
+  document.getElementById('value').addEventListener('input', e => {
+    e.target.value = inputValidator.sanitizeInput(e.target.value)
   })
 
-  // Event listener for operation change
-  operationSelect.addEventListener('change', function () {
-    updateExplanation()
-    createUnitSelection() // Create unit selection dynamically
-    createInputField('Digite o valor:', 'number', 'user-input') // Create input field dynamically
-
-    // Check if the selected operation requires input fields
-    if (operationsWithInputs.includes(operationSelect.value)) {
-      // For "Comprimento," dynamically create the unit selection options
-      if (operationSelect.value === 'comprimento') {
-        const unitSelectLabel = document.createElement('label')
-        unitSelectLabel.textContent = 'Escolha a unidade:'
-
-        const unitSelect = document.createElement('select')
-        unitSelect.id = 'unit-select'
-
-        lengthUnits.forEach(unit => {
-          const option = document.createElement('option')
-          option.value = unit
-          option.textContent = unit
-          unitSelect.appendChild(option)
-        })
-
-        unitSelectionContainer.innerHTML = '' // Clear previous content
-        unitSelectionContainer.appendChild(unitSelectLabel)
-        unitSelectionContainer.appendChild(unitSelect)
-
-        // Create the input field after the user selects a unit
-        unitSelect.addEventListener('change', function () {
-          createInputField('Digite o valor:', 'number', 'user-input')
-        })
-      } else {
-        // For other operations, directly create the input field
-        createInputField('Digite o valor:', 'number', 'user-input')
-      }
-    } else {
-      unitSelectionContainer.innerHTML = '' // Clear unit selection
-      inputFieldsContainer.innerHTML = '' // Clear input fields
+  // Add keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      performCalculation()
+    } else if (e.key === 'Escape') {
+      clearFields()
     }
   })
+})
 
-  calculateButton.addEventListener('click', function () {
-    calculateResult()
+// Save last used options
+function saveLastUsedOptions() {
+  const options = {
+    operation: operationSelect.value,
+    fromUnit: document.getElementById('fromUnit').value,
+    toUnit: document.getElementById('toUnit').value
+  }
+  localStorage.setItem('lastUsedOptions', JSON.stringify(options))
+}
+
+// Load last used options
+function loadLastUsedOptions() {
+  const savedOptions = localStorage.getItem('lastUsedOptions')
+  if (savedOptions) {
+    const options = JSON.parse(savedOptions)
+    operationSelect.value = options.operation
+    updateUnitSelections()
+    setTimeout(() => {
+      document.getElementById('fromUnit').value = options.fromUnit
+      document.getElementById('toUnit').value = options.toUnit
+    }, 0)
+  }
+}
+
+// Update unit selection dropdowns
+function updateUnitSelections() {
+  const selectedOperation = operationSelect.value
+  const config = unitConfigs[selectedOperation]
+
+  unitSelectionDiv.innerHTML = `
+    <div>
+      <label for="fromUnit">De:</label>
+      <select id="fromUnit">
+        ${config.units
+          .map(unit => `<option value="${unit}">${unit}</option>`)
+          .join('')}
+      </select>
+    </div>
+    <div>
+      <label for="toUnit">Para:</label>
+      <select id="toUnit">
+        ${config.units
+          .map(unit => `<option value="${unit}">${unit}</option>`)
+          .join('')}
+      </select>
+    </div>
+  `
+
+  inputFieldsDiv.innerHTML = `
+    <div>
+      <label for="value">Valor:</label>
+      <input type="text" id="value" placeholder="Digite o valor" autocomplete="off">
+    </div>
+  `
+
+  explanationText.textContent = config.explanation
+
+  // Add change listeners for saving options
+  document
+    .getElementById('fromUnit')
+    .addEventListener('change', saveLastUsedOptions)
+  document
+    .getElementById('toUnit')
+    .addEventListener('change', saveLastUsedOptions)
+}
+
+// Perform the conversion calculation
+// Perform the conversion calculation
+function performCalculation() {
+  const selectedOperation = operationSelect.value
+  const config = unitConfigs[selectedOperation]
+  const fromUnit = document.getElementById('fromUnit').value
+  const toUnit = document.getElementById('toUnit').value
+  const inputValue = document.getElementById('value').value.trim()
+
+  // Validate empty input
+  if (!inputValue) {
+    showResult('Por favor, insira um valor para converter.', 'error')
+    return
+  }
+
+  const value = parseFloat(inputValue)
+
+  // Validate number input
+  if (!inputValidator.isValidNumber(value)) {
+    showResult('Por favor, digite um valor numérico válido.', 'error')
+    return
+  }
+
+  try {
+    // Convert to base unit first, then to target unit
+    const valueInBaseUnit = value / config.conversions[fromUnit]
+    const result = valueInBaseUnit * config.conversions[toUnit]
+
+    // Validate result
+    if (!inputValidator.isValidNumber(result)) {
+      throw new Error('O resultado do cálculo é inválido.')
+    }
+
+    if (result === 0 || !isFinite(result)) {
+      throw new Error('O resultado está fora do intervalo permitido.')
+    }
+
+    const formattedResult = inputValidator.formatNumber(result)
+    const message = `${inputValidator.formatNumber(
+      value
+    )} ${fromUnit} = ${formattedResult} ${toUnit}`
+
+    // Add to history
+    historyManager.add({
+      operation: selectedOperation,
+      fromValue: inputValidator.formatNumber(value),
+      fromUnit,
+      toValue: formattedResult,
+      toUnit,
+      timestamp: new Date().toISOString(),
+      successful: true
+    })
+
+    // Show result
+    showResult(message, 'success')
+
+    // Save last successful conversion
+    saveLastConversion({
+      value: inputValue,
+      fromUnit,
+      toUnit,
+      operation: selectedOperation
+    })
+  } catch (error) {
+    showResult(`Erro na conversão: ${error.message}`, 'error')
+
+    // Add failed conversion to history
+    historyManager.add({
+      operation: selectedOperation,
+      fromValue: inputValidator.formatNumber(value),
+      fromUnit,
+      toUnit,
+      timestamp: new Date().toISOString(),
+      successful: false,
+      error: error.message
+    })
+  }
+}
+
+// Clear all fields and maintain focus
+function clearFields() {
+  const valueInput = document.getElementById('value')
+  valueInput.value = ''
+  resultDiv.textContent = ''
+  resultDiv.className = 'result'
+  valueInput.focus()
+}
+
+// Show result with appropriate styling and animation
+function showResult(message, type) {
+  resultDiv.textContent = message
+  resultDiv.className = `result ${type}`
+
+  // Add animation
+  resultDiv.style.animation = 'none'
+  resultDiv.offsetHeight // Trigger reflow
+  resultDiv.style.animation = 'fadeIn 0.5s ease-out'
+}
+
+// Toggle explanation visibility with animation
+function toggleExplanation() {
+  const isVisible = explanationText.classList.contains('active')
+
+  if (isVisible) {
+    explanationText.style.opacity = '0'
+    explanationText.style.transform = 'translateY(-10px)'
+    setTimeout(() => {
+      explanationText.classList.remove('active')
+    }, 300)
+  } else {
+    explanationText.classList.add('active')
+    setTimeout(() => {
+      explanationText.style.opacity = '1'
+      explanationText.style.transform = 'translateY(0)'
+    }, 10)
+  }
+
+  showExplanationButton.textContent = isVisible
+    ? 'Responda-me'
+    : 'Ocultar Explicação'
+}
+
+// Save last successful conversion
+function saveLastConversion(data) {
+  localStorage.setItem('lastConversion', JSON.stringify(data))
+}
+
+// Load last successful conversion
+function loadLastConversion() {
+  const lastConversion = localStorage.getItem('lastConversion')
+  if (lastConversion) {
+    const data = JSON.parse(lastConversion)
+    operationSelect.value = data.operation
+    updateUnitSelections()
+
+    setTimeout(() => {
+      document.getElementById('fromUnit').value = data.fromUnit
+      document.getElementById('toUnit').value = data.toUnit
+      document.getElementById('value').value = data.value
+    }, 0)
+  }
+}
+
+// Add copy to clipboard functionality
+function copyToClipboard(text) {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      showResult('Resultado copiado para a área de transferência!', 'success')
+      setTimeout(() => {
+        resultDiv.className = 'result'
+      }, 2000)
+    })
+    .catch(() => {
+      showResult('Não foi possível copiar o resultado.', 'error')
+    })
+}
+
+// Add copy button to result
+resultDiv.addEventListener('click', () => {
+  if (resultDiv.textContent && !resultDiv.textContent.includes('Erro')) {
+    copyToClipboard(resultDiv.textContent)
+  }
+})
+
+// Handle keyboard shortcuts
+document.addEventListener('keydown', e => {
+  // Prevent shortcuts when typing in input
+  if (e.target.tagName === 'INPUT' && e.key !== 'Enter') {
+    return
+  }
+
+  if (e.key === 'Enter') {
+    performCalculation()
+  } else if (e.key === 'Escape') {
+    clearFields()
+  } else if (e.ctrlKey && e.key === 'c' && resultDiv.textContent) {
+    copyToClipboard(resultDiv.textContent)
+  }
+})
+
+// Initialize swap button functionality
+function initializeSwapButton() {
+  const swapButton = document.createElement('button')
+  swapButton.innerHTML = '↔️'
+  swapButton.className = 'swap-button'
+  swapButton.title = 'Trocar unidades'
+  unitSelectionDiv.appendChild(swapButton)
+
+  swapButton.addEventListener('click', () => {
+    const fromUnit = document.getElementById('fromUnit')
+    const toUnit = document.getElementById('toUnit')
+    const tempValue = fromUnit.value
+
+    fromUnit.value = toUnit.value
+    toUnit.value = tempValue
+
+    if (document.getElementById('value').value) {
+      performCalculation()
+    }
   })
+}
 
-  const clearButton = document.getElementById('clear')
-  clearButton.addEventListener('click', function () {
-    // Zerar o valor digitado no input
-    document.getElementById('user-input').value = ''
-    // Limpar apenas o conteúdo da tabela de resultados
-    resultDisplay.innerHTML = ''
-  })
+// Add custom CSS for swap button
+const style = document.createElement('style')
+style.textContent = `
+  .swap-button {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
 
-  // Trigger initial creation of unit selection and input field for the default operation ("comprimento")
-  createUnitSelection()
-  createInputField('Digite o valor:', 'number', 'user-input')
+  .swap-button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  #unit-selection {
+    position: relative;
+  }
+
+  .history-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .history-item:last-child {
+    border-bottom: none;
+  }
+
+  .history-item small {
+    color: var(--text-secondary);
+  }
+`
+
+document.head.appendChild(style)
+
+// Initialize swap button after DOM content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  initializeSwapButton()
+  loadLastConversion()
 })
