@@ -1,419 +1,348 @@
-function toggleDarkMode() {
-  const body = document.body
-  const button = document.querySelector('#toggleDarkMode')
-  const isDarkMode = body.classList.contains('dark-mode')
-
-  if (isDarkMode) {
-    body.classList.remove('dark-mode')
-    button.textContent = '🌙'
-    button.classList.add('light-mode')
-    updateStyles(false) // Desativa o modo escuro
-  } else {
-    body.classList.add('dark-mode')
-    button.textContent = '☀️'
-    button.classList.remove('light-mode')
-    updateStyles(true) // Ativa o modo escuro
-  }
+// Dark mode management
+const initDarkMode = () => {
+  const isDarkMode = localStorage.getItem('darkMode') === 'true'
+  document.body.classList.toggle('dark-mode', isDarkMode)
+  document.getElementById('toggleDarkMode').textContent = isDarkMode
+    ? '☀️'
+    : '🌙'
 }
 
-// Função para atualizar os estilos com base no modo escuro
-function updateStyles(isDarkMode) {
-  const root = document.documentElement
-
-  if (isDarkMode) {
-    root.style.setProperty('--background-color', '#333')
-    root.style.setProperty('--text-color', '#fff')
-  } else {
-    // Restaure os estilos padrão
-    root.style.removeProperty('--background-color')
-    root.style.removeProperty('--text-color')
-  }
+const toggleDarkMode = () => {
+  const isDarkMode = document.body.classList.toggle('dark-mode')
+  localStorage.setItem('darkMode', isDarkMode)
+  document.getElementById('toggleDarkMode').textContent = isDarkMode
+    ? '☀️'
+    : '🌙'
 }
 
-const resultDiv = document.getElementById('result')
-
-// Função para limpar os resultados e os campos de entrada
-function clearInput() {
-  // Limpar os campos de entrada
-  const inputFields = document.querySelectorAll(
-    '#totalResults, #eventsOccurred, #eventsOccurredA, #eventsOccurredB, #eventA, #eventB, #events, #probA, #repetitionsA, #probB, #repetitionsB'
-  )
-  inputFields.forEach(input => (input.value = ''))
-
-  // Limpar os resultados
-  resultDiv.innerHTML = ''
-
-  // Limpar a explicação
-  calcExplanationDiv.textContent = ''
+// Explanation texts for different probability operations
+const explanations = {
+  prob_uni: `A probabilidade única é usada para calcular a chance de um evento específico ocorrer. Por exemplo, a probabilidade de tirar uma carta específica de um baralho é 1/52.`,
+  prob_mulEv: `A probabilidade de múltiplos eventos é usada quando queremos calcular a chance de vários eventos diferentes ocorrerem. Multiplicamos as probabilidades individuais quando os eventos são independentes.`,
+  prob_doisEv: `A probabilidade de dois eventos é utilizada para calcular a chance de dois eventos específicos ocorrerem juntos. Podemos usar a regra da adição: P(A ou B) = P(A) + P(B) - P(A e B).`,
+  Prob_nEv: `A probabilidade de uma série de eventos é usada para calcular a chance de uma sequência específica de eventos ocorrer. É calculada multiplicando as probabilidades individuais de cada evento na sequência.`,
+  ProbCond: `A probabilidade condicional P(A|B) calcula a chance de um evento A ocorrer, dado que o evento B já ocorreu. É calculada como P(A|B) = P(A e B) / P(B).`
 }
 
-// Adicione o event listener para o botão de limpar
-const clearButton = document.getElementById('clear')
-clearButton.addEventListener('click', clearInput)
-
-document.addEventListener('DOMContentLoaded', function () {
-  toggleDarkMode()
-
-  const operationSelect = document.getElementById('operation')
-  const inputFieldsContainer = document.getElementById('input-fields')
-  const calculateButton = document.getElementById('calculate')
-  const clearButton = document.getElementById('clear')
-  const resultDiv = document.getElementById('result')
-  const showExplanationButton = document.getElementById('showExplanation')
-  const calcExplanationDiv = document.getElementById('calcExplanation')
-
-  let showingExplanation = false
-
-  // Adicione um event listener para o botão "Responda-me"
-  showExplanationButton.addEventListener('click', toggleExplanation)
-
-  // Função para alternar a visibilidade da explicação
-  function toggleExplanation() {
-    if (calcExplanationDiv.style.display === 'block') {
-      calcExplanationDiv.style.display = 'none'
-      showingExplanation = false
-    } else {
-      calcExplanationDiv.style.display = 'block'
-      showingExplanation = true
+// Input field configurations for each operation type
+const inputConfigurations = {
+  prob_uni: [
+    {
+      id: 'eventOccur',
+      label: 'Número de casos favoráveis:',
+      type: 'number',
+      required: true
+    },
+    {
+      id: 'totalEvents',
+      label: 'Número total de casos possíveis:',
+      type: 'number',
+      required: true
     }
-  }
-
-  // Adicione um event listener para a mudança de operação
-  operationSelect.addEventListener('change', handleOperationChange)
-  // Chame handleOperationChange quando a página for carregada
-  handleOperationChange()
-
-  calculateButton.addEventListener('click', calculateProbability)
-  clearButton.addEventListener('click', clearInput)
-
-  function handleOperationChange() {
-    const selectedOperation = operationSelect.value
-
-    // Limpar campos de entrada
-    inputFieldsContainer.innerHTML = ''
-    if (!showingExplanation) {
-      calcExplanationDiv.style.display = 'none'
+  ],
+  prob_mulEv: [
+    {
+      id: 'numEvents',
+      label: 'Número de eventos:',
+      type: 'number',
+      min: 2,
+      required: true
+    },
+    {
+      id: 'probabilities',
+      label: 'Probabilidades (separadas por vírgula):',
+      type: 'text',
+      required: true
     }
-
-    // Atualizar a explicação com base na operação selecionada
-    updateExplanation(selectedOperation)
-
-    // Adicionar campos de entrada com base na operação selecionada
-    if (selectedOperation === 'prob_uni') {
-      // Lógica para a operação de probabilidade única
-      inputFieldsContainer.innerHTML = `
-          <label for="totalResults">Número de Resultados Possíveis:</label>
-          <input type="number" id="totalResults" placeholder="Digite o número de resultados possíveis" min="1" required />
-          <label for="eventsOccurred">Número de Eventos Ocorridos (n A):</label>
-          <input type="number" id="eventsOccurred" placeholder="Digite o número de eventos ocorridos" min="0" required />
-        `
-    } else if (selectedOperation === 'prob_mulEv') {
-      // Lógica para a operação de probabilidade de múltiplos eventos
-      inputFieldsContainer.innerHTML = `
-          <label for="totalResults">Número de Resultados Possíveis (n):</label>
-          <input type="number" id="totalResults" placeholder="Digite o número de resultados possíveis" min="1" required />
-          <label for="eventsOccurredA">Número de Eventos Ocorridos (n A):</label>
-          <input type="number" id="eventsOccurredA" placeholder="Digite o número de eventos ocorridos para A" min="0" required />
-          <label for="eventsOccurredB">Número de Eventos Ocorridos (n B):</label>
-          <input type="number" id="eventsOccurredB" placeholder="Digite o número de eventos ocorridos para B" min="0" required />
-        `
-    } else if (selectedOperation === 'prob_doisEv') {
-      // Lógica para a operação de probabilidade de dois eventos
-      inputFieldsContainer.innerHTML = `
-          <label for="eventA">Probabilidade do Evento A (entre 0 e 1):</label>
-          <input type="number" id="eventA" placeholder="Digite a probabilidade do evento A" min="0" max="1" step="0.01" required />
-          <label for="eventB">Probabilidade do Evento B (entre 0 e 1):</label>
-          <input type="number" id="eventB" placeholder="Digite a probabilidade do evento B" min="0" max="1" step="0.01" required />
-        `
-    } else if (selectedOperation === 'Prob_nEv') {
-      inputFieldsContainer.innerHTML = `
-        <div class="input-column">
-          <label for="probA">Probabilidade de A (entre 0 e 1):</label>
-          <input type="number" id="probA" placeholder="Digite a probabilidade de A" min="0" max="1" step="0.01" required />
-        </div>
-        <div class="input-column">
-          <label for="repetitionsA">Número de repetições de A:</label>
-          <input type="number" id="repetitionsA" placeholder="Digite o número de repetições de A" min="1" required />
-        </div>
-        
-        <br> <!-- Adicionando uma quebra de linha aqui -->
-        
-        <div class="input-column">
-          <label for="probB">Probabilidade de B (entre 0 e 1):</label>
-          <input type="number" id="probB" placeholder="Digite a probabilidade de B" min="0" max="1" step="0.01" required />
-        </div>
-        <div class="input-column">
-          <label for="repetitionsB">Número de repetições de B:</label>
-          <input type="number" id="repetitionsB" placeholder="Digite o número de repetições de B" min="1" required />
-        </div>
-      `
-    } else if (selectedOperation === 'ProbCond') {
-      // Lógica para a operação de probabilidade condicional P(A|B)
-      inputFieldsContainer.innerHTML = `
-          <label for="probA">Probabilidade de A (entre 0 e 1):</label>
-          <input type="number" id="probA" placeholder="Digite a probabilidade de A" min="0" max="1" step="0.01" required />
-          <label for="probB">Probabilidade de B (entre 0 e 1):</label>
-          <input type="number" id="probB" placeholder="Digite a probabilidade de B" min="0" max="1" step="0.01" required />
-        `
+  ],
+  prob_doisEv: [
+    {
+      id: 'probA',
+      label: 'Probabilidade do evento A:',
+      type: 'number',
+      step: '0.01',
+      required: true
+    },
+    {
+      id: 'probB',
+      label: 'Probabilidade do evento B:',
+      type: 'number',
+      step: '0.01',
+      required: true
+    },
+    {
+      id: 'probIntersection',
+      label: 'Probabilidade da interseção (A e B):',
+      type: 'number',
+      step: '0.01',
+      required: true
     }
-  }
-
-  // Função para atualizar a explicação com base na operação selecionada
-  function updateExplanation(selectedOperation) {
-    let explanation = ''
-
-    if (selectedOperation === 'prob_uni') {
-      explanation = `
-          A probabilidade única representa a chance de ocorrência de um evento único.
-          Digite um valor entre 0 e 1 para indicar a probabilidade desse evento acontecer.
-        `
-    } else if (selectedOperation === 'prob_mulEv') {
-      explanation = `
-          A probabilidade de múltiplos eventos é calculada multiplicando as probabilidades
-          individuais de cada evento. Digite valores entre 0 e 1 para os eventos 1 e 2.
-        `
-    } else if (selectedOperation === 'prob_doisEv') {
-      explanation = `
-          A probabilidade de dois eventos é calculada somando as probabilidades de cada evento
-          e subtraindo a probabilidade de ambos os eventos ocorrerem ao mesmo tempo.
-          Digite valores entre 0 e 1 para os eventos A e B.
-        `
-    } else if (selectedOperation === 'Prob_nEv') {
-      explanation = `
-        <p>A probabilidade de uma série de eventos é calculada considerando a probabilidade de cada evento individualmente.</p>
-        
-        <p>Forneça a probabilidade de A (entre 0 e 1) e o número de vezes que o evento A ocorrerá.</p>
-  
-        <p>Além disso, forneça a probabilidade de B (também entre 0 e 1) e o número de vezes que o evento B ocorrerá.</p>
-  
-        <p>O cálculo mostrará diversas probabilidades, incluindo a probabilidade de A ocorrendo x vezes e B ocorrendo y vezes, assim como outras combinações.</p>
-      `
-    } else if (selectedOperation === 'ProbCond') {
-      explanation = `
-          A probabilidade condicional P(A|B) é calculada dividindo a probabilidade conjunta de A e B
-          pela probabilidade de B. Digite valores entre 0 e 1 para as probabilidades de A e B.
-        `
+  ],
+  Prob_nEv: [
+    {
+      id: 'numSeriesEvents',
+      label: 'Número de eventos na série:',
+      type: 'number',
+      min: 1,
+      required: true
+    },
+    {
+      id: 'seriesProbabilities',
+      label: 'Probabilidades da série (separadas por vírgula):',
+      type: 'text',
+      required: true
     }
-
-    calcExplanationDiv.textContent = explanation
-    calcExplanationDiv.innerHTML = explanation
-  }
-
-  function calculateProbability() {
-    const selectedOperation = operationSelect.value
-
-    // Lógica de cálculo com base na operação selecionada
-    let results = {}
-
-    // Limpar a tabela de resultados antes de exibir novos resultados
-    resultDiv.innerHTML = ''
-
-    if (selectedOperation === 'prob_uni') {
-      // Lógica para a operação de probabilidade única
-      const totalResults = parseFloat(
-        document.getElementById('totalResults').value
-      )
-      const eventsOccurred = parseFloat(
-        document.getElementById('eventsOccurred').value
-      )
-
-      const probA = eventsOccurred / totalResults
-      const probNotA = 1 - probA
-
-      results = {
-        'Probabilidade de evento que ocorre P (A)': probA,
-        "Probabilidade de evento que não ocorre P (A ')": probNotA
-      }
-    } else if (selectedOperation === 'prob_mulEv') {
-      // Lógica para a operação de probabilidade de múltiplos eventos
-      const totalResults = parseFloat(
-        document.getElementById('totalResults').value
-      )
-      const eventsOccurredA = parseFloat(
-        document.getElementById('eventsOccurredA').value
-      )
-      const eventsOccurredB = parseFloat(
-        document.getElementById('eventsOccurredB').value
-      )
-
-      const probA = eventsOccurredA / totalResults
-      const probNotA = 1 - probA
-
-      const probB = eventsOccurredB / totalResults
-      const probNotB = 1 - probB
-
-      const probIntersectionAB =
-        (eventsOccurredA / totalResults) * (eventsOccurredB / totalResults)
-      const probUnionAB = probA + probB - probIntersectionAB
-
-      results = {
-        'Probabilidade de evento que ocorre P (A)': probA,
-        "Probabilidade de evento que não ocorre P (A ')": probNotA,
-        'Probabilidade do evento B ocorrer P (B)': probB,
-        "Probabilidade de evento B não ocorrer P (B ')": probNotB,
-        'Probabilidade de ambos os eventos ocorrerem P (A ∩ B)':
-          probIntersectionAB,
-        'Probabilidade de qualquer um dos eventos ocorrer P (A ∪ B)':
-          probUnionAB
-      }
-    } else if (selectedOperation === 'prob_doisEv') {
-      // Lógica para a operação de probabilidade de dois eventos
-      const eventA = parseFloat(document.getElementById('eventA').value)
-      const eventB = parseFloat(document.getElementById('eventB').value)
-
-      const probA = eventA
-      const probNotA = 1 - probA
-
-      const probB = eventB
-      const probNotB = 1 - probB
-
-      const probIntersectionAB = eventA * eventB
-      const probUnionAB = probA + probB - probIntersectionAB
-
-      results = {
-        'Probabilidade de evento que ocorre P (A)': probA,
-        "Probabilidade de evento que não ocorre P (A ')": probNotA,
-        'Probabilidade do evento B ocorrer P (B)': probB,
-        "Probabilidade de evento B não ocorrer P (B ')": probNotB,
-        'Probabilidade de ambos os eventos ocorrerem P (A ∩ B)':
-          probIntersectionAB,
-        'Probabilidade de qualquer um dos eventos ocorrer P (A ∪ B)':
-          probUnionAB
-      }
-    } else if (selectedOperation === 'Prob_nEv') {
-      const probA = parseFloat(document.getElementById('probA').value)
-      const repetitionsA = parseFloat(
-        document.getElementById('repetitionsA').value
-      )
-      const probB = parseFloat(document.getElementById('probB').value)
-      const repetitionsB = parseFloat(
-        document.getElementById('repetitionsB').value
-      )
-
-      const probNotA = 1 - probA
-      const probNotB = 1 - probB
-
-      const probAnyEventA = 1 - Math.pow(probNotA, repetitionsA)
-      const probAnyEventB = 1 - Math.pow(probNotB, repetitionsB)
-
-      const probAandNotB = probA * (1 - probB)
-      const probBandNotA = probB * (1 - probA)
-
-      // Adicionar probabilidades de ocorrência exata ao resultado
-      const exactProbA = Math.pow(probA, repetitionsA)
-      const exactProbB = Math.pow(probB, repetitionsB)
-
-      // Adicionar novas entradas para representar diferentes combinações de ocorrências de A e B
-      results = {
-        'Probabilidade de A ocorrendo': probAnyEventA,
-        'Probabilidade de B ocorrendo': probAnyEventB,
-        'Probabilidade de A não ocorrendo': probNotA,
-        'Probabilidade de B não ocorrendo': probNotB,
-        'Probabilidade de A ocorrendo mas não B': probAandNotB,
-        'Probabilidade de B ocorrendo mas não A': probBandNotA,
-        ['Probabilidade de A ocorrendo ' +
-        repetitionsA +
-        ' vezes e B ocorrendo ' +
-        repetitionsB +
-        ' vezes']: exactProbA * exactProbB,
-        ['Probabilidade de A ocorrendo ' + repetitionsA + ' vezes mas não B']:
-          exactProbA * (1 - exactProbB),
-        ['Probabilidade de B ocorrendo ' + repetitionsB + ' vezes mas não A']:
-          exactProbB * (1 - exactProbA)
-      }
-    } else if (selectedOperation === 'ProbCond') {
-      // Lógica para a operação de probabilidade condicional P(A|B)
-      const probA = parseFloat(document.getElementById('probA').value)
-      const probB = parseFloat(document.getElementById('probB').value)
-
-      // Calcula P(A|B)
-      const probCondAB =
-        probB !== 0 ? probA / probB : 'Indefinido (divisão por zero)'
-
-      results = {
-        'Probabilidade condicional P(A|B)': probCondAB
-      }
+  ],
+  ProbCond: [
+    {
+      id: 'probAandB',
+      label: 'Probabilidade de A e B ocorrerem:',
+      type: 'number',
+      step: '0.01',
+      required: true
+    },
+    {
+      id: 'probB_cond',
+      label: 'Probabilidade do evento B:',
+      type: 'number',
+      step: '0.01',
+      required: true
     }
+  ]
+}
 
-    // Exibir os resultados
-    displayResults(results)
-  }
-
-  function displayResults(results) {
-    // Exibir os resultados formatados em uma tabela estilizada
-    let resultText =
-      '<table style="width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid #ddd;">'
-    resultText +=
-      '<thead style="background-color: #f2f2f2;"><tr><th style="padding: 8px; text-align: left;">Evento</th><th style="padding: 8px; text-align: center;">Probabilidade (em decimal)</th><th style="padding: 8px; text-align: center;">Probabilidade (em porcentagem)</th></tr></thead>'
-
-    let isOddRow = false // Alternar cores de linhas
-    for (const key in results) {
-      if (results.hasOwnProperty(key)) {
-        const value = results[key]
-        const formattedValue = formatDecimal(value)
-        const formattedPercentage = formatPercentage(value)
-        // Adicionar linhas de tabela para cada resultado com cores alternadas
-        const backgroundColor = isOddRow ? '#f9f9f9' : '#ffffff'
-        resultText += `<tr style="background-color: ${backgroundColor}; border: 1px solid #ddd;"><td style="padding: 8px; text-align: left;">${key}</td><td style="padding: 8px; text-align: center;">${formattedValue}</td><td style="padding: 8px; text-align: center;">${formattedPercentage}</td></tr>`
-        isOddRow = !isOddRow
-      }
-    }
-
-    resultText += '</table>'
-
-    // Exibir os resultados
-    resultDiv.innerHTML = resultText // Use innerHTML para renderizar conteúdo HTML
-  }
-
-  function formatDecimal(value) {
-    return value.toFixed(3)
-  }
-
-  function formatPercentage(value) {
-    // Multiplicar por 100 e arredondar para 1 casa decimal se necessário
-    const formattedPercentage = (value * 100).toFixed(1)
-    return formattedPercentage.replace(/\.0%$/, '') + '%' // Remover ".0%" se existir
-  }
-
-  // Função para exibir uma explicação sobre a operação selecionada
-  function showExplanation() {
-    const selectedOperation = operationSelect.value
-
-    // Lógica para exibir uma explicação com base na operação selecionada
-    let explanation = ''
-
-    if (selectedOperation === 'prob_uni') {
-      explanation = `
-        A probabilidade única representa a chance de ocorrência de um evento único.
-        Digite um valor entre 0 e 1 para indicar a probabilidade desse evento acontecer.
-      `
-    } else if (selectedOperation === 'prob_mulEv') {
-      explanation = `
-        A probabilidade de múltiplos eventos é calculada multiplicando as probabilidades
-        individuais de cada evento. Digite valores entre 0 e 1 para os eventos 1 e 2.
-      `
-    } else if (selectedOperation === 'prob_doisEv') {
-      explanation = `
-        A probabilidade de dois eventos é calculada somando as probabilidades de cada evento
-        e subtraindo a probabilidade de ambos os eventos ocorrerem ao mesmo tempo.
-        Digite valores entre 0 e 1 para os eventos A e B.
-      `
-    } else if (selectedOperation === 'Prob_nEv') {
-      explanation = `
-        A probabilidade de uma série de eventos é o inverso do número total de eventos.
-        Digite o número total de eventos para calcular a probabilidade.
-      `
-    } else if (selectedOperation === 'ProbCond') {
-      explanation = `
-        A probabilidade condicional P(A|B) é calculada dividindo a probabilidade conjunta de A e B
-        pela probabilidade de B. Digite valores entre 0 e 1 para as probabilidades de A e B.
-      `
-    }
-
-    // Chamar handleOperationChange com "prob_uni" como padrão
-    handleOperationChange()
-
-    // Exemplo de exibição da explicação
-    calcExplanationDiv.textContent = explanation
-  }
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+  initDarkMode()
+  updateInputFields()
+  setupEventListeners()
 })
+
+// Setup event listeners
+const setupEventListeners = () => {
+  document.getElementById('operation').addEventListener('change', e => {
+    updateInputFields()
+    updateExplanation() // Add this line to update explanation when operation changes
+  })
+  document
+    .getElementById('showExplanation')
+    .addEventListener('click', toggleExplanation)
+  document
+    .getElementById('calculate')
+    .addEventListener('click', calculateProbability)
+  document.getElementById('clear').addEventListener('click', clearFields)
+}
+
+// Update input fields based on selected operation
+const updateInputFields = () => {
+  const operation = document.getElementById('operation').value
+  const inputFieldsSection = document.getElementById('input-fields')
+  inputFieldsSection.innerHTML = ''
+
+  inputConfigurations[operation].forEach(field => {
+    const div = document.createElement('div')
+    div.className = 'input-group'
+
+    const label = document.createElement('label')
+    label.htmlFor = field.id
+    label.textContent = field.label
+
+    const input = document.createElement('input')
+    input.id = field.id
+    input.type = field.type
+    if (field.min) input.min = field.min
+    if (field.step) input.step = field.step
+    input.required = field.required
+
+    div.appendChild(label)
+    div.appendChild(input)
+    inputFieldsSection.appendChild(div)
+  })
+}
+
+const updateExplanation = () => {
+  const operation = document.getElementById('operation').value
+  const explanationDiv = document.getElementById('calcExplanation')
+
+  // Only update if the explanation is currently visible
+  if (explanationDiv.style.display === 'block') {
+    explanationDiv.textContent = explanations[operation]
+  }
+}
+
+// Toggle explanation visibility
+const toggleExplanation = () => {
+  const operation = document.getElementById('operation').value
+  const explanationDiv = document.getElementById('calcExplanation')
+  const isVisible = explanationDiv.style.display === 'block'
+
+  explanationDiv.style.display = isVisible ? 'none' : 'block'
+  explanationDiv.textContent = explanations[operation]
+  document.getElementById('showExplanation').textContent = isVisible
+    ? 'Responda-me'
+    : 'Ocultar'
+}
+
+// Clear all input fields and result
+const clearFields = () => {
+  const inputs = document.querySelectorAll('input')
+  inputs.forEach(input => (input.value = ''))
+  document.getElementById('result').innerHTML = ''
+  document.getElementById('result').className = 'result'
+}
+
+// Validate input values
+const validateInputs = inputs => {
+  for (const input of inputs) {
+    if (input.required && !input.value) {
+      showResult('Por favor, preencha todos os campos obrigatórios.', 'error')
+      return false
+    }
+    if (input.type === 'number' && input.value < 0) {
+      showResult('Os valores não podem ser negativos.', 'error')
+      return false
+    }
+  }
+  return true
+}
+
+// Calculate probability based on selected operation
+const calculateProbability = () => {
+  const operation = document.getElementById('operation').value
+  const inputs = document.querySelectorAll('input')
+
+  if (!validateInputs(inputs)) return
+
+  try {
+    let result
+    switch (operation) {
+      case 'prob_uni':
+        result = calculateSingleProbability()
+        break
+      case 'prob_mulEv':
+        result = calculateMultipleEventsProbability()
+        break
+      case 'prob_doisEv':
+        result = calculateTwoEventsProbability()
+        break
+      case 'Prob_nEv':
+        result = calculateSeriesEventsProbability()
+        break
+      case 'ProbCond':
+        result = calculateConditionalProbability()
+        break
+    }
+    showResult(result, 'success')
+  } catch (error) {
+    showResult(error.message, 'error')
+  }
+}
+
+// Individual calculation functions
+const calculateSingleProbability = () => {
+  const favorable = parseFloat(document.getElementById('eventOccur').value)
+  const total = parseFloat(document.getElementById('totalEvents').value)
+
+  if (favorable > total) {
+    throw new Error(
+      'O número de casos favoráveis não pode ser maior que o total de casos.'
+    )
+  }
+
+  const probability = favorable / total
+  return `A probabilidade é ${(probability * 100).toFixed(
+    2
+  )}% ou ${favorable}/${total}`
+}
+
+const calculateMultipleEventsProbability = () => {
+  const numEvents = parseInt(document.getElementById('numEvents').value)
+  const probabilities = document
+    .getElementById('probabilities')
+    .value.split(',')
+    .map(p => parseFloat(p.trim()) / 100)
+
+  if (probabilities.length !== numEvents) {
+    throw new Error(
+      'O número de probabilidades deve corresponder ao número de eventos.'
+    )
+  }
+
+  if (probabilities.some(p => p < 0 || p > 1)) {
+    throw new Error('As probabilidades devem estar entre 0 e 100.')
+  }
+
+  const probability = probabilities.reduce((acc, curr) => acc * curr, 1)
+  return `A probabilidade de todos os eventos ocorrerem é ${(
+    probability * 100
+  ).toFixed(2)}%`
+}
+
+const calculateTwoEventsProbability = () => {
+  const probA = parseFloat(document.getElementById('probA').value)
+  const probB = parseFloat(document.getElementById('probB').value)
+  const intersection = parseFloat(
+    document.getElementById('probIntersection').value
+  )
+
+  if (probA > 1 || probB > 1 || intersection > 1) {
+    throw new Error('As probabilidades devem estar entre 0 e 1.')
+  }
+
+  if (intersection > Math.min(probA, probB)) {
+    throw new Error(
+      'A probabilidade da interseção não pode ser maior que as probabilidades individuais.'
+    )
+  }
+
+  const probability = probA + probB - intersection
+  return `A probabilidade de A ou B ocorrerem é ${(probability * 100).toFixed(
+    2
+  )}%`
+}
+
+const calculateSeriesEventsProbability = () => {
+  const numEvents = parseInt(document.getElementById('numSeriesEvents').value)
+  const probabilities = document
+    .getElementById('seriesProbabilities')
+    .value.split(',')
+    .map(p => parseFloat(p.trim()) / 100)
+
+  if (probabilities.length !== numEvents) {
+    throw new Error(
+      'O número de probabilidades deve corresponder ao número de eventos na série.'
+    )
+  }
+
+  if (probabilities.some(p => p < 0 || p > 1)) {
+    throw new Error('As probabilidades devem estar entre 0 e 100.')
+  }
+
+  const probability = probabilities.reduce((acc, curr) => acc * curr, 1)
+  return `A probabilidade da série completa de eventos é ${(
+    probability * 100
+  ).toFixed(2)}%`
+}
+
+const calculateConditionalProbability = () => {
+  const probAandB = parseFloat(document.getElementById('probAandB').value)
+  const probB = parseFloat(document.getElementById('probB_cond').value)
+
+  if (probAandB > probB) {
+    throw new Error(
+      'A probabilidade de A e B não pode ser maior que a probabilidade de B.'
+    )
+  }
+
+  const probability = probAandB / probB
+  return `A probabilidade condicional P(A|B) é ${(probability * 100).toFixed(
+    2
+  )}%`
+}
+
+// Display result with appropriate styling
+const showResult = (message, type) => {
+  const resultDiv = document.getElementById('result')
+  resultDiv.textContent = message
+  resultDiv.className = `result ${type}`
+}
