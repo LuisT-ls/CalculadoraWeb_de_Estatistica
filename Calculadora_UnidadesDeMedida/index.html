@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
     <title>Calculadora Unidade de Medidas</title>
     <style>
       table {
@@ -27,8 +31,17 @@
   </head>
   <body>
     <div class="container">
-      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
-      <h1>Calculadora de Unidade de Medidas</h1>
+      <div class="top-nav">
+        <a
+          href="https://calculagora.vercel.app"
+          class="home-button"
+          title="Voltar para Home"
+        >
+          <i class="fas fa-house" aria-hidden="true"></i>
+        </a>
+        <span class="nav-title">Calculadoras Online</span>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      </div>
       <div class="operation-select">
         <label for="operation">Selecione a Operação:</label>
         <select id="operation">

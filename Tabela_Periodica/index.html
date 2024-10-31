@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="/Image/Logo - CalcHub.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
     <link rel="canonical" href="https://calculagora.vercel.app/" />
     <title>
       Tabela Periódica Completa - Propriedades e Informações dos Elementos
@@ -38,17 +42,17 @@
   </head>
   <body>
     <div class="container" role="main">
-      <header role="banner">
-        <button
-          id="toggleDarkMode"
-          onclick="toggleDarkMode()"
-          aria-label="Alternar modo escuro"
-          tabindex="0"
+      <div class="top-nav">
+        <a
+          href="https://calculagora.vercel.app"
+          class="home-button"
+          title="Voltar para Home"
         >
-          <img src="dark-mode-icon.png" alt="Ícone de modo escuro" />
-        </button>
-        <h1>Bem-vindo à sua Tabela Periódica</h1>
-      </header>
+          <i class="fas fa-house" aria-hidden="true"></i>
+        </a>
+        <span class="nav-title">Calculadoras Online</span>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      </div>
       <main>
         <section class="input" aria-label="Pesquisar elementos">
           <label for="search">Pesquisar por nome ou símbolo:</label>

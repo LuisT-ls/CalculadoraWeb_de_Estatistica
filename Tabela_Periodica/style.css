@@ -66,6 +66,34 @@ body {
   padding: 1rem;
 }
 
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  white-space: nowrap;
+  letter-spacing: -0.025em;
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0px var(--card-bg);
+}
+
 /* Header Styles */
 header {
   text-align: center;
@@ -82,23 +110,23 @@ h1 {
 
 /* Dark Mode Toggle */
 #toggleDarkMode {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 #toggleDarkMode:hover {
-  background: var(--hover-bg);
+  background-color: var(--hover-bg);
+  transform: translateY(-2px);
 }
 
 #toggleDarkMode svg {
@@ -352,6 +380,32 @@ h1 {
 
 #showPeriodicTable:hover {
   background: var(--primary-hover);
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.home-button {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: all 0.2s ease;
+}
+
+.home-button:hover {
+  background-color: var(--hover-bg);
+  transform: translateY(-2px);
 }
 
 /* Footer Styles */

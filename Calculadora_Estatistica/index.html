@@ -9,8 +9,6 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha384-cI6M9csXj2f/B5W8e8cmNAXhIeGSO5MTdSluzcaKnyzouc5msT+XsFyFRXnE13rcT"
-      crossorigin="anonymous"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -18,8 +16,17 @@
 
   <body>
     <div class="container">
-      <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
-      <h1>Calculadora de Estatísticas</h1>
+      <div class="top-nav">
+        <a
+          href="https://calculagora.vercel.app"
+          class="home-button"
+          title="Voltar para Home"
+        >
+          <i class="fas fa-house" aria-hidden="true"></i>
+        </a>
+        <span class="nav-title">Calculadoras Online</span>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">🌙</button>
+      </div>
       <form id="statisticsForm">
         <label for="numbers"
           >Insira os números separados por vírgula ou espaço:</label
