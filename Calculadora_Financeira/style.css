@@ -320,16 +320,6 @@ footer a:hover {
   color: var(--primary-hover);
 }
 
-/* Dark Mode Override */
-.dark-mode {
-  --background: var(--background-dark);
-  --card-bg: var(--card-dark);
-  --text-color: var(--text-dark);
-  --text-secondary: var(--text-dark-secondary);
-  --border-color: var(--border-dark);
-  --hover-bg: var(--hover-dark);
-}
-
 /* Responsive Design */
 @media (max-width: 640px) {
   .container {
