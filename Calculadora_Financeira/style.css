@@ -48,32 +48,29 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all 0.3s ease;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
   background-color: var(--background);
   color: var(--text-color);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container Layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* Container Styles */
-.container {
-  background-color: var(--card-bg);
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-}
-
+/* Top Navigation */
 .top-nav {
   display: flex;
   justify-content: space-between;
@@ -102,143 +99,6 @@ body {
   text-shadow: 1px 1px 0px var(--card-bg);
 }
 
-/* Dark Mode Toggle */
-#toggleDarkMode {
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-#toggleDarkMode:hover {
-  background-color: var(--hover-bg);
-  transform: translateY(-2px);
-}
-
-/* Header Styles */
-h1 {
-  color: var(--text-color);
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-/* Operation Select Styles */
-.operation-select {
-  margin-bottom: 2rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-select {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  font-size: 1rem;
-  cursor: pointer;
-  outline: none;
-}
-
-select:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px var(--primary-light);
-}
-
-/* Explanation Section */
-.explanation {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: var(--hover-bg);
-  border-radius: 8px;
-}
-
-.explanation p {
-  color: var(--text-secondary);
-  margin-bottom: 0.5rem;
-}
-
-#showExplanation {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-#showExplanation:hover {
-  background-color: var(--primary-hover);
-}
-
-.explanation-text {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--card-bg);
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  display: none;
-}
-
-/* Input Fields */
-.input-fields {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-input {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  font-size: 1rem;
-}
-
-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px var(--primary-light);
-  outline: none;
-}
-
-/* Calculate Button */
-#calculate {
-  width: 100%;
-  padding: 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition: background-color 0.3s ease;
-}
-
-#calculate:hover {
-  background-color: var(--primary-hover);
-}
-
 /* Navigation Buttons */
 .nav-buttons {
   display: flex;
@@ -265,84 +125,232 @@ input:focus {
   transform: translateY(-2px);
 }
 
-/* Result Section */
-.result {
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: var(--hover-bg);
-  margin-bottom: 2rem;
-  font-weight: 500;
-  text-align: center;
+#toggleDarkMode {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-/* Footer Styles */
-footer {
-  text-align: center;
+#toggleDarkMode:hover {
+  background-color: var(--hover-bg);
+  transform: translateY(-2px);
+}
+
+/* Operation Select Section */
+.operation-select {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.operation-select label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  margin-top: 2rem;
-  padding-top: 1rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: var(--primary-color);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Input Fields */
+.input-fields {
+  display: grid;
+  gap: 1.5rem;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.input-fields div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-fields label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-fields input {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-fields input:hover {
+  border-color: var(--primary-color);
+}
+
+.input-fields input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Calculate Button */
+#calculate {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+#calculate:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Result Section */
+.result {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Explanation Section */
+.explanation {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.explanation p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+#showExplanation {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#showExplanation:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.explanation-text {
+  display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--hover-bg);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+.explanation-text p {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 2rem;
   border-top: 1px solid var(--border-color);
 }
 
 footer p {
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
 
 footer a {
   color: var(--primary-color);
   text-decoration: none;
-  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  color: var(--primary-hover);
 }
 
-/* Success, Warning, and Error States */
-.success {
-  color: var(--success-color);
-}
-
-.warning {
-  color: var(--warning-color);
-}
-
-.error {
-  color: var(--error-color);
+/* Dark Mode Override */
+.dark-mode {
+  --background: var(--background-dark);
+  --card-bg: var(--card-dark);
+  --text-color: var(--text-dark);
+  --text-secondary: var(--text-dark-secondary);
+  --border-color: var(--border-dark);
+  --hover-bg: var(--hover-dark);
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem;
-  }
-
-  h1 {
-    font-size: 1.75rem;
-  }
-
-  select,
-  input,
-  button {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
-
+@media (max-width: 640px) {
   .container {
     padding: 1rem;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  .top-nav {
+    padding: 0.75rem;
   }
 
-  #toggleDarkMode {
-    top: 0.75rem;
-    right: 0.75rem;
+  .nav-title {
+    font-size: 1rem;
+  }
+
+  .operation-select,
+  .input-fields,
+  .result {
+    padding: 1rem;
+  }
+
+  #calculate {
+    padding: 0.75rem 1.5rem;
   }
 }
