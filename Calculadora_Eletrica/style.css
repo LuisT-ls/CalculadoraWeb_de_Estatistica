@@ -337,39 +337,6 @@ footer a:hover {
   color: var(--error-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  .operation-select,
-  .input-fields,
-  .result {
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.75rem;
-  }
-
-  #toggleDarkMode {
-    top: 0.5rem;
-    right: 0.5rem;
-  }
-
-  select,
-  input[type='number'] {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-}
-
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -385,4 +352,221 @@ footer a:hover {
 .explanation-text.visible {
   display: block;
   animation: fadeIn 0.3s ease-out;
+}
+
+/* Mobile First Base Styles */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 1rem;
+    margin: 0;
+    width: 100%;
+  }
+
+  .top-nav {
+    padding: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-title {
+    position: static;
+    transform: none;
+    font-size: 1.25rem;
+    padding: 0.25rem 0;
+    width: 100%;
+    text-align: center;
+    order: -1;
+  }
+
+  .home-button,
+  #toggleDarkMode {
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .operation-select,
+  .input-fields,
+  .result {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  select {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  #showExplanation {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  .explanation {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  input[type='number'] {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  #calculate {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+  footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+  }
+
+  footer p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .nav-title {
+    font-size: 1.25rem;
+  }
+
+  .operation-select,
+  .input-fields,
+  .result {
+    padding: 1.25rem;
+  }
+}
+
+/* Small Desktop Styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 2rem;
+    max-width: 90%;
+  }
+
+  .nav-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Large Desktop Styles */
+@media screen and (min-width: 1025px) {
+  .container {
+    max-width: 800px;
+  }
+}
+
+/* Shared Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  select,
+  input[type='number'] {
+    max-width: 100%;
+  }
+}
+
+/* Height-based Media Queries */
+@media screen and (max-height: 700px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .operation-select,
+  .input-fields,
+  .result {
+    margin-bottom: 1rem;
+  }
+
+  footer {
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+  }
+}
+
+/* Landscape Mode for Mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .container {
+    padding: 1rem;
+  }
+
+  .top-nav {
+    margin-bottom: 1rem;
+  }
+
+  .operation-select,
+  .input-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .input-group {
+    margin-bottom: 0;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .container {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .top-nav,
+  #toggleDarkMode,
+  #showExplanation,
+  footer {
+    display: none;
+  }
+
+  .operation-select,
+  .input-fields,
+  .result {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+  }
+
+  select,
+  input[type='number'] {
+    border: 1px solid #ccc;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #0000ff;
+    --primary-hover: #0000cc;
+    --border-color: #000000;
+    --text-color: #000000;
+    --text-secondary: #000000;
+  }
+
+  .dark-mode {
+    --text-color: #ffffff;
+    --text-secondary: #ffffff;
+    --border-color: #ffffff;
+  }
 }

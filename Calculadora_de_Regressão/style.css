@@ -31,6 +31,17 @@
   --text-dark-secondary: #a1a1aa;
   --border-dark: #27272a;
   --hover-dark: #27272a;
+
+  /* Breakpoints */
+  --mobile: 480px;
+  --tablet: 768px;
+  --laptop: 1024px;
+  --desktop: 1200px;
+
+  /* Dynamic Spacing */
+  --container-padding: clamp(1rem, 5vw, 2rem);
+  --section-spacing: clamp(1.5rem, 3vw, 2rem);
+  --element-spacing: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 /* Dark Mode Override */
@@ -61,13 +72,13 @@ body {
 
 /* Container and Layout */
 .container {
-  max-width: 1200px;
+  max-width: min(var(--desktop), 95%);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--container-padding);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--section-spacing);
 }
 
 .top-nav {
@@ -100,7 +111,7 @@ body {
 
 /* Typography */
 h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 700;
   text-align: center;
   color: var(--text-color);
@@ -108,16 +119,22 @@ h1 {
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
   font-weight: 600;
   color: var(--text-color);
   margin: 1.5rem 0 1rem;
 }
 
+p,
+label {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
 /* Form Styles */
 form {
   background-color: var(--card-bg);
-  padding: 2rem;
+  padding: var(--element-spacing);
+  width: 100%;
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -134,7 +151,8 @@ label {
 
 input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
+  font-size: clamp(0.875rem, 2vw, 1rem);
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
@@ -153,7 +171,7 @@ input:focus {
 /* Button Styles */
 .button-container {
   display: flex;
-  gap: 1rem;
+  gap: var(--element-spacing);
   flex-wrap: wrap;
   justify-content: center;
   margin: 1rem 0;
@@ -225,7 +243,7 @@ button:hover {
 /* Results Section */
 #result {
   background-color: var(--card-bg);
-  padding: 2rem;
+  padding: var(--element-spacing);
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -234,11 +252,18 @@ button:hover {
 /* Table Styles */
 .regression-table {
   width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  background-color: var(--card-bg);
-  border-radius: 0.5rem;
-  overflow: hidden;
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--element-spacing) 0;
+}
+
+.regression-table-wrapper {
+  position: relative;
+  overflow-x: auto;
+  margin: var(--element-spacing) -1rem;
+  padding: 0 1rem;
 }
 
 .regression-table th,
@@ -273,7 +298,7 @@ button:hover {
 /* Description Section */
 #description {
   background-color: var(--card-bg);
-  padding: 2rem;
+  padding: var(--element-spacing);
   border-radius: 1rem;
   margin: 2rem 0;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -283,17 +308,23 @@ button:hover {
 #description ul {
   list-style-position: inside;
   margin: 1rem 0;
-  padding-left: 1rem;
+  padding-left: clamp(1rem, 3vw, 2rem);
 }
 
 #description li {
   margin-bottom: 0.5rem;
 }
 
+#scatter-plot {
+  width: 100%;
+  height: clamp(300px, 50vh, 600px);
+  overflow: hidden;
+}
+
 /* Footer Styles */
 footer {
   margin-top: auto;
-  padding: 2rem 0;
+  padding: var(--element-spacing) 0;
   text-align: center;
   color: var(--text-secondary);
 }
@@ -311,6 +342,19 @@ footer a:hover {
 /* Utility Classes */
 .hidden {
   display: none;
+}
+
+.scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.flex-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--element-spacing);
 }
 
 /* Responsive Design */
@@ -342,6 +386,30 @@ footer a:hover {
     overflow-x: auto;
     white-space: nowrap;
   }
+
+  .regression-table th,
+  .regression-table td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .nav-title {
+    position: static;
+    transform: none;
+    width: 100%;
+    text-align: center;
+    order: -1;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+  }
+
+  .top-nav {
+    justify-content: space-around;
+  }
+
+  .flex-responsive {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
@@ -361,18 +429,57 @@ footer a:hover {
 
   input {
     padding: 0.5rem 0.75rem;
+    min-height: 44px;
   }
 
   #toggleDarkMode {
     top: 0.5rem;
     right: 0.5rem;
   }
+
+  form {
+    padding: var(--element-spacing);
+  }
+
+  .button-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  button,
+  .home-button,
+  #toggleDarkMode {
+    min-height: 44px; /* Recommended minimum touch target size */
+  }
+
+  footer {
+    font-size: 0.875rem;
+  }
+
+  footer p {
+    margin-bottom: 0.5rem;
+  }
 }
 
 /* Print Styles */
 @media print {
+  .container {
+    padding: 0;
+  }
+
+  .top-nav,
+  .button-container,
+  #toggleDarkMode {
+    display: none;
+  }
+
   body {
     background: white;
+    color: black;
   }
 
   .container {
@@ -391,5 +498,9 @@ footer a:hover {
   #description {
     box-shadow: none;
     border: 1px solid #ddd;
+  }
+
+  #result {
+    break-inside: avoid;
   }
 }
