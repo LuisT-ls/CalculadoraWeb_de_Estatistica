@@ -1,4 +1,3 @@
-// Strict mode for better error catching and optimized code
 'use strict'
 
 // Constants for DOM elements and configuration
@@ -213,8 +212,91 @@ try {
 // Add service worker for offline functionality
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(error => {
-      console.log('ServiceWorker registration failed:', error)
-    })
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(registration => {
+        console.log(
+          'ServiceWorker registered successfully:',
+          registration.scope
+        )
+      })
+      .catch(error => {
+        console.error('ServiceWorker registration failed:', error)
+      })
   })
 }
+
+function initializeFirebaseTracking() {
+  if (firebase && firebase.analytics && firebase.performance) {
+    // Analytics
+    const analytics = firebase.analytics()
+
+    // Performance Monitoring
+    const perf = firebase.performance()
+
+    // Rastreamento detalhado de eventos
+    function trackEvent(eventName, eventData = {}) {
+      analytics.logEvent(eventName, {
+        ...eventData,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        timestamp: new Date().toISOString()
+      })
+    }
+
+    // Rastrear tempo de carregamento de página
+    const pageLoadTrace = perf.trace('page_load')
+    pageLoadTrace.start()
+
+    window.addEventListener('load', () => {
+      pageLoadTrace.stop()
+    })
+
+    // Eventos personalizados
+    document.querySelectorAll('.button-container button').forEach(button => {
+      button.addEventListener('click', () => {
+        const calculatorName = button.querySelector('span').textContent
+        trackEvent('calculator_interaction', {
+          calculator_type: calculatorName,
+          interaction_type: 'click'
+        })
+      })
+    })
+
+    // Rastrear tempo em página
+    let startTime = new Date()
+    window.addEventListener('beforeunload', () => {
+      const timeSpent = (new Date() - startTime) / 1000 // em segundos
+      trackEvent('page_engagement', {
+        time_on_page: timeSpent
+      })
+    })
+  }
+}
+
+function redirectToCalculator(path) {
+  if (typeof firebase !== 'undefined' && firebase.analytics) {
+    const calculatorName = path
+      .split('/')[0]
+      .replace('Calculadora_', '')
+      .replace('_', ' ')
+    firebase.analytics().logEvent('calculator_selected', {
+      calculator_type: calculatorName
+    })
+  }
+
+  // Salvar último calculador usado
+  localStorage.setItem(LAST_CALC_KEY, path)
+
+  // Adicionar efeito de transição
+  container.style.opacity = '0'
+  container.style.transform = 'scale(0.98)'
+
+  // Redirecionar após animação
+  setTimeout(() => {
+    window.location.href = path
+  }, ANIMATION_DURATION)
+}
+
+// Adicionar inicialização do tracking quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', initializeFirebaseTracking)
