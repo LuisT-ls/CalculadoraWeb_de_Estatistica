@@ -240,6 +240,15 @@ p {
 }
 
 /* Section headers */
+.footer-section-header-main {
+  position: relative;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
 .footer-section-header {
   position: relative;
   margin-bottom: 1rem;
