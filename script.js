@@ -108,11 +108,11 @@ function redirectToCalculator(path) {
 
 // Setup button effects
 function setupButtonEffects() {
-  buttons.forEach(button => {
+  for (const button of buttons) {
     button.addEventListener('mouseenter', handleButtonHover)
     button.addEventListener('mouseleave', handleButtonLeave)
     button.addEventListener('click', handleButtonClick)
-  })
+  }
 }
 
 // Button hover effect
