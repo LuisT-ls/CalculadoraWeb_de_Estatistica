@@ -465,13 +465,13 @@ p {
 
 /* Animações */
 @keyframes slideDown {
-  from {
+  0% {
+    transform: translateY(-30px);
     opacity: 0;
-    transform: translateY(-50px);
   }
-  to {
-    opacity: 1;
+  100% {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
