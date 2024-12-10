@@ -227,32 +227,38 @@ if ('serviceWorker' in navigator) {
 }
 
 function initializeFirebaseTracking() {
-  if (firebase && firebase.analytics && firebase.performance) {
-    // Analytics
+  if (firebase && firebase.analytics) {
     const analytics = firebase.analytics()
+    const performance = firebase.performance()
 
-    // Performance Monitoring
-    const perf = firebase.performance()
-
-    // Rastreamento detalhado de eventos
+    // Enhanced event tracking
     function trackEvent(eventName, eventData = {}) {
-      analytics.logEvent(eventName, {
-        ...eventData,
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        timestamp: new Date().toISOString()
-      })
+      try {
+        analytics.logEvent(eventName, {
+          ...eventData,
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+          timestamp: new Date().toISOString()
+        })
+      } catch (error) {
+        console.error('Event tracking error:', error)
+      }
     }
 
-    // Rastrear tempo de carregamento de página
-    const pageLoadTrace = perf.trace('page_load')
+    // Page load performance tracking
+    const pageLoadTrace = performance.trace('page_load')
     pageLoadTrace.start()
 
     window.addEventListener('load', () => {
       pageLoadTrace.stop()
+
+      // Track page load performance
+      trackEvent('page_performance', {
+        load_time: performance.now()
+      })
     })
 
-    // Eventos personalizados
+    // Calculator interaction tracking
     document.querySelectorAll('.button-container button').forEach(button => {
       button.addEventListener('click', () => {
         const calculatorName = button.querySelector('span').textContent
@@ -263,10 +269,10 @@ function initializeFirebaseTracking() {
       })
     })
 
-    // Rastrear tempo em página
+    // Page engagement tracking
     let startTime = new Date()
     window.addEventListener('beforeunload', () => {
-      const timeSpent = (new Date() - startTime) / 1000 // em segundos
+      const timeSpent = (new Date() - startTime) / 1000 // in seconds
       trackEvent('page_engagement', {
         time_on_page: timeSpent
       })
